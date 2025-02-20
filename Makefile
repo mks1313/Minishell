@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 16:28:35 by mmarinov          #+#    #+#              #
-#    Updated: 2025/02/20 16:31:04 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/02/20 17:28:49 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC_PATH = src/
 #******************************************************************************#
 #                 SUBDIRECTORIES WITHIN SRC                                    #
 # *****************************************************************************#
+
 BLTNS_DIR = $(SRC_PATH)built_ins/
 EXEC_DIR = $(SRC_PATH)exec/
 PARSER_DIR = $(SRC_PATH)parser/
@@ -45,7 +46,7 @@ PARSER_DIR = $(SRC_PATH)parser/
 #                    SOURCE FILES & OBJECT FILES                               #
 #******************************************************************************#
 
-SRC_BUILTINS  =  builtins_utils.c ft_echo.c ft_exit.c ft_export.c ft_pwd.c \
+SRC_BLTNS  =  builtins_utils.c ft_echo.c ft_exit.c ft_export.c ft_pwd.c \
 			     ft_unset.c
 SRC_EXEC      =  exec.c exec_utils.c
 SRC_PARSER    =  parser.c
@@ -68,6 +69,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 #******************************************************************************#
 #                         COMPILER FLAGS                                       #
 #******************************************************************************#
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_PATH)
 LIBFT_DIR = libft
