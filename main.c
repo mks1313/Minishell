@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/02/23 13:27:14 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:36:33 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	set_sig(struct sigaction *sa, void (*handler)(int, siginfo_t *, void *))
 */
 int	main(int argc, char *argv[])
 {
-	char	*line;
+	char				*line;
 	struct sigaction	sa;
 	(void)argc;
 	(void)argv;
