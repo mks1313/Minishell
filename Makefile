@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 16:28:35 by mmarinov          #+#    #+#              #
-#    Updated: 2025/02/20 17:28:49 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/02/23 12:21:23 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 #                         COMPILER FLAGS                                       #
 #******************************************************************************#
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_PATH)
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
