@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/02/23 13:36:08 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:38:36 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <signal.h> // for sigaction
 # include <unistd.h>
 # include <stdlib.h> // for exit
-# include <readline/readline.h>
+# include <readline/readline.h> // for readline
 # include <readline/history.h>
 
 # define RESET	"\033[0m"
