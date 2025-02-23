@@ -6,133 +6,35 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 16:28:35 by mmarinov          #+#    #+#              #
-#    Updated: 2025/02/20 17:28:49 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/02/23 13:22:30 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#******************************************************************************#
-#                               COLORS                                         #
-#******************************************************************************#
-
-RED     =   \033[0;31m
-GREEN   =   \033[0;32m
-YELL    =   \033[0;33m
-YELL_B  =   \033[1;33m
-BLUE    =   \033[0;34m
-PURPLE  =   \033[0;35m
-CYAN    =   \033[0;36m
-GREEN_B =   \033[1;32m
-BLUE_B  =   \033[1;34m
-CYAN_B =   \033[1;36m
-END     =   \033[0m
-
-#******************************************************************************#
-#                         PROJECT SETTINGS                                     #
-#******************************************************************************#
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+SANITIZE= -g #-fsanitize=address
 
 NAME = minishell
-INC_PATH = inc/
-SRC_PATH = src/
+INCLUDE = minishell.h
 
-#******************************************************************************#
-#                 SUBDIRECTORIES WITHIN SRC                                    #
-# *****************************************************************************#
+SRC = main.c
 
-BLTNS_DIR = $(SRC_PATH)built_ins/
-EXEC_DIR = $(SRC_PATH)exec/
-PARSER_DIR = $(SRC_PATH)parser/
-
-#******************************************************************************#
-#                    SOURCE FILES & OBJECT FILES                               #
-#******************************************************************************#
-
-SRC_BLTNS  =  builtins_utils.c ft_echo.c ft_exit.c ft_export.c ft_pwd.c \
-			     ft_unset.c
-SRC_EXEC      =  exec.c exec_utils.c
-SRC_PARSER    =  parser.c
-
-#******************************************************************************
-#              ADD FILES WITH PREFIXES TO THE CORRESPONDING DIRECTORY          #
-# *****************************************************************************#
-
-SRC = $(addprefix $(BUILTINS_DIR), $(SRC_BUILTINS)) \
-      $(addprefix $(EXEC_DIR), $(SRC_EXEC)) \
-      $(addprefix $(PARSER_DIR), $(SRC_PARSER))
-
-#******************************************************************************#
-#                  GET THE OBJECTS IN THEIR DIRECTORY                          #
-# *****************************************************************************#
-
-OBJ_DIR = objs
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-
-#******************************************************************************#
-#                         COMPILER FLAGS                                       #
-#******************************************************************************#
-
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(INC_PATH)
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
-DEBUG = -g -fsanitize=address
-RM = rm -rf
-
-#******************************************************************************#
-#                  MAIN TARGETS, CREATES THE EXECUTABLE                        #
-#******************************************************************************#
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-#******************************************************************************#
-#                   RULE TO CREATE THE EXECUTABLE                              #
-#******************************************************************************#
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(SANITIZE) $(OBJ) -o $(NAME) -lreadline
 
-$(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDLIBS) $(LIBFT)
-	@echo "$(YELL_B) Executable $(NAME) created successfully!!!$(END)"
-
-#******************************************************************************#
-#                  RULE FOR COMPILLING OBJECT FILES (.o)                       #
-#******************************************************************************#
-
-$(OBJ_DIR)/%.o: $(SRC_PATH)%.c $(INC_PATH)/minishell.h Makefile $(LIBFT)
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(GREEN)Compiled $<$(END)" . /dev/null 2>&1
-
-#******************************************************************************#
-#                  RULE TO COMPILE LIBFT IF IT IS NOT COMPILED                 #
-#******************************************************************************#
-
-$(LIBFT):
-	@echo "$(BLUE_B)Building libft...$(END)"
-	@$(MAKE) -C $(LIBFT_DIR)
-
-#******************************************************************************#
-#                          CLEAN OBJECT FILES                                  #
-#******************************************************************************#
+%.o:%.c $(INCLUDE) Makefile
+	$(CC) $(CFLAGS) $(SANITIZE) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJ_DIR)
-	@echo "$(PURPLE)Cleaned up object & dependency files!!!$(END)"
+	$(RM) $(OBJ)
 
-#******************************************************************************#
-#                   CLEAN OBJECT FILES & EJECUTABLE                            #
-#******************************************************************************#
-
-fclean:
-	@$(RM) $(OBJ_DIR) $(NAME)
-	@echo "$(BLUE_B) $(NAME) $(END) $(RED) removed!!$(END)"
-
-#******************************************************************************#
-#                   CLEAN & RECOMPILE EVERYTHING                               #
-#******************************************************************************#
+fclean: clean
+	$(RM) $(NAME)
 
 re: fclean all
-	@echo "$(CYAN_B)Everything cleaned & recompiled!!!$(END)"
-
-#******************************************************************************#
-#                    PHONY TARGETS TO AVOID FILE CONFLICTS                     #
-#******************************************************************************#
 
 .PHONY: all clean fclean re
