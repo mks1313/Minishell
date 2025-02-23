@@ -6,19 +6,19 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 16:28:35 by mmarinov          #+#    #+#              #
-#    Updated: 2025/02/23 14:07:50 by meghribe         ###   ########.fr        #
+#    Updated: 2025/02/23 14:14:50 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SANITIZE= -g#-fsanitize=address
+SANITIZE= -g -fsanitize=address
 READLINE = -lreadline
 
 NAME = minishell
 INCLUDE = minishell.h
 
-SRC = main.c
+SRC = main.c signals.c utils.c
 
 OBJ = $(SRC:.c=.o)
 
