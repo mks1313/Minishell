@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/02/23 14:19:06 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:24:36 by daw2             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,20 @@
 # define GREEN	"\033[38;5;120m"
 
 /* Errors */
+# define EXIT_MSG			"exit\n"
 # define ERR_SIG			"Error: sigaction.\n"
 # define ERR_MEMORY			"Error: memory allocation failed.\n"
+
+/* macros */
+# define CD			"cd"
+# define PWD		"pwd"
+# define ENV		"env"
+# define EXIT		"exit"
+# define EXPORT 	"export"
+# define UNSET		"unset"
+/* Builtins */
+
+/* Parsing flags */
 
 /* Functions */
 void	ft_putstr_fd(char *s, int fd);
