@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 16:28:35 by mmarinov          #+#    #+#              #
-#    Updated: 2025/02/23 12:22:48 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/02/23 12:38:53 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC_PARSER    =  parser.c
 #              ADD FILES WITH PREFIXES TO THE CORRESPONDING DIRECTORY          #
 # *****************************************************************************#
 
-SRC = $(addprefix $(BUILTINS_DIR), $(SRC_BUILTINS)) \
+SRC = $(addprefix $(BLTNS_DIR), $(SRC_BLTNS)) \
       $(addprefix $(EXEC_DIR), $(SRC_EXEC)) \
       $(addprefix $(PARSER_DIR), $(SRC_PARSER))
 
