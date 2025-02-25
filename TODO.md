@@ -1,0 +1,2 @@
+- 
+- is_builtin--> funcion que usando ft_strcmp 
