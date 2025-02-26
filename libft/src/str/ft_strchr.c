@@ -6,38 +6,31 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 18:08:31 by mmarinov          #+#    #+#             */
-/*   Updated: 2024/07/11 16:42:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:01:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*ptr;
-
-	ptr = (char *)s;
-	while (*ptr != '\0')
+	while (*s)
 	{
-		if (*ptr == (char)c)
-		{
-			return (ptr);
-		}
-		ptr++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
 	if ((char)c == '\0')
-	{
-		return (ptr);
-	}
+		return ((char *)s);
 	return (NULL);
 }
-/*
+
 #include <stdio.h>
 
 int	main(void)
 {
 char	*str = "Hello, World";
-int		f = 'e';
+int		f = 'o';
 char	*result = ft_strchr(str, f);
 
 if (result != NULL)
@@ -49,4 +42,4 @@ else
 printf("Caracter no encontrado\n");
 }
 return (0);
-}*/
+}
