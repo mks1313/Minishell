@@ -1,0 +1,22 @@
+minishell/
+├── Makefile
+├── include/
+│   ├── minishell.h      // Header global con includes y definiciones comunes
+│   ├── input.h          // Funciones para la entrada (readline)
+│   ├── lexer.h          // Prototipos y estructuras para tokenizar la entrada
+│   ├── parser.h         // Prototipos y estructuras para convertir tokens en comandos
+│   ├── executor.h       // Prototipos para ejecutar comandos
+│   ├── builtins.h       // Prototipos de comandos internos (builtins)
+│   ├── signals.h        // Manejo de señales
+│   └── utils.h          // Funciones utilitarias (por ejemplo, ft_putstr_fd)
+└── src/
+    ├── main.c           // Función principal: ciclo de lectura y procesamiento
+    ├── input.c          // Implementación de las funciones de entrada
+    ├── lexer.c          // Implementación del lexer
+    ├── parser.c         // Implementación del parser
+    ├── executor.c       // Implementación de la ejecución de comandos
+    ├── builtins.c       // Implementación de los comandos internos
+    ├── signals.c        // Implementación del manejo de señales
+    └── utils.c          // Implementación de funciones utilitarias
+
+
