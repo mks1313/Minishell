@@ -6,11 +6,11 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:34:21 by mmarinov          #+#    #+#             */
-/*   Updated: 2024/06/20 12:50:00 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:03:30 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 int	ft_isprint(int c)
 {

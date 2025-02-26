@@ -6,13 +6,13 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:53:28 by mmarinov          #+#    #+#             */
-/*   Updated: 2024/06/20 12:41:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:02:54 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
 //#include <ctype.h>
-#include "libft.h"
+#include "../../includes/libft.h"
 
 int	ft_isalpha(int c)
 {
