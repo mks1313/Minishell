@@ -6,7 +6,7 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:11:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/02/26 16:42:26 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:46:15 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
+# include <ctype.h>
+# include <string.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -39,6 +42,7 @@ int		ft_tolower(int c);
 int		ft_isascii(int c);
 int		ft_isalpha(int c);
 int		ft_isprint(int c);
+void	ft_putchar(int c);
 // Num's
 char	*ft_utoa(unsigned int n);
 char	*ft_itoa(int n);
@@ -48,6 +52,7 @@ int		ft_isalnum(int c);
 // Str
 char	*ft_strrchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -102,4 +107,5 @@ int		ft_print_upper_hex(unsigned int n);
 char	*get_next_line(int fd);
 // Utils
 int		ft_getopt(int argc, char **argv, const char *optstring);
+char	*ft_getenv(const char *name, char **envp);
 #endif
