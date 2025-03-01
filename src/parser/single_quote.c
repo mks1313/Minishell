@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 12:09:39 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/02/27 15:01:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:30:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,17 @@ int main(int ac, char **av, char **envp) {
 	const char	*input_double = "echo \"Hola $USER\"";
 	const char	*input_backticks = "echo `date`";
 	ft_printf("=== Casos con variables existentes ===\n");
-	expand_variable(input, envp);
 	ft_printf("\n");
+	expand_variable(input, envp);
 	expand_variable(input_path, envp);
+	ft_printf("\n");
 	ft_printf("=== Casos con var que no existen ===\n");
+	ft_printf("\n");
 	expand_variable(input_no_exist_var, envp);
 	expand_variable(input_no_exist_path, envp);
+	ft_printf("\n");
 	ft_printf("=== Casos con commillas y backticks ===\n");
+	ft_printf("\n");
     handle_single_quotes(input_single);
 	ft_putchar('\n');
 	handle_double_quotes(input_double, envp);

@@ -2,3 +2,5 @@
 *.a
 *.swp
 minishell
+a.out
+.*
