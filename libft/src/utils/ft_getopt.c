@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:27:21 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/02/26 14:47:29 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:23:36 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	my_getopt(int argc, char **argv, const char *optstring)
 {
 	static int	index;
 	char		*arg;
-	size_t			i;
+	size_t		i;
 
 	if (index >= argc)
 		return (-1);
