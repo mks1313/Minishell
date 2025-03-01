@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:36:13 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/02/26 16:40:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:26:03 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ char	*ft_strtok_quotes(char *str, const char *delim)
 {
 	static char	*last;
 	char		*start;
-	char		quote = '\0';  // Para manejar las comillas simples o dobles
+	// Para manejar las comillas simples o dobles
+	char		quote;
 
+	quote = '\0';
 	if (str == NULL)
 		str = last;
 	if (str == NULL || *str == '\0')
 		return (NULL);
-
 	// Ignorar delimitadores iniciales fuera de comillas
 	while (*str && ft_strchr(delim, *str))
 		str++;
@@ -43,7 +44,7 @@ char	*ft_strtok_quotes(char *str, const char *delim)
 				str++;
 		}
 		else if (ft_strchr(delim, *str))  // Detectar fin del token fuera de comillas
-			break;
+			break ;
 		else
 			str++;
 	}
