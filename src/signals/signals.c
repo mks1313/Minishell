@@ -6,19 +6,21 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:09:54 by meghribe          #+#    #+#             */
-/*   Updated: 2025/02/23 14:24:37 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:08:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+//#include "inc/minishell.h"
 
 void	handle_signal(int sig, siginfo_t *info, void *context)
 {
 	(void)sig;
 	(void)info;
 	(void)context;
+	/*
 	ft_putstr_fd(GREEN "DIE\n" RESET, 1);
 	exit(EXIT_SUCCESS);
+	*/
 }
 
 void	error_exit(const char *message, int exit_code)
