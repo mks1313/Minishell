@@ -6,19 +6,21 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/02/23 14:27:34 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:07:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	char				*line;
 	struct sigaction	sa;
 
+	//ft_env(envp);
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	set_sig(&sa, handle_signal);
 	while (42)
 	{
