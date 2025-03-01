@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 12:09:39 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/02/27 15:30:35 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/03/01 12:16:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,88 +14,66 @@
 
 //extern char	**environ;
 
-void handle_single_quotes(const char *input) {
-    int i = 0;
-    while (input[i]) {
-        if (input[i] == '\'') {
-            i++; // Saltar la comilla de apertura
-            while (input[i] && input[i] != '\'') {
-                ft_putchar(input[i]);
-                i++;
-            }
-            i++; // Saltar la comilla de cierre
-        } else {
-            ft_putchar(input[i]);
-            i++;
-        }
-    }
+void	handle_single_quotes(const char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'')
+		{
+			i++; // Saltar la comilla de apertura
+			while (input[i] && input[i] != '\'')
+			{
+				ft_putchar(input[i]);
+				i++;
+			}
+			i++; // Saltar la comilla de cierre
+		} else
+		{
+			ft_putchar(input[i]);
+			i++;
+		}
+	}
 }
 
 void handle_double_quotes(const char *input, char **envp)
 {
-    int i = 0;
-    while (input[i]) {
-        if (input[i] == '"') {
-            i++; // Saltar la comilla de apertura
-            while (input[i] && input[i] != '"') {
-                if (input[i] == '$') {
-                    i++;
-                    // Aquí buscaríamos la variable de entorno, por ejemplo, $USER
-                    if (ft_strncmp(&input[i], "USER", 4) == 0) {
-                        ft_printf("%s", ft_getenv("USER", envp));
-                        i += 4;
-                    }
-                } else {
-                    ft_putchar(input[i]);
-                    i++;
-                }
-            }
-            i++; // Saltar la comilla de cierre
-        } else {
-            ft_putchar(input[i]);
-            i++;
-        }
-    }
-}
+	int	i;
 
-void handle_backticks(const char *input) {
-    int i = 0;
-    while (input[i]) {
-        if (input[i] == '`') {
-            i++; // Saltar la comilla de apertura
-            char cmd[100] = {0};
-            int j = 0;
-            while (input[i] && input[i] != '`') {
-                cmd[j++] = input[i++];
-            }
-            cmd[j] = '\0';
-            i++; // Saltar la comilla de cierre
-
-            // Ejecutar el comando y capturar la salida
-            int fd[2];
-            pipe(fd);
-            if (fork() == 0) {
-                // Hijo: ejecuta el comando
-                close(fd[0]);
-                dup2(fd[1], STDOUT_FILENO); // Redirige la salida al pipe
-                execlp(cmd, cmd, NULL); // Ejecuta el comando (sin argumentos en este ejemplo)
-                exit(1);
-            } else {
-                // Padre: lee la salida del pipe
-                close(fd[1]);
-                char buffer[1024];
-                int n;
-                while ((n = read(fd[0], buffer, sizeof(buffer)-1)) > 0) {
-                    buffer[n] = '\0';
-                    ft_printf("%s", buffer);
-                }
-                close(fd[0]);
-            }
-        } else {
-            ft_putchar(input[i]);
-            i++;
-        }
-    }
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '"')
+		{
+			i++; // Saltar la comilla de apertura
+			while (input[i] && input[i] != '"')
+			{
+				if (input[i] == '$')
+				{
+					i++;
+					// Aquí buscaríamos la variable de entorno, por ejemplo, $USER
+					if (ft_strncmp(&input[i], "USER", 4) == 0)
+					{
+						ft_printf("%s", ft_getenv("USER", envp));
+						i += 4;
+					}
+				} 
+				else
+				{
+					ft_putchar(input[i]);
+					i++;
+				}
+			}
+			i++; // Saltar la comilla de cierre
+		} 
+		else
+		{
+			ft_putchar(input[i]);
+			i++;
+		}
+	}
 }
 
 void	expand_variable(const char *input, char **envp)
@@ -119,9 +97,8 @@ void	expand_variable(const char *input, char **envp)
 			var_name[i - var_start] = '\0';
 			// Obtener el valor de la variable de entorno
 			char *value = ft_getenv(var_name, envp);
-			if (value) {
+			if (value)
 				ft_printf("%s", value);  // Imprimir el valor de la variable
-			}
 			/*else {
 			// Si no existe la variable, imprimimos el nombre literal
 			//ft_printf("$%s", var_name);
@@ -136,7 +113,24 @@ void	expand_variable(const char *input, char **envp)
 	ft_putchar('\n');
 }
 
-int main(int ac, char **av, char **envp) {
+
+# define RESET	"\033[0m"
+# define RED	"\033[38;5;203m"
+# define GOLD	"\033[38;5;220m"
+# define GREEN	"\033[38;5;120m"
+
+int main(int ac, char **av, char **envp)
+{
+	char *string;
+
+	string = (char *)malloc(sizeof(char) * 100);
+	if (!string)
+		return (ft_printf("ERROR MALLOC"));
+	while (1)
+	{
+		scanf("%s", string);
+		expand_variable(string, envp);
+	}
 	//casos para variables eistetes
 	const char	*input = "Hola $USER, bienvenido a tu shell";
 	const char	*input_path = "Hola $USER, tu path es: $PATH";
@@ -147,24 +141,19 @@ int main(int ac, char **av, char **envp) {
 	const char	*input_single = "echo 'Hola $USER'";
 	const char	*input_double = "echo \"Hola $USER\"";
 	const char	*input_backticks = "echo `date`";
-	ft_printf("=== Casos con variables existentes ===\n");
-	ft_printf("\n");
+	ft_printf(RED "\n=== Casos con variables existentes ===\n\n" RESET);
 	expand_variable(input, envp);
 	expand_variable(input_path, envp);
-	ft_printf("\n");
-	ft_printf("=== Casos con var que no existen ===\n");
-	ft_printf("\n");
+
+	ft_printf(RED "\n=== Casos con var que no existen ===\n\n" RESET);
 	expand_variable(input_no_exist_var, envp);
 	expand_variable(input_no_exist_path, envp);
-	ft_printf("\n");
-	ft_printf("=== Casos con commillas y backticks ===\n");
-	ft_printf("\n");
-    handle_single_quotes(input_single);
+
+	ft_printf(RED"\n=== Casos con commillas ===\n\n"RESET);
+	handle_single_quotes(input_single);
 	ft_putchar('\n');
 	handle_double_quotes(input_double, envp);
 	ft_putchar('\n');
-	handle_backticks(input_backticks);
-	ft_putchar('\n');
 
-    return 0;
+	return 0;
 }
