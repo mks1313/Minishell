@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/02/24 20:24:36 by daw2             ###   ########.fr       */
+/*   Updated: 2025/03/01 14:35:21 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "libft.h"
 
 /* Colors */
 # define RESET	"\033[0m"
@@ -48,7 +49,6 @@
 /* Parsing flags */
 
 /* Functions */
-void	ft_putstr_fd(char *s, int fd);
 void	handle_signal(int sig, siginfo_t *info, void *context);
 void	error_exit(const char *message, int exit_code);
 void	set_sig(struct sigaction *sa, void (*handler)(int, siginfo_t *, void *));
