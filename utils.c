@@ -6,17 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/02/23 14:14:41 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:34:59 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		write(fd, &s[i++], 1);
-}
