@@ -14,10 +14,14 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER)
-SANITIZE= -g -fsanitize=address
+LDFLAGS = -L$(LIBFT_DIR)
 READLINE = -lreadline
+SANITIZE= -g -fsanitize=address
+RM = rm -rf
 
-LIBFT = libft/libft.a
+
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 INC_FOLDER = inc
 SRC_PATH = src
 OBJ_DIR = obj
@@ -38,15 +42,15 @@ $(LIBFT):
 	make -C libft
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SANITIZE) $(OBJ) -o $@ $(READLINE) -Llibft -lft
+	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) -o $@ $(LDFLAGS) $(READLINE) -Llibft -lft
 
-$(OBJ_DIR)/%.o:$(SRC_PATH)/%.c $(INCLUDE) Makefile
-	mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INCLUDE) Makefile
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(SANITIZE) -c $< -o $@
 
 clean:
 	make -C libft clean
-	$(RM) $(OBJ)
+	$(RM) $(OBJ_DIR)
 
 fclean: clean
 	make -C libft fclean
@@ -55,3 +59,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+

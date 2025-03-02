@@ -28,7 +28,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", 2);
-			rl_clear_history();
+			clear_history();
 			exit(EXIT_SUCCESS);
 		}
 		if (*line)
