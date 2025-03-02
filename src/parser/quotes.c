@@ -118,11 +118,12 @@ void	expand_variable(const char *input, char **envp)
 # define RED	"\033[38;5;203m"
 # define GOLD	"\033[38;5;220m"
 # define GREEN	"\033[38;5;120m"
-
+/*
 int main(int ac, char **av, char **envp)
 {
 	char *string;
 
+    (void)av;
 	string = (char *)malloc(sizeof(char) * 100);
 	if (!string)
 		return (ft_printf("ERROR MALLOC"));
@@ -140,7 +141,6 @@ int main(int ac, char **av, char **envp)
 	//Casos con comillas dobles simples y backticks
 	const char	*input_single = "echo 'Hola $USER'";
 	const char	*input_double = "echo \"Hola $USER\"";
-	const char	*input_backticks = "echo `date`";
 	ft_printf(RED "\n=== Casos con variables existentes ===\n\n" RESET);
 	expand_variable(input, envp);
 	expand_variable(input_path, envp);
@@ -156,4 +156,4 @@ int main(int ac, char **av, char **envp)
 	ft_putchar('\n');
 
 	return 0;
-}
+}*/

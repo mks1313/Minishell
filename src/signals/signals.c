@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "inc/minishell.h"
+//#include "../../inc/minishell.h"
+#include "minishell.h"
 
 void	handle_signal(int sig, siginfo_t *info, void *context)
 {
