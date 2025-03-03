@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   single_quote.c                                     :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/01 12:16:17 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:17:46 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,12 @@ void	expand_variable(const char *input, char **envp)
 	ft_putchar('\n');
 }
 
-
+/*
 # define RESET	"\033[0m"
 # define RED	"\033[38;5;203m"
 # define GOLD	"\033[38;5;220m"
 # define GREEN	"\033[38;5;120m"
-/*
+
 int main(int ac, char **av, char **envp)
 {
 	char *string;
