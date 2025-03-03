@@ -6,7 +6,7 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/02/27 14:47:28 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/03 20:03:55 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRCS =  \
 		src/get_next_line/get_next_line.c \
 		src/get_next_line/get_next_line_bonus.c src/printf/ft_printf.c \
 		src/printf/utils_csp.c src/printf/utils_diuxx.c \
-		src/str/ft_strtok.c src/utils/ft_getopt.c
+		src/str/ft_strtok.c src/utils/ft_getopt.c src/str/ft_strcmp.c
 
 # Crear los objetos a partir de los archivos fuente
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)

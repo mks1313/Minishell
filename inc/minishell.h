@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/03 19:25:45 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/03 22:36:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 # define EXIT_MSG			"exit\n"
 # define ERR_SIG			"Error: sigaction.\n"
 # define ERR_MEMORY			"Error: memory allocation failed.\n"
+# define EXIT_SUCCESS_CODE 0
+# define EXIT_TOO_MANY_ARGS 1
+# define EXIT_NON_NUMERIC_ARG 2
 
 /* macros */
 # define CD			"cd"
@@ -67,4 +70,12 @@ void	handle_signal(int sig, siginfo_t *info, void *context);
 void	error_exit(const char *message, int exit_code);
 typedef void	(*t_handler)(int, siginfo_t *, void *);
 void	set_sig(struct sigaction *sa, t_handler handler);
+void	expand_variable(const char *inpt, char **envp);
+void	handle_double_quotes(const char *inpt, char **envp);
+void	handle_single_quotes(const char *inpt, char **envp);
+void	ft_env(char **envp);
+int		ft_exit(char **cmd);
+int		ft_cd(char **cmd);
+int		ft_echo(char **cmd);
+
 #endif
