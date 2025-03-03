@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/26 16:51:41 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/03 17:43:57 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/03 22:34:04 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ INCLUDE = $(INC_FOLDER)/minishell.h
 SRC_FOLDER =  main.c
 SRC_FOLDER += signals/signals.c
 SRC_FOLDER += parser/quotes.c parser/lexer.c
+SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
+			  built_ins/ft_echo.c
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))
 OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
