@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/26 16:51:41 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/01 17:59:32 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/03 17:43:57 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ INC_FOLDER = inc
 SRC_PATH = src
 OBJ_DIR = obj
 
-# TODO: FIX RELINK MAKEFILES
 
 INCLUDE = $(INC_FOLDER)/minishell.h
 
