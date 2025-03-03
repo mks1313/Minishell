@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/01 18:07:29 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/03 19:25:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,23 @@
 
 /* Parsing flags */
 
+/* ENV STRUCT*/
+typedef struct s_env
+{
+	char			*key;
+	char			*val;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_data
+{
+	t_env			*env;
+	struct s_data	*next;
+}	t_data;
+
 /* Functions */
 void	handle_signal(int sig, siginfo_t *info, void *context);
 void	error_exit(const char *message, int exit_code);
-void	set_sig(struct sigaction *sa, void (*handler)(int, siginfo_t *, void *));
+typedef void	(*t_handler)(int, siginfo_t *, void *);
+void	set_sig(struct sigaction *sa, t_handler handler);
 #endif
