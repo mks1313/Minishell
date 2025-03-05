@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/05 19:31:01 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:46:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ typedef struct s_env
 /*Comandos y redirecciones*/
 typedef struct s_cmd
 {
-	char				*command; //Comando a ejecutar
-	char				**args; //Argumenots del comando
-	char				*input_file;// Archivo de entrada(para redireccion)
-	char				*output_file;// Archvo de salida (para redireccion)
-	int					append_output;
-	bool				pipe;// Si el comando usa tuberia
-	struct s_cmd		*next;// Para manejar multiples comandos
+	char			*command; //Comando a ejecutar
+	char			**args; //Argumenots del comando
+	char			*input_file;// Archivo de entrada(para redireccion)
+	char			*output_file;// Archvo de salida (para redireccion)
+	int				append_output;
+	bool			pipe;// Si el comando usa tuberia
+	int				error_redirect; // Para redirigir el flujo de errores
+	bool			heredoc;// Para manejar herencia de entradas
+	struct s_cmd	*next;// Para manejar multiples comandos
 }	t_cmd;
 
 /*Datos e Shell*/
@@ -113,10 +115,13 @@ int		ft_exit(char **cmd);
 //void	free_cmd_list(t_cmd *cmd_list);
 /*Auxiliar functions*/
 void	error_exit(const char *message, int exit_code);
+void	del(void *content);
 //void	print_prompt(void);
 /*Main function for ejecute the shell*/
 //void	run_minishell(t_data *data);
 //Func init data
 t_data	*initialize_data(void);
+t_cmd	*create_cmd(void);
+void	free_data(t_data *data);
 
 #endif

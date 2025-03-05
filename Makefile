@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/26 16:51:41 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/05 19:57:47 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/05 20:17:50 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ $(LIBFT):
 
 # Regla para la creación del binario final
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) -o $@ $(LDFLAGS) $(READLINE)
+	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS) $(READLINE)
 
 # Regla para compilar los archivos fuente a objetos
 $(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INCLUDE) Makefile

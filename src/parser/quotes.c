@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 14:45:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:23:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	expand_variable(const char *inpt, char **envp, int last_exit_status)
 			}
 			else if (inpt[i] == '$')
 			{
-				ft_printf("%d", ft_getpid());
+				ft_printf("%d", getpid());
 				i++;
 			}
 			else if (ft_isalnum(inpt[i]) || inpt[i] == '_')
