@@ -6,11 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:29:25 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 15:16:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:22:15 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "libft.h"
 
 #define BUF_SIZE 1024
 

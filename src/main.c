@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/05 18:36:10 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:27:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_commands(char *line, char **envp)
 	if (ft_strcmp(line, "exit") == 0)
 	{
 		free(line);
-		ft_exit(NULL); // Asegúro de que ft_exit maneje la salida correctamente
+		ft_exit(NULL);
 	}
 	else if (ft_strcmp(line, "env") == 0)
 	{
