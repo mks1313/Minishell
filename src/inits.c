@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
+/*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/05 19:08:40 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/03/05 17:06:36 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/03/05 17:44:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_exit(const char *message, int exit_code)
+t_data	*initialize_data(void)
 {
-	ft_putstr_fd(RED, 2);
-	ft_putstr_fd((char *)message, 2);
-	ft_putstr_fd(RESET, 2);
-	exit(exit_code);
-}
+	t_data	*data;
 
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
+		error_exit("Error:  allocating memory failed.\n", 1);
+	data->env = NULL;
+	data->cmd_list = NULL;
+	data->cur_dir = NULL;
+	data->status = 0;
+	return (data);
+}

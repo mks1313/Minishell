@@ -6,11 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/03 21:34:01 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:45:16 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include  "../../libft/includes/libft.h"
+#include "../../libft/includes/libft.h"
+#include "../../inc/minishell.h"
 
 void	handle_single_quotes(const char *input)
 {
@@ -21,14 +22,15 @@ void	handle_single_quotes(const char *input)
 	{
 		if (input[i] == '\'')
 		{
-			i++; // Saltar la comilla de apertura
+			i++;
 			while (input[i] && input[i] != '\'')
 			{
 				ft_putchar(input[i]);
 				i++;
 			}
-			i++; // Saltar la comilla de cierre
-		} else
+			i++;
+		}
+		else
 		{
 			ft_putchar(input[i]);
 			i++;
@@ -48,19 +50,16 @@ void handle_double_quotes(const char *inpt, char **envp)
 	{
 		if (inpt[i] == '"')
 		{
-			i++; // Saltar la comilla de apertura
+			i++;
 			while (inpt[i] && inpt[i] != '"')
 			{
 				if (inpt[i] == '$')
 				{
 					i++;
 					j = 0;
-					// Recoger el nombre de al variable del entorno
 					while (inpt[i] && (ft_isalnum(inpt[i]) || inpt[i] == '_'))
 						var_name[j++] = inpt[i++];
-					// Termianr la cadena del nombre de la var del entorno
 					var_name[j] = '\0';
-					// Obtener el valor de la variable del entornno
 					var_val = ft_getenv(var_name, envp);
 					if (var_val)
 						ft_printf("%s", var_val);
@@ -71,8 +70,8 @@ void handle_double_quotes(const char *inpt, char **envp)
 					i++;
 				}
 			}
-			i++; // Saltar la comilla de cierre
-		} 
+			i++;
+		}
 		else
 		{
 			ft_putchar(inpt[i]);
@@ -81,9 +80,22 @@ void handle_double_quotes(const char *inpt, char **envp)
 	}
 }
 
-void	expand_variable(const char *inpt, char **envp)
+static int	count_envp(char **envp)
 {
 	int	i;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	return (i);
+}
+
+void	expand_variable(const char *inpt, char **envp, int last_exit_status)
+{
+	int		i;
+	int		var_start;
+	char	var_name[256];
+	char	*value;
 
 	i = 0;
 	while (inpt[i])
@@ -91,23 +103,38 @@ void	expand_variable(const char *inpt, char **envp)
 		if (inpt[i] == '$')
 		{
 			i++;
-			int var_start = i;
-			// Buscar el fin del nombre de la variable (alfanumérica o guion bajo)
-			while (ft_isalnum(inpt[i]) || inpt[i] == '_') {
+			if (inpt[i] == '?')
+			{
+				ft_printf("%d", last_exit_status);
 				i++;
 			}
-			// Extraer el nombre de la variable
-			char var_name[256];  // Asegúrate de que el tamaño sea suficiente
-			ft_strncpy(var_name, &inpt[var_start], i - var_start);
-			var_name[i - var_start] = '\0';
-			// Obtener el valor de la variable de entorno
-			char *value = ft_getenv(var_name, envp);
-			if (value)
-				ft_printf("%s", value);  // Imprimir el valor de la variable
-			/*else {
-			// Si no existe la variable, imprimimos el nombre literal
-			//ft_printf("$%s", var_name);
-			}*/
+			else if (inpt[i] == '#')
+			{
+				ft_printf("%d", count_envp(envp));
+				i++;
+			}
+			else if (inpt[i] == '$')
+			{
+				ft_printf("%d", ft_getpid());
+				i++;
+			}
+			else if (ft_isalnum(inpt[i]) || inpt[i] == '_')
+			{
+				var_start = i;
+				while (ft_isalnum(inpt[i]) || inpt[i] == '_')
+					i++;
+				ft_strncpy(var_name, &inpt[var_start], i - var_start);
+				var_name[i - var_start] = '\0';
+				value = ft_getenv(var_name, envp);
+				if (value)
+					ft_printf("%s", value);
+			}
+			else
+			{
+				ft_putchar('$');
+				ft_putchar(inpt[i]);
+				i++;
+			}
 		}
 		else
 		{
@@ -117,24 +144,42 @@ void	expand_variable(const char *inpt, char **envp)
 	}
 	ft_putchar('\n');
 }
+
+void	process_input(const char *input, char **envp)
+{
+	int	last_exit_status;
+
+	last_exit_status = 0;
+	if (ft_strchr(input, '\''))
+		handle_single_quotes(input);
+	else if (ft_strchr(input, '"'))
+		handle_double_quotes(input, envp);
+	else
+		expand_variable(input, envp, last_exit_status);
+}
 /*
 int main(int ac, char **av, char **envp)
 {
-	char *string;
+	char	*input;
+	int		last_exit_status;
 
+	last_exit_status = 0;
     (void)av;
+	(void)ac;
+	last_exit_status = 0;
 	while (1)
 	{
-		string = readline("minishell> ");
-		if (!string) // Manejo de Ctrl+D (EOF)
+		input = readline("minishell> ");
+		if (!input) // Manejo de Ctrl+D (EOF)
 			break;
-		if (ft_strcmp(string, "exit") == 0)
+		if (ft_strcmp(input, "exit") == 0)
 		{
-			free(string);
+			free(input);
 			break;
 		}
-		expand_variable(string, envp);
-		free(string);
+		process_input(input, envp);
+		last_exit_status = (last_exit_status + 1) % 256;
+		free(input);
 	}
 	return 0;
 }*/

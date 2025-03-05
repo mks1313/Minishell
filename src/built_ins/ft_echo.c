@@ -6,11 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/03 22:36:10 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:02:42 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 int	ft_echo(char **cmd)
 {
@@ -19,7 +19,8 @@ int	ft_echo(char **cmd)
 
 	no_newline = 0;
 	i = 1;
-	// Verificar si el primer argumento es -n para omitir el salto de línea al final
+	// Verificar si el primer argumento es -n
+	// para omitir el salto de línea al final
 	if (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
 	{
 		no_newline = 1;
@@ -36,6 +37,5 @@ int	ft_echo(char **cmd)
 	// Si no se especificó la opción -n, imprimir un salto de línea al final
 	if (!no_newline)
 		ft_putstr_fd("\n", 1);
-
 	return (0);
 }

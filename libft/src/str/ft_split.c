@@ -6,11 +6,11 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:06:03 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/02/26 14:35:51 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:48:14 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 char	**ft_free_array(char **arr, size_t size)
 {

@@ -6,58 +6,71 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/26 16:51:41 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/03 22:34:04 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/05 19:57:47 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER)
-LDFLAGS = -L$(LIBFT_DIR)
+# Librerías y opciones
 READLINE = -lreadline
-SANITIZE= -g -fsanitize=address
+SANITIZE = -g -fsanitize=address
 RM = rm -rf
 
-
+# Directorios y archivos
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 INC_FOLDER = inc
 SRC_PATH = src
 OBJ_DIR = obj
+CC = cc
 
+# Correctamente especificamos las rutas de cabecera
+CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
+LDFLAGS = -L$(LIBFT_DIR)
 
+# Especificamos el archivo de cabecera principal
 INCLUDE = $(INC_FOLDER)/minishell.h
 
-SRC_FOLDER =  main.c
-SRC_FOLDER += signals/signals.c
+# Carpeta de fuentes y archivos
+SRC_FOLDER =  main.c inits.c utils.c signals/signals.c
 SRC_FOLDER += parser/quotes.c parser/lexer.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
 			  built_ins/ft_echo.c
+
+# Agregamos la ruta a las fuentes
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))
+
+# Definimos los objetos a generar a partir de las fuentes
 OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
+# Comando por defecto
 all: $(NAME)
 
+# Dependencia de la biblioteca libft
 $(LIBFT):
-	make -C libft
+	make -C $(LIBFT_DIR)
 
+# Regla para la creación del binario final
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) -o $@ $(LDFLAGS) $(READLINE) -Llibft -lft
+	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) -o $@ $(LDFLAGS) $(READLINE)
 
+# Regla para compilar los archivos fuente a objetos
 $(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INCLUDE) Makefile
-	mkdir -p $(dir $@)
+	mkdir -p $(dir $@)  # Asegura que el directorio de objetos se cree
 	$(CC) $(CFLAGS) $(SANITIZE) -c $< -o $@
 
+# Limpiar objetos generados
 clean:
-	make -C libft clean
+	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJ_DIR)
 
+# Limpiar todo (objetos y ejecutable)
 fclean: clean
-	make -C libft fclean
+	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 
+# Recargar todo
 re: fclean all
 
 .PHONY: all clean fclean re
-
