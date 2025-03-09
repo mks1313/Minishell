@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/05 20:46:41 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/09 11:57:24 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@
  * readline for readline()
  * stdlib for exit()
  */
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdbool.h>
-# include <stddef.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-//# include "../libft/includes/libft.h"
 # include "libft.h"
+# include "sys_includes.h"
+# include "shell_types.h"
 
 /* Colors */
 # define RESET	"\033[0m"
@@ -51,37 +47,6 @@
 # define EXPORT 	"export"
 # define UNSET		"unset"
 # define ECHO		"echo"
-
-/* Manejo variavbles del entorno*/
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
-/*Comandos y redirecciones*/
-typedef struct s_cmd
-{
-	char			*command; //Comando a ejecutar
-	char			**args; //Argumenots del comando
-	char			*input_file;// Archivo de entrada(para redireccion)
-	char			*output_file;// Archvo de salida (para redireccion)
-	int				append_output;
-	bool			pipe;// Si el comando usa tuberia
-	int				error_redirect; // Para redirigir el flujo de errores
-	bool			heredoc;// Para manejar herencia de entradas
-	struct s_cmd	*next;// Para manejar multiples comandos
-}	t_cmd;
-
-/*Datos e Shell*/
-typedef struct s_data
-{
-	t_env			*env; //Variables del entorno
-	t_cmd			*cmd_list; //Lista de comandos(si ejecuta multimples cmds)
-	char			*cur_dir;
-	int				status; //Estado de salida del ultimo comando
-}	t_data;
 
 /* Functions for manage signals*/
 void	handle_signal(int sig, siginfo_t *info, void *context);

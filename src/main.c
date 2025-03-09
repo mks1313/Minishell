@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/05 20:27:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/09 12:03:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void	handle_commands(char *line, char **envp)
 	}
 	else if (ft_strcmp(line, "env") == 0)
 	{
-		t_env *env_list = convert_env(envp);
-		ft_env(env_list);
+		data->env = convert_env(envp);
+		//t_env *env_list = convert_env(envp);
+		//ft_env(env_list);
+		ft_env(data->env);
 	}
 	else if (ft_strcmp(line, "cd") == 0)
 		ft_cd(cmd, data);

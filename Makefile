@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/26 16:51:41 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/05 20:59:08 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/09 11:57:45 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,16 @@ CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
 
 # Especificamos el archivo de cabecera principal
-INCLUDE = $(INC_FOLDER)/minishell.h
+INCLUDES = minishell.h shell_types.h sys_includes.h
 
 # Carpeta de fuentes y archivos
 SRC_FOLDER =  main.c inits.c utils.c signals/signals.c
 SRC_FOLDER += parser/quotes.c parser/lexer.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
 			  built_ins/ft_echo.c
+
+# Agregamos las rutas de headers
+INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 
 # Agregamos la ruta a las fuentes
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))
@@ -57,7 +60,7 @@ $(NAME): $(OBJS) $(LIBFT)
 	@echo -- "\033[1;32mMiniShell created \033[0m"
 
 # Regla para compilar los archivos fuente a objetos
-$(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INCLUDE) Makefile
+$(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INC_H) Makefile
 	mkdir -p $(dir $@)  # Asegura que el directorio de objetos se cree
 	$(CC) $(CFLAGS) $(SANITIZE) -c $< -o $@
 
