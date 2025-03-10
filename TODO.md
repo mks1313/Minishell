@@ -1,4 +1,0 @@
-- 
-- is_builtin--> funcion que usando ft_strcmp 
-- agregar la logica para liberacion de memoria de estruct y listas hay funct 
--echas 

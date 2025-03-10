@@ -6,12 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 20:23:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:57:56 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/includes/libft.h"
-#include "../../inc/minishell.h"
+#include "minishell.h"
 
 void	handle_single_quotes(const char *input)
 {
@@ -38,7 +37,7 @@ void	handle_single_quotes(const char *input)
 	}
 }
 
-void handle_double_quotes(const char *inpt, char **envp)
+void	handle_double_quotes(const char *inpt, t_env *env)
 {
 	int		i;
 	int		j;
@@ -60,9 +59,11 @@ void handle_double_quotes(const char *inpt, char **envp)
 					while (inpt[i] && (ft_isalnum(inpt[i]) || inpt[i] == '_'))
 						var_name[j++] = inpt[i++];
 					var_name[j] = '\0';
-					var_val = ft_getenv(var_name, envp);
+					var_val = ft_getenv(var_name, env);// Expan de var
 					if (var_val)
 						ft_printf("%s", var_val);
+					else
+						ft_printf("");// Imprime nada si no se encuentra la vari
 				}
 				else
 				{
@@ -80,17 +81,20 @@ void handle_double_quotes(const char *inpt, char **envp)
 	}
 }
 
-static int	count_envp(char **envp)
+int	count_envp(t_env *env)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	return (i);
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return count;
 }
 
-void	expand_variable(const char *inpt, char **envp, int last_exit_status)
+void	expand_variable(const char *input, t_env *env, int last_exit_status)
 {
 	int		i;
 	int		var_start;
@@ -98,54 +102,54 @@ void	expand_variable(const char *inpt, char **envp, int last_exit_status)
 	char	*value;
 
 	i = 0;
-	while (inpt[i])
+	while (input[i])
 	{
-		if (inpt[i] == '$')
+		if (input[i] == '$')
 		{
 			i++;
-			if (inpt[i] == '?')
+			if (input[i] == '?')
 			{
 				ft_printf("%d", last_exit_status);
 				i++;
 			}
-			else if (inpt[i] == '#')
+			else if (input[i] == '#')
 			{
-				ft_printf("%d", count_envp(envp));
+				ft_printf("%d", count_envp(env));
 				i++;
 			}
-			else if (inpt[i] == '$')
+			else if (input[i] == '$')
 			{
 				ft_printf("%d", getpid());
 				i++;
 			}
-			else if (ft_isalnum(inpt[i]) || inpt[i] == '_')
+			else if (ft_isalnum(input[i]) || input[i] == '_')
 			{
 				var_start = i;
-				while (ft_isalnum(inpt[i]) || inpt[i] == '_')
+				while (ft_isalnum(input[i]) || input[i] == '_')
 					i++;
-				ft_strncpy(var_name, &inpt[var_start], i - var_start);
+				ft_strncpy(var_name, &input[var_start], i - var_start);
 				var_name[i - var_start] = '\0';
-				value = ft_getenv(var_name, envp);
+				value = ft_getenv(var_name, env);
 				if (value)
 					ft_printf("%s", value);
 			}
 			else
 			{
 				ft_putchar('$');
-				ft_putchar(inpt[i]);
+				ft_putchar(input[i]);
 				i++;
 			}
 		}
 		else
 		{
-			ft_putchar(inpt[i]);
+			ft_putchar(input[i]);
 			i++;
 		}
 	}
 	ft_putchar('\n');
 }
 
-void	process_input(const char *input, char **envp)
+void	process_input(const char *input, t_env *env)
 {
 	int	last_exit_status;
 
@@ -153,33 +157,7 @@ void	process_input(const char *input, char **envp)
 	if (ft_strchr(input, '\''))
 		handle_single_quotes(input);
 	else if (ft_strchr(input, '"'))
-		handle_double_quotes(input, envp);
+		handle_double_quotes(input, env);
 	else
-		expand_variable(input, envp, last_exit_status);
+		expand_variable(input, env, last_exit_status);
 }
-/*
-int main(int ac, char **av, char **envp)
-{
-	char	*input;
-	int		last_exit_status;
-
-	last_exit_status = 0;
-    (void)av;
-	(void)ac;
-	last_exit_status = 0;
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input) // Manejo de Ctrl+D (EOF)
-			break;
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			break;
-		}
-		process_input(input, envp);
-		last_exit_status = (last_exit_status + 1) % 256;
-		free(input);
-	}
-	return 0;
-}*/

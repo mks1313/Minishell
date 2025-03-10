@@ -6,42 +6,77 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/09 11:56:57 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:46:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_TYPES_H
 # define SHELL_TYPES_H
 
-/*Manage enviroment variables*/
-typedef struct s_env
+/* Tokens */
+typedef enum e_tkn_type
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
+	TOKEN_UNSET,
+	TOKEN_WORD,
+	TOKEN_OPERATOR,
+	TOKEN_QUOTE,
+	TOKEN_DQUOTE,
+}	t_tkn_type;
 
-/*Commands & redirections*/
+typedef enum e_opertype
+{
+	OP_UNSET,
+	OP_LESS, // <
+	OP_GREAT,// >
+	OP_DLESS,// <<
+	OP_DGREAT,// >>
+	OP_PIPE, // |
+}	t_opertype;
+
+typedef struct s_tkn
+{
+	char				*value; // Valor del token (ej: "echo", ">", "file.txt")
+	t_tkn_type			type; // Tipo de token (WORD, OPERATOR, etc.)
+	bool				terminated; // Indica si el token está terminado
+	struct s_tkn		*next; // Siguiente token en la lista
+}	t_tkn;
+
+/* Commands & Redirections */
+typedef struct s_redirect
+{
+	t_opertype			type; // Tipo de redirección (<, >, <<, >>)
+	char				*file;// Archivo asociado a la redirección
+	int					fd;// File descriptor
+	struct s_redirect	*next;// Siguiente redirección en la lista
+}	t_redirect;
+
 typedef struct s_cmd
 {
-	char			*command; //Command to execute
-	char			**args; //Command args
-	char			*input_file; // Input file(for redirections)
-	char			*output_file; // Output file(for redirections)
-	int				append_output;
-	bool			pipe;//Check if the command is pipe
-	int				error_redirect; //To redirect flow of errors
-	bool			heredoc; // To handke input inheritance
-	struct s_cmd	*next; // To manage multiplice commands
+	char				*cmd; // Comando a ejecutar (ej: "echo")
+	char				**args; // Argumentos del comando (ej: {"-n", "Hola"})
+	t_redirect			*redirect; // Lista de redirecciones
+	bool				is_pipe; // Indica si hay un pipe después de este comand
+	int					pipe_fds[2]; // File descriptors para pipes
+	pid_t				pid;// PID del proceso hijo
+	struct s_cmd		*next;// Siguiente comando en la lista
 }	t_cmd;
 
-/*Shell data*/
-typedef struct s_data
+/* Enviroment */
+typedef struct s_env
 {
-	t_env			*env;//Enviroment variables
-	t_cmd			*cmd_list;// List of commands(if ejxecute multimples cnds)
-	char			*cur_dir;
-	int				status;//State of exit of the last command
-}	t_data;
+	char				*key;// Nombre de la variable (ej: "PATH")
+	char				*value;// Valor de la variable (ej: "/usr/bin")
+	struct s_env		*next;// Siguiente variable en la lista
+}	t_env;
+
+/* Shell */
+typedef struct s_shell
+{
+	t_env				*env;// Variables de entorno
+	t_tkn				*tkns;// Lista de tokens (para parsing)
+	t_cmd				*cmds;// Lista de comandos a ejecutar
+	int					exit_status;// Estado de salida del último comando
+	char				*cur_dir;// Directorio actual
+}	t_shell;
 
 #endif

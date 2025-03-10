@@ -6,7 +6,7 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/05 19:46:35 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/10 18:23:34 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS =  \
 		src/mem/ft_memset.c src/mem/ft_memcpy.c src/mem/ft_strdup.c \
 		src/mem/ft_memmove.c src/mem/ft_memchr.c src/mem/ft_memcmp.c \
     	src/mem/ft_calloc.c src/mem/ft_bzero.c src/mem/ft_substr.c \
-		src/mem/ft_strndup.c src/utils/ft_getenv.c\
+		src/mem/ft_strndup.c  \
 		src/lst/ft_lstnew.c src/lst/ft_lstadd_front.c src/lst/ft_lstsize.c \
 		src/lst/ft_lstlast.c src/lst/ft_lstadd_back.c src/lst/ft_lstdelone.c \
 		src/lst/ft_lstclear.c src/lst/ft_lstiter.c src/lst/ft_lstmap.c \

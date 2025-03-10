@@ -6,7 +6,7 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:11:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 15:01:47 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:23:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int		ft_print_upper_hex(unsigned int n);
 char	*get_next_line(int fd);
 // Utils
 int		ft_getopt(int argc, char **argv, const char *optstring);
-char	*ft_getenv(const char *name, char **envp);
 int		ft_getpid(void);
 
 #endif

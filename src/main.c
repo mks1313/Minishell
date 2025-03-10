@@ -6,12 +6,12 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/09 12:03:41 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:40:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-
+#include "minishell.h"
+/*
 static void	ft_free_split(char **split)
 {
 	int	i;
@@ -25,58 +25,83 @@ static void	ft_free_split(char **split)
 		i++;
 	}
 	free(split);
+}*/
+
+char	*skip_delimiters(char *str, const char *delimiters)
+{
+    while (*str && ft_strchr(delimiters, *str))
+        str++;
+    return (str);
 }
 
-void	handle_commands(char *line, char **envp)
+static void	handle_commands(char *line, char **envp)
 {
-	char	**cmd;
+	t_shell	*shell;
 	int		last_exit_status;
-	t_data	*data;
+	t_tkn	*tokens;
+	t_env	*env;
 
-	data = initialize_data();
-	if (!data)
-		return;
-	last_exit_status = 0;
-	cmd = ft_split(line, ' ');
-	if (!cmd)
+	shell = init_shell();
+	if (!shell)
 		return ;
-	if (ft_strcmp(line, "exit") == 0)
+	last_exit_status = 0;
+	env = convert_env(envp);
+	// Tokenización del input
+	tokens = tokenize_input(line);
+	if (!tokens)
+		return ;
+	// Procesamiento de los comandos
+	while (tokens)
 	{
-		free(line);
-		ft_exit(NULL);
+		if (tokens->type == TOKEN_WORD)
+		{
+			// Se maneja el comando
+			if (ft_strcmp(tokens->value, "exit") == 0)
+			{
+				free(line);
+				ft_exit(NULL);
+			}
+			else if (ft_strcmp(tokens->value, "env") == 0)
+			{
+				shell->env = convert_env(envp);
+				ft_env(shell->env);
+			}
+			else if (ft_strcmp(tokens->value, "cd") == 0)
+			{
+				// Implementar cd aquí
+				ft_cd(tokens, shell);
+			}
+			else if (ft_strcmp(tokens->value, "echo") == 0)
+			{
+				// Implementar echo aquí
+				ft_echo(tokens);
+			}
+			else
+			{
+				// Expansión de variables y procesamiento de otras tareas
+				expand_variable(line, env, last_exit_status);
+				//handle_quotes(line);
+			}
+		}
+		// Moverse al siguiente token
+		tokens = tokens->next;
 	}
-	else if (ft_strcmp(line, "env") == 0)
-	{
-		data->env = convert_env(envp);
-		//t_env *env_list = convert_env(envp);
-		//ft_env(env_list);
-		ft_env(data->env);
-	}
-	else if (ft_strcmp(line, "cd") == 0)
-		ft_cd(cmd, data);
-	else if (ft_strcmp(line, "echo") == 0)
-		ft_echo(cmd);
-	else
-	{
-		expand_variable(line, envp, last_exit_status);
-		handle_double_quotes(line, envp);
-		handle_single_quotes(line);
-		last_exit_status = (last_exit_status + 1) % 256;
-	}
-	ft_free_split(cmd);
-	free(data);
+
+	// Liberación de memoria
+	ft_free_tokens(tokens);
+	free(shell);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	char				*line;
-	struct sigaction	sa;
+	//struct sigaction	sa;
 	int					last_exit_status;
 
 	(void)argc;
 	(void)argv;
 	last_exit_status = 0;
-	set_sig(&sa, handle_signal);
+	//set_sig(&sa, handle_signal);
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -94,7 +119,6 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*line)
 		{
 			add_history(line);
-			process_input(line, envp);
 			handle_commands(line, envp);
 			last_exit_status = (last_exit_status + 1) % 256;
 		}

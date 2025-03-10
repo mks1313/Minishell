@@ -6,36 +6,26 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 19:02:42 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:09:42 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(char **cmd)
+void	ft_echo(t_tkn *tokens)
 {
-	int	i;
-	int	no_newline;
+	// Si el primer argumento es "-n", no hacer un salto de línea al final
+	if (tokens->next && ft_strcmp(tokens->next->value, "-n") == 0)
+		tokens = tokens->next;
 
-	no_newline = 0;
-	i = 1;
-	// Verificar si el primer argumento es -n
-	// para omitir el salto de línea al final
-	if (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
+	// Imprimir los argumentos
+	while (tokens)
 	{
-		no_newline = 1;
-		i++;  // Saltar el argumento -n
+		if (tokens->type == TOKEN_WORD)
+			ft_putstr_fd(tokens->value, 1);
+		if (tokens->next)
+			write(1, " ", 1);  // Separar los tokens por espacio
+		tokens = tokens->next;
 	}
-	// Imprimir los argumentos restantes separados por espacios
-	while (cmd[i])
-	{
-		ft_putstr_fd(cmd[i], 1);
-		if (cmd[i + 1])  // Si no es el último argumento, imprimir un espacio
-			ft_putstr_fd(" ", 1);
-		i++;
-	}
-	// Si no se especificó la opción -n, imprimir un salto de línea al final
-	if (!no_newline)
-		ft_putstr_fd("\n", 1);
-	return (0);
+	write(1, "\n", 1);  // Salto de línea al final (a menos que sea -n)
 }
