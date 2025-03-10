@@ -6,11 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/03 22:46:10 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:45:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 // Verificar si un string es numérico
 static int	is_numeric_argument(const char *str)

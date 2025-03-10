@@ -6,59 +6,27 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 18:56:02 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:26:36 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
-int	ft_cd(char **cmd, t_data *data)
+void	ft_cd(t_tkn *tokens, t_shell *shell)
 {
-	char	*path;
-
-	// Si no se pasa un argumento, mostramos un mensaje de error
-	if (cmd[1] == NULL) {
-		ft_putstr_fd("minishell: cd: No path specified\n", 2);
-		return (1);
+	if (!tokens || !tokens->next)  // Si no hay argumento, cambiar al directorio home
+	{
+		char *home = ft_getenv("HOME", shell->env);  // Ahora funciona con t_env
+		if (home)
+			chdir(home);
+		else
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 	}
-
-	path = cmd[1];
-
-	// Verificamos si la ruta contiene '~' y la rechazamos
-	if (strchr(path, '~')) {
-		ft_putstr_fd("minishell: cd: ~ not supported. Use absolute or relative paths\n", 2);
-		return (1);
-	}
-
-	// Si la ruta es absoluta (comienza con '/')
-	if (path[0] == '/') {
-		if (chdir(path) != 0) {
-			ft_putstr_fd("minishell: cd: ", 2);
-			ft_putstr_fd(path, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			return (1);
+	else  // Si hay un argumento, intentar cambiar al directorio indicado
+	{
+		if (chdir(tokens->next->value) == -1)  // Si no puede cambiar de directorio
+		{
+			perror("minishell: cd");
 		}
 	}
-	// Si la ruta es relativa (no comienza con '/')
-	else {
-		if (chdir(path) != 0) {
-			ft_putstr_fd("minishell: cd: ", 2);
-			ft_putstr_fd(path, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			return (1);
-		}
-	}
-
-	// Actualizar el directorio actual en t_data
-	if (data && data->cur_dir) {
-		free(data->cur_dir);  // Libera la memoria de la ruta anterior si existe
-	}
-
-	// Guardamos el nuevo directorio actual en la estructura
-	data->cur_dir = getcwd(NULL, 0);
-	if (data->cur_dir == NULL) {
-		ft_putstr_fd("minishell: cd: Error getting current directory\n", 2);
-		return (1);
-	}
-	return (0);  // Cambio de directorio exitoso
 }

@@ -6,11 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:37:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 18:54:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:16:46 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 t_env	*convert_env(char **envp)
 {
@@ -25,9 +25,20 @@ t_env	*convert_env(char **envp)
 	{
 		new_node = malloc(sizeof(t_env));
 		if (!new_node)
-			return (NULL);
+			return (NULL);  // Si no se puede asignar memoria, devolver NULL
 		new_node->key = ft_strdup(ft_strtok_quotes(envp[i], "="));
+		if (!new_node->key || new_node->key[0] == '\0')  // Verificar si `key` es NULL o vacío
+		{
+			free(new_node);  // Liberar el nodo recién creado
+			return (NULL);  // Devolver NULL
+		}
 		new_node->value = ft_strdup(ft_strtok_quotes(NULL, "="));
+		if (!new_node->value)  // Si `ft_strdup` falla
+		{
+			free(new_node->key);  // Liberar la clave
+			free(new_node);  // Liberar el nodo recién creado
+			return (NULL);  // Devolver NULL
+		}
 		new_node->next = NULL;
 		if (head == NULL)
 			head = new_node;
@@ -38,9 +49,9 @@ t_env	*convert_env(char **envp)
 				current = current->next;
 			current->next = new_node;
 		}
-		i++;
+		i++;  // Avanzar al siguiente elemento en `envp`
 	}
-	return (head);
+	return (head);  // Devolver la lista de variables de entorno
 }
 
 void	ft_env(t_env *env_list)
@@ -54,3 +65,4 @@ void	ft_env(t_env *env_list)
 		current = current->next;
 	}
 }
+

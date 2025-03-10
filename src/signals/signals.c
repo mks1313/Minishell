@@ -6,11 +6,10 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:09:54 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/05 19:08:49 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:35:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../inc/minishell.h"
 #include "minishell.h"
 
 void	handle_signal(int sig, siginfo_t *info, void *context)

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:36:13 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/04 14:23:20 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:11:14 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static char	*handle_quotes(char *str)
 {
 	char	quote;
 
-	quote = *str;
-	str++;
-	while (*str && *str != quote)
+	quote = *str;  // Guarda el tipo de comilla (simples o dobles)
+	str++;  // Avanza después de la comilla de apertura
+	while (*str && *str != quote)  // Avanza hasta encontrar la comilla de cierre
 		str++;
-	if (*str)
+	if (*str)  // Si encontramos la comilla de cierre, saltamos la comilla
 		str++;
 	return (str);
 }
@@ -36,8 +36,10 @@ static char	*process_token(char *str, const char *delim)
 {
 	while (*str)
 	{
+		// Si encontramos una comilla simple o doble, saltamos las comillas
 		if (*str == '\'' || *str == '\"')
 			str = handle_quotes(str);
+		// Si encontramos un delimitador, terminamos
 		else if (ft_strchr(delim, *str))
 			break ;
 		else
@@ -52,34 +54,23 @@ char	*ft_strtok_quotes(char *str, const char *delim)
 	char		*start;
 
 	if (str == NULL)
-		str = last;
-	if (str == NULL || *str == '\0')
+		str = last;  // Si no se pasa una nueva cadena, usamos la última procesada
+	if (str == NULL || *str == '\0')  // Si la cadena está vacía, retornamos NULL
 		return (NULL);
-	str = skip_delimiters(str, delim);
-	start = str;
-	str = process_token(str, delim);
+
+	str = skip_delimiters(str, delim);  // Salta los delimitadores al principio
+	start = str;  // Guardamos el inicio del token
+
+	str = process_token(str, delim);  // Procesamos el token hasta encontrar un delimitador
+
+	// Si encontramos un delimitador, lo reemplazamos por '\0' y actualizamos `last`
 	if (*str)
 	{
-		*str = '\0';
-		last = str + 1;
+		*str = '\0';  // Terminamos el token
+		last = str + 1;  // Apuntamos a la siguiente posición para la próxima llamada
 	}
 	else
-		last = NULL;
-	return (start);
+		last = NULL;  // Si no hay más tokens, dejamos `last` como NULL
+
+	return (start);  // Devolvemos el token procesado
 }
-/*
-int main()
-{
-    char str[] = "This is a 'test str' with \"quoted text\" and other tokens.";
-    const char *delim = " ";  // Delimitador: espacio
-
-    char *token = ft_strtok_quotes(str, delim);
-    while (token != NULL)
-    {
-        ft_printf("Token: %s\n", token);
-   // Llamar de nuevo con NULL para continuar tokenizando
-        token = ft_strtok_quotes(NULL, delim);
-    }
-
-    return 0;
-}*/
