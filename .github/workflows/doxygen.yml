@@ -21,6 +21,20 @@ jobs:
       - name: Install Doxygen and Graphviz
         run: sudo apt-get install -y doxygen graphviz
 
+      - name: Generate documentation with Doxygen
+        run: |
+          rm -rf docs/ html/
+          doxygen Doxyfile || { echo "❌ Doxygen generation failed"; exit 1; }
+          
+          # Si Doxygen generó en 'html/', renombrar a 'docs/'
+          if [ -d "html" ]; then
+            mv html docs
+          fi
+
+          # Guardar la documentación en un directorio temporal
+          mkdir -p /tmp/artifacts
+          cp -r docs /tmp/artifacts/
+
       - name: Deploy to gh-pages branch
         run: |
           git config --global user.name "github-actions[bot]"
@@ -31,19 +45,19 @@ jobs:
 
           # Crear o cambiar a la rama gh-pages
           if ! git ls-remote --exit-code --heads origin gh-pages; then
-          git checkout --orphan gh-pages
-          git rm -rf .
+            git checkout --orphan gh-pages
+            git rm -rf .
           else
-          git fetch origin gh-pages
-          git checkout gh-pages
+            git fetch origin gh-pages
+            git checkout gh-pages
           fi
 
           # Copiar la documentación desde el directorio temporal
           if [ -d "/tmp/artifacts/docs" ]; then
-          cp -r /tmp/artifacts/docs/* .
+            cp -r /tmp/artifacts/docs/* .
           else
-          echo "❌ No documentation found in /tmp/artifacts/docs"
-          exit 1
+            echo "❌ No documentation found in /tmp/artifacts/docs"
+            exit 1
           fi
 
           # Commit y push
