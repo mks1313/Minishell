@@ -1,9 +1,9 @@
-name: Generate Doxygen Docs and Deploy to auto-docs Branch
+name: Generate Doxygen Docs and Deploy to gh-pages Branch
 
 on:
   push:
     branches:
-      - main  # Cambia esto a la rama que desees que active el workflow
+      - auto-docs
 
 permissions:
   contents: write
@@ -35,18 +35,18 @@ jobs:
           mkdir -p /tmp/artifacts
           cp -r docs /tmp/artifacts/
 
-      - name: Deploy to auto-docs branch
+      - name: Deploy to gh-pages branch
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Crear o cambiar a la rama auto-docs
-          if ! git ls-remote --exit-code --heads origin auto-docs; then
-            git checkout --orphan auto-docs
+          # Crear o cambiar a la rama gh-pages
+          if ! git ls-remote --exit-code --heads origin gh-pages; then
+            git checkout --orphan gh-pages
             git rm -rf .
           else
-            git fetch origin auto-docs
-            git checkout auto-docs
+            git fetch origin gh-pages
+            git checkout gh-pages
           fi
 
           # Copiar la documentación desde el directorio temporal
@@ -59,8 +59,8 @@ jobs:
 
           # Commit y push
           git add .
-          git commit -m "Deploy Doxygen docs to auto-docs branch [skip ci]" || echo "✅ No changes to commit"
-          git push --force "https://x-access-token:${{ secrets.GH_PAT }}@github.com/mks1313/Minishell.git" auto-docs
+          git commit -m "Deploy Doxygen docs to gh-pages branch [skip ci]" || echo "✅ No changes to commit"
+          git push --force "https://x-access-token:${{ secrets.GH_PAT }}@github.com/mks1313/Minishell.git" gh-pages
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@v4
