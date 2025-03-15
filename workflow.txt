@@ -58,3 +58,8 @@
       └─────────────────────────────────────────────────────────────┘
 
 
+
+git update-index --assume-unchanged Doxyfile
+git update-index --assume-unchanged .github/workflows/doxygen.yml
+git update-index --assume-unchanged .github/assets/doxygen-awesome.css
+
