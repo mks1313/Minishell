@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:37:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 19:16:46 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/15 12:29:24 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,14 @@ void	ft_env(t_env *env_list)
 	t_env	*current;
 
 	current = env_list;
+	ft_printf("CURRENT AL PRINCIPIO: %p\n", current);
+	ft_printf("ENV AL PRINCIIPIO: %p\n", env_list);
 	while (current)
 	{
 		ft_printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
+	ft_printf("CURRENT AL FINAL: %p\n", current);
+	ft_printf("ENV AL FINAL: %p\n", env_list);
 }
 
