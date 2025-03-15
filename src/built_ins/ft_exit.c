@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 14:45:52 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/15 12:47:22 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	ft_exit(char **cmd)
 	int exit_code;
 
 	ft_putstr_fd("exit\n", 1);  // Mostrar siempre "exit"
+	if (!cmd)
+	{
+		return (0);
+		ft_putstr_fd(GREEN "Es null\n" RES, 1);
+	}
 	if (cmd[1] && cmd[2])
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);

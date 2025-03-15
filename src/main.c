@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/15 12:39:16 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/15 12:53:32 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	// Procesamiento de los comandos
 	while (tokens)
 	{
-		ft_printf("VALUE: %s", tokens->value);
+		ft_printf("Token value ==> %s", tokens->value);
 		if (tokens->type == TOKEN_WORD)
 		{
 			// Se maneja el comando
@@ -111,9 +111,10 @@ int	main(int argc, char *argv[], char **envp)
 		line = readline("minishell$ ");
 		if (!line)
 		{
+			free_data(shell);
 			ft_putstr_fd("exit\n", 2);
 			clear_history();
-			ft_exit(NULL);
+			return (0);
 		}
 		if (ft_strcmp(line, "exit") == 0)
 		{
@@ -128,6 +129,6 @@ int	main(int argc, char *argv[], char **envp)
 		}
 		free(line);
 	}
-	free(shell);
+	free_data(shell);
 	return (0);
 }
