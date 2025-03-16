@@ -24,7 +24,14 @@ LIBFT = $(LIBFT_DIR)/libft.a
 INC_FOLDER = inc
 SRC_PATH = src
 OBJ_DIR = obj
-CC = cc
+#   CC = cc
+UNAME := $(shell uname)
+
+ifeq ($(UNMAE), Darwin)
+	CC = clang
+else
+	CC = cc
+endif
 
 # Correctamente especificamos las rutas de cabecera
 CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
