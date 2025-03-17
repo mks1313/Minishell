@@ -59,6 +59,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 			if (ft_strcmp(tokens->value, "exit") == 0)
 			{
 				free(line);
+                //ft_free_tokens(tokens);
 				ft_exit(NULL);
 			}
 			else if (ft_strcmp(tokens->value, "env") == 0)

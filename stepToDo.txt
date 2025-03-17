@@ -1,0 +1,86 @@
+┌─────────────────────────────────────────┐
+│             Inicio del proyecto          │
+└─────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 1: Configuración inicial                   │
+    │ -> Crear la estructura básica del proyecto      │
+    │ -> Crear el Makefile                            │
+    │ -> Crear las carpetas: src, built_ins, exec     │
+    │ -> Incluir tu libft y archivos de gnl, printf   │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 2: Leer y mostrar input                    │
+    │ -> Implementar readline() para leer input       │
+    │ -> Crear un bucle principal de lectura          │
+    │ -> Implementar funciones básicas de manejo de   │
+    │    cadenas (ft_split para dividir comandos)     │
+    │ -> Implementar el prompt personalizado          │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 3: Parseo básico del input                 │
+    │ -> Dividir la entrada en tokens usando ft_strtok│
+    │ -> Manejar comillas simples y dobles            │
+    │ -> Manejar caracteres especiales (|, >, <, etc.)│
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 4: Implementar built-ins                   │
+    │ -> cd, echo, pwd, export, unset, env, exit      │
+    │ -> Crear funciones individuales para cada       │
+    │    built-in dentro de la carpeta `built_ins`    │
+    │ -> Manejar variables de entorno                 │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 5: Ejecución de comandos externos          │
+    │ -> Usar fork() para crear procesos hijos        │
+    │ -> Implementar execve() para ejecutar comandos  │
+    │ -> Manejar PATH para localizar comandos         │
+    │ -> Manejar errores de ejecución                 │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 6: Redirecciones de input/output           │
+    │ -> Manejar redirecciones con >, >>, <           │
+    │ -> Implementar dup2() para redirigir I/O        │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 7: Pipes                                  │
+    │ -> Implementar pipes usando pipe()             │
+    │ -> Dividir el input por pipes                  │
+    │ -> Ejecutar los comandos conectados por pipes  │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 8: Manejar señales                         │
+    │ -> Implementar manejo de señales como SIGINT    │
+    │    (Ctrl+C) y SIGQUIT (Ctrl+\)                  │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 9: Expansión de variables                  │
+    │ -> Implementar expansión de variables ($VAR)    │
+    │ -> Manejar $? para el estado de salida del último│
+    │    comando ejecutado                            │
+    └─────────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌─────────────────────────────────────────────────┐
+    │ Paso 10: Testing y optimización                 │
+    │ -> Probar con múltiples casos y scripts         │
+    │ -> Optimizar código y manejo de errores         │
+    └─────────────────────────────────────────────────┘
+
