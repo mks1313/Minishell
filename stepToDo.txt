@@ -1,31 +1,31 @@
 ┌─────────────────────────────────────────┐
-│             Inicio del proyecto          │
+│             Inicio del proyecto         │
 └─────────────────────────────────────────┘
                     │
                     ▼
     ┌─────────────────────────────────────────────────┐
     │ Paso 1: Configuración inicial                   │
-    │ -> Crear la estructura básica del proyecto      │
-    │ -> Crear el Makefile                            │
-    │ -> Crear las carpetas: src, built_ins, exec     │
-    │ -> Incluir tu libft y archivos de gnl, printf   │
+    │ -> Crear la estructura básica del proyecto      │--> OK
+    │ -> Crear el Makefile                            │--> OK
+    │ -> Crear las carpetas: src, built_ins, exec     │--> OK
+    │ -> Incluir  libft y archivos de gnl, ft_printf  │--> OK
     └─────────────────────────────────────────────────┘
                     │
                     ▼
     ┌─────────────────────────────────────────────────┐
     │ Paso 2: Leer y mostrar input                    │
-    │ -> Implementar readline() para leer input       │
-    │ -> Crear un bucle principal de lectura          │
+    │ -> Implementar readline() para leer input       │--> OK
+    │ -> Crear un bucle principal de lectura          │--> OK
     │ -> Implementar funciones básicas de manejo de   │
-    │    cadenas (ft_split para dividir comandos)     │
-    │ -> Implementar el prompt personalizado          │
+    │    cadenas (ft_split para dividir comandos)     │--> ?
+    │ -> Implementar el prompt personalizado          │--> OK
     └─────────────────────────────────────────────────┘
                     │
                     ▼
     ┌─────────────────────────────────────────────────┐
     │ Paso 3: Parseo básico del input                 │
-    │ -> Dividir la entrada en tokens usando ft_strtok│
-    │ -> Manejar comillas simples y dobles            │
+    │ -> Dividir la entrada en tokens usando ft_strtok│--> Processing
+    │ -> Manejar comillas simples y dobles            │--> OK?
     │ -> Manejar caracteres especiales (|, >, <, etc.)│
     └─────────────────────────────────────────────────┘
                     │
@@ -56,10 +56,10 @@
                     │
                     ▼
     ┌─────────────────────────────────────────────────┐
-    │ Paso 7: Pipes                                  │
-    │ -> Implementar pipes usando pipe()             │
-    │ -> Dividir el input por pipes                  │
-    │ -> Ejecutar los comandos conectados por pipes  │
+    │ Paso 7: Pipes                                   │
+    │ -> Implementar pipes usando pipe()              │
+    │ -> Dividir el input por pipes                   │
+    │ -> Ejecutar los comandos conectados por pipes   │
     └─────────────────────────────────────────────────┘
                     │
                     ▼
@@ -70,12 +70,12 @@
     └─────────────────────────────────────────────────┘
                     │
                     ▼
-    ┌─────────────────────────────────────────────────┐
-    │ Paso 9: Expansión de variables                  │
-    │ -> Implementar expansión de variables ($VAR)    │
+    ┌────────────────────────────────────────────────-─┐
+    │ Paso 9: Expansión de variables                   │
+    │ -> Implementar expansión de variables ($VAR)     │
     │ -> Manejar $? para el estado de salida del último│
-    │    comando ejecutado                            │
-    └─────────────────────────────────────────────────┘
+    │    comando ejecutado                             │
+    └─────────────────────────────────────────────────-┘
                     │
                     ▼
     ┌─────────────────────────────────────────────────┐
