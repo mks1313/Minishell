@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/22 14:00:22 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:49:16 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	curr_tkn = tokens;
 	while (tokens)
 	{
-		ft_printf("Token value ==> %s", tokens->value);
+		//ft_printf("Token value ==> %s", tokens->value);
 		if (tokens->type == TOKEN_WORD)
 		{
 			// Se maneja el comando

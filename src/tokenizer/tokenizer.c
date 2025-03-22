@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 18:00:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:49:29 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_tkn	*tokenize_input(char *line)
 	t_tkn	*tail = NULL;
 	char	*start;
 	char	*str = line;
+	char	*token_value;
 
 	while (*str)
 	{
@@ -73,7 +74,12 @@ t_tkn	*tokenize_input(char *line)
 		// Crear un token con la palabra o secuencia que acabamos de encontrar
 		if (start != str)  // Solo si hay algo que tokenizar
 		{
-			char *token_value = ft_substr(line, start - line, str - start);
+			token_value = ft_substr(line, start - line, str - start);
+			if (!token_value)
+			{
+				//mabnejar logicca de eso;
+				return (NULL);
+			}
 			t_tkn *new_token = create_token(token_value, TOKEN_WORD);
 			// Agregar el token a la lista de tokens
 			if (!head)
@@ -85,38 +91,3 @@ t_tkn	*tokenize_input(char *line)
 	}
 	return head;
 }
-
-/*
-t_tkn *tokenize_input(char *line)
-{
-    t_tkn *tokens = NULL;   // Lista de tokens resultante
-    char *token;
-    t_tkn *current_token;
-
-    token = ft_strtok_quotes(line, " \t"); // Usa ft_strtok_quotes para dividir por espacios y tabulaciones
-    while (token != NULL)
-    {
-        // Clasifica el token y agrega a la lista
-        t_tkn *new_token = malloc(sizeof(t_tkn));
-        if (new_token == NULL)
-            return (NULL); // Manejo de error de memoria
-
-        new_token->value = ft_strdup(token);  // Crea una copia del token
-        new_token->type = TOKEN_WORD; // Clasificación básica, puedes agregar más lógica
-        new_token->opertype = OP_UNSET;  // Ajustar según el tipo de operador si es necesario
-        new_token->terminated = true;  // Marcar como terminado
-        new_token->next = NULL;
-        // Agrega el token a la lista
-        if (tokens == NULL)
-            tokens = new_token;
-        else
-        {
-            current_token = tokens;
-            while (current_token->next != NULL)
-                current_token = current_token->next;
-            current_token->next = new_token;
-        }
-        token = ft_strtok_quotes(NULL, " \t");
-    }
-    return tokens;  // Retorna la lista de tokens
-}*/
