@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/15 12:53:32 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:00:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
 	int		last_exit_status;
 	t_tkn	*tokens;
+	t_tkn	*curr_tkn;
 	//t_env	*env;
 	(void)envp;
 
@@ -50,6 +51,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!tokens)
 		return ;
 	// Procesamiento de los comandos
+	curr_tkn = tokens;
 	while (tokens)
 	{
 		ft_printf("Token value ==> %s", tokens->value);
@@ -59,7 +61,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 			if (ft_strcmp(tokens->value, "exit") == 0)
 			{
 				free(line);
-                //ft_free_tokens(tokens);
+                ft_free_tokens(curr_tkn);
 				ft_exit(NULL);
 			}
 			else if (ft_strcmp(tokens->value, "env") == 0)
@@ -89,7 +91,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	}
 
 	// Liberación de memoria
-	ft_free_tokens(tokens);
+	ft_free_tokens(curr_tkn);
 	//free(shell);
 }
 
@@ -110,6 +112,7 @@ int	main(int argc, char *argv[], char **envp)
 	while (1)
 	{
 		line = readline("minishell$ ");
+		//line = get_next_line(0);
 		if (!line)
 		{
 			free_data(shell);
