@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:43:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 17:16:08 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:36:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*ft_getenv(const char *name, t_env *env)
 		return (NULL);
 	len = ft_strlen(name);
 	curr = env;
-
 	while (curr)
 	{
 		if (ft_strncmp(curr->key, name, len) == 0 && curr->key[len] == '\0')
