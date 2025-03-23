@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/23 13:13:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:41:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ char	*skip_delimiters(char *str, const char *delimiters)
 	return (str);
 }
 
+// TODO: implementar bien los builtins
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
 	int		last_exit_status;
 	t_tkn	*tokens;
 	t_tkn	*curr_tkn;
-	(void)envp;
 
+	(void)envp;
 	if (!shell)
 		return ;
 	last_exit_status = 0;
@@ -55,23 +56,15 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 			if (ft_strcmp(tokens->value, "exit") == 0)
 			{
 				free(line);
-                ft_free_tokens(curr_tkn);
+				ft_free_tokens(curr_tkn);
 				ft_exit(NULL);
 			}
 			else if (ft_strcmp(tokens->value, "env") == 0)
-			{
 				ft_env(shell->env);
-			}
 			else if (ft_strcmp(tokens->value, "cd") == 0)
-			{
-				// Implementar cd aquí
 				ft_cd(tokens, shell);
-			}
 			else if (ft_strcmp(tokens->value, "echo") == 0)
-			{
-				// Implementar echo aquí
 				ft_echo(tokens);
-			}
 			else
 				expand_variable(line, shell->env, last_exit_status);
 		}
