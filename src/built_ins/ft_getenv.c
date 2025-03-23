@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:43:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 18:22:54 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:16:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,19 @@
 
 char	*ft_getenv(const char *name, t_env *env)
 {
-	t_env	*current;
+	t_env	*curr;
 	size_t	len;
 
-	/* Si no se pasa un nombre de variable de entorno, retornar NULL */
 	if (!name)
 		return (NULL);
 	len = ft_strlen(name);
-	current = env;
+	curr = env;
 
-	/* Recorrer la lista de entorno */
-	while (current)
+	while (curr)
 	{
-		/* Comparar si "key" coincide con el nombre proporcionado */
-		if (ft_strncmp(current->key, name, len) == 0 && current->key[len] == '\0')
-		{
-			/* Retornar el valor asociado */
-			return (current->value);
-		}
-		current = current->next;
+		if (ft_strncmp(curr->key, name, len) == 0 && curr->key[len] == '\0')
+			return (curr->value);
+		curr = curr->next;
 	}
-	/* Si no se encontró la variable, retornar NULL */
 	return (NULL);
 }

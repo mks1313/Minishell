@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:09:54 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/10 17:35:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:08:58 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 	(void)sig;
 	(void)info;
 	(void)context;
-	/*
-	ft_putstr_fd(GREEN "DIE\n" RESET, 1);
-	exit(EXIT_SUCCESS);
-	*/
 }
 
 void	set_sig(struct sigaction *sa, void (*handler)(int, siginfo_t *, void *))
