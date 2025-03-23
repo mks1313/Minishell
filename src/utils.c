@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/10 17:11:02 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 13:10:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ void	del(void *content)
 void	ft_free_tokens(t_tkn *tokens)
 {
 	t_tkn	*tmp;
+
 	while (tokens)
 	{
 		tmp = tokens;
 		tokens = tokens->next;
-		free(tmp->value);  // Liberar los valores de los tokens
-		free(tmp);         // Liberar el propio token
+		free(tmp->value);
+		free(tmp);
 	}
 }
 
@@ -46,7 +47,6 @@ void	free_data(t_shell *shell)
 	t_cmd	*cmd_list;
 	t_cmd	*tmp_cmd;
 
-	// Liberar la lista de variables de entorno
 	env = shell->env;
 	tkn = shell->tkns;
 	cmd_list = shell->cmds;
@@ -58,7 +58,6 @@ void	free_data(t_shell *shell)
 		free(env);
 		env = tmp_env;
 	}
-	// Liberar la lista de tokens
 	while (tkn)
 	{
 		tmp_tkn = tkn->next;
@@ -66,7 +65,6 @@ void	free_data(t_shell *shell)
 		free(tkn);
 		tkn = tmp_tkn;
 	}
-	// Liberar la lista de comandos
 	while (cmd_list)
 	{
 		tmp_cmd = cmd_list->next;
@@ -92,8 +90,6 @@ void	free_data(t_shell *shell)
 		free(cmd_list);
 		cmd_list = tmp_cmd;
 	}
-	// Liberar el directorio actual
 	free(shell->cur_dir);
-	// Finalmente liberar la estructura de datos
 	free(shell);
 }
