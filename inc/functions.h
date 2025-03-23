@@ -41,5 +41,7 @@ int		ft_exit(char **cmd);
 void	ft_cd(t_tkn *tokens, t_shell *shell);
 // Else
 char	*skip_delimiters(char *str, const char *delimiters);
+void	builtin_error(char *cmd, char *arg, char *msg);
+char	*safe_strdup(const char *str);
 
 #endif

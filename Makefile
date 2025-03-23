@@ -46,7 +46,7 @@ SRC_FOLDER += parser/quotes.c
 SRC_FOLDER += lexer/lexer.c tokenizer/tokenizer.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
 			  built_ins/ft_echo.c built_ins/ft_getenv.c
-
+SRC_FOLDER += built_ins/builtins_utils.c
 # Agregamos las rutas de headers
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 

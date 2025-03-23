@@ -27,10 +27,10 @@ t_env	*create_env_node(char *env_str)
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->key = ft_strdup(ft_strtok_quotes(env_str, "="));
+	new_node->key = safe_strdup(ft_strtok_quotes(env_str, "="));
 	if (!new_node->key || new_node->key[0] == '\0')
 		return (free(new_node), NULL);
-	new_node->value = ft_strdup(ft_strtok_quotes(NULL, "="));
+	new_node->value = safe_strdup(ft_strtok_quotes(NULL, "="));
 	if (!new_node->value)
 		return (free(new_node->key), free(new_node), NULL);
 	new_node->next = NULL;
