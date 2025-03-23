@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 17:12:41 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:27:26 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	count_envp(t_env *env)
 		count++;
 		env = env->next;
 	}
-	return count;
+	return (count);
 }
 
 void	expand_variable(const char *input, t_env *env, int last_exit_status)
