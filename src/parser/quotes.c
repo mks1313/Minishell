@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 18:57:56 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:12:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,11 @@ void	handle_single_quotes(const char *input)
 		{
 			i++;
 			while (input[i] && input[i] != '\'')
-			{
-				ft_putchar(input[i]);
-				i++;
-			}
+				ft_putchar(input[i++]);
 			i++;
 		}
 		else
-		{
-			ft_putchar(input[i]);
-			i++;
-		}
+			ft_putchar(input[i++]);
 	}
 }
 
@@ -59,11 +53,11 @@ void	handle_double_quotes(const char *inpt, t_env *env)
 					while (inpt[i] && (ft_isalnum(inpt[i]) || inpt[i] == '_'))
 						var_name[j++] = inpt[i++];
 					var_name[j] = '\0';
-					var_val = ft_getenv(var_name, env);// Expan de var
+					var_val = ft_getenv(var_name, env);
 					if (var_val)
 						ft_printf("%s", var_val);
 					else
-						ft_printf("");// Imprime nada si no se encuentra la vari
+						ft_printf("");
 				}
 				else
 				{
