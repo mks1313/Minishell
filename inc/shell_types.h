@@ -6,12 +6,18 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 17:46:01 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 15:44:02 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_TYPES_H
 # define SHELL_TYPES_H
+
+typedef enum e_pos
+{
+	HEAD,
+	TAIL,
+}	t_pos;
 
 /* Tokens */
 typedef enum e_tkn_type

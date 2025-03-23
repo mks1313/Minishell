@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/22 14:49:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 13:13:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,19 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	int		last_exit_status;
 	t_tkn	*tokens;
 	t_tkn	*curr_tkn;
-	//t_env	*env;
 	(void)envp;
 
 	if (!shell)
 		return ;
 	last_exit_status = 0;
-	//env = convert_env(envp);
-	// Tokenización del input
 	tokens = tokenize_input(line);
 	if (!tokens)
 		return ;
-	// Procesamiento de los comandos
 	curr_tkn = tokens;
 	while (tokens)
 	{
-		//ft_printf("Token value ==> %s", tokens->value);
 		if (tokens->type == TOKEN_WORD)
 		{
-			// Se maneja el comando
 			if (ft_strcmp(tokens->value, "exit") == 0)
 			{
 				free(line);
@@ -66,7 +60,6 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 			}
 			else if (ft_strcmp(tokens->value, "env") == 0)
 			{
-				//shell->env = convert_env(envp);
 				ft_env(shell->env);
 			}
 			else if (ft_strcmp(tokens->value, "cd") == 0)
@@ -80,33 +73,22 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 				ft_echo(tokens);
 			}
 			else
-			{
-				// Expansión de variables y procesamiento de otras tareas
 				expand_variable(line, shell->env, last_exit_status);
-				//handle_quotes(line);
-			}
 		}
-		// Moverse al siguiente token
 		tokens = tokens->next;
 	}
-
-	// Liberación de memoria
 	ft_free_tokens(curr_tkn);
-	//free(shell);
 }
 
 int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
-	char				*line;
-	//struct sigaction	sa;
-	int					last_exit_status;
+	char	*line;
+	int		last_exit_status;
 
 	(void)argc;
 	(void)argv;
 	last_exit_status = 0;
-	//set_sig(&sa, handle_signal);
-	//exit(EXIT_SUCCESS);
 	shell = init_shell();
 	shell->env = convert_env(envp);
 	while (1)
