@@ -6,26 +6,11 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/23 17:41:17 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:56:59 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-   static void	ft_free_split(char **split)
-   {
-   int	i;
-
-   if (!split)
-   return ;
-   i = 0;
-   while (split[i])
-   {
-   free(split[i]);
-   i++;
-   }
-   free(split);
-   }*/
 
 char	*skip_delimiters(char *str, const char *delimiters)
 {
@@ -87,7 +72,6 @@ int	main(int argc, char *argv[], char **envp)
 	while (1)
 	{
 		line = readline("minishell$ ");
-		//line = get_next_line(0);
 		if (!line)
 		{
 			free_data(shell);
