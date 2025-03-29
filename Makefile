@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/23 17:48:38 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/29 12:30:35 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_FOLDER += lexer/lexer.c tokenizer/tokenizer.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
 			  built_ins/ft_echo.c built_ins/ft_getenv.c
 SRC_FOLDER += built_ins/builtins_utils.c
+SRC_FOLDER += exec/exec.c exec/exec_utils.c
 # Agregamos las rutas de headers
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 
