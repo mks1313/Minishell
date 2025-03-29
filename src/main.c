@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/29 13:58:49 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/29 15:23:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ char	*skip_delimiters(char *str, const char *delimiters)
 	return (str);
 }
 
-// TODO: implementar bien los builtins
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
-	//int		last_exit_status;
+	char	**args;
 	t_tkn	*tokens;
 	t_tkn	*curr_tkn;
 
@@ -53,7 +52,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 				ft_pwd();
 			else
 			{
-				char **args = tokens_to_args(tokens);
+				args = tokens_to_args(tokens);
 				if (args)
 				{
 					shell->exit_status = execute_external_command(tokens->value, args, shell->env);
