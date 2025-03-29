@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/23 17:56:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/29 12:56:00 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ char	*skip_delimiters(char *str, const char *delimiters)
 // TODO: implementar bien los builtins
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
-	int		last_exit_status;
+	//int		last_exit_status;
 	t_tkn	*tokens;
 	t_tkn	*curr_tkn;
 
 	(void)envp;
 	if (!shell)
 		return ;
-	last_exit_status = 0;
+	//last_exit_status = 0;
 	tokens = tokenize_input(line);
 	if (!tokens)
 		return ;
@@ -51,7 +51,14 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 			else if (ft_strcmp(tokens->value, "echo") == 0)
 				ft_echo(tokens);
 			else
-				expand_variable(line, shell->env, last_exit_status);
+			{
+				char **args = tokens_to_args(tokens);
+				if (args)
+				{
+					shell->exit_status = execute_external_command(tokens->value, args, shell->env);
+					clean_array(args);
+				}
+			}
 		}
 		tokens = tokens->next;
 	}

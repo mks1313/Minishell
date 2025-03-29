@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 17:05:23 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/29 12:56:26 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,33 @@ t_tkn	*tokenize_input(char *line)
 			add_token_to_list(token, line, start, str);
 	}
 	return (token[HEAD]);
+}
+
+char	**tokens_to_args(t_tkn *tokens)
+{
+	int	count;
+	t_tkn	*curr;
+	char	**args;
+	int	i;
+
+	count = 0;
+	curr = tokens;
+	while (curr && curr->type != TOKEN_OPERATOR)
+	{
+		count++;
+		curr = curr->next;
+	}
+	args = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!args)
+		return (NULL);
+	i = 0;
+	curr = tokens;
+	while (i < count)
+	{
+		args[i] = ft_strdup(curr->value);
+		curr = curr->next;
+		i++;
+	}
+	args[i] = NULL;
+	return (args);
 }
