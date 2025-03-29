@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/29 12:30:35 by meghribe         ###   ########.fr        #
+#    Updated: 2025/03/29 13:57:52 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC_FOLDER =  main.c inits.c utils.c free_data.c signals/signals.c
 SRC_FOLDER += parser/quotes.c
 SRC_FOLDER += lexer/lexer.c tokenizer/tokenizer.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
-			  built_ins/ft_echo.c built_ins/ft_getenv.c
+	      built_ins/ft_echo.c built_ins/ft_getenv.c \
+	      built_ins/ft_pwd.c
 SRC_FOLDER += built_ins/builtins_utils.c
 SRC_FOLDER += exec/exec.c exec/exec_utils.c
 # Agregamos las rutas de headers

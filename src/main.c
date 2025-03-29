@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/29 12:56:00 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:58:49 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 				ft_cd(tokens, shell);
 			else if (ft_strcmp(tokens->value, "echo") == 0)
 				ft_echo(tokens);
+			else if (ft_strcmp(tokens->value, "pwd") == 0)
+				ft_pwd();
 			else
 			{
 				char **args = tokens_to_args(tokens);
