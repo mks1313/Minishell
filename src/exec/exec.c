@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 13:06:35 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:43:52 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int	execute_external_command(char *cmd, char **args, t_env *env)
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
 	{
-		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		return (127);
