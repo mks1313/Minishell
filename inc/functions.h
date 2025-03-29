@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 13:59:10 by meghribe         ###   ########.fr       */\
+/*   Updated: 2025/03/29 18:57:23 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	handle_single_quotes(const char *input);
 void	handle_double_quotes(const char *inpt, t_env *env);
 int		count_envp(t_env *env);
 void	expand_variable(const char *input, t_env *env, int last_exit_status);
-
 void	process_input(const char *input, t_env *env);
+void	handle_exit_status(int *i, int last_exit_status);
+void	handle_envp_count(int *i, t_env *env);
+void	handle_pid(int *i);
 //Signals
 void	handle_signal(int sig, siginfo_t *info, void *context);
 //Commands
@@ -39,15 +41,19 @@ void	ft_env(t_env *env_list);
 char	*ft_getenv(const char *name, t_env *env);
 int		ft_exit(char **cmd);
 void	ft_cd(t_tkn *tokens, t_shell *shell);
+void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line);
+void	handle_external_command(t_tkn *tokens, t_shell *shell);
 // Else
 char	*skip_delimiters(char *str, const char *delimiters);
 void	builtin_error(char *cmd, char *arg, char *msg);
 char	*safe_strdup(const char *str);
-
-
 char	**tokens_to_args(t_tkn *tokens);
-int	execute_external_command(char *cmd, char **args, t_env *env);;
-void    clean_array(char **array);
+int		exec_cmd(char *cmd, char **args, t_env *env);;
+void	clean_array(char **array);
 void	ft_pwd(void);
+//Execute
+char	*find_command_path(char *cmd, t_env *env);
+char	**env_to_array(t_env *env);
+char	*ft_strjoin3(char *s1, char *s2, char *s3);
 
 #endif

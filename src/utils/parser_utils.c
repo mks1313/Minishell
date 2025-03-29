@@ -1,29 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/20 16:15:16 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 15:48:35 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/03/29 18:58:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(void)
+int	count_envp(t_env *env)
 {
-	char	*cwd;
+	int	count;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
+	count = 0;
+	while (env)
 	{
-		ft_putstr_fd(RED, 1);
-		ft_putendl_fd(cwd, 1);
-		ft_putstr_fd(RES, 1);
-		free(cwd);
+		count++;
+		env = env->next;
 	}
-	else
-		perror("minishell: pwd");
+	return (count);
+}
+
+void	handle_exit_status(int *i, int last_exit_status)
+{
+	ft_printf("%d", last_exit_status);
+	(*i)++;
+}
+
+void	handle_envp_count(int *i, t_env *env)
+{
+	ft_printf("%d", count_envp(env));
+	(*i)++;
+}
+
+void	handle_pid(int *i)
+{
+	ft_printf("%d", getpid());
+	(*i)++;
 }
