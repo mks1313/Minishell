@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/29 15:23:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:18:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 				args = tokens_to_args(tokens);
 				if (args)
 				{
-					shell->exit_status = execute_external_command(tokens->value, args, shell->env);
+					shell->exit_status = exec_cmd(tokens->value, args, shell->env);
 					clean_array(args);
 				}
 			}

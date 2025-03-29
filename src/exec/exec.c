@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 16:06:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:16:28 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
  */
 void	clean_array(char **array)
 {
-    int	i;
+	int	i;
 
-    if (!array)
-        return ;
-    i = 0;
-    while (array[i])
-        free(array[i++]);
-    free(array);
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
 }
 
 char	*ft_strjoin3(char *s1, char *s2, char *s3)
@@ -79,8 +79,8 @@ static char	*find_command_path(char *cmd, t_env *env)
 
 char	**env_to_array(t_env *env)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
 	char	**env_array;
 	t_env	*curr;
 
@@ -105,12 +105,13 @@ char	**env_to_array(t_env *env)
 	env_array[i] = NULL;
 	return (env_array);
 }
+
 //TODO:  Habra que pulir, para que funcione bien
-int	execute_external_command(char *cmd, char **args, t_env *env)
+int	exec_cmd(char *cmd, char **args, t_env *env)
 {
 	char	*cmd_path;
 	char	**envp;
-	int	status;
+	int		status;
 	pid_t	pid;
 
 	cmd_path = find_command_path(cmd, env);
