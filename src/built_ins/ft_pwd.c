@@ -6,15 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:15:16 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 14:00:13 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/29 15:48:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/**
- * ft_pwd - Imprime el directorio de trabajo actual
- */
-// TODO: remove red color
+
 void	ft_pwd(void)
 {
 	char	*cwd;

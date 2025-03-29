@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 12:56:26 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/29 15:53:48 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ t_tkn	*tokenize_input(char *line)
 
 char	**tokens_to_args(t_tkn *tokens)
 {
-	int	count;
+	int		count;
 	t_tkn	*curr;
 	char	**args;
-	int	i;
+	int		i;
 
 	count = 0;
 	curr = tokens;
