@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/29 17:37:01 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/29 18:55:35 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,13 @@ INCLUDES = minishell.h shell_types.h sys_includes.h
 
 # Carpeta de fuentes y archivos
 SRC_FOLDER =  main.c inits.c main_utils.c free_data.c signals/signals.c
-SRC_FOLDER += parser/quotes.c
+SRC_FOLDER += parser/quotes.c parser/expand_var.c parser/parser_utils.c
 SRC_FOLDER += lexer/lexer.c tokenizer/tokenizer.c tokenizer/tkn_to_args.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
 	      built_ins/ft_echo.c built_ins/ft_getenv.c \
 	      built_ins/ft_pwd.c
 SRC_FOLDER += built_ins/builtins_utils.c
-SRC_FOLDER += exec/exec.c exec/exec_utils.c
+SRC_FOLDER += exec/exec.c exec/exec_utils.c exec/find_cmd_path.c
 # Agregamos las rutas de headers
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 

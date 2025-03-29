@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/29 17:38:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:55:39 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	ft_free_tokens(curr_tkn);
 }
 
-static void	lines(char *line, t_shell *shell, char **envp, int *last_exit_status)
+//TODO mirar nuestro exit que pasa
+static void	lines(char *line, t_shell *shell, char **envp, int *lst_exit_status)
 {
 	if (ft_strcmp(line, "exit") == 0)
 	{
+		exit(EXIT_SUCCESS);
 		free(line);
 		return ;
 	}
@@ -57,7 +59,7 @@ static void	lines(char *line, t_shell *shell, char **envp, int *last_exit_status
 	{
 		add_history(line);
 		handle_commands(line, shell, envp);
-		*last_exit_status = (*last_exit_status + 1) % 256;
+		*lst_exit_status = (*lst_exit_status + 1) % 256;
 	}
 	free(line);
 }
@@ -73,11 +75,11 @@ int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
 	char	*line;
-	int		last_exit_status;
+	int		lst_exit_status;
 
 	(void)argc;
 	(void)argv;
-	last_exit_status = 0;
+	lst_exit_status = 0;
 	shell = init_shell();
 	shell->env = convert_env(envp);
 	while (1)
@@ -88,7 +90,7 @@ int	main(int argc, char *argv[], char **envp)
 			cleanup_and_exit(shell);
 			return (0);
 		}
-		lines(line, shell, envp, &last_exit_status);
+		lines(line, shell, envp, &lst_exit_status);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;
 	}
