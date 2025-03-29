@@ -49,18 +49,4 @@ void	ft_echo(t_tkn *tokens)
 	if (!option_n)
 		write(1, "\n", 1);
 }
-/*
-void	ft_echo(t_tkn *tokens)
-{
-	if (tokens->next && ft_strcmp(tokens->next->value, "-n") == 0)
-		tokens = tokens->next;
-	while (tokens)
-	{
-		if (tokens->type == TOKEN_WORD)
-			ft_putstr_fd(tokens->value, 1);
-		if (tokens->next)
-			write(1, " ", 1);
-		tokens = tokens->next;
-	}
-	write(1, "\n", 1);
-}*/
+

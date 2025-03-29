@@ -29,7 +29,6 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	(void)envp;
 	if (!shell)
 		return ;
-	//last_exit_status = 0;
 	tokens = tokenize_input(line);
 	if (!tokens)
 		return ;

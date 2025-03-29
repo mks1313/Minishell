@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/29 13:57:52 by meghribe         ###   ########.fr        #
+#    Updated: 2025/03/23 17:48:38 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ ifeq ($(UNMAE), Darwin)
 else
 	CC = cc
 endif
-
 # Correctamente especificamos las rutas de cabecera
 CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)

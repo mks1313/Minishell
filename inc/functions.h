@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 13:59:10 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:59:10 by meghribe         ###   ########.fr       */\
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ char	**tokens_to_args(t_tkn *tokens);
 int	execute_external_command(char *cmd, char **args, t_env *env);;
 void    clean_array(char **array);
 void	ft_pwd(void);
+
 #endif
