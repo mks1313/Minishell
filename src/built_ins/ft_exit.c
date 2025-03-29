@@ -6,16 +6,22 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/15 12:47:22 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:34:38 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 // Verificar si un string es numérico
+// Permitir signos
 static int	is_numeric_argument(const char *str)
 {
-	int i = (str[0] == '-' || str[0] == '+') ? 1 : 0; // Permitir signos
+	int	i;
+
+	if (str[0] == '-' || str[0] == '+')
+		i = 1;
+	else
+		i = 0;
 	while (str[i])
 		if (!ft_isdigit(str[i++]))
 			return (0);
@@ -25,14 +31,11 @@ static int	is_numeric_argument(const char *str)
 // Manejar el valor de salida y la validación de argumentos
 int	ft_exit(char **cmd)
 {
-	int exit_code;
+	int	exit_code;
 
-	ft_putstr_fd("exit\n", 1);  // Mostrar siempre "exit"
+	ft_putstr_fd("exit\n", 1);
 	if (!cmd)
-	{
 		return (0);
-		ft_putstr_fd(GREEN "Es null\n" RES, 1);
-	}
 	if (cmd[1] && cmd[2])
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
@@ -45,6 +48,9 @@ int	ft_exit(char **cmd)
 		ft_putstr_fd(": numeric argument required\n", 2);
 		return (EXIT_NON_NUMERIC_ARG);
 	}
-	exit_code = (cmd[1]) ? ft_atoi(cmd[1]) : EXIT_SUCCESS_CODE;
+	if (cmd[1])
+		exit_code = ft_atoi(cmd[1]);
+	else
+		exit_code = EXIT_SUCCESS_CODE;
 	return (exit_code);
 }

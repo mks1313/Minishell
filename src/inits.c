@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:06:36 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 18:12:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/23 13:11:54 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_shell	*init_shell(void)
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
 		return (NULL);
-	// Inicialización de los valores de shell, si es necesario
 	shell->env = NULL;
 	shell->tkns = NULL;
 	shell->cmds = NULL;
@@ -35,14 +34,13 @@ t_cmd	*create_cmd(void)
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->cmd = NULL; // Comando vacío al principio
-	cmd->args = NULL; // Argumentos vacíos
-	cmd->redirect = NULL; // Sin redirecciones
-	cmd->is_pipe = false; // No hay tubería por defecto
-	cmd->pipe_fds[0] = -1; // Inicializar el pipe fd[0]
-	cmd->pipe_fds[1] = -1; // Inicializar el pipe fd[1]
-	cmd->pid = 0; // Sin proceso hijo por defecto
-	cmd->next = NULL; // El siguiente comando es NULL al principio
+	cmd->cmd = NULL;
+	cmd->args = NULL;
+	cmd->redirect = NULL;
+	cmd->is_pipe = false;
+	cmd->pipe_fds[0] = -1;
+	cmd->pipe_fds[1] = -1;
+	cmd->pid = 0;
+	cmd->next = NULL;
 	return (cmd);
 }
-

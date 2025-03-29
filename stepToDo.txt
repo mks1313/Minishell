@@ -17,7 +17,7 @@
     │ -> Implementar readline() para leer input       │--> OK
     │ -> Crear un bucle principal de lectura          │--> OK
     │ -> Implementar funciones básicas de manejo de   │
-    │    cadenas (ft_split para dividir comandos)     │--> ?
+    │    cadenas (ft_split?? para dividir comandos)   │--> ?
     │ -> Implementar el prompt personalizado          │--> OK
     └─────────────────────────────────────────────────┘
                     │
