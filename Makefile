@@ -32,7 +32,6 @@ ifeq ($(UNMAE), Darwin)
 else
 	CC = cc
 endif
-
 # Correctamente especificamos las rutas de cabecera
 CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
@@ -45,8 +44,10 @@ SRC_FOLDER =  main.c inits.c utils.c free_data.c signals/signals.c
 SRC_FOLDER += parser/quotes.c
 SRC_FOLDER += lexer/lexer.c tokenizer/tokenizer.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c  \
-			  built_ins/ft_echo.c built_ins/ft_getenv.c
-
+	      built_ins/ft_echo.c built_ins/ft_getenv.c \
+	      built_ins/ft_pwd.c
+SRC_FOLDER += built_ins/builtins_utils.c
+SRC_FOLDER += exec/exec.c exec/exec_utils.c
 # Agregamos las rutas de headers
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 

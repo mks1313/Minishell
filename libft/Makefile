@@ -6,13 +6,13 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/10 18:23:34 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/03/29 14:01:08 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CC = gcc
+CC = cc
 RM = rm -rf
 
 CFLAGS = -Wall -Wextra -Werror -g -Iincludes
