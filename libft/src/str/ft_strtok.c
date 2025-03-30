@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:36:13 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 13:18:36 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/30 13:28:53 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,18 @@ static char	*skip_delimiters(char *str, const char *delim)
 	return (str);
 }
 
-static char	*handle_quotes(char *str)
-{
-	char	quote;
-
-	quote = *str;
-	str++;
-	while (*str && *str != quote)
-		str++;
-	if (*str)
-		str++;
-	return (str);
-}
-
-static char	*process_token(char *str, const char *delim)
+static char	*find_next_token(char *str, const char *delim)
 {
 	while (*str)
 	{
-		if (*str == '\'' || *str == '\"')
-			str = handle_quotes(str);
-		else if (ft_strchr(delim, *str))
-			break ;
-		else
-			str++;
+		if (ft_strchr(delim, *str))
+			return (str);
+		str++;
 	}
 	return (str);
 }
 
-char	*ft_strtok_quotes(char *str, const char *delim)
+char	*ft_strtok(char *str, const char *delim)
 {
 	static char	*last;
 	char		*start;
@@ -57,7 +41,7 @@ char	*ft_strtok_quotes(char *str, const char *delim)
 		return (NULL);
 	str = skip_delimiters(str, delim);
 	start = str;
-	str = process_token(str, delim);
+	str = find_next_token(str, delim);
 	if (*str)
 	{
 		*str = '\0';

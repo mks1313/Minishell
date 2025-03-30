@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/29 17:55:39 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:16:44 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	is_builtin(char *cmd)
 {
 	if (ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "env") == 0
 		|| ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "echo") == 0
-		|| ft_strcmp(cmd, "pwd") == 0)
+		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0)
 		return (1);
 	return (0);
 }
@@ -75,11 +75,11 @@ int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
 	char	*line;
-	int		lst_exit_status;
+	int		last_exit_status;
 
 	(void)argc;
 	(void)argv;
-	lst_exit_status = 0;
+	last_exit_status = 0;
 	shell = init_shell();
 	shell->env = convert_env(envp);
 	while (1)
@@ -90,7 +90,8 @@ int	main(int argc, char *argv[], char **envp)
 			cleanup_and_exit(shell);
 			return (0);
 		}
-		lines(line, shell, envp, &lst_exit_status);
+		process_input(line, shell->env, last_exit_status);
+		lines(line, shell, envp, &last_exit_status);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;
 	}
