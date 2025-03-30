@@ -6,11 +6,9 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:37:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 17:25:14 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/30 13:26:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../inc/minishell.h"
 
 #include "../inc/minishell.h"
 
@@ -27,10 +25,10 @@ t_env	*create_env_node(char *env_str)
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->key = safe_strdup(ft_strtok_quotes(env_str, "="));
+	new_node->key = safe_strdup(ft_strtok(env_str, "="));
 	if (!new_node->key || new_node->key[0] == '\0')
 		return (free(new_node), NULL);
-	new_node->value = safe_strdup(ft_strtok_quotes(NULL, "="));
+	new_node->value = safe_strdup(ft_strtok(NULL, "="));
 	if (!new_node->value)
 		return (free(new_node->key), free(new_node), NULL);
 	new_node->next = NULL;

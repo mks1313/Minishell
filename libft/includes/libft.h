@@ -6,7 +6,7 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:11:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/10 18:23:51 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/30 13:25:00 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
 char	**ft_split(char const *s, char c);
-char	*ft_strtok_quotes(char *str, const char *delim);
+char	*ft_strtok(char *str, const char *delim);
 char	*ft_strstr(const char *haystack, const char *needle);
+char	*ft_strcat(char *dest, const char *src);
+char	*ft_strcpy(char *dest, const char *src);
 // Mem
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
