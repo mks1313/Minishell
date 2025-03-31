@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 18:04:54 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:46:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
 	{
-		ft_putstr_fd(cmd, 2);
+		//ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		return (127);
 	}
