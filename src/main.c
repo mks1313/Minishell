@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/31 17:03:46 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:31:14 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	lines(char *line, t_shell *shell, char **envp, int *lst_exit_status)
 static void	cleanup_and_exit(t_shell *shell)
 {
 	free_data(shell);
-	//ft_putstr_fd("exit\n", 2);
 	clear_history();
 }
 

@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/30 12:43:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:49:25 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line)
 		ft_pwd();
 	else if (ft_strcmp(tokens->value, "export") == 0)
 		ft_export(&shell->env, tokens);
+	else if (ft_strcmp(tokens->value, "unset") == 0)
+		ft_unset(tokens, shell);
 }
 
 void	handle_external_command(t_tkn *tokens, t_shell *shell)

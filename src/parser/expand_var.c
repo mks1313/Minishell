@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/31 17:46:48 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:29:54 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,11 @@ static void	dollar(const char *input, int *i, t_env *env, int last_exit_status)
 	{
 		ft_printf("%d", last_exit_status);
 		(*i)++;
-		//handle_exit_status(i, last_exit_status);
 	}
-	//else if (input[*i] == '#')
-	//	handle_envp_count(i, env);
-	/*else if (input[*i] == '$')
-		handle_pid(i);*/
 	else if (ft_isalnum(input[*i]) || input[*i] == '_')
 		handle_variable(input, i, env);
 	else
 	{
-		//ft_putchar('$');
-		//ft_putchar(input[*i]);
 		(*i)++;
 	}
 }
@@ -73,5 +66,4 @@ void	expand_variable(const char *input, t_env *env, int last_exit_status)
 			i++;
 		}
 	}
-	//ft_putchar('\n');
 }

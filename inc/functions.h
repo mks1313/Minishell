@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 17:26:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:54:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,19 @@ t_shell	*init_shell(void);
 t_cmd	*create_cmd(void);
 //Tokens
 t_tkn	*tokenize_input(char *line);
-//Lexer
 t_tkn	*new_token(char *value, t_tkn_type type);
-void	add_token(t_tkn **tokens,const char *start, int len, t_tkn_type type);
-t_tkn	*lexer(const char *input);
-void	print_tokens(t_tkn *tokens);
 //Utils
 void	error_exit(const char *msg, int exit_code);
 void	del(void *content);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
 //Parser
-void	handle_single_quotes(const char *input);
-void	handle_double_quotes(const char *inpt, t_env *env, int last_exit_status);
+void	single_quotes(const char *input);
+void	double_quotes(const char *inpt, t_env *env, int l_e_s);
 int		count_envp(t_env *env);
-void	expand_variable(const char *input, t_env *env, int last_exit_status);
-void	process_input(const char *input, t_env *env, int last_exit_status);
-void	handle_exit_status(int *i, int last_exit_status);
+void	expand_variable(const char *input, t_env *env, int l_e_s);
+void	process_input(const char *input, t_env *env, int l_e_s);
+void	handle_exit_status(int *i, int l_e_s);
 void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);
 //Signals
@@ -50,6 +46,7 @@ void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line);
 t_env	*find_env(t_env *env_list, const char *key);
 void	set_env(t_env **env_list, const char *key, const char *value);
 void	ft_export(t_env **env_list, t_tkn *tokens);
+void	ft_unset(t_tkn *tokens, t_shell *shell);
 void	handle_external_command(t_tkn *tokens, t_shell *shell);
 // Else
 char	*skip_delimiters(char *str, const char *delimiters);

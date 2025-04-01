@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/31 16:02:11 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:33:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_single_quotes(const char *input)
+void	single_quotes(const char *input)
 {
 	int	i;
 
@@ -40,11 +40,9 @@ static void	print_var_value(char *var_name, t_env *env)
 	var_val = ft_getenv(var_name, env);
 	if (var_val)
 		ft_printf("%s", var_val);
-	//else
-	//	ft_printf("");
 }
 
-static void	handle_var_in_quotes(const char *inpt, int *i, t_env *env, int last_exit_status)
+static void	variable_in_quotes(const char *inpt, int *i, t_env *env, int l_e_s)
 {
 	int		j;
 	char	var_name[256];
@@ -52,7 +50,7 @@ static void	handle_var_in_quotes(const char *inpt, int *i, t_env *env, int last_
 	(*i)++;
 	if (inpt[*i] == '?')
 	{
-		ft_printf("%d", last_exit_status);
+		ft_printf("%d", l_e_s);
 		(*i)++;
 		return ;
 	}
@@ -66,10 +64,10 @@ static void	handle_var_in_quotes(const char *inpt, int *i, t_env *env, int last_
 	print_var_value(var_name, env);
 }
 
-static void	process_chars_inside_quotes(const char *inpt, int *i, t_env *env, int last_exit_status)
+static void	chars_inside_quotes(const char *inpt, int *i, t_env *env, int l_e_s)
 {
 	if (inpt[*i] == '$')
-		handle_var_in_quotes(inpt, i, env, last_exit_status);
+		variable_in_quotes(inpt, i, env, l_e_s);
 	else
 	{
 		ft_putchar(inpt[*i]);
@@ -77,7 +75,7 @@ static void	process_chars_inside_quotes(const char *inpt, int *i, t_env *env, in
 	}
 }
 
-void	handle_double_quotes(const char *inpt, t_env *env, int last_exit_status)
+void	double_quotes(const char *inpt, t_env *env, int l_e_s)
 {
 	int	i;
 
@@ -88,7 +86,7 @@ void	handle_double_quotes(const char *inpt, t_env *env, int last_exit_status)
 		{
 			i++;
 			while (inpt[i] && inpt[i] != '"')
-				process_chars_inside_quotes(inpt, &i, env, last_exit_status);
+				chars_inside_quotes(inpt, &i, env, l_e_s);
 			if (inpt[i] == '"')
 				ft_putchar(inpt[i++]);
 		}

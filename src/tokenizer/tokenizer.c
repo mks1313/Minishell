@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/31 17:27:26 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:34:40 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_tkn	*create_token(char *value, int type)
 	new_token = (t_tkn *)malloc(sizeof(t_tkn));
 	if (!new_token)
 		return (NULL);
+	//new_token->value = ft_strdup(value);
 	new_token->value = value;
 	new_token->type = type;
 	new_token->next = NULL;
