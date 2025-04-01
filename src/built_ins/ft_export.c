@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/30 15:12:15 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:39:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Función para encontrar una variable de entorno
+/* Función para encontrar una variable de entorno*/
 t_env	*find_env(t_env *env_list, const char *key)
 {
 	while (env_list)
@@ -24,7 +24,8 @@ t_env	*find_env(t_env *env_list, const char *key)
 	return (NULL);
 }
 
-// Función para agregar o actualizar una variable de entorno
+/* Función para agregar o actualizar una variable de entorno
+ */
 void	set_env(t_env **env_list, const char *key, const char *value)
 {
 	t_env	*var;
@@ -83,7 +84,8 @@ void	ft_export(t_env **env_list, t_tkn *tokens)
 			value = ft_strtok(NULL, "=");
 			set_env(env_list, key, value);
 		}
-		else if (ft_strchr(current->value, '+') && ft_strchr(current->value, '='))
+		else if (ft_strchr(current->value, '+')
+			&& ft_strchr(current->value, '='))
 		{
 			// Caso: export VAR+=VALUE
 			key = ft_strtok(current->value, "+=");

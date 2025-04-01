@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 17:19:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:35:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	count_envp(t_env *env)
 	return (count);
 }
 
-void	handle_exit_status(int *i, int last_exit_status)
+void	handle_exit_status(int *i, int l_e_s)
 {
-	ft_printf("%d", last_exit_status);
+	ft_printf("%d", l_e_s);
 	(*i)++;
 }
 
@@ -44,10 +44,9 @@ void	handle_envp_count(int *i, t_env *env)
 	(*i)++;
 }*/
 
-void	process_input(const char *input, t_env *env, int last_exit_status)
+void	process_input(const char *input, t_env *env, int l_e_s)
 {
-	lexer(input);
-	handle_single_quotes(input);
-	handle_double_quotes(input, env, last_exit_status);
-	expand_variable(input, env, last_exit_status);
+	single_quotes(input);
+	double_quotes(input, env, l_e_s);
+	expand_variable(input, env, l_e_s);
 }

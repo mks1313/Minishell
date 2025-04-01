@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/30 11:44:00 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/01 18:55:46 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,10 @@ INCLUDES = minishell.h shell_types.h sys_includes.h
 # Carpeta de fuentes y archivos
 SRC_FOLDER =  main.c inits.c signals/signals.c
 SRC_FOLDER += parser/quotes.c parser/expand_var.c
-SRC_FOLDER += lexer/lexer.c tokenizer/tokenizer.c tokenizer/tkn_to_args.c
+SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tkn_to_args.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c     \
 			  built_ins/ft_echo.c built_ins/ft_getenv.c built_ins/ft_pwd.c \
-			  built_ins/ft_export.c
+			  built_ins/ft_export.c built_ins/ft_unset.c
 SRC_FOLDER += exec/exec.c exec/find_cmd_path.c
 SRC_FOLDER += utils/builtins_utils.c utils/exec_utils.c utils/main_utils.c \
 			  utils/parser_utils.c utils/free_data.c
