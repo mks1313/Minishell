@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/31 15:57:37 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:26:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ t_shell	*init_shell(void);
 t_cmd	*create_cmd(void);
 //Tokens
 t_tkn	*tokenize_input(char *line);
+//Lexer
+t_tkn	*new_token(char *value, t_tkn_type type);
+void	add_token(t_tkn **tokens,const char *start, int len, t_tkn_type type);
+t_tkn	*lexer(const char *input);
+void	print_tokens(t_tkn *tokens);
 //Utils
 void	error_exit(const char *msg, int exit_code);
 void	del(void *content);
