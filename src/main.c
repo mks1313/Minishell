@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/02 16:14:47 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:32:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 		handle_commands(line, shell, envp);
 		*l_e_s = (*l_e_s + 1) % 256;
 	}
-	//free(line);
+	free(line);
 }
 
 static void	cleanup_and_exit(t_shell *shell)
