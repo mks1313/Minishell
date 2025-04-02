@@ -6,7 +6,7 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:11:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/30 13:25:00 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:02:42 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <ctype.h>
 # include <string.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -49,6 +50,7 @@ char	*ft_itoa(int n);
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
+long	ft_atol(const char *s);
 // Str
 char	*ft_strrchr(const char *s, int c);
 size_t	ft_strlen(const char *s);

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:35:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:35:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ int	count_envp(t_env *env)
 	}
 	return (count);
 }
-
+/*
 void	handle_exit_status(int *i, int l_e_s)
 {
 	ft_printf("%d", l_e_s);
 	(*i)++;
-}
-
+}*/
+/*
 void	handle_envp_count(int *i, t_env *env)
 {
-	ft_printf("%d", count_envp(env));
+	ft_printf("%d hola", count_envp(env));
 	(*i)++;
-}
+}*/
 
 /*void	handle_pid(int *i)
 {
