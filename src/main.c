@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/01 18:31:14 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:14:47 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,21 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 }
 
 //TODO mirar nuestro exit que pasa
-static void	lines(char *line, t_shell *shell, char **envp, int *lst_exit_status)
+static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 {
 	if (ft_strcmp(line, "exit") == 0)
 	{
+		//free(line);
 		exit(EXIT_SUCCESS);
-		free(line);
 		return ;
 	}
 	if (*line)
 	{
 		add_history(line);
 		handle_commands(line, shell, envp);
-		*lst_exit_status = (*lst_exit_status + 1) % 256;
+		*l_e_s = (*l_e_s + 1) % 256;
 	}
-	free(line);
+	//free(line);
 }
 
 static void	cleanup_and_exit(t_shell *shell)
@@ -74,11 +74,11 @@ int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
 	char	*line;
-	int		last_exit_status;
+	int		l_e_s;
 
 	(void)argc;
 	(void)argv;
-	last_exit_status = 0;
+	l_e_s = 0;
 	shell = init_shell();
 	shell->env = convert_env(envp);
 	while (1)
@@ -89,8 +89,8 @@ int	main(int argc, char *argv[], char **envp)
 			cleanup_and_exit(shell);
 			return (0);
 		}
-		process_input(line, shell->env, last_exit_status);
-		lines(line, shell, envp, &last_exit_status);
+		process_input(line, shell->env, l_e_s);
+		lines(line, shell, envp, &l_e_s);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;
 	}

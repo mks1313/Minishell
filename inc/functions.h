@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:54:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:21:20 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_echo(t_tkn *tokens);
 t_env	*convert_env(char **envp);
 void	ft_env(t_env *env_list);
 char	*ft_getenv(const char *name, t_env *env);
-int		ft_exit(char **cmd);
+void	ft_exit(t_tkn *tokens, t_shell *shell);
 void	ft_cd(t_tkn *tokens, t_shell *shell);
 void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line);
 t_env	*find_env(t_env *env_list, const char *key);

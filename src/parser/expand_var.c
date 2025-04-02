@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:29:54 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:41:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void	handle_variable(const char *input, int *i, t_env *env)
 		ft_printf("");
 }
 
-static void	dollar(const char *input, int *i, t_env *env, int last_exit_status)
+static void	dollar(const char *input, int *i, t_env *env, int l_e_s)
 {
 	(*i)++;
 	if (input[*i] == '?')
 	{
-		ft_printf("%d", last_exit_status);
+		ft_printf("%d", l_e_s);
 		(*i)++;
 	}
 	else if (ft_isalnum(input[*i]) || input[*i] == '_')
@@ -51,7 +51,7 @@ static void	dollar(const char *input, int *i, t_env *env, int last_exit_status)
 	}
 }
 
-void	expand_variable(const char *input, t_env *env, int last_exit_status)
+void	expand_variable(const char *input, t_env *env, int l_e_s)
 {
 	int	i;
 
@@ -59,7 +59,7 @@ void	expand_variable(const char *input, t_env *env, int last_exit_status)
 	while (input[i])
 	{
 		if (input[i] == '$')
-			dollar(input, &i, env, last_exit_status);
+			dollar(input, &i, env, l_e_s);
 		else
 		{
 			ft_putchar(input[i]);

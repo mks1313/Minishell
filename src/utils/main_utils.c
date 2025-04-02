@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/01 18:49:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:23:02 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line)
 {
 	if (ft_strcmp(tokens->value, "exit") == 0)
 	{
-		printf("A ver este if sirve de algo???");
 		free(line);
-		ft_exit(NULL);
+		ft_exit(tokens, shell);
 	}
 	else if (ft_strcmp(tokens->value, "env") == 0)
 		ft_env(shell->env);

@@ -6,7 +6,7 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/03/30 13:11:22 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/02 16:01:28 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJ_DIR = obj/
 # Archivos fuente organizados por  carpetas
 SRCS =  \
 		src/num/ft_isalnum.c src/num/ft_atoi.c src/num/ft_isdigit.c \
-		src/num/ft_itoa.c src/num/ft_utoa.c \
+		src/num/ft_itoa.c src/num/ft_utoa.c src/num/ft_atol.c\
 		src/char/ft_isalpha.c src/char/ft_isascii.c src/char/ft_isprint.c \
 		src/char/ft_tolower.c src/char/ft_toupper.c src/char/ft_putchar.c \
 		src/str/ft_strlen.c src/str/ft_strlcpy.c src/str/ft_strlcat.c \
