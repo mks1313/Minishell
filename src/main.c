@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+\/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -89,11 +89,23 @@ int	main(int argc, char *argv[], char **envp)
 			cleanup_and_exit(shell);
 			return (0);
 		}
+		ft_lexer(line, lexer);
+		if (ft_parse() ); // sin error parsing
+		{
+			her_doc(cmd);
+			if (!expandor(*cmd, envlist))
+			{
+				executor(cmd, envlist, my_env);
+			}
+	
+		}
+		frees();
 		process_input(line, shell->env, l_e_s);
 		lines(line, shell, envp, &l_e_s);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;
 	}
+	free(line);
 	free_data(shell);
 	return (0);
 }

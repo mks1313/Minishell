@@ -20,7 +20,7 @@ typedef enum e_pos
 }	t_pos;
 
 /* Tokens */
-typedef enum e_tkn_type
+/*typedef enum e_tkn_type
 {
 	TOKEN_UNSET,
 	TOKEN_WORD,
@@ -28,10 +28,11 @@ typedef enum e_tkn_type
 	TOKEN_QUOTE,
 	TOKEN_DQUOTE,
 }	t_tkn_type;
+*/
 
 typedef enum e_opertype
 {
-	OP_UNSET,
+	OP_NOTH,
 	OP_LESS, // <
 	OP_GREAT,// >
 	OP_DLESS,// <<
@@ -39,31 +40,53 @@ typedef enum e_opertype
 	OP_PIPE, // |
 }	t_opertype;
 
-typedef struct s_tkn
+/*typedef struct s_tkn
 {
 	char				*value; // Valor del token (ej: "echo", ">", "file.txt")
 	t_tkn_type			type; // Tipo de token (WORD, OPERATOR, etc.)
 	bool				terminated; // Indica si el token está terminado
 	struct s_tkn		*next; // Siguiente token en la lista
 }	t_tkn;
+*/
 
 /* Commands & Redirections */
+
+typedef enum s_type_redirect
+{
+	NOTH_REDIR,
+	OUTFILE,
+	APPEND,
+	HERDOC,
+	INFILE
+
+} t_type_redirect;
+
+typedef struct s_lexer
+{
+	char *value;
+	t_opertype type;
+	struct s_lexer *next;
+
+} t_lexer;
+
+
 typedef struct s_redirect
 {
 	t_opertype			type; // Tipo de redirección (<, >, <<, >>)
 	char				*file;// Archivo asociado a la redirección
-	int					fd;// File descriptor
+	//int					fd;// File descriptor
 	struct s_redirect	*next;// Siguiente redirección en la lista
 }	t_redirect;
 
+
 typedef struct s_cmd
 {
-	char				*cmd; // Comando a ejecutar (ej: "echo")
+	//char				*cmd; // Comando a ejecutar (ej: "echo")
 	char				**args; // Argumentos del comando (ej: {"-n", "Hola"})
 	t_redirect			*redirect; // Lista de redirecciones
-	bool				is_pipe; // Indica si hay un pipe después de este comand
-	int					pipe_fds[2]; // File descriptors para pipes
-	pid_t				pid;// PID del proceso hijo
+	//bool				is_pipe; // Indica si hay un pipe después de este comand
+	//int					pipe_fds[2]; // File descriptors para pipes
+	//pid_t				pid;// PID del proceso hijo
 	struct s_cmd		*next;// Siguiente comando en la lista
 }	t_cmd;
 
@@ -75,14 +98,24 @@ typedef struct s_env
 	struct s_env		*next;// Siguiente variable en la lista
 }	t_env;
 
+typedef struct s_pipe
+{
+	int fd[2];
+	pid_t *pid;
+	int n_commands;
+	int std_int;
+	int std_out;
+
+} t_pipe;
+
 /* Shell */
-typedef struct s_shell
+/*typedef struct s_shell
 {
 	t_env				*env;// Variables de entorno
 	t_tkn				*tkns;// Lista de tokens (para parsing)
 	t_cmd				*cmds;// Lista de comandos a ejecutar
 	int					exit_status;// Estado de salida del último comando
-	char				*cur_dir;// Directorio actual
+	//char				*cur_dir;// Directorio actual
 }	t_shell;
-
+*/
 #endif
