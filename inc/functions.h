@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/05 17:06:41 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:16:39 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	del(void *content);
 //Parser
 void	single_quotes(const char *input);
 void	double_quotes(const char *inpt, t_env *env, int l_e_s);
-int		count_envp(t_env *env);
+//int		count_envp(t_env *env);
 void	expand_variable(const char *input, t_env *env, int l_e_s);
 void	process_input(const char *input, t_env *env, int l_e_s);
 void	handle_exit_status(int *i, int l_e_s);

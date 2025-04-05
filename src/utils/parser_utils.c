@@ -6,12 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/05 13:25:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:19:05 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 int	count_envp(t_env *env)
 {
 	int	count;
@@ -23,7 +24,7 @@ int	count_envp(t_env *env)
 		env = env->next;
 	}
 	return (count);
-}
+}*/
 /*
 void	handle_exit_status(int *i, int l_e_s)
 {
