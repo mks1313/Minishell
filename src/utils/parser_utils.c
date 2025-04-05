@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/02 14:35:51 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 13:25:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	handle_envp_count(int *i, t_env *env)
 
 void	process_input(const char *input, t_env *env, int l_e_s)
 {
-	single_quotes(input);
-	double_quotes(input, env, l_e_s);
+	//single_quotes(input);
+	//double_quotes(input, env, l_e_s);
 	expand_variable(input, env, l_e_s);
 }
