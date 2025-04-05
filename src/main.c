@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/02 16:32:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:52:38 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 //TODO mirar nuestro exit que pasa
 static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 {
-	if (ft_strcmp(line, "exit") == 0)
+	/*if (ft_strcmp(line, "exit") == 0)
 	{
 		//free(line);
 		exit(EXIT_SUCCESS);
 		return ;
-	}
+	}*/
 	if (*line)
 	{
 		add_history(line);

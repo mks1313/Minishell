@@ -6,12 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:33:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 13:20:12 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	single_quotes(const char *input)
 {
 	int	i;
@@ -19,7 +19,7 @@ void	single_quotes(const char *input)
 	i = 0;
 	while (input[i])
 	{
-		ft_putchar(input[i]);
+		//ft_putchar(input[i]);
 		if (input[i] == '\'')
 		{
 			i++;
@@ -31,7 +31,7 @@ void	single_quotes(const char *input)
 		else
 			i++;
 	}
-}
+}*/
 
 static void	print_var_value(char *var_name, t_env *env)
 {

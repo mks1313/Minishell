@@ -24,18 +24,18 @@
                     ▼
     ┌─────────────────────────────────────────────────┐
     │ Paso 3: Parseo básico del input                 │
-    │ -> Dividir la entrada en tokens usando ft_strtok│--> Processing
-    │ -> Manejar comillas simples y dobles            │--> OK?
-    │ -> Manejar caracteres especiales (|, >, <, etc.)│
+    │ -> Dividir la entrada en tokens usando ft_strtok│--> OK
+    │ -> Manejar comillas simples y dobles            │--> OK, mejorar?
+    │ -> Manejar caracteres especiales (|, >, <, etc.)│--> En proceso
     └─────────────────────────────────────────────────┘
                     │
                     ▼
     ┌─────────────────────────────────────────────────┐
     │ Paso 4: Implementar built-ins                   │
-    │ -> cd, echo, pwd, export, unset, env, exit      │
+    │ -> cd, echo, pwd, export, unset, env, exit      │--> OK
     │ -> Crear funciones individuales para cada       │
-    │    built-in dentro de la carpeta `built_ins`    │
-    │ -> Manejar variables de entorno                 │
+    │    built-in dentro de la carpeta `built_ins`    │--> OK
+    │ -> Manejar variables de entorno                 │--> OK
     └─────────────────────────────────────────────────┘
                     │
                     ▼
@@ -72,8 +72,8 @@
                     ▼
     ┌────────────────────────────────────────────────-─┐
     │ Paso 9: Expansión de variables                   │
-    │ -> Implementar expansión de variables ($VAR)     │
-    │ -> Manejar $? para el estado de salida del último│
+    │ -> Implementar expansión de variables ($VAR)     │--> A medias
+    │ -> Manejar $? para el estado de salida del último│--> A medias
     │    comando ejecutado                             │
     └─────────────────────────────────────────────────-┘
                     │
