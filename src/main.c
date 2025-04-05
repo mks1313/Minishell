@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/05 19:20:41 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/04/05 20:07:55 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ static void	cleanup_and_exit(t_shell *shell)
 	free_data(shell);
 	clear_history();
 }*/
-static void	frees(void) { }
+static void	frees(void)
+{
+}
+
 void	executor() { }
 void	ft_lexer(char *line, t_lexer *lexer) 
 {
@@ -133,9 +136,14 @@ int	main(int argc, char *argv[], char **envp)
 		//process_input(line, my_env, l_e_s);
 		//lines(line, shell, envp, &l_e_s);
 		if (ft_strcmp(line, "exit") == 0)
+		{
+			free(line);
 			break ;
+		}
 	}
-	free(line);
+	free(lexer);
+	free(cmd);
+	//free(line);
 	//free_data(shell);
 	return (0);
 }
