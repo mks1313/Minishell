@@ -6,12 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:06:36 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 13:11:54 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:21:00 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 t_shell	*init_shell(void)
 {
 	t_shell	*shell;
@@ -43,4 +44,4 @@ t_cmd	*create_cmd(void)
 	cmd->pid = 0;
 	cmd->next = NULL;
 	return (cmd);
-}
+}*/

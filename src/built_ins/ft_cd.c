@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 17:38:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:26:14 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // Ahora funciona con t_env
 // Si hay un argumento, intentar cambiar al directorio indicado
 // Si no puede cambiar de directorio
+/*
 void	ft_cd(t_tkn *tokens, t_shell *shell)
 {
 	char	*home;
@@ -33,4 +34,4 @@ void	ft_cd(t_tkn *tokens, t_shell *shell)
 		if (chdir(tokens->next->value) == -1)
 			perror("minishell: cd");
 	}
-}
+}*/

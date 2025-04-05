@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/05 12:57:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:25:41 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <limits.h>
 
 // Función auxiliar: verifica si el argumento es un número válido
+/*
 static int	is_numeric_argument(const char *str)
 {
 	int	i;
@@ -31,15 +32,17 @@ static int	is_numeric_argument(const char *str)
 		i++;
 	}
 	return (1);
-}
+}*/
 
 // Función para manejar la salida del shell correctamente
+/*
 void	exit_shell(t_shell *shell, int exit_code)
 {
 	free_data(shell); // Liberar memoria antes de salir
 	exit(exit_code);
-}
+}*/
 
+/*
 void	ft_exit(t_tkn *tokens, t_shell *shell)
 {
 	long	exit_code;
@@ -53,9 +56,7 @@ void	ft_exit(t_tkn *tokens, t_shell *shell)
 		current = current->next;
 	}
 	if (arg_count == 0)
-	{
 		exit_shell(shell, EXIT_SUCCESS);
-	}
 	if (arg_count > 1)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
@@ -74,4 +75,4 @@ void	ft_exit(t_tkn *tokens, t_shell *shell)
 	if (exit_code < 0)
 		exit_code += 256;
 	exit_shell(shell, exit_code);
-}
+}*/

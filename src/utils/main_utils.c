@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/02 16:23:02 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:28:32 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*skip_delimiters(char *str, const char *delimiters)
 }
 
 //TODO revisar este if, de exit, porque no se cumple . mirar bien
+/*
 void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line)
 {
 	if (ft_strcmp(tokens->value, "exit") == 0)
@@ -59,4 +60,4 @@ void	handle_external_command(t_tkn *tokens, t_shell *shell)
 		shell->exit_status = exec_cmd(tokens->value, args, shell->env);
 		clean_array(args);
 	}
-}
+}*/

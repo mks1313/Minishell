@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/05 18:09:05 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:20:41 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,13 @@ int	main(int argc, char *argv[], char **envp)
 
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	l_e_s = 0;
 	//shell = init_shell();
+	cmd = (t_cmd *)malloc(sizeof(t_cmd *));
+	lexer = (t_lexer *)malloc(sizeof(t_lexer *));
+	(void)my_env;
+	(void)l_e_s;
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
@@ -125,7 +130,7 @@ int	main(int argc, char *argv[], char **envp)
 	
 		}
 		frees();
-		process_input(line, my_env, l_e_s);
+		//process_input(line, my_env, l_e_s);
 		//lines(line, shell, envp, &l_e_s);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;

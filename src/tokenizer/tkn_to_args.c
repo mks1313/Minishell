@@ -6,12 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:10:04 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 17:11:07 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:23:29 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 char	**tokens_to_args(t_tkn *tokens)
 {
 	int		count;
@@ -39,4 +39,4 @@ char	**tokens_to_args(t_tkn *tokens)
 	}
 	args[i] = NULL;
 	return (args);
-}
+}*/

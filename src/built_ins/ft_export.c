@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:39:17 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:27:26 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	set_env(t_env **env_list, const char *key, const char *value)
 }
 
 // Función principal de export
+/*
 void	ft_export(t_env **env_list, t_tkn *tokens)
 {
 	t_env	*var;
@@ -108,4 +109,4 @@ void	ft_export(t_env **env_list, t_tkn *tokens)
 		}
 		current = current->next;
 	}
-}
+}*/

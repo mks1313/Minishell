@@ -6,12 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:34:40 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:23:18 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 static t_tkn	*create_token(char *value, int type)
 {
 	t_tkn	*new_token;
@@ -98,4 +99,4 @@ t_tkn	*tokenize_input(char *line)
 			add_token_to_list(token, line, start, str);
 	}
 	return (token[HEAD]);
-}
+}*/

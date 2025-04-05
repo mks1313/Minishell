@@ -6,12 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:46 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 19:12:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:27:56 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 static void	remove_env_var(t_env **env, const char *key)
 {
 	t_env	*curr;
@@ -52,4 +53,4 @@ void	ft_unset(t_tkn *tokens, t_shell *shell)
 		remove_env_var(&shell->env, curr_tkn->value);
 		curr_tkn = curr_tkn->next;// Avanzamos al siguiente token
 	}
-}
+}*/
