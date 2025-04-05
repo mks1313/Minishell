@@ -6,12 +6,14 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/05 17:11:28 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:09:05 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+// Esta comentada para no pasar por el error: 'is_builtin' defined but not ussed
 static int	is_builtin(char *cmd)
 {
 	if (ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "env") == 0
@@ -19,8 +21,9 @@ static int	is_builtin(char *cmd)
 		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0)
 		return (1);
 	return (0);
-}
+}*/
 
+/*
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
 	t_tkn	*tokens;
@@ -44,17 +47,18 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 		tokens = tokens->next;
 	}
 	ft_free_tokens(curr_tkn);
-}
+}*/
 
 //TODO mirar nuestro exit que pasa
+/*
 static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 {
-	/*if (ft_strcmp(line, "exit") == 0)
-	{
-		//free(line);
-		exit(EXIT_SUCCESS);
-		return ;
-	}*/
+	//if (ft_strcmp(line, "exit") == 0)
+	//{
+			//free(line);
+		//exit(EXIT_SUCCESS);
+		//return ;
+	//}
 	if (*line)
 	{
 		add_history(line);
@@ -68,16 +72,29 @@ static void	cleanup_and_exit(t_shell *shell)
 {
 	free_data(shell);
 	clear_history();
-}
-
-void	executor()
+}*/
+static void	frees(void) { }
+void	executor() { }
+void	ft_lexer(char *line, t_lexer *lexer) 
 {
-
+	(void)line;
+	(void)lexer;
 }
+
+void	her_doc(t_cmd *cmd)
+{ 
+	(void)cmd;
+}
+
+int	ft_parse() { return (1);}
+int	expansor() { return (1);}
+
 int	main(int argc, char *argv[], char **envp)
 {
 	//t_shell	*shell;
-	t_env	*env;
+	t_lexer	*lexer;
+	t_env	*my_env;
+	t_cmd	*cmd;
 	char	*line;
 	int		l_e_s;
 
@@ -85,32 +102,35 @@ int	main(int argc, char *argv[], char **envp)
 	(void)argv;
 	l_e_s = 0;
 	//shell = init_shell();
-	t_env = convert_env(envp);
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
 		if (!line)
 		{
-			cleanup_and_exit(shell);
+			// cleanup_and_exit(shell);
 			return (0);
 		}
 		ft_lexer(line, lexer);
-		if (ft_parse() ); // sin error parsing
+		if (ft_parse()) // sin error parsing
 		{
 			her_doc(cmd);
-			if (!expandor(*cmd, envlist))
+			// TODO: Question --> Supongo que la palabra es expansor y no expandor, no?
+			// TODO: ENVLIST Y MY_ENV??? ENVLIST debe ser envp? o otra copia nuestra?
+			// TODO: NO BORRAR
+			/*
+			if (!expansor(*cmd, envlist))
 			{
 				executor(cmd, envlist, my_env);
-			}
+			}*/
 	
 		}
 		frees();
-		process_input(line, shell->env, l_e_s);
-		lines(line, shell, envp, &l_e_s);
+		process_input(line, my_env, l_e_s);
+		//lines(line, shell, envp, &l_e_s);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;
 	}
 	free(line);
-	free_data(shell);
+	//free_data(shell);
 	return (0);
 }
