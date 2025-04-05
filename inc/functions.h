@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/02 16:21:20 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:02:36 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FUNCTIONS_H
 
 //Init Shell
-t_shell	*init_shell(void);
+//t_shell	*init_shell(void);
 t_cmd	*create_cmd(void);
 //Tokens
 t_tkn	*tokenize_input(char *line);

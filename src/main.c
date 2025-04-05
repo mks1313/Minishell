@@ -1,4 +1,4 @@
-\/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/02 16:32:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:01:56 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,22 @@ static void	cleanup_and_exit(t_shell *shell)
 	clear_history();
 }
 
+void	executor()
+{
+
+}
 int	main(int argc, char *argv[], char **envp)
 {
-	t_shell	*shell;
+	//t_shell	*shell;
+	t_env	*env;
 	char	*line;
 	int		l_e_s;
 
 	(void)argc;
 	(void)argv;
 	l_e_s = 0;
-	shell = init_shell();
-	shell->env = convert_env(envp);
+	//shell = init_shell();
+	t_env = convert_env(envp);
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
