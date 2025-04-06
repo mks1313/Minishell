@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 16:30:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:55:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_env
 /*  ===============
 	MOTHER SHELL ---sobra????
 	=============== */
-
+/*
 typedef struct s_shell
 {
 	t_env				*env;// Variables de entorno
@@ -110,6 +110,6 @@ typedef struct s_shell
 	t_cmd				*cmds;// Lista de comandos a ejecutar
 	int					exit_status;// Estado de salida del último comando
 	char				*cur_dir;// Directorio actual
-}	t_shell;
+}	t_shell;*/
 
 #endif

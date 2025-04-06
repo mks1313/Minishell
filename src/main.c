@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/06 16:19:33 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 17:00:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_builtin(char *cmd)
 	return (0);
 }
 
-static void	handle_commands(char *line, t_shell *shell, char **envp)
+/*static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
 	t_tkn	*tokens;
 	t_tkn	*curr_tkn;
@@ -46,15 +46,15 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	ft_free_tokens(curr_tkn);
 }
 
-//TODO mirar nuestro exit que pasa
+//TODO mirar nuestro exit que pasa, tambien quitar shell
 static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 {
-	/*if (ft_strcmp(line, "exit") == 0)
+	if (ft_strcmp(line, "exit") == 0)
 	{
 		//free(line);
 		exit(EXIT_SUCCESS);
 		return ;
-	}*/
+	}
 	if (*line)
 	{
 		add_history(line);
@@ -68,32 +68,29 @@ static void	cleanup_and_exit(t_shell *shell)
 {
 	free_data(shell);
 	clear_history();
-}
+}*/
 
 int	main(int argc, char *argv[], char **envp)
 {
-	t_shell	*shell;
 	char	*line;
 	int		l_e_s;
 
 	(void)argc;
 	(void)argv;
 	l_e_s = 0;
-	shell = init_shell();
-	shell->env = convert_env(envp);
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
 		if (!line)
 		{
-			cleanup_and_exit(shell);
+			//cleanup_and_exit(shell);
 			return (0);
 		}
-		process_input(line, shell->env, l_e_s);
-		lines(line, shell, envp, &l_e_s);
+		//process_input(line, shell->env, l_e_s);
+		//lines(line, shell, envp, &l_e_s);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;
 	}
-	free_data(shell);
+	//free_data(shell);
 	return (0);
 }
