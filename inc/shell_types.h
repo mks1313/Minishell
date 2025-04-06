@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 14:43:47 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:30:38 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_env
 }	t_env;
 
 /*  ===============
-	MOTHER SHELL
+	MOTHER SHELL ---sobra????
 	=============== */
 
 typedef struct s_shell

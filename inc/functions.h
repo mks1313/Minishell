@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/05 16:19:20 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:26:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	error_exit(const char *msg, int exit_code);
 void	del(void *content);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
+void	change_env_variable(t_env *env, char *key, char *value);
+char	*get_env_variable_value(t_env *env, char *key);
 //Parser
 void	single_quotes(const char *input);
 void	double_quotes(const char *inpt, t_env *env, int l_e_s);

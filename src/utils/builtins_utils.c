@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:43 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/02 14:25:24 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:21:30 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -49,4 +49,31 @@ void	builtin_error(char *cmd, char *arg, char *msg)
 		ft_putstr_fd(msg, 2);
 	}
 	ft_putstr_fd("\n", 2);
+}
+
+void	change_env_variable(t_env *env, char *key, char *value)
+{
+	t_env	*copy;
+
+	copy = env;
+	while (copy)
+	{
+		if (ft_strcmp(copy->key, key) == 0)
+			copy->value = value;
+		copy = copy->next;
+	}
+}
+
+char	*get_env_variable_value(t_env *env, char *key)
+{
+	t_env	*copy;
+
+	copy = env;
+	while (copy)
+	{
+		if (ft_strcmp(copy->key, key) == 0)
+			return (copy->value);
+		copy = copy->next;
+	}
+	return (NULL);
 }

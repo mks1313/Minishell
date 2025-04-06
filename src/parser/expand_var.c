@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/05 13:30:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:39:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ void	expand_variable(const char *input, t_env *env, int l_e_s)
 			dollar(input, &i, env, l_e_s);
 		else
 		{
+			/*while (input[i] != '\0'&& input[i] != ' ')
+				i++;
+			if (!input[i])
+				return ;*/
 			ft_putchar(input[i]);
 			i++;
 		}
