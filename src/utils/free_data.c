@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 17:54:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:42:39 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	ft_free_tokens(t_tkn *tokens)
  * free_redirect_list - Libera la lista de redireccionamientos de un comando.
  * @redirect: Puntero a la lista de redireccionamientos.
  */
-void	free_redirect_list(t_redirect *redirect)
+void	free_redirect_list(t_redir *redir)
 {
-	t_redirect	*tmp;
+	t_redir	*tmp;
 
-	while (redirect)
+	while (redir)
 	{
-		tmp = redirect->next;
-		free(redirect->file);
-		free(redirect);
-		redirect = tmp;
+		tmp = redir->next;
+		free(redir->file);
+		free(redir);
+		redir = tmp;
 	}
 }
 
@@ -84,7 +84,7 @@ void	free_cmd_list(t_cmd *cmd_list)
 				free(cmd_list->args[i++]);
 			free(cmd_list->args);
 		}
-		free_redirect_list(cmd_list->redirect);
+		free_redirect_list(cmd_list->redirects);
 		free(cmd_list);
 		cmd_list = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 15:44:02 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:43:47 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,55 +19,79 @@ typedef enum e_pos
 	TAIL,
 }	t_pos;
 
-/* Tokens */
+/* ====================
+   TOKENIZER & PARSER
+   ==================== */
+
 typedef enum e_tkn_type
 {
-	TOKEN_UNSET,
-	TOKEN_WORD,
-	TOKEN_OPERATOR,
-	TOKEN_QUOTE,
-	TOKEN_DQUOTE,
+	TOK_WORD,
+	TOK_OPERATOR,
+	TOK_PIPE,
+	TOK_REDIR_IN, // <
+	TOK_REDIR_OUT, // >
+	TOK_APPEND, // >>
+	TOK_HEREDOC, // <<
+	TOK_EOF,
 }	t_tkn_type;
-
-typedef enum e_opertype
-{
-	OP_UNSET,
-	OP_LESS, // <
-	OP_GREAT,// >
-	OP_DLESS,// <<
-	OP_DGREAT,// >>
-	OP_PIPE, // |
-}	t_opertype;
 
 typedef struct s_tkn
 {
 	char				*value; // Valor del token (ej: "echo", ">", "file.txt")
 	t_tkn_type			type; // Tipo de token (WORD, OPERATOR, etc.)
-	bool				terminated; // Indica si el token está terminado
+	bool				in_quote; // Indica si Eesta entrecomillado
 	struct s_tkn		*next; // Siguiente token en la lista
 }	t_tkn;
 
-/* Commands & Redirections */
-typedef struct s_redirect
+/* ================
+   REDIRECCTIONS
+   ================ */
+
+typedef enum e_redir_type
 {
-	t_opertype			type; // Tipo de redirección (<, >, <<, >>)
-	char				*file;// Archivo asociado a la redirección
-	int					fd;// File descriptor
-	struct s_redirect	*next;// Siguiente redirección en la lista
-}	t_redirect;
+	REDIR_IN, // <
+	REDIR_OUT, // >
+	REDIR_APPEND, // >>
+	REDIR_HEREDOC, // <<
+}	t_redir_type;
+
+typedef struct s_redir
+{
+	t_redir_type			type; // Tipo de redirección (<, >, <<, >>)
+	char					*file;// Archivo asociado a la redirección
+	int						fd;// File descriptor
+	struct s_redir		*next;// Siguiente redirección en la lista
+}	t_redir;
+
+/* ============
+   COMMANDS
+   ============ */
 
 typedef struct s_cmd
 {
 	char				*cmd; // Comando a ejecutar (ej: "echo")
 	char				**args; // Argumentos del comando (ej: {"-n", "Hola"})
-	t_redirect			*redirect; // Lista de redirecciones
-	bool				is_pipe; // Indica si hay un pipe después de este comand
-	int					pipe_fds[2]; // File descriptors para pipes
-	pid_t				pid;// PID del proceso hijo
+	t_redir			*redirects; // Lista de redirecciones
 	struct s_cmd		*next;// Siguiente comando en la lista
 }	t_cmd;
 
-/* Enviroment */
+/* ===================
+   PIPES / EJECUTION
+   =================== */
+
+typedef struct s_pipe
+{
+	int		fd[2]; //Pipe actual
+	pid_t	*pids; // Array de pids de hijos
+	int		n_cmds; // Cantidad de comandos
+	int		stdin_backup; // Backup de stdin
+	int		stdout_backup; // Backup de stduot
+}	t_pipe;
+
+/* ================
+   ENVIRONMENT
+   ================ */
+
 typedef struct s_env
 {
 	char				*key;// Nombre de la variable (ej: "PATH")
@@ -75,7 +99,10 @@ typedef struct s_env
 	struct s_env		*next;// Siguiente variable en la lista
 }	t_env;
 
-/* Shell */
+/*  ===============
+	MOTHER SHELL
+	=============== */
+
 typedef struct s_shell
 {
 	t_env				*env;// Variables de entorno

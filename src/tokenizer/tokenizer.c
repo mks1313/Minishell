@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:34:40 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:27:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	add_token_to_list(t_tkn **token, char *line, char *start, char *str)
 	token_value = ft_substr(line, start - line, str - start);
 	if (!token_value)
 		return ;
-	new_token = create_token(token_value, TOKEN_WORD);
+	new_token = create_token(token_value, TOK_WORD);
 	if (!token[HEAD])
 		token[HEAD] = new_token;
 	else

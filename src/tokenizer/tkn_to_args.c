@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:10:04 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 17:11:07 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:28:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**tokens_to_args(t_tkn *tokens)
 
 	count = 0;
 	curr = tokens;
-	while (curr && curr->type != TOKEN_OPERATOR)
+	while (curr && curr->type != TOK_OPERATOR)
 	{
 		count++;
 		curr = curr->next;

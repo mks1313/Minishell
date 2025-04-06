@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 15:52:08 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:28:44 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_echo(t_tkn *tokens)
 	}
 	while (tokens)
 	{
-		if (tokens->type == TOKEN_WORD)
+		if (tokens->type == TOK_WORD)
 			ft_putstr_fd(tokens->value, 1);
 		if (tokens->next)
 			write(1, " ", 1);

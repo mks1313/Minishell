@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/02 16:52:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:22:13 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	curr_tkn = tokens;
 	while (tokens)
 	{
-		if (tokens->type == TOKEN_WORD)
+		if (tokens->type == TOK_WORD)
 		{
 			handle_builtin_commands(tokens, shell, line);
 			if (!is_builtin(tokens->value))

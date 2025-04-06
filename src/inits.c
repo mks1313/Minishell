@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:06:36 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/23 13:11:54 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:27:15 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,7 @@ t_cmd	*create_cmd(void)
 		return (NULL);
 	cmd->cmd = NULL;
 	cmd->args = NULL;
-	cmd->redirect = NULL;
-	cmd->is_pipe = false;
-	cmd->pipe_fds[0] = -1;
-	cmd->pipe_fds[1] = -1;
-	cmd->pid = 0;
+	cmd->redirects = NULL;
 	cmd->next = NULL;
 	return (cmd);
 }
