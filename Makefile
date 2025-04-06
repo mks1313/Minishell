@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/01 18:55:46 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/06 15:12:30 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,14 +32,23 @@ ifeq ($(UNMAE), Darwin)
 else
 	CC = cc
 endif
-# Correctamente especificamos las rutas de cabecera
-CFLAGS = -Wall -Wextra -Werror -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
+
+# -----------------------------------------------------------------------------#
+#           Correctamente especificamos las rutas de cabecera                  #
+#------------------------------------------------------------------------------#
+CFLAGS = -Wall -Wextra -Werror  -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
 
-# Especificamos el archivo de cabecera principal
+#------------------------------------------------------------------------------#
+#          Especificamos el archivo de cabecera principal                      #
+#------------------------------------------------------------------------------#
+
 INCLUDES = minishell.h shell_types.h sys_includes.h
 
-# Carpeta de fuentes y archivos
+#------------------------------------------------------------------------------#
+#          Carpeta de fuentes y archivos                                       #
+#------------------------------------------------------------------------------#
+
 SRC_FOLDER =  main.c inits.c signals/signals.c
 SRC_FOLDER += parser/quotes.c parser/expand_var.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tkn_to_args.c
@@ -58,6 +67,9 @@ SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))
 # Definimos los objetos a generar a partir de las fuentes
 OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
+# Archivos de dependencias
+DEPS = $(OBJS:.o=.d)
+
 # Comando por defecto
 all: $(NAME)
 
@@ -74,6 +86,9 @@ $(NAME): $(OBJS) $(LIBFT)
 $(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INC_H) Makefile
 	mkdir -p $(dir $@)  # Asegura que el directorio de objetos se cree
 	$(CC) $(CFLAGS) $(SANITIZE) -c $< -o $@
+
+# Incluir los archivos de dependencias
+-include $(DEPS)
 
 # Limpiar objetos generados
 clean:

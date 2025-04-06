@@ -6,7 +6,7 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/02 16:01:28 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/06 14:58:52 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS = -Wall -Wextra -Werror -g -Iincludes
 INCL = includes/libft.h
 OBJ_DIR = obj/
 
-# Archivos fuente organizados por  carpetas
+# Archivos fuente organizados por  carpetas y mas
 SRCS =  \
 		src/num/ft_isalnum.c src/num/ft_atoi.c src/num/ft_isdigit.c \
 		src/num/ft_itoa.c src/num/ft_utoa.c src/num/ft_atol.c\
