@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/08 20:10:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:29:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!shell)
 		return ;
 	tokens = tokenize_input(line);
-	lex_tokens(tokens);
+	//lex_tokens(tokens);
 	if (!tokens)
 		return ;
 	curr_tkn = tokens;
@@ -53,6 +53,7 @@ static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 	if (ft_strcmp(line, "exit") == 0)
 	{
 		//free(line);
+		ft_printf("Estoy en lines functions!\n");
 		exit(EXIT_SUCCESS);
 		return ;
 	}
@@ -92,8 +93,6 @@ int	main(int argc, char *argv[], char **envp)
 		}
 		process_input(line, shell->env, l_e_s);
 		lines(line, shell, envp, &l_e_s);
-		if (ft_strcmp(line, "exit") == 0)
-			break ;
 	}
 	free_data(shell);
 	return (0);
