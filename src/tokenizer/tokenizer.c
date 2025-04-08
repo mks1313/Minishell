@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 14:27:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:19:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static t_tkn	*create_token(char *value, int type)
 	//new_token->value = ft_strdup(value);
 	new_token->value = value;
 	new_token->type = type;
+	new_token->in_quote = false;
 	new_token->next = NULL;
 	return (new_token);
 }

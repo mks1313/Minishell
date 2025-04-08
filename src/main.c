@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/06 17:00:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:10:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_builtin(char *cmd)
 	return (0);
 }
 
-/*static void	handle_commands(char *line, t_shell *shell, char **envp)
+static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
 	t_tkn	*tokens;
 	t_tkn	*curr_tkn;
@@ -30,6 +30,7 @@ static int	is_builtin(char *cmd)
 	if (!shell)
 		return ;
 	tokens = tokenize_input(line);
+	lex_tokens(tokens);
 	if (!tokens)
 		return ;
 	curr_tkn = tokens;
@@ -68,29 +69,32 @@ static void	cleanup_and_exit(t_shell *shell)
 {
 	free_data(shell);
 	clear_history();
-}*/
+}
 
 int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
 	int		l_e_s;
+	t_shell	*shell;
 
 	(void)argc;
 	(void)argv;
+	shell = init_shell();
+	shell->env = convert_env(envp);
 	l_e_s = 0;
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
 		if (!line)
 		{
-			//cleanup_and_exit(shell);
+			cleanup_and_exit(shell);
 			return (0);
 		}
-		//process_input(line, shell->env, l_e_s);
-		//lines(line, shell, envp, &l_e_s);
+		process_input(line, shell->env, l_e_s);
+		lines(line, shell, envp, &l_e_s);
 		if (ft_strcmp(line, "exit") == 0)
 			break ;
 	}
-	//free_data(shell);
+	free_data(shell);
 	return (0);
 }
