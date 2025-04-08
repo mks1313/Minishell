@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/08 12:18:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:33:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_redir
 	t_redir_type			type; // Tipo de redirección (<, >, <<, >>)
 	char					*file;// Archivo asociado a la redirección
 	int						fd;// File descriptor
-	struct s_redir		*next;// Siguiente redirección en la lista
+	struct s_redir			*next;// Siguiente redirección en la lista
 }	t_redir;
 
 /* ============
@@ -71,7 +71,7 @@ typedef struct s_cmd
 {
 	char				*cmd; // Comando a ejecutar (ej: "echo")
 	char				**args; // Argumentos del comando (ej: {"-n", "Hola"})
-	t_redir			*redirects; // Lista de redirecciones
+	t_redir				*redirects; // Lista de redirecciones
 	struct s_cmd		*next;// Siguiente comando en la lista
 }	t_cmd;
 

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 16:23:02 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:39:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 static void	ft_print_list(t_env *env)
 {
-	t_env *copy;
+	t_env	*copy;
 
 	copy = env;
 	while (copy->next != NULL)
@@ -32,7 +32,7 @@ static void	ft_print_list(t_env *env)
 
 static void	change_environment_pwd(t_env *env, char	*home)
 {
-	t_env *copy;
+	t_env	*copy;
 	char	*old_pwd;
 
 	copy = env;
@@ -60,10 +60,7 @@ static void	change_environment_pwd(t_env *env, char	*home)
 void	ft_cd(t_tkn *tokens, t_shell *shell)
 {
 	char	*home;
-	printf("XD");
 
-	ft_print_list(shell->env);
-	return ;
 	if (!tokens || !tokens->next)
 	{
 		home = ft_getenv("HOME", shell->env);

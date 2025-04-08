@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:38:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/08 20:06:14 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:32:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static bool	is_tkn_operator(const char *s)
 {
 	return (ft_strcmp(s, "|") == 0
-			|| ft_strcmp(s, "<") == 0
-			|| ft_strcmp(s, ">") == 0
-			|| ft_strcmp(s, "<<") == 0
-			|| ft_strcmp(s, ">>") == 0
-			);
+		|| ft_strcmp(s, "<") == 0
+		|| ft_strcmp(s, ">") == 0
+		|| ft_strcmp(s, "<<") == 0
+		|| ft_strcmp(s, ">>") == 0
+	);
 }
 
 void	lex_tokens(t_tkn *tkn)

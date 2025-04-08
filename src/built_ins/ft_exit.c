@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/05 12:57:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:38:20 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ void	exit_shell(t_shell *shell, int exit_code)
 void	ft_exit(t_tkn *tokens, t_shell *shell)
 {
 	long	exit_code;
-	int		arg_count = 0;
-	char	*cmd_args[2] = {NULL, NULL};  // Solo necesitamos un argumento para 'exit'
+	int		arg_count;
+	char	*cmd_args[2];
+	t_tkn	*current;
 
-	t_tkn *current = tokens->next;  // Saltamos el primer token que es "exit"
+	cmd_args = {NULL, NULL}; // Solo necesitamos un argumento para 'exit'
+	arg_count = 0;
+	current = tokens->next; // Saltamos el primer token que es "exit"
 	while (current)
 	{
 		arg_count++;
@@ -59,9 +62,9 @@ void	ft_exit(t_tkn *tokens, t_shell *shell)
 	if (arg_count > 1)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
-		return;
+		return ;
 	}
-	cmd_args[0] = tokens->next->value;  // El primer argumento de "exit"
+	cmd_args[0] = tokens->next->value; // El primer argumento de "exit"
 	if (!is_numeric_argument(cmd_args[0]))
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
@@ -70,7 +73,7 @@ void	ft_exit(t_tkn *tokens, t_shell *shell)
 		exit_shell(shell, 2);
 	}
 	exit_code = ft_atol(cmd_args[0]);
-	exit_code %= 256;  // Normalizar el código de salida
+	exit_code %= 256; // Normalizar el código de salida
 	if (exit_code < 0)
 		exit_code += 256;
 	exit_shell(shell, exit_code);
