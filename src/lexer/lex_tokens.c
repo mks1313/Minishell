@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:38:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/08 21:32:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:44:48 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	lex_tokens(t_tkn *tkn)
 			tkn->type = TOK_OPERATOR;
 		else
 			tkn->type = TOK_WORD;
+		tkn = tkn->next;
 	}
 }

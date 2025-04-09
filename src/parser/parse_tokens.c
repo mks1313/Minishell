@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:44:50 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/09 17:52:40 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:01:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	handle_redirect(t_redir **redir_list, t_tkn **tkn)
 			tmp = tmp->next;
 		tmp->next = redir;
 	}
-	*tkn = (*tkn)->next->next;
+	*tkn = (*tkn)->next;
 }
 
 static void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)

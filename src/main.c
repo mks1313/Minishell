@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/09 17:42:48 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:07:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static int	is_builtin(char *cmd)
 	return (0);
 }
 
-void	execute_commands(t_cmd *cmds, t_shell *shell, char *line)
+void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
 	t_cmd	*curr;
 
-	curr = cmds;
+	curr = cmd;
 	while (curr)
 	{
 		if (curr->cmd)
