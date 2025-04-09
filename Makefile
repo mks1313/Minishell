@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/08 19:51:59 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/09 17:44:23 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ INCLUDES = minishell.h shell_types.h sys_includes.h
 #------------------------------------------------------------------------------#
 
 SRC_FOLDER =  main.c inits.c signals/signals.c
-SRC_FOLDER += parser/quotes.c parser/expand_var.c
+SRC_FOLDER += parser/quotes.c parser/expand_var.c parser/parse_tokens.c
 SRC_FOLDER += lexer/lex_tokens.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tkn_to_args.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c     \

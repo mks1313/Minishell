@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 14:28:44 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:08:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,27 @@
  * Salto de linea solo si no se encontro -n
  */
 
-void	ft_echo(t_tkn *tokens)
+void	ft_echo(t_cmd *cmd)
 {
-	int	option_n;
+	int	i;
+	int	newline;
 
-	if (!tokens)
+	if (!cmd || !cmd->args)
 		return ;
-	option_n = 0;
-	tokens = tokens->next;
-	if (tokens && ft_strcmp(tokens->value, "-n") == 0)
+	i = 1;
+	newline = 1;
+	if (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
 	{
-		option_n = 1;
-		tokens = tokens->next;
+		newline = 0;
+		i++;
 	}
-	while (tokens)
+	while (cmd->args[i])
 	{
-		if (tokens->type == TOK_WORD)
-			ft_putstr_fd(tokens->value, 1);
-		if (tokens->next)
-			write(1, " ", 1);
-		tokens = tokens->next;
+		ft_putstr_fd(cmd->args[i], 1);
+		if (cmd->args[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
 	}
-	if (!option_n)
-		write(1, "\n", 1);
+	if (newline)
+		ft_putchar_fd('\n', 1);
 }

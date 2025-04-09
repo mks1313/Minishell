@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/08 21:29:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:42:48 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,46 @@ static int	is_builtin(char *cmd)
 	return (0);
 }
 
+void	execute_commands(t_cmd *cmds, t_shell *shell, char *line)
+{
+	t_cmd	*curr;
+
+	curr = cmds;
+	while (curr)
+	{
+		if (curr->cmd)
+		{
+			if (is_builtin(curr->cmd))
+				handle_builtin_commands(curr, shell, line);
+			else
+				handle_external_command(curr, shell);
+		}
+		curr = curr->next;
+	}
+}
+
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
 	t_tkn	*tokens;
-	t_tkn	*curr_tkn;
+	t_cmd	*cmds;
 
 	(void)envp;
 	if (!shell)
 		return ;
 	tokens = tokenize_input(line);
-	//lex_tokens(tokens);
 	if (!tokens)
 		return ;
-	curr_tkn = tokens;
-	while (tokens)
+	lex_tokens(tokens);
+	cmds = parse_tokens(tokens);
+	if (!cmds)
 	{
-		if (tokens->type == TOK_WORD)
-		{
-			handle_builtin_commands(tokens, shell, line);
-			if (!is_builtin(tokens->value))
-				handle_external_command(tokens, shell);
-		}
-		tokens = tokens->next;
+		ft_free_tokens(tokens);
+		return ;
 	}
-	ft_free_tokens(curr_tkn);
+	shell->cmds = cmds;
+	execute_commands(cmds, shell, line);
+	ft_free_tokens(tokens);
+	ft_free_list(cmds);
 }
 
 //TODO mirar nuestro exit que pasa, tambien quitar shell

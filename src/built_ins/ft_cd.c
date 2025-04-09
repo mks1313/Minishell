@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/08 21:39:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:31:28 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // Si hay un argumento, intentar cambiar al directorio indicado
 // Si no puede cambiar de directorio
 //
-
+/*
 static void	ft_print_list(t_env *env)
 {
 	t_env	*copy;
@@ -28,7 +28,7 @@ static void	ft_print_list(t_env *env)
 		ft_printf(RED"%s=%s\n"RES, copy->key, copy->value);
 		copy = copy->next;
 	}
-}
+}*/
 
 static void	change_environment_pwd(t_env *env, char	*home)
 {
@@ -57,25 +57,30 @@ static void	change_environment_pwd(t_env *env, char	*home)
 }
 
 // TODO: REVISAR LOS FALLOS DE CHDIR
-void	ft_cd(t_tkn *tokens, t_shell *shell)
+void	ft_cd(t_cmd *cmd, t_shell *shell)
 {
+	char	*target_dir;
 	char	*home;
 
-	if (!tokens || !tokens->next)
+	if (!cmd->args[1])
 	{
 		home = ft_getenv("HOME", shell->env);
 		if (home)
 		{
-			change_environment_pwd(shell->env, home);
-			chdir(home);
+			if (chdir(home) == -1)
+				perror("minishell: cd");
+			else
+				change_environment_pwd(shell->env, home);
 		}
 		else
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 	}
 	else
 	{
-		if (chdir(tokens->next->value) == -1)
+		target_dir = cmd->args[1];
+		if (chdir(target_dir) == -1)
 			perror("minishell: cd");
-		change_environment_pwd(shell->env, tokens->next->value);
+		else
+			change_environment_pwd(shell->env, target_dir);
 	}
 }

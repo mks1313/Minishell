@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:39:17 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:57:14 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,17 @@ void	set_env(t_env **env_list, const char *key, const char *value)
 }
 
 // Función principal de export
-void	ft_export(t_env **env_list, t_tkn *tokens)
+void	ft_export(t_env **env_list, t_cmd *cmd)
 {
 	t_env	*var;
-	t_tkn	*current;
 	t_env	*env;
 	char	*key;
 	char	*value;
-	char	*new_value;
+	char	*new_val;
+	int		i;
 
-	current = tokens->next;// Nos saltamos el "export"
-	if (!current)
+	if (!cmd->args[1])
 	{
-		// Si nohay tokens despues d export, podemos imprimir las var de entorno
 		env = *env_list;
 		while (env)
 		{
@@ -75,37 +73,36 @@ void	ft_export(t_env **env_list, t_tkn *tokens)
 		}
 		return ;
 	}
-	while (current)
+	i = 1;
+	while (cmd->args[i])
 	{
-		if (strchr(current->value, '='))
+		if (ft_strchr(cmd->args[i], '+') && ft_strchr(cmd->args[i], '='))
 		{
-			// Caso: export VAR=VALUE
-			key = ft_strtok(current->value, "=");
-			value = ft_strtok(NULL, "=");
-			set_env(env_list, key, value);
-		}
-		else if (ft_strchr(current->value, '+')
-			&& ft_strchr(current->value, '='))
-		{
-			// Caso: export VAR+=VALUE
-			key = ft_strtok(current->value, "+=");
+			key = ft_strtok(cmd->args[i], "+=");
 			value = ft_strtok(NULL, "+=");
 			var = find_env(*env_list, key);
 			if (var)
 			{
-				// Si la variable ya existe, agregamos el nuevo valor
-				new_value = malloc(strlen(var->value) + strlen(value) + 1);
-				ft_strcpy(new_value, var->value);
-				ft_strcat(new_value, value);
+				new_val = malloc(ft_strlen(var->value) + ft_strlen(value) + 1);
+				ft_strcpy(new_val, var->value);
+				ft_strcat(new_val, value);
 				free(var->value);
-				var->value = new_value;
+				var->value = new_val;
 			}
 			else
-			{
-				// Si no existe, simple lo agregamos como una nueva variable
 				set_env(env_list, key, value);
-			}
 		}
-		current = current->next;
+		else if (ft_strchr(cmd->args[i], '='))
+		{
+			key = ft_strtok(cmd->args[i], "=");
+			value = ft_strtok(NULL, "+");
+			set_env(env_list, key, value);
+		}
+		else
+		{
+			if (!find_env(*env_list, cmd->args[i]))
+				set_env(env_list, cmd->args[i], "");
+		}
+		i++;
 	}
 }

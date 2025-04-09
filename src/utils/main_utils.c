@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/06 15:44:02 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:10:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,34 @@ char	*skip_delimiters(char *str, const char *delimiters)
 	return (str);
 }
 
-//TODO revisar este if, de exit, porque no se cumple . mirar bien
-void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line)
+void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-	if (ft_strcmp(tokens->value, "exit") == 0)
+	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		free(line);
-		ft_exit(tokens, shell);
+		ft_exit(cmd, shell);
 	}
-	else if (ft_strcmp(tokens->value, "env") == 0)
+	else if (ft_strcmp(cmd->cmd, "env") == 0)
 		ft_env(shell->env);
-	else if (ft_strcmp(tokens->value, "cd") == 0)
-		ft_cd(tokens, shell);
-	else if (ft_strcmp(tokens->value, "echo") == 0)
-		ft_echo(tokens);
-	else if (ft_strcmp(tokens->value, "pwd") == 0)
+	else if (ft_strcmp(cmd->cmd, "cd") == 0)
+		ft_cd(cmd, shell);
+	else if (ft_strcmp(cmd->cmd, "echo") == 0)
+		ft_echo(cmd);
+	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		ft_pwd();
-	else if (ft_strcmp(tokens->value, "export") == 0)
-		ft_export(&shell->env, tokens);
-	else if (ft_strcmp(tokens->value, "unset") == 0)
-		ft_unset(tokens, shell);
+	else if (ft_strcmp(cmd->cmd, "export") == 0)
+		ft_export(&shell->env, cmd);
+	else if (ft_strcmp(cmd->cmd, "unset") == 0)
+		ft_unset(cmd, shell);
 }
 
-void	handle_external_command(t_tkn *tokens, t_shell *shell)
+void	handle_external_command(t_cmd *cmd, t_shell *shell)
 {
 	char	**args;
 
-	args = tokens_to_args(tokens);
+	args = cmd->args;
 	if (args)
 	{
-		shell->exit_status = exec_cmd(tokens->value, args, shell->env);
-		clean_array(args);
+		shell->exit_status = exec_cmd(cmd->cmd, args, shell->env);
 	}
 }

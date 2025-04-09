@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:46 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/01 19:12:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:54:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	remove_env_var(t_env **env, const char *key)
 	{
 		if (ft_strcmp(curr->key, key) == 0)
 		{
-			if (prev) // Si no es el primer nodo
+			if (prev)
 				prev->next = curr->next;
-			else// Si es el primer nodo
+			else
 				*env = curr->next;
 			free(curr->key);
 			free(curr->value);
@@ -37,19 +37,18 @@ static void	remove_env_var(t_env **env, const char *key)
 	}
 }
 
-void	ft_unset(t_tkn *tokens, t_shell *shell)
+void	ft_unset(t_cmd *cmd, t_shell *shell)
 {
-	t_tkn	*curr_tkn;
-
-	if (!tokens || !tokens->next)
+	int	i;
+	if (!cmd || !cmd->args || !cmd->args[0])
 	{
 		ft_putstr_fd(RED"unset: too few arguments\n"RES, 2);
 		return ;
 	}
-	curr_tkn = tokens->next;// Saltamos el "unset" y comenzamos con el  arg
-	while (curr_tkn)
+	i = 0;
+	while (cmd->args[i])
 	{
-		remove_env_var(&shell->env, curr_tkn->value);
-		curr_tkn = curr_tkn->next;// Avanzamos al siguiente token
+		remove_env_var(&shell->env, cmd->args[i]);
+		i++;
 	}
 }

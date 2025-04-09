@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 14:42:39 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:42:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,36 @@ void	ft_free_tokens(t_tkn *tokens)
 		tmp = tokens;
 		tokens = tokens->next;
 		free(tmp->value);
+		free(tmp);
+	}
+}
+
+void	ft_free_list(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	t_redir	*redir_tmp;
+
+	while (cmd)
+	{
+		// Liberar las redirecciones asociadas al comando
+		if (cmd->redirects)
+		{
+			while (cmd->redirects)
+			{
+				redir_tmp = cmd->redirects;
+				cmd->redirects = cmd->redirects->next;
+				free(redir_tmp->file);
+				free(redir_tmp);
+			}
+		}
+
+		// Liberar los argumentos y el comando
+		free(cmd->args);
+		free(cmd->cmd);
+
+		// Liberar el nodo del comando
+		tmp = cmd;
+		cmd = cmd->next;
 		free(tmp);
 	}
 }

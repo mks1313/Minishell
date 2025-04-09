@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:06:36 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 14:27:15 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:52:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_shell	*init_shell(void)
 	shell->cur_dir = NULL;
 	return (shell);
 }
-
+/*
 t_cmd	*create_cmd(void)
 {
 	t_cmd	*cmd;
@@ -39,4 +39,4 @@ t_cmd	*create_cmd(void)
 	cmd->redirects = NULL;
 	cmd->next = NULL;
 	return (cmd);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/08 19:51:02 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:42:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	error_exit(const char *msg, int exit_code);
 void	del(void *content);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
+void	ft_free_list(t_cmd *cmd);
 void	change_env_variable(t_env *env, char *key, char *value);
 char	*get_env_variable_value(t_env *env, char *key);
 //Parser
@@ -40,19 +41,21 @@ void	handle_pid(int *i);
 //Signals
 void	handle_signal(int sig, siginfo_t *info, void *context);
 //Commands
-void	ft_echo(t_tkn *tokens);
+void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
+t_cmd	*parse_tokens(t_tkn *tokens);
+void	ft_echo(t_cmd *cmd);
 t_env	*convert_env(char **envp);
 void	ft_env(t_env *env_list);
 char	*ft_getenv(const char *name, t_env *env);
 //TODO: Rehacer las funciones, quitar t_shell
-void	ft_exit(t_tkn *tokens, t_shell *shell);
-void	ft_cd(t_tkn *tokens, t_shell *shell);
-void	handle_builtin_commands(t_tkn *tokens, t_shell *shell, char *line);
+void	ft_exit(t_cmd *cmd, t_shell *shell);
+void	ft_cd(t_cmd *cmd, t_shell *shell);
+void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line);
 t_env	*find_env(t_env *env_list, const char *key);
 void	set_env(t_env **env_list, const char *key, const char *value);
-void	ft_export(t_env **env_list, t_tkn *tokens);
-void	ft_unset(t_tkn *tokens, t_shell *shell);
-void	handle_external_command(t_tkn *tokens, t_shell *shell);
+void	ft_export(t_env **env_list, t_cmd *cmd);
+void	ft_unset(t_cmd *cmd, t_shell *shell);
+void	handle_external_command(t_cmd *cmd, t_shell *shell);
 // Else
 char	*skip_delimiters(char *str, const char *delimiters);
 void	builtin_error(char *cmd, char *arg, char *msg);
