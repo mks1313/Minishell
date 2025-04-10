@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/09 17:42:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:44:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	free_env_list(t_env *env)
 	while (env)
 	{
 		tmp = env->next;
-		free(env->key);
-		free(env->value);
+		if (env->key)
+			free(env->key);
+		if (env->value)
+			free(env->value);
 		free(env);
 		env = tmp;
 	}
@@ -42,37 +44,8 @@ void	ft_free_tokens(t_tkn *tokens)
 	{
 		tmp = tokens;
 		tokens = tokens->next;
-		free(tmp->value);
-		free(tmp);
-	}
-}
-
-void	ft_free_list(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	t_redir	*redir_tmp;
-
-	while (cmd)
-	{
-		// Liberar las redirecciones asociadas al comando
-		if (cmd->redirects)
-		{
-			while (cmd->redirects)
-			{
-				redir_tmp = cmd->redirects;
-				cmd->redirects = cmd->redirects->next;
-				free(redir_tmp->file);
-				free(redir_tmp);
-			}
-		}
-
-		// Liberar los argumentos y el comando
-		free(cmd->args);
-		free(cmd->cmd);
-
-		// Liberar el nodo del comando
-		tmp = cmd;
-		cmd = cmd->next;
+		if (tmp->value)
+			free(tmp->value);
 		free(tmp);
 	}
 }
@@ -88,9 +61,35 @@ void	free_redirect_list(t_redir *redir)
 	while (redir)
 	{
 		tmp = redir->next;
-		free(redir->file);
+		if (redir->file)
+			free(redir->file);
 		free(redir);
 		redir = tmp;
+	}
+}
+
+void	ft_free_list(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	int		i;
+
+	while (cmd)
+	{
+		tmp = cmd;
+		cmd = cmd->next;
+		if (tmp->args)
+		{
+			i = 0;
+			while (tmp->args[i])
+			{
+				free(tmp->args[i]);
+				i++;
+			}
+			free(tmp->args);
+		}
+		if (tmp->redirects)
+			free_redirect_list(tmp->redirects);
+		free(tmp);
 	}
 }
 
@@ -98,25 +97,27 @@ void	free_redirect_list(t_redir *redir)
  * free_cmd_list - Libera la lista de comandos y sus argumentos.
  * @cmd_list: Puntero a la lista de comandos.
  */
-void	free_cmd_list(t_cmd *cmd_list)
+void	free_cmd_list(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	int		i;
 
-	while (cmd_list)
+	while (cmd)
 	{
-		tmp = cmd_list->next;
-		free(cmd_list->cmd);
-		if (cmd_list->args)
+		tmp = cmd;
+		cmd = cmd->next;
+		if (tmp->args)
 		{
 			i = 0;
-			while (cmd_list->args[i])
-				free(cmd_list->args[i++]);
-			free(cmd_list->args);
+			while (tmp->args[i])
+			{
+				free(tmp->args[i]);
+				i++;
+			}
+			free(tmp->args);
 		}
-		free_redirect_list(cmd_list->redirects);
-		free(cmd_list);
-		cmd_list = tmp;
+		free_redirect_list(tmp->redirects);
+		free(tmp);
 	}
 }
 
@@ -126,9 +127,14 @@ void	free_cmd_list(t_cmd *cmd_list)
  */
 void	free_data(t_shell *shell)
 {
-	free_env_list(shell->env);
-	ft_free_tokens(shell->tkns);
-	free_cmd_list(shell->cmds);
-	free(shell->cur_dir);
-	free(shell);
+	if (shell->env)
+		free_env_list(shell->env);
+	if (shell->tkns)
+		ft_free_tokens(shell->tkns);
+	if (shell->cmds)
+		free_cmd_list(shell->cmds);
+	if (shell->cur_dir)
+		free(shell->cur_dir);
+	if (shell)
+		free(shell);
 }

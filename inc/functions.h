@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/09 17:42:34 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:00:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_tkn	*new_token(char *value, t_tkn_type type);
 void	lex_tokens(t_tkn *tkn);
 //Utils
 void	error_exit(const char *msg, int exit_code);
-void	del(void *content);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
 void	ft_free_list(t_cmd *cmd);
+void	ft_free_cmd_list(t_cmd *cmd);
 void	change_env_variable(t_env *env, char *key, char *value);
 char	*get_env_variable_value(t_env *env, char *key);
 //Parser
@@ -60,7 +60,6 @@ void	handle_external_command(t_cmd *cmd, t_shell *shell);
 char	*skip_delimiters(char *str, const char *delimiters);
 void	builtin_error(char *cmd, char *arg, char *msg);
 char	*safe_strdup(const char *str);
-char	**tokens_to_args(t_tkn *tokens);
 int		exec_cmd(char *cmd, char **args, t_env *env);;
 void	clean_array(char **array);
 void	ft_pwd(void);

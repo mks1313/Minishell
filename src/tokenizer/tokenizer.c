@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/08 13:19:22 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:53:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,14 @@ static t_tkn	*create_token(char *value, int type)
 
 static char	*handle_quotes(char *str)
 {
-	if (*str == '\'')
-	{
+	char	quote;
+
+	quote = *str;
+	while (*str && *str != quote)
 		str++;
-		while (*str && *str != '\'')
-			str++;
-		if (*str == '\'')
-			str++;
-	}
-	else if (*str == '\"')
-	{
-		str++;
-		while (*str && *str != '\"')
-			str++;
-		if (*str == '\"')
-			str++;
-	}
-	return (str);
+	if (*str == '\0')
+		return (NULL);
+	return (str + 1);
 }
 
 static char	*process_non_quotes(char *str)
@@ -92,7 +83,15 @@ t_tkn	*tokenize_input(char *line)
 			break ;
 		start = str;
 		if (*str == '\'' || *str == '\"')
+		{
 			str = handle_quotes(str);
+			if (!str)
+			{
+				ft_putendl_fd("syntax error: unclosed quote", STDERR_FILENO);
+				ft_free_tokens(token[HEAD]);
+				return (NULL);
+			}
+		}
 		else
 			str = process_non_quotes(str);
 		if (start != str)
