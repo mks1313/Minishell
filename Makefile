@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/10 15:51:12 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/10 20:07:27 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,18 +67,21 @@ SRC_FOLDER += utils/builtins_utils.c utils/exec_utils.c utils/main_utils.c \
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 
 #------------------------------------------------------------------------------#
-#            Agrega la ruta a las fuentes                                      #
+#           Agrega la ruta a las fuentes                                      #
 #------------------------------------------------------------------------------#
 
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))
 
 #------------------------------------------------------------------------------#
-#          Definimos los objetos a generar a partir de las fuentes             #
+#           Definimos los objetos a generar a partir de las fuentes             #
 #------------------------------------------------------------------------------#
 
 OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-# Archivos de dependencias
+#------------------------------------------------------------------------------#
+#           Archivos de dependencias                                           #
+#------------------------------------------------------------------------------#
+
 DEPS = $(OBJS:.o=.d)
 
 # Comando por defecto
