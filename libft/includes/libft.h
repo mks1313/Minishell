@@ -6,7 +6,7 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:11:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/02 16:02:42 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:25:25 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*ft_strtok(char *str, const char *delim);
 char	*ft_strstr(const char *haystack, const char *needle);
 char	*ft_strcat(char *dest, const char *src);
 char	*ft_strcpy(char *dest, const char *src);
+void	ft_putstr(const char *s);
 // Mem
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);

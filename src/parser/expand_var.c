@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/06 16:39:52 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:51:58 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,33 @@ static void	dollar(const char *input, int *i, t_env *env, int l_e_s)
 	}
 }
 
-void	expand_variable(const char *input, t_env *env, int l_e_s)
+void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s)
 {
-	int	i;
+	t_tkn	*current_token;
+	int		i;
 
-	i = 0;
-	while (input[i])
+	current_token = tokens;
+
+	while (current_token)
 	{
-		if (input[i] == '$')
-			dollar(input, &i, env, l_e_s);
+		if (current_token->single_quote == false)
+		{
+			i = 0;
+			while (current_token->value[i])
+			{
+				if (current_token->value[i] == '$')
+					dollar(current_token->value, &i, env, l_e_s);
+				else
+				{
+					ft_putchar(current_token->value[i]);
+					i++;
+				}
+			}
+		}
 		else
 		{
-			/*while (input[i] != '\0'&& input[i] != ' ')
-				i++;
-			if (!input[i])
-				return ;*/
-			ft_putchar(input[i]);
-			i++;
+			ft_putstr(current_token->value);
 		}
+		current_token = current_token->next;
 	}
 }

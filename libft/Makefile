@@ -6,7 +6,7 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/06 14:58:52 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/10 15:10:33 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS =  \
 		src/str/ft_strnstr.c src/str/ft_strjoin.c src/str/ft_strtrim.c \
 		src/str/ft_strmapi.c src/str/ft_split.c src/str/ft_striteri.c \
 		src/str/ft_striteri.c src/str/ft_strncpy.c src/str/ft_strcat.c \
-		src/str/ft_strcpy.c \
+		src/str/ft_strcpy.c src/str/ft_putstr.c \
 		src/mem/ft_memset.c src/mem/ft_memcpy.c src/mem/ft_strdup.c \
 		src/mem/ft_memmove.c src/mem/ft_memchr.c src/mem/ft_memcmp.c \
     	src/mem/ft_calloc.c src/mem/ft_bzero.c src/mem/ft_substr.c \

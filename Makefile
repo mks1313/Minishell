@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/10 12:43:29 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/10 15:51:12 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 # Librerías y opciones
 READLINE = -lreadline
-SANITIZE = -g -fsanitize=address
+SANITIZE = -g #-fsanitize=address
 # importante el -r
 RM = rm -rf
 

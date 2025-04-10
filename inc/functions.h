@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 13:00:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:52:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_env_variable_value(t_env *env, char *key);
 void	single_quotes(const char *input);
 void	double_quotes(const char *inpt, t_env *env, int l_e_s);
 int		count_envp(t_env *env);
-void	expand_variable(const char *input, t_env *env, int l_e_s);
+void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s);
 void	process_input(const char *input, t_env *env, int l_e_s);
 void	handle_exit_status(int *i, int l_e_s);
 void	handle_envp_count(int *i, t_env *env);

@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 19:58:05 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/04/10 15:06:25 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/04/10 15:25:10 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	process_input(const char *input, t_env *env, int l_e_s)
+void	ft_putstr(const char *s)
 {
-	t_tkn	*tokens;
+	int	i;
 
-	tokens = tokenize_input((char *)input);
-	if (!tokens)
-	{
-		// Manejar error si la tokenización falla
-		return;
-	}
-	// Paso 2: Expansión de variables sobre los tokens
-	expand_variable(tokens, env, l_e_s);
-	// Paso 3: Aquí  agregar la lógica para el parsing de comandos y ejecución
+	i = 0;
+	while (s[i])
+		write(1, &s[i++], 1);
 }
