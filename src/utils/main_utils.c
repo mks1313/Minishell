@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/09 16:10:51 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:46:23 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
+		ft_putstr_fd("exit\n", 1);
 		free(line);
 		ft_exit(cmd, shell);
 	}

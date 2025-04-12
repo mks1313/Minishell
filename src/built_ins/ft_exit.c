@@ -6,13 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/09 14:25:20 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:45:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
-#include <limits.h>
 
 // Función auxiliar: verifica si el argumento es un número válido
 static int	is_numeric_argument(const char *str)
