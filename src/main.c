@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/10 16:00:45 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:32:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 	free(line);
 }
 
-static void	cleanup_and_exit(t_shell *shell)
+/*static void	cleanup_and_exit(t_shell *shell)
 {
 	free_data(shell);
 	rl_clear_history();
 	clear_history();
-}
+}*/
 
 int	main(int argc, char *argv[], char **envp)
 {
@@ -105,7 +105,8 @@ int	main(int argc, char *argv[], char **envp)
 		line = readline(GREEN"minishell$ "RES);
 		if (!line)
 		{
-			cleanup_and_exit(shell);
+			ft_putstr_fd("\nexit\n", 1);
+			//cleanup_and_exit(shell);
 			return (0);
 		}
 		process_input(line, shell->env, l_e_s);
