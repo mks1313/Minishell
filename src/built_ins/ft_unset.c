@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:46 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/09 16:54:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:19:25 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	remove_env_var(t_env **env, const char *key)
 	prev = NULL;
 	while (curr)
 	{
+		ft_printf("Comparando: %s con %s\n", curr->key, key);
 		if (ft_strcmp(curr->key, key) == 0)
 		{
 			if (prev)

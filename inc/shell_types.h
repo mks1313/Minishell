@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 18:52:54 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:57:36 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ typedef enum e_pos
 	TAIL,
 }	t_pos;
 
-/* ====================
-   TOKENIZER & PARSER
-   ==================== */
+/*  ==========================
+    === TOKENIZER & PARSER ===
+    ========================== */
 
 typedef enum e_tkn_type
 {
@@ -44,9 +44,9 @@ typedef struct s_tkn
 	struct s_tkn		*next; // Siguiente token en la lista
 }	t_tkn;
 
-/* ================
-   REDIRECCTIONS
-   ================ */
+/*  =====================
+    === REDIRECCTIONS ===
+    ===================== */
 
 typedef enum e_redir_type
 {
@@ -64,9 +64,9 @@ typedef struct s_redir
 	struct s_redir			*next;// Siguiente redirección en la lista
 }	t_redir;
 
-/* ============
-   COMMANDS
-   ============ */
+/*  ================
+    === COMMANDS ===
+    ================ */
 
 typedef struct s_cmd
 {
@@ -76,9 +76,9 @@ typedef struct s_cmd
 	struct s_cmd		*next;// Siguiente comando en la lista
 }	t_cmd;
 
-/* ===================
-   PIPES / EJECUTION
-   =================== */
+/*  =========================
+    === PIPES / EJECUTION ===
+    ========================= */
 
 typedef struct s_pipe
 {
@@ -89,9 +89,9 @@ typedef struct s_pipe
 	int		stdout_backup; // Backup de stduot
 }	t_pipe;
 
-/* ================
-   ENVIRONMENT
-   ================ */
+/*  ====================
+    === ENVIRONMENT  ===
+    ==================== */
 
 typedef struct s_env
 {
@@ -100,9 +100,9 @@ typedef struct s_env
 	struct s_env		*next;// Siguiente variable en la lista
 }	t_env;
 
-/*  ===============
-	MOTHER SHELL ---sobra????
-	=============== */
+/*  ====================
+	=== MOTHER SHELL ===
+	==================== */
 
 typedef struct s_shell
 {

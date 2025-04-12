@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 19:58:05 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:57:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	process_input(const char *input, t_env *env, int l_e_s)
 	if (!tokens)
 	{
 		// Manejar error si la tokenización falla
-		return;
+		return ;
 	}
 	// Paso 2: Expansión de variables sobre los tokens
 	expand_variable(tokens, env, l_e_s);

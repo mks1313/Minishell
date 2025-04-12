@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/12 20:45:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:57:49 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	is_numeric_argument(const char *str)
 // Función para manejar la salida del shell correctamente
 void	exit_shell(t_shell *shell, int exit_code)
 {
-	free_data(shell); // Liberar memoria antes de salir
+	free_data(shell);
 	exit(exit_code);
 }
 

@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/12 20:46:23 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:19:54 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ char	*skip_delimiters(char *str, const char *delimiters)
 	while (*str && ft_strchr(delimiters, *str))
 		str++;
 	return (str);
+}
+
+static void	print_env(t_env *env)
+{
+	while (env)
+	{
+		ft_printf(YELL"Key: %s, Value: %s\n"RES, env->key, env->value);
+		env = env->next;
+	}
 }
 
 void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
@@ -46,7 +55,20 @@ void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 	else if (ft_strcmp(cmd->cmd, "export") == 0)
 		ft_export(&shell->env, cmd);
 	else if (ft_strcmp(cmd->cmd, "unset") == 0)
+	{
+		print_env(shell->env);
+		ft_printf("Argumentos de unset: ");
+		int i = 0;
+		while (cmd->args && cmd->args[i])
+		{
+			ft_printf("%s ", cmd->args[i]);
+			i++;
+		}
+		ft_printf("\n");
+
 		ft_unset(cmd, shell);
+		print_env(shell->env);
+	}
 }
 
 void	handle_external_command(t_cmd *cmd, t_shell *shell)
