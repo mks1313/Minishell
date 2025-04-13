@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/13 14:15:49 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:33:13 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_unset(t_cmd *cmd, t_shell *shell);
 void	handle_external_command(t_cmd *cmd, t_shell *shell);
 void	ft_export(t_env **env, t_cmd *cmd);
 void	update_or_append_env(t_env **env, const char *key, const char *value);
+t_env	*find_env(t_env *env_list, const char *key);
 // Else
 char	*skip_delimiters(char *str, const char *delimiters);
 void	builtin_error(char *cmd, char *arg, char *msg);

@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/13 14:25:48 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:33:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_env	*find_env(t_env *env_list, const char *key)
+t_env	*find_env(t_env *env_list, const char *key)
 {
 	while (env_list)
 	{

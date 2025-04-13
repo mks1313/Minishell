@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:18:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/13 14:29:18 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 15:29:49 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	update_or_append_env(t_env **env, const char *key, const char *value)
 			error_exit("MALLOC FAILED!", 1);
 		new->key = ft_strdup(key);
 		if (value)
-			var->value = ft_strdup(value);
+			new->value = ft_strdup(value);
 		else
-			var->value = NULL;
+			new->value = NULL;
 		new->next = *env;
 		*env = new;
 	}
