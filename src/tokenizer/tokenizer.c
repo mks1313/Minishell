@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 19:40:06 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:12:29 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static void	add_token_to_list(t_tkn **token, char *line, char *start, char *str)
 t_tkn	*tokenize_input(char *line)
 {
 	t_tkn	*token[2];
+	t_tkn	*new_token;
 	char	*start;
 	char	*str;
 
@@ -96,7 +97,7 @@ t_tkn	*tokenize_input(char *line)
 		start = str;
 		if (*str == '\'')
 		{
-			t_tkn *new_token = create_token(NULL, TOK_WORD);
+			new_token = create_token(NULL, TOK_WORD);
 			str = handle_quotes(str, new_token);
 			if (!str)
 			{
@@ -108,7 +109,7 @@ t_tkn	*tokenize_input(char *line)
 		}
 		else if (*str == '\"')
 		{
-			t_tkn *new_token = create_token(NULL, TOK_WORD);
+			new_token = create_token(NULL, TOK_WORD);
 			str = handle_quotes(str, new_token);
 			if (!str)
 			{

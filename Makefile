@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/10 20:07:27 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/13 14:20:16 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,8 @@ SRC_FOLDER += lexer/lex_tokens.c
 SRC_FOLDER += tokenizer/tokenizer.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c     \
 			  built_ins/ft_echo.c built_ins/ft_getenv.c built_ins/ft_pwd.c \
-			  built_ins/ft_export.c built_ins/ft_unset.c
+			  built_ins/ft_export.c built_ins/ft_unset.c                   \
+			  built_ins/ft_export_util.c
 SRC_FOLDER += exec/exec.c exec/find_cmd_path.c
 SRC_FOLDER += utils/builtins_utils.c utils/exec_utils.c utils/main_utils.c \
 			  utils/parser_utils.c utils/free_data.c

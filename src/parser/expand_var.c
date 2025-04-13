@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 19:51:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:10:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s)
 	int		i;
 
 	current_token = tokens;
-
 	while (current_token)
 	{
 		if (current_token->single_quote == false)

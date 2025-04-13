@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 19:52:52 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:15:49 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	double_quotes(const char *inpt, t_env *env, int l_e_s);
 int		count_envp(t_env *env);
 void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s);
 void	process_input(const char *input, t_env *env, int l_e_s);
-void	handle_exit_status(int *i, int l_e_s);
 void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);
 //Signals
@@ -47,15 +46,13 @@ void	ft_echo(t_cmd *cmd);
 t_env	*convert_env(char **envp);
 void	ft_env(t_env *env_list);
 char	*ft_getenv(const char *name, t_env *env);
-//TODO: Rehacer las funciones, quitar t_shell
 void	ft_exit(t_cmd *cmd, t_shell *shell);
 void	ft_cd(t_cmd *cmd, t_shell *shell);
 void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line);
-t_env	*find_env(t_env *env_list, const char *key);
-void	set_env(t_env **env_list, const char *key, const char *value);
-void	ft_export(t_env **env_list, t_cmd *cmd);
 void	ft_unset(t_cmd *cmd, t_shell *shell);
 void	handle_external_command(t_cmd *cmd, t_shell *shell);
+void	ft_export(t_env **env, t_cmd *cmd);
+void	update_or_append_env(t_env **env, const char *key, const char *value);
 // Else
 char	*skip_delimiters(char *str, const char *delimiters);
 void	builtin_error(char *cmd, char *arg, char *msg);

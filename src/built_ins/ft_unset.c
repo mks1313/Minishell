@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:46 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/13 11:42:57 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:06:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	remove_env_var(t_env **env, const char *key)
 void	ft_unset(t_cmd *cmd, t_shell *shell)
 {
 	int	i;
+
 	if (!cmd || !cmd->args || !cmd->args[0])
 	{
 		ft_putstr_fd(RED"unset: too few arguments\n"RES, 2);

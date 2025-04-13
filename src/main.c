@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/13 11:39:24 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:16:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	main(int argc, char *argv[], char **envp)
 		if (!line)
 		{
 			ft_putstr_fd("\nexit\n", 1);
-			//cleanup_and_exit(shell);
 			return (0);
 		}
 		process_input(line, shell->env, l_e_s);
