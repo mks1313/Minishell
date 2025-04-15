@@ -6,76 +6,85 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/13 14:10:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:30:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	handle_variable(const char *input, int *i, t_env *env)
+static char	*ft_strjoin_free(char *s1, const char *s2)
 {
-	int		var_start;
-	char	var_name[256];
-	char	*value;
-
-	var_start = *i;
-	while (ft_isalnum(input[*i]) || input[*i] == '_')
-		(*i)++;
-	if (*i - var_start == 0)
-	{
-		ft_putchar('$');
-		return ;
-	}
-	ft_strncpy(var_name, &input[var_start], *i - var_start);
-	var_name[*i - var_start] = '\0';
-	value = ft_getenv(var_name, env);
-	if (value)
-		ft_printf("%s", value);
-	else
-		ft_printf("");
+	char	*result = ft_strjoin(s1, s2);
+	free(s1);
+	return result;
 }
 
-static void	dollar(const char *input, int *i, t_env *env, int l_e_s)
+static char	*ft_strjoin_char(char *s, char c)
 {
-	(*i)++;
-	if (input[*i] == '?')
-	{
-		ft_printf("%d", l_e_s);
-		(*i)++;
-	}
-	else if (ft_isalnum(input[*i]) || input[*i] == '_')
-		handle_variable(input, i, env);
-	else
-	{
-		(*i)++;
-	}
+	char	*str;
+	int		len = ft_strlen(s);
+
+	str = malloc(len + 2);
+	if (!str)
+		return NULL;
+	ft_strcpy(str, s);
+	str[len] = c;
+	str[len + 1] = '\0';
+	free(s);
+	return str;
 }
+
 
 void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s)
 {
 	t_tkn	*current_token;
-	int		i;
+	int		i, start;
+	char	*expanded;
+	char	*tmp;
 
 	current_token = tokens;
 	while (current_token)
 	{
-		if (current_token->single_quote == false)
+		if (!current_token->single_quote)
 		{
 			i = 0;
+			expanded = ft_strdup("");
 			while (current_token->value[i])
 			{
 				if (current_token->value[i] == '$')
-					dollar(current_token->value, &i, env, l_e_s);
+				{
+					i++;
+					if (current_token->value[i] == '?')
+					{
+						tmp = ft_itoa(l_e_s);
+						expanded = ft_strjoin_free(expanded, tmp);
+						free(tmp);
+						i++;
+					}
+					else if (ft_isalnum(current_token->value[i]) || current_token->value[i] == '_')
+					{
+						start = i;
+						while (ft_isalnum(current_token->value[i]) || current_token->value[i] == '_')
+							i++;
+						tmp = ft_substr(current_token->value, start, i - start);
+						char *val = ft_getenv(tmp, env);
+						if (val)
+							expanded = ft_strjoin_free(expanded, val);
+						free(tmp);
+					}
+					else
+					{
+						expanded = ft_strjoin_char(expanded, '$');
+						expanded = ft_strjoin_char(expanded, current_token->value[i++]);
+					}
+				}
 				else
 				{
-					ft_putchar(current_token->value[i]);
-					i++;
+					expanded = ft_strjoin_char(expanded, current_token->value[i++]);
 				}
 			}
-		}
-		else
-		{
-			ft_putstr(current_token->value);
+			free(current_token->value);
+			current_token->value = expanded;
 		}
 		current_token = current_token->next;
 	}
