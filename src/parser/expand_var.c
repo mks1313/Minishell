@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/15 14:30:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:04:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s)
 	int		i, start;
 	char	*expanded;
 	char	*tmp;
+	char	*val;
 
 	current_token = tokens;
 	while (current_token)
@@ -61,13 +62,15 @@ void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s)
 						free(tmp);
 						i++;
 					}
-					else if (ft_isalnum(current_token->value[i]) || current_token->value[i] == '_')
+					else if (ft_isalnum(current_token->value[i]) 
+							|| current_token->value[i] == '_')
 					{
 						start = i;
-						while (ft_isalnum(current_token->value[i]) || current_token->value[i] == '_')
+						while (ft_isalnum(current_token->value[i]) 
+								|| current_token->value[i] == '_')
 							i++;
 						tmp = ft_substr(current_token->value, start, i - start);
-						char *val = ft_getenv(tmp, env);
+						val = ft_getenv(tmp, env);
 						if (val)
 							expanded = ft_strjoin_free(expanded, val);
 						free(tmp);

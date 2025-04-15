@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/13 14:16:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:24:46 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!tokens)
 		return ;
 	lex_tokens(tokens);
+	expand_variable(tokens, shell->env, shell->exit_status);
 	cmds = parse_tokens(tokens);
 	if (!cmds)
 	{

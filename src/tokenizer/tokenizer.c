@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/13 14:12:29 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:38:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ static char	*handle_quotes(char *str, t_tkn *token)
 		ft_putstr_fd("syntax error: unexpected EOF while matching quote\n", 2);
 		return (NULL);
 	}
-	if (quote == '\'')
-		token->single_quote = false;
-	else if (quote == '\"')
-		token->double_quote = false;
 	return (str + 1);
 }
 
@@ -63,15 +59,14 @@ static char	*process_non_quotes(char *str)
 	return (str);
 }
 
-static void	add_token_to_list(t_tkn **token, char *line, char *start, char *str)
+static void	add_token_to_list(t_tkn **token, t_tkn *new_token, char *line, char *start, char *str)
 {
-	t_tkn	*new_token;
 	char	*token_value;
 
 	token_value = ft_substr(line, start - line, str - start);
 	if (!token_value)
 		return ;
-	new_token = create_token(token_value, TOK_WORD);
+	new_token->value = token_value;
 	if (!token[HEAD])
 		token[HEAD] = new_token;
 	else
@@ -105,7 +100,7 @@ t_tkn	*tokenize_input(char *line)
 				ft_free_tokens(token[HEAD]);
 				return (NULL);
 			}
-			add_token_to_list(token, line, start, str);
+			add_token_to_list(token, new_token, line, start, str);
 		}
 		else if (*str == '\"')
 		{
@@ -117,12 +112,13 @@ t_tkn	*tokenize_input(char *line)
 				ft_free_tokens(token[HEAD]);
 				return (NULL);
 			}
-			add_token_to_list(token, line, start, str);
+			add_token_to_list(token, new_token, line, start, str);
 		}
 		else
 		{
+			new_token = create_token(NULL, TOK_WORD);
 			str = process_non_quotes(str);
-			add_token_to_list(token, line, start, str);
+			add_token_to_list(token, new_token, line, start, str);
 		}
 	}
 	return (token[HEAD]);
