@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/15 18:38:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/15 20:01:07 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ static t_tkn	*create_token(char *value, int type)
 static char	*handle_quotes(char *str, t_tkn *token)
 {
 	char	quote;
+	char	*tkn_val;
+	char	*start;
 
 	quote = *str;
+	start = str;
 	str++;
 	if (quote == '\'')
 		token->single_quote = true;
@@ -44,7 +47,12 @@ static char	*handle_quotes(char *str, t_tkn *token)
 		ft_putstr_fd("syntax error: unexpected EOF while matching quote\n", 2);
 		return (NULL);
 	}
-	return (str + 1);
+	str++;
+	tkn_val = ft_substr(start, 0, str - start - 1);
+	if (!tkn_val)
+		return (NULL);
+	token->value = tkn_val;
+	return (str);
 }
 
 static char	*process_non_quotes(char *str)
