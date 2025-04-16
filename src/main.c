@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/15 15:24:46 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:48:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!tokens)
 		return ;
 	lex_tokens(tokens);
-	expand_variable(tokens, shell->env, shell->exit_status);
+	shell->tkns = tokens;
+	expand_variable(shell);
 	cmds = parse_tokens(tokens);
 	if (!cmds)
 	{
@@ -65,7 +66,6 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	ft_free_list(cmds);
 }
 
-//TODO mirar nuestro exit que pasa, tambien quitar shell
 static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 {
 	if (*line)
@@ -76,13 +76,6 @@ static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
 	}
 	free(line);
 }
-
-/*static void	cleanup_and_exit(t_shell *shell)
-{
-	free_data(shell);
-	rl_clear_history();
-	clear_history();
-}*/
 
 int	main(int argc, char *argv[], char **envp)
 {
@@ -103,7 +96,7 @@ int	main(int argc, char *argv[], char **envp)
 			ft_putstr_fd("\nexit\n", 1);
 			return (0);
 		}
-		process_input(line, shell->env, l_e_s);
+		process_input(line, shell);
 		lines(line, shell, envp, &l_e_s);
 	}
 	free_data(shell);

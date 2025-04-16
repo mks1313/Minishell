@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:44:50 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 21:12:37 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:00:15 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cmd	*create_cmd(void)
 	return (cmd);
 }
 
-static void	add_arg_to_cmd(t_cmd *cmd, char *arg)
+void	add_arg_to_cmd(t_cmd *cmd, char *arg)
 {
 	int		i;
 	int		j;
