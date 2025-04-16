@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 14:55:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:49:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -63,7 +63,7 @@ t_tkn	*tokenize_input(char *line)
 	while (*str)
 	{
 		if (!process_token(token, &str))
-			break ;
+			break;
 	}
 	return (token[HEAD]);
 }
