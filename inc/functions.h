@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 11:10:18 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:27:27 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	error_exit(const char *msg, int exit_code);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
 void	ft_free_list(t_cmd *cmd);
+void	free_redirect_list(t_redir *redir);
+void	free_env_list(t_env *env);
 void	ft_free_cmd_list(t_cmd *cmd);
 void	change_env_variable(t_env *env, char *key, char *value);
 char	*get_env_variable_value(t_env *env, char *key);
@@ -39,6 +41,11 @@ void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);
 char	**append_arg(char **args, char *arg);
 void	add_arg_to_cmd(t_cmd *cmd, char *arg);
+char	*ft_strjoin_free(char *s1, const char *s2);
+char	*ft_strjoin_char(char *s, char c);
+t_redir	*create_redir(t_tkn *tkn);
+void	add_redir_to_list(t_redir **list, t_redir *new_redir);
+void	handle_redirect(t_redir **redir_list, t_tkn **tkn);
 //Signals
 void	handle_signal(int sig, siginfo_t *info, void *context);
 //Commands

@@ -5,97 +5,129 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/01 12:02:38 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 10:34:23 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/04/16 12:47:45 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/04/16 13:13:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_strjoin_free(char *s1, const char *s2)
+static char	*handle_exit_status(int exit_status)
 {
-	char	*result = ft_strjoin(s1, s2);
-	free(s1);
-	return result;
+	char	*tmp;
+
+	tmp = ft_itoa(exit_status);
+	return (tmp);
 }
 
-static char	*ft_strjoin_char(char *s, char c)
+static char	*handle_env_variable(char *value, int *i, t_env *env)
 {
-	char	*str;
-	int		len = ft_strlen(s);
-
-	str = malloc(len + 2);
-	if (!str)
-		return NULL;
-	ft_strcpy(str, s);
-	str[len] = c;
-	str[len + 1] = '\0';
-	free(s);
-	return str;
-}
-
-void expand_variable(t_shell *shell)
-{
-	t_tkn	*current_token = shell->tkns;
-	int		i, start;
-	char	*expanded;
+	int		start;
 	char	*tmp;
 	char	*val;
 
+	start = *i;
+	while (ft_isalnum(value[*i]) || value[*i] == '_')
+		(*i)++;
+	tmp = ft_substr(value, start, *i - start);
+	val = ft_getenv(tmp, env);
+	free(tmp);
+	if (val)
+		return (ft_strdup(val));
+	else
+		return (ft_strdup(""));
+}
+
+static char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
+{
+	char	*expanded;
+	char	*aux;
+
+	(*i)++;
+	if (value[*i] == '?')
+	{
+		expanded = handle_exit_status(shell->exit_status);
+		(*i)++;
+	}
+	else if (ft_isalnum(value[*i]) || value[*i] == '_')
+		expanded = handle_env_variable(value, i, shell->env);
+	else
+	{
+		expanded = ft_strdup("$");
+		if (value[*i])
+		{
+			char	tmp[2] = {value[*i], '\0'};
+			aux = ft_strjoin(expanded, tmp);
+			free(expanded);
+			expanded = aux;
+			(*i)++;
+		}
+	}
+	return (expanded);
+}
+
+static char	*expand_var_value(char *value, t_shell *shell)
+{
+	int		i;
+	char	*expanded;
+	char	*tmp;
+	char	*aux;
+
+	i = 0;
+	expanded = ft_strdup("");
+	while (value[i])
+	{
+		if (value[i] == '$')
+		{
+			tmp = handle_dollar_sign(value, &i, shell);
+			aux = ft_strjoin(expanded, tmp);
+			free(expanded);
+			free(tmp);
+			expanded = aux;
+		}
+		else
+		{
+			char tmp[2] = {value[i], '\0'};
+			aux = ft_strjoin(expanded, tmp);
+			free(expanded);
+			expanded = aux;
+			i++;
+		}
+	}
+	return (expanded);
+}
+
+static char	*strip_quotes(char *expanded)
+{
+	char	*tmp_expanded;
+
+	if (expanded[0] == '\"' && expanded[ft_strlen(expanded) - 1] == '\"')
+	{
+		tmp_expanded = ft_substr(expanded, 1, ft_strlen(expanded) - 2);
+		free(expanded);
+		return (tmp_expanded);
+	}
+	if (expanded[0] == '\'' && expanded[ft_strlen(expanded) - 1] == '\'')
+	{
+		tmp_expanded = ft_substr(expanded, 1, ft_strlen(expanded) - 2);
+		free(expanded);
+		return (tmp_expanded);
+	}
+	return (expanded);
+}
+
+void	expand_variable(t_shell *shell)
+{
+	t_tkn	*current_token;
+	char	*expanded;
+
+	current_token = shell->tkns;
 	while (current_token)
 	{
 		if (!current_token->single_quote)
 		{
-			i = 0;
-			expanded = ft_strdup("");
-			while (current_token->value[i])
-			{
-				if (current_token->value[i] == '$')
-				{
-					i++;
-					if (current_token->value[i] == '?')
-					{
-						tmp = ft_itoa(shell->exit_status);
-						expanded = ft_strjoin_free(expanded, tmp);
-						free(tmp);
-						i++;
-					}
-					else if (ft_isalnum(current_token->value[i]) || current_token->value[i] == '_')
-					{
-						start = i;
-						while (ft_isalnum(current_token->value[i]) || current_token->value[i] == '_')
-							i++;
-						tmp = ft_substr(current_token->value, start, i - start);
-						val = ft_getenv(tmp, shell->env);
-						if (val)
-							expanded = ft_strjoin_free(expanded, val);
-						free(tmp);
-					}
-					else
-					{
-						expanded = ft_strjoin_char(expanded, '$');
-						expanded = ft_strjoin_char(expanded, current_token->value[i++]);
-					}
-				}
-				else
-				{
-					expanded = ft_strjoin_char(expanded, current_token->value[i++]);
-				}
-			}
-
-			if (expanded[0] == '\"' && expanded[ft_strlen(expanded) - 1] == '\"')
-			{
-				char *tmp_expanded = ft_substr(expanded, 1, ft_strlen(expanded) - 2);
-				free(expanded);
-				expanded = tmp_expanded;
-			}
-			if (expanded[0] == '\'' && expanded[ft_strlen(expanded) - 1] == '\'')
-			{
-				char *tmp_expanded = ft_substr(expanded, 1, ft_strlen(expanded) - 2);
-				free(expanded);
-				expanded = tmp_expanded;
-			}
-
+			expanded = expand_var_value(current_token->value, shell);
+			expanded = strip_quotes(expanded);
 			free(current_token->value);
 			current_token->value = expanded;
 		}
