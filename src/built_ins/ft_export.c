@@ -6,104 +6,65 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/13 14:33:17 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:28:20 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*find_env(t_env *env_list, const char *key)
-{
-	while (env_list)
-	{
-		if (ft_strcmp(env_list->key, key) == 0)
-			return (env_list);
-		env_list = env_list->next;
-	}
-	return (NULL);
-}
-
-static int	is_valid_identifier(const char *key)
-{
-	int	i;
-
-	if (!key || (!ft_isalpha(key[0]) && key[0] != '_'))
-		return (0);
-	i = 1;
-	while (key[i])
-	{
-		if (!ft_isalnum(key[i]) && key[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-static void	append_to_env(t_env **env, const char *key, const char *value)
-{
-	t_env	*var;
-	char	*new_val;
-
-	var = find_env(*env, key);
-	if (var && var->value)
-	{
-		new_val = malloc(ft_strlen(var->value) + ft_strlen(value) + 1);
-		if (!new_val)
-			error_exit("MALLOC FAILED!", 1);
-		ft_strcpy(new_val, var->value);
-		ft_strcat(new_val, value);
-		free(var->value);
-		var->value = new_val;
-	}
-	else
-		update_or_append_env(env, key, value);
-}
-
-static void	export_single_arg(t_env **env, const char *arg, int *status)
+// Procesa la clave y el valor para un argumento con `+=`
+static void	process_plus_equals(t_env **env, const char *arg, int *status)
 {
 	char	*key;
 	char	*value;
 	char	*plus;
 
-	key = NULL;
-	value = NULL;
 	plus = ft_strnstr(arg, "+=", ft_strlen(arg));
-	if (plus)
-	{
-		key = ft_substr(arg, 0, plus - arg);
-		value = ft_strdup(plus + 2);
-		if (!is_valid_identifier(key))
-		{
-			dprintf(2, "export: `%s': not a valid identifier\n", arg);
-			*status = 1;
-		}
-		else
-			append_to_env(env, key, value);
-	}
-	else if (ft_strchr(arg, '='))
-	{
-		key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
-		value = ft_strdup(ft_strchr(arg, '=') + 1);
-		if (!is_valid_identifier(key))
-		{
-			dprintf(2, "export: `%s': not a valid identifier\n", arg);
-			*status = 1;
-		}
-		else
-			update_or_append_env(env, key, value);
-	}
-	else
-	{
-		if (!is_valid_identifier(arg))
-		{
-			dprintf(2, "export: `%s': not a valid identifier\n", arg);
-			*status = 1;
-		}
-		else if (!find_env(*env, arg))
-			update_or_append_env(env, arg, NULL);
-	}
+	key = ft_substr(arg, 0, plus - arg);
+	value = ft_strdup(plus + 2);
+	if (is_valid_identifier_export(key))
+		append_to_env(env, key, value);
+	if (*status == 0)
+		*status = 1;
 	free(key);
 	free(value);
+}
+
+// Procesa el argumento con `=`
+static void	process_equals(t_env **env, const char *arg, int *status)
+{
+	char	*key;
+	char	*value;
+
+	key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
+	value = ft_strdup(ft_strchr(arg, '=') + 1);
+	if (is_valid_identifier_export(key))
+		update_or_append_env(env, key, value);
+	if (*status == 0)
+		*status = 1;
+	free(key);
+	free(value);
+}
+
+// Procesa un argumento simple sin `=` ni `+=`
+static void	process_simple_arg(t_env **env, const char *arg)
+{
+	if (is_valid_identifier_export(arg) && !find_env(*env, arg))
+		update_or_append_env(env, arg, NULL);
+}
+
+// Función principal para exportar un solo argumento
+static void	export_single_arg(t_env **env, const char *arg, int *status)
+{
+	char	*plus;
+
+	plus = ft_strnstr(arg, "+=", ft_strlen(arg));
+	if (plus)
+		process_plus_equals(env, arg, status);
+	else if (ft_strchr(arg, '='))
+		process_equals(env, arg, status);
+	else
+		process_simple_arg(env, arg);
 }
 
 void	ft_export(t_env **env, t_cmd *cmd)

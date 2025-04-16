@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/12 20:57:49 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:12:16 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Función auxiliar: verifica si el argumento es un número válido
+// Verifica si el argumento es un número válido
 static int	is_numeric_argument(const char *str)
 {
 	int	i;
@@ -31,8 +31,16 @@ static int	is_numeric_argument(const char *str)
 	return (1);
 }
 
-// Función para manejar la salida del shell correctamente
-void	exit_shell(t_shell *shell, int exit_code)
+// Muestra el error de argumento no numérico
+static void	print_numeric_error(char *arg)
+{
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+}
+
+// Realiza la salida del shell
+static void	exit_shell(t_shell *shell, int exit_code)
 {
 	free_data(shell);
 	exit(exit_code);
@@ -40,9 +48,8 @@ void	exit_shell(t_shell *shell, int exit_code)
 
 void	ft_exit(t_cmd *cmd, t_shell *shell)
 {
-	long	exit_code;
-	int		arg_count;
 	char	**args;
+	int		arg_count;
 
 	args = cmd->args;
 	arg_count = 0;
@@ -57,13 +64,8 @@ void	ft_exit(t_cmd *cmd, t_shell *shell)
 	}
 	if (!is_numeric_argument(args[1]))
 	{
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(args[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		print_numeric_error(args[1]);
 		exit_shell(shell, 2);
 	}
-	exit_code = ft_atol(args[1]) % 256;
-	if (exit_code < 0)
-		exit_code += 256;
-	exit_shell(shell, exit_code);
+	exit_shell(shell, ft_atol(args[1]) % 256);
 }
