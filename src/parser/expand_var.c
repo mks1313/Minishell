@@ -6,65 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 12:47:45 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 13:13:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:57:18 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*handle_exit_status(int exit_status)
-{
-	char	*tmp;
-
-	tmp = ft_itoa(exit_status);
-	return (tmp);
-}
-
-static char	*handle_env_variable(char *value, int *i, t_env *env)
-{
-	int		start;
-	char	*tmp;
-	char	*val;
-
-	start = *i;
-	while (ft_isalnum(value[*i]) || value[*i] == '_')
-		(*i)++;
-	tmp = ft_substr(value, start, *i - start);
-	val = ft_getenv(tmp, env);
-	free(tmp);
-	if (val)
-		return (ft_strdup(val));
-	else
-		return (ft_strdup(""));
-}
-
-static char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
-{
-	char	*expanded;
-	char	*aux;
-
-	(*i)++;
-	if (value[*i] == '?')
-	{
-		expanded = handle_exit_status(shell->exit_status);
-		(*i)++;
-	}
-	else if (ft_isalnum(value[*i]) || value[*i] == '_')
-		expanded = handle_env_variable(value, i, shell->env);
-	else
-	{
-		expanded = ft_strdup("$");
-		if (value[*i])
-		{
-			char	tmp[2] = {value[*i], '\0'};
-			aux = ft_strjoin(expanded, tmp);
-			free(expanded);
-			expanded = aux;
-			(*i)++;
-		}
-	}
-	return (expanded);
-}
 
 static char	*expand_var_value(char *value, t_shell *shell)
 {
@@ -72,6 +18,7 @@ static char	*expand_var_value(char *value, t_shell *shell)
 	char	*expanded;
 	char	*tmp;
 	char	*aux;
+	char	one_char[2];
 
 	i = 0;
 	expanded = ft_strdup("");
@@ -87,8 +34,9 @@ static char	*expand_var_value(char *value, t_shell *shell)
 		}
 		else
 		{
-			char tmp[2] = {value[i], '\0'};
-			aux = ft_strjoin(expanded, tmp);
+			one_char[0] = value[i];
+			one_char[1] = '\0';
+			aux = ft_strjoin(expanded, one_char);
 			free(expanded);
 			expanded = aux;
 			i++;

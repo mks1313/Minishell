@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 14:46:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:38:59 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ char	*ft_strjoin_char(char *s, char c);
 t_redir	*create_redir(t_tkn *tkn);
 void	add_redir_to_list(t_redir **list, t_redir *new_redir);
 void	handle_redirect(t_redir **redir_list, t_tkn **tkn);
+char	*handle_exit_status(int exit_status);
+char	*handle_env_variable(char *value, int *i, t_env *env);
+char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 //Signals
 void	handle_signal(int sig, siginfo_t *info, void *context);
 //Commands
