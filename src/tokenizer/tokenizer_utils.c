@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 13:51:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:32:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -18,7 +18,10 @@ t_tkn	*create_token(char *value, int type)
 	new_token = (t_tkn *)malloc(sizeof(t_tkn));
 	if (!new_token)
 		return (NULL);
-	new_token->value = value;
+	if (value)
+		new_token->value = ft_strdup(value);
+	else
+		new_token->value = NULL;
 	new_token->type = type;
 	new_token->single_quote = false;
 	new_token->double_quote = false;
@@ -75,7 +78,7 @@ void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end)
 		free(new_tkn);
 		return ;
 	}
-	if (!new_tkn->value)
+	if (new_tkn->value)
 		free(new_tkn->value);
 	new_tkn->value = token_value;
 	if (!tkn[HEAD])

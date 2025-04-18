@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 13:18:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:27:46 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	ft_free_tokens(t_tkn *tokens)
 	while (tokens)
 	{
 		tmp = tokens;
-		tokens = tokens->next;
 		if (tmp->value)
 			free(tmp->value);
+		tokens = tokens->next;
 		free(tmp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 13:33:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:34:59 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -21,6 +21,7 @@ static int	handle_quoted_token(t_tkn **token, char **str)
 	*str = handle_quotes(*str, new_token);
 	if (!*str)
 	{
+		free(new_token);
 		ft_putendl_fd("syntax error: unclosed quote", STDERR_FILENO);
 		return (0);
 	}
