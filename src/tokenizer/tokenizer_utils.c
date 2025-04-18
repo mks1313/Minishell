@@ -6,12 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 14:32:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:21:40 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-t_tkn	*create_token(char *value, int type)
+t_tkn	*create_token(char *value, t_tkn_type type)
 {
 	t_tkn	*new_token;
 
@@ -79,7 +79,7 @@ void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end)
 		return ;
 	}
 	if (new_tkn->value)
-		free(new_tkn->value);
+	free(new_tkn->value);
 	new_tkn->value = token_value;
 	if (!tkn[HEAD])
 		tkn[HEAD] = new_tkn;

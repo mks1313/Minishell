@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/18 13:46:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:30:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 		curr = curr->next;
 	}
 }
+
+/*static void debug_print_tokens(t_tkn *tokens)
+{
+    t_tkn *current = tokens;
+    while (current)
+    {
+        printf("Token: %s, Type: %d\n", current->value, current->type);
+        current = current->next;
+    }
+}*/
 
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
