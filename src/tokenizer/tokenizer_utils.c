@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 11:32:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:51:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -75,6 +75,8 @@ void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end)
 		free(new_tkn);
 		return ;
 	}
+	if (!new_tkn->value)
+		free(new_tkn->value);
 	new_tkn->value = token_value;
 	if (!tkn[HEAD])
 		tkn[HEAD] = new_tkn;

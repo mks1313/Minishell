@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/16 10:48:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:46:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,6 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	ft_free_list(cmds);
 }
 
-static void	lines(char *line, t_shell *shell, char **envp, int *l_e_s)
-{
-	if (*line)
-	{
-		add_history(line);
-		handle_commands(line, shell, envp);
-		*l_e_s = (*l_e_s + 1) % 256;
-	}
-	free(line);
-}
-
 int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
@@ -96,8 +85,13 @@ int	main(int argc, char *argv[], char **envp)
 			ft_putstr_fd("\nexit\n", 1);
 			return (0);
 		}
-		process_input(line, shell);
-		lines(line, shell, envp, &l_e_s);
+		if (*line)
+		{
+			add_history(line);
+			handle_commands(line, shell, envp);
+			l_e_s = (l_e_s + 1) % 256;
+		}
+		free(line);
 	}
 	free_data(shell);
 	rl_clear_history();

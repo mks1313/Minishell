@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 11:31:44 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:33:58 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -22,7 +22,6 @@ static int	handle_quoted_token(t_tkn **token, char **str)
 	if (!*str)
 	{
 		ft_putendl_fd("syntax error: unclosed quote", STDERR_FILENO);
-		ft_free_tokens(token[HEAD]);
 		return (0);
 	}
 	add_token_to_list(token, new_token, start, *str);
@@ -55,13 +54,14 @@ static int	process_token(t_tkn **token, char **str)
 t_tkn	*tokenize_input(char *line)
 {
 	t_tkn	*token[2];
-	char	*str;
+	 char	*str;
 
 	token[HEAD] = NULL;
 	token[TAIL] = NULL;
 	str = line;
 	while (*str)
 	{
+		printf("DEBUG tokenizer: str = [%s]\n", str);
 		if (!process_token(token, &str))
 		{
 			ft_free_tokens(token[HEAD]);
