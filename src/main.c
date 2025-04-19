@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/18 17:30:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:00:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,24 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
-	int		l_e_s;
 	t_shell	*shell;
 
 	(void)argc;
 	(void)argv;
 	shell = init_shell();
 	shell->env = convert_env(envp);
-	l_e_s = 0;
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
 		if (!line)
 		{
 			ft_putstr_fd("\nexit\n", 1);
-			return (0);
+			ft_exit(NULL, shell);
 		}
 		if (*line)
 		{
 			add_history(line);
 			handle_commands(line, shell, envp);
-			l_e_s = (l_e_s + 1) % 256;
 		}
 		free(line);
 	}
