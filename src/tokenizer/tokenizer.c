@@ -6,122 +6,69 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 19:40:06 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:36:27 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_tkn	*create_token(char *value, int type)
+static int	handle_quoted_token(t_tkn **token, char **str)
 {
 	t_tkn	*new_token;
+	char	*start;
 
-	new_token = (t_tkn *)malloc(sizeof(t_tkn));
-	if (!new_token)
-		return (NULL);
-	new_token->value = value;
-	new_token->type = type;
-	new_token->single_quote = false;
-	new_token->double_quote = false;
-	new_token->next = NULL;
-	return (new_token);
-}
-
-static char	*handle_quotes(char *str, t_tkn *token)
-{
-	char	quote;
-
-	quote = *str;
-	str++;
-	if (quote == '\'')
-		token->single_quote = true;
-	else if (quote == '\"')
-		token->double_quote = true;
-	while (*str && *str != quote)
-		str++;
-	if (*str == '\0')
+	start = *str;
+	new_token = create_token(NULL, TOK_WORD);
+	*str = handle_quotes(*str, new_token);
+	if (!*str)
 	{
-		ft_putstr_fd("syntax error: unexpected EOF while matching quote\n", 2);
-		return (NULL);
+		free(new_token);
+		ft_putendl_fd("syntax error: unclosed quote", STDERR_FILENO);
+		return (0);
 	}
-	if (quote == '\'')
-		token->single_quote = false;
-	else if (quote == '\"')
-		token->double_quote = false;
-	return (str + 1);
+	add_token_to_list(token, new_token, start, *str);
+	printf("Token(q_q): %s, Type: %d\n", new_token->value, new_token->type);
+	return (1);
 }
 
-static char	*process_non_quotes(char *str)
-{
-	if (ft_strchr(" ;|&", *str))
-		str++;
-	else
-	{
-		while (*str && !ft_strchr(" ;|&'\" \t\n", *str))
-			str++;
-	}
-	return (str);
-}
-
-static void	add_token_to_list(t_tkn **token, char *line, char *start, char *str)
+static int	handle_normal_token(t_tkn **token, char **str)
 {
 	t_tkn	*new_token;
-	char	*token_value;
+	char	*start;
 
-	token_value = ft_substr(line, start - line, str - start);
-	if (!token_value)
-		return ;
-	new_token = create_token(token_value, TOK_WORD);
-	if (!token[HEAD])
-		token[HEAD] = new_token;
+	start = *str;
+	new_token = create_token(NULL, TOK_WORD);
+	*str = process_non_quotes(*str);
+	add_token_to_list(token, new_token, start, *str);
+	printf("Token(no_q): %s, Type: %d\n", new_token->value, new_token->type);
+	return (1);
+}
+
+static int	process_token(t_tkn **token, char **str)
+{
+	*str = skip_delimiters(*str, " \t\n");
+	if (**str == '\0')
+		return (0);
+	if (**str == '\'' || **str == '\"')
+		return (handle_quoted_token(token, str));
 	else
-		token[TAIL]->next = new_token;
-	token[TAIL] = new_token;
+		return (handle_normal_token(token, str));
 }
 
 t_tkn	*tokenize_input(char *line)
 {
 	t_tkn	*token[2];
-	char	*start;
-	char	*str;
+	 char	*str;
 
 	token[HEAD] = NULL;
 	token[TAIL] = NULL;
 	str = line;
 	while (*str)
 	{
-		str = skip_delimiters(str, " \t\n");
-		if (*str == '\0')
-			break ;
-		start = str;
-		if (*str == '\'')
+		if (!process_token(token, &str))
 		{
-			t_tkn *new_token = create_token(NULL, TOK_WORD);
-			str = handle_quotes(str, new_token);
-			if (!str)
-			{
-				ft_putendl_fd("syntax error: unclosed quote", STDERR_FILENO);
-				ft_free_tokens(token[HEAD]);
-				return (NULL);
-			}
-			add_token_to_list(token, line, start, str);
-		}
-		else if (*str == '\"')
-		{
-			t_tkn *new_token = create_token(NULL, TOK_WORD);
-			str = handle_quotes(str, new_token);
-			if (!str)
-			{
-				ft_putendl_fd("syntax error: unclosed quote", STDERR_FILENO);
-				ft_free_tokens(token[HEAD]);
-				return (NULL);
-			}
-			add_token_to_list(token, line, start, str);
-		}
-		else
-		{
-			str = process_non_quotes(str);
-			add_token_to_list(token, line, start, str);
+			ft_free_tokens(token[HEAD]);
+			return (NULL);
 		}
 	}
 	return (token[HEAD]);

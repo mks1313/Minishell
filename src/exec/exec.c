@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/05 13:02:13 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:49:05 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 	char	**envp;
 
 	envp = env_to_array(env);
-	//ft_printf("es arg[0]: %s\n", args[0]);
 	execve(cmd_path, args, envp);
+	perror(cmd_path); // Solo si execve falla
 	clean_array(envp);
 	free(cmd_path);
 	exit(EXIT_FAILURE);
@@ -43,11 +43,17 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
 	{
-		//ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		return (127);
 	}
 	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		free(cmd_path);
+		return (1);
+	}
 	if (pid == 0)
 		execute_child_process(cmd_path, args, env);
 	else

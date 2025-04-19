@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 13:44:37 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:27:46 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	ft_free_tokens(t_tkn *tokens)
 	while (tokens)
 	{
 		tmp = tokens;
-		tokens = tokens->next;
 		if (tmp->value)
 			free(tmp->value);
+		tokens = tokens->next;
 		free(tmp);
 	}
 }
@@ -91,50 +91,4 @@ void	ft_free_list(t_cmd *cmd)
 			free_redirect_list(tmp->redirects);
 		free(tmp);
 	}
-}
-
-/**
- * free_cmd_list - Libera la lista de comandos y sus argumentos.
- * @cmd_list: Puntero a la lista de comandos.
- */
-void	free_cmd_list(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	int		i;
-
-	while (cmd)
-	{
-		tmp = cmd;
-		cmd = cmd->next;
-		if (tmp->args)
-		{
-			i = 0;
-			while (tmp->args[i])
-			{
-				free(tmp->args[i]);
-				i++;
-			}
-			free(tmp->args);
-		}
-		free_redirect_list(tmp->redirects);
-		free(tmp);
-	}
-}
-
-/**
- * free_data - Libera todas las estructuras de datos en el shell.
- * @shell: Estructura del shell que contiene todos los datos.
- */
-void	free_data(t_shell *shell)
-{
-	if (shell->env)
-		free_env_list(shell->env);
-	if (shell->tkns)
-		ft_free_tokens(shell->tkns);
-	if (shell->cmds)
-		free_cmd_list(shell->cmds);
-	if (shell->cur_dir)
-		free(shell->cur_dir);
-	if (shell)
-		free(shell);
 }

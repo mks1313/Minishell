@@ -6,103 +6,76 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/09 15:57:14 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:28:20 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Función para encontrar una variable de entorno*/
-t_env	*find_env(t_env *env_list, const char *key)
+// Procesa la clave y el valor para un argumento con `+=`
+static void	process_plus_equals(t_env **env, const char *arg, int *status)
 {
-	while (env_list)
-	{
-		if (strcmp(env_list->key, key) == 0)
-			return (env_list);
-		env_list = env_list->next;
-	}
-	return (NULL);
-}
-
-/* Función para agregar o actualizar una variable de entorno
- */
-void	set_env(t_env **env_list, const char *key, const char *value)
-{
-	t_env	*var;
-	t_env	*new_var;
-
-	var = find_env(*env_list, key);
-	if (var)
-	{
-		// Si la variable existe, actualizamos su valor
-		free(var->value);
-		var->value = strdup(value);
-	}
-	else
-	{
-		// Si no existe, creamos una nueva variable
-		new_var = malloc(sizeof(t_env));
-		new_var->key = strdup(key);
-		if (new_var->value == value)
-			ft_strdup(value);
-		new_var->next = *env_list;
-		*env_list = new_var;
-	}
-}
-
-// Función principal de export
-void	ft_export(t_env **env_list, t_cmd *cmd)
-{
-	t_env	*var;
-	t_env	*env;
 	char	*key;
 	char	*value;
-	char	*new_val;
-	int		i;
+	char	*plus;
 
-	if (!cmd->args[1])
-	{
-		env = *env_list;
-		while (env)
-		{
-			ft_printf("%s", env->key);
-			if (env->value)
-				printf("=%s", env->value);
-			ft_printf("\n");
-			env = env->next;
-		}
-		return ;
-	}
+	plus = ft_strnstr(arg, "+=", ft_strlen(arg));
+	key = ft_substr(arg, 0, plus - arg);
+	value = ft_strdup(plus + 2);
+	if (is_valid_identifier_export(key))
+		append_to_env(env, key, value);
+	if (*status == 0)
+		*status = 1;
+	free(key);
+	free(value);
+}
+
+// Procesa el argumento con `=`
+static void	process_equals(t_env **env, const char *arg, int *status)
+{
+	char	*key;
+	char	*value;
+
+	key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
+	value = ft_strdup(ft_strchr(arg, '=') + 1);
+	if (is_valid_identifier_export(key))
+		update_or_append_env(env, key, value);
+	if (*status == 0)
+		*status = 1;
+	free(key);
+	free(value);
+}
+
+// Procesa un argumento simple sin `=` ni `+=`
+static void	process_simple_arg(t_env **env, const char *arg)
+{
+	if (is_valid_identifier_export(arg) && !find_env(*env, arg))
+		update_or_append_env(env, arg, NULL);
+}
+
+// Función principal para exportar un solo argumento
+static void	export_single_arg(t_env **env, const char *arg, int *status)
+{
+	char	*plus;
+
+	plus = ft_strnstr(arg, "+=", ft_strlen(arg));
+	if (plus)
+		process_plus_equals(env, arg, status);
+	else if (ft_strchr(arg, '='))
+		process_equals(env, arg, status);
+	else
+		process_simple_arg(env, arg);
+}
+
+void	ft_export(t_env **env, t_cmd *cmd)
+{
+	int	status;
+	int	i;
+
+	status = 0;
 	i = 1;
+	if (!cmd->args[1])
+		return ;
 	while (cmd->args[i])
-	{
-		if (ft_strchr(cmd->args[i], '+') && ft_strchr(cmd->args[i], '='))
-		{
-			key = ft_strtok(cmd->args[i], "+=");
-			value = ft_strtok(NULL, "+=");
-			var = find_env(*env_list, key);
-			if (var)
-			{
-				new_val = malloc(ft_strlen(var->value) + ft_strlen(value) + 1);
-				ft_strcpy(new_val, var->value);
-				ft_strcat(new_val, value);
-				free(var->value);
-				var->value = new_val;
-			}
-			else
-				set_env(env_list, key, value);
-		}
-		else if (ft_strchr(cmd->args[i], '='))
-		{
-			key = ft_strtok(cmd->args[i], "=");
-			value = ft_strtok(NULL, "+");
-			set_env(env_list, key, value);
-		}
-		else
-		{
-			if (!find_env(*env_list, cmd->args[i]))
-				set_env(env_list, cmd->args[i], "");
-		}
-		i++;
-	}
+		export_single_arg(env, cmd->args[i++], &status);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 19:52:52 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:05:40 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ t_cmd	*create_cmd(void);
 //Tokens
 t_tkn	*tokenize_input(char *line);
 t_tkn	*new_token(char *value, t_tkn_type type);
+t_tkn	*create_token(char *value, t_tkn_type type);
+char	*handle_quotes(char *str, t_tkn *token);
+char	*process_non_quotes(char *str);
+void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end);
 //Lexer
 void	lex_tokens(t_tkn *tkn);
 //Utils
@@ -26,6 +30,8 @@ void	error_exit(const char *msg, int exit_code);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
 void	ft_free_list(t_cmd *cmd);
+void	free_redirect_list(t_redir *redir);
+void	free_env_list(t_env *env);
 void	ft_free_cmd_list(t_cmd *cmd);
 void	change_env_variable(t_env *env, char *key, char *value);
 char	*get_env_variable_value(t_env *env, char *key);
@@ -33,11 +39,20 @@ char	*get_env_variable_value(t_env *env, char *key);
 void	single_quotes(const char *input);
 void	double_quotes(const char *inpt, t_env *env, int l_e_s);
 int		count_envp(t_env *env);
-void	expand_variable(t_tkn *tokens, t_env *env, int l_e_s);
-void	process_input(const char *input, t_env *env, int l_e_s);
-void	handle_exit_status(int *i, int l_e_s);
+void	expand_variable(t_shell *shell);
+void	process_input(const char *input, t_shell *shell);
 void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);
+char	**append_arg(char **args, char *arg);
+void	add_arg_to_cmd(t_cmd *cmd, char *arg);
+char	*ft_strjoin_free(char *s1, const char *s2);
+char	*ft_strjoin_char(char *s, char c);
+t_redir	*create_redir(t_tkn *tkn);
+void	add_redir_to_list(t_redir **list, t_redir *new_redir);
+void	handle_redirect(t_redir **redir_list, t_tkn **tkn);
+char	*handle_exit_status(int exit_status);
+char	*handle_env_variable(char *value, int *i, t_env *env);
+char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 //Signals
 void	handle_signal(int sig, siginfo_t *info, void *context);
 //Commands
@@ -47,15 +62,17 @@ void	ft_echo(t_cmd *cmd);
 t_env	*convert_env(char **envp);
 void	ft_env(t_env *env_list);
 char	*ft_getenv(const char *name, t_env *env);
-//TODO: Rehacer las funciones, quitar t_shell
 void	ft_exit(t_cmd *cmd, t_shell *shell);
 void	ft_cd(t_cmd *cmd, t_shell *shell);
 void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line);
-t_env	*find_env(t_env *env_list, const char *key);
-void	set_env(t_env **env_list, const char *key, const char *value);
-void	ft_export(t_env **env_list, t_cmd *cmd);
 void	ft_unset(t_cmd *cmd, t_shell *shell);
 void	handle_external_command(t_cmd *cmd, t_shell *shell);
+void	ft_export(t_env **env, t_cmd *cmd);
+void	update_or_append_env(t_env **env, const char *key, const char *value);
+t_env	*find_env(t_env *env_list, const char *key);
+int		is_valid_identifier(const char *key);
+int		is_valid_identifier_export(const char *key);
+void	append_to_env(t_env **env, const char *key, const char *value);
 // Else
 char	*skip_delimiters(char *str, const char *delimiters);
 void	builtin_error(char *cmd, char *arg, char *msg);

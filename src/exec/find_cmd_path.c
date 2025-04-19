@@ -6,12 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:14:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 18:28:26 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:49:57 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static char	*get_command_path(t_env *env)
 {
 	char	*path_env;
@@ -20,7 +20,7 @@ static char	*get_command_path(t_env *env)
 	if (!path_env)
 		return (NULL);
 	return (path_env);
-}
+}*/
 
 static char	*search_in_paths(char **paths, char *cmd)
 {
@@ -45,9 +45,15 @@ char	*find_command_path(char *cmd, t_env *env)
 	char	*cmd_path;
 	char	*path_env;
 
+	// Si contiene /, chequeamos si existe y es ejecutable
 	if (ft_strchr(cmd, '/'))
-		return (ft_strdup(cmd));
-	path_env = get_command_path(env);
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		else
+			return (NULL);
+	}
+	path_env = ft_getenv("PATH", env);
 	if (!path_env)
 		return (NULL);
 	paths = ft_split(path_env, ':');
