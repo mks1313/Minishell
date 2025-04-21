@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/19 14:03:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:43:53 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static int	handle_quoted_token(t_tkn **token, char **str)
 		return (0);
 	}
 	add_token_to_list(token, new_token, start, *str);
-	//printf("Token(q_q): %s, Type: %d\n", new_token->value, new_token->type);
 	return (1);
 }
 
@@ -40,7 +39,6 @@ static int	handle_normal_token(t_tkn **token, char **str)
 	new_token = create_token(NULL, TOK_WORD);
 	*str = process_non_quotes(*str);
 	add_token_to_list(token, new_token, start, *str);
-	printf("Token(no_q): %s, Type: %d\n", new_token->value, new_token->type);
 	return (1);
 }
 
