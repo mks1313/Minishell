@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/16 15:34:12 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/21 13:46:41 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ else
 endif
 
 # -----------------------------------------------------------------------------#
-#           Correctamente especificamos las rutas de cabecera                  #
+#           Especificamos las rutas de cabecera                  #
 #------------------------------------------------------------------------------#
 CFLAGS = -Wall -Wextra -Werror  -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
@@ -53,6 +53,8 @@ SRC_FOLDER =  main.c signals/signals.c
 SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
 			  parser/parser_utils.c parser/expand_helper.c
 SRC_FOLDER += lexer/lex_tokens.c
+SRC_FOLDER += pipes/execute_child.c pipes/executor.c pipes/heredoc.c     \
+			  pipes/pipes.c pipes/redir.c pipes/utils_pipe.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
 SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c     \
 			  built_ins/ft_echo.c built_ins/ft_getenv.c built_ins/ft_pwd.c \
@@ -69,13 +71,13 @@ SRC_FOLDER += utils/inits.c utils/main_utils.c utils/free_data.c           \
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 
 #------------------------------------------------------------------------------#
-#           Agrega la ruta a las fuentes                                      #
+#           Agrega la ruta a las fuentes                                       #
 #------------------------------------------------------------------------------#
 
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))
 
 #------------------------------------------------------------------------------#
-#           Definimos los objetos a generar a partir de las fuentes             #
+#           Definimos los objetos a generar a partir de las fuentes            #
 #------------------------------------------------------------------------------#
 
 OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
