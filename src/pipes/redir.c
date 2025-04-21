@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 13:13:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:10:04 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	handle_redirections(t_redir *redir)
 			fd = handle_heredoc(redir->file);
 		else
 			fd = -1;
-
 		if (fd < 0)
 			return (perror(redir->file), -1);
-
 		if (redir->type == REDIR_IN || redir->type == REDIR_HEREDOC)
 			dup2(fd, STDIN_FILENO);
 		else

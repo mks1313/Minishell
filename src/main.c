@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/21 12:45:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:59:23 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,24 @@ static int	is_builtin(char *cmd)
 
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-	t_cmd	*curr;
+	int		n_cmds;
+	t_pipe	pipe_data;
 
-	curr = cmd;
-	while (curr)
+	if (!cmd || !cmd->cmd)
+		return ;
+
+	n_cmds = count_cmds(cmd);
+	if (n_cmds == 1)
 	{
-		if (curr->cmd)
-		{
-			if (is_builtin(curr->cmd))
-				handle_builtin_commands(curr, shell, line);
-			else
-				handle_external_command(curr, shell);
-		}
-		curr = curr->next;
+		if (is_builtin(cmd->cmd))
+			handle_builtin_commands(cmd, shell, line);
+		else
+			execute_single_command(cmd, shell->env);
+	}
+	else
+	{
+		pipe_data.n_cmds = n_cmds;
+		execute_piped_commands(cmd, &pipe_data, shell->env);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 13:34:20 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:59:07 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ int		handle_heredoc(char *delimiter);
 int		execute_piped_commands(t_cmd *cmds, t_pipe *pdata, t_env *env);
 int		handle_redirections(t_redir *redir);
 void	init_pipe_data(t_pipe *pdata, t_cmd *cmds);
-void	close_unused_fds(t_pipe *pdata, int index);
+void	close_unused_fds(t_pipe *pdata);
 int		wait_all(t_pipe *pdata);
+void	free_pipe_data(t_pipe *pdata);
+int		count_cmds(t_cmd *cmd);
+int		execute_single_command(t_cmd *cmd, t_env *env);
 //Commands
 void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
 t_cmd	*parse_tokens(t_tkn *tokens);
