@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 14:12:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:24:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ void	ft_exit(t_cmd *cmd, t_shell *shell)
 		print_numeric_error(args[1]);
 		exit_shell(shell, 2);
 	}
-	exit_shell(shell, ft_atol(args[1]) % 256);
+	exit_shell(shell, (unsigned char)ft_atol(args[1]));
 }

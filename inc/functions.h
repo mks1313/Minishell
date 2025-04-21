@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 17:05:40 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:59:07 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	ft_free_cmd_list(t_cmd *cmd);
 void	change_env_variable(t_env *env, char *key, char *value);
 char	*get_env_variable_value(t_env *env, char *key);
 //Parser
-void	single_quotes(const char *input);
-void	double_quotes(const char *inpt, t_env *env, int l_e_s);
 int		count_envp(t_env *env);
 void	expand_variable(t_shell *shell);
 void	process_input(const char *input, t_shell *shell);
@@ -55,6 +53,18 @@ char	*handle_env_variable(char *value, int *i, t_env *env);
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 //Signals
 void	handle_signal(int sig, siginfo_t *info, void *context);
+//Pipe
+void	execute_child(t_cmd *cmd, t_pipe *pdata, int index, t_env *env);
+int		execute_cmds(t_cmd *cmds, t_env *env);
+int		handle_heredoc(char *delimiter);
+int		execute_piped_commands(t_cmd *cmds, t_pipe *pdata, t_env *env);
+int		handle_redirections(t_redir *redir);
+void	init_pipe_data(t_pipe *pdata, t_cmd *cmds);
+void	close_unused_fds(t_pipe *pdata);
+int		wait_all(t_pipe *pdata);
+void	free_pipe_data(t_pipe *pdata);
+int		count_cmds(t_cmd *cmd);
+int		execute_single_command(t_cmd *cmd, t_env *env);
 //Commands
 void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
 t_cmd	*parse_tokens(t_tkn *tokens);

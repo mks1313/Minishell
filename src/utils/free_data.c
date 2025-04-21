@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 14:27:46 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:06:56 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	free_env_list(t_env *env)
 	while (env)
 	{
 		tmp = env->next;
-		if (env->key)
+		if (env->key != NULL)
 			free(env->key);
-		if (env->value)
+		if (env->value != NULL)
 			free(env->value);
 		free(env);
 		env = tmp;

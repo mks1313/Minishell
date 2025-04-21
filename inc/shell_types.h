@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/12 20:57:36 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:56:48 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ typedef struct s_cmd
 typedef struct s_pipe
 {
 	int		fd[2]; //Pipe actual
+	int		prev_fd;//Pipe anterior para el proximo hjo
 	pid_t	*pids; // Array de pids de hijos
 	int		n_cmds; // Cantidad de comandos
-	int		stdin_backup; // Backup de stdin
-	int		stdout_backup; // Backup de stduot
 }	t_pipe;
 
 /*  ====================

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/09 14:31:28 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:26:02 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,6 @@
 // Ahora funciona con t_env
 // Si hay un argumento, intentar cambiar al directorio indicado
 // Si no puede cambiar de directorio
-//
-/*
-static void	ft_print_list(t_env *env)
-{
-	t_env	*copy;
-
-	copy = env;
-	while (copy->next != NULL)
-	{
-		ft_printf(RED"%s=%s\n"RES, copy->key, copy->value);
-		copy = copy->next;
-	}
-}*/
 
 static void	change_environment_pwd(t_env *env, char	*home)
 {

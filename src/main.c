@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/18 17:30:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:15:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,37 @@ static int	is_builtin(char *cmd)
 
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-	t_cmd	*curr;
+	int		n_cmds;
+	t_pipe	pipe_data;
 
-	curr = cmd;
-	while (curr)
+	if (!cmd || !cmd->cmd)
+		return ;
+
+	n_cmds = count_cmds(cmd);
+	if (n_cmds == 1)
 	{
-		if (curr->cmd)
-		{
-			if (is_builtin(curr->cmd))
-				handle_builtin_commands(curr, shell, line);
-			else
-				handle_external_command(curr, shell);
-		}
-		curr = curr->next;
+		if (is_builtin(cmd->cmd))
+			handle_builtin_commands(cmd, shell, line);
+		else
+			execute_single_command(cmd, shell->env);
+	}
+	else
+	{
+		pipe_data.n_cmds = n_cmds;
+		execute_piped_commands(cmd, &pipe_data, shell->env);
 	}
 }
 
-/*static void debug_print_tokens(t_tkn *tokens)
+static void debug(t_tkn *tkn)
 {
-    t_tkn *current = tokens;
-    while (current)
-    {
-        printf("Token: %s, Type: %d\n", current->value, current->type);
-        current = current->next;
-    }
-}*/
+	t_tkn *curr = tkn;
+	while (curr)
+	{
+		printf("Token: %s | type: %d | sq: %d | dq: %d\n",
+				curr->value, curr->type, curr->single_quote, curr->double_quote);
+		curr = curr->next;
+	}
+}
 
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
@@ -62,6 +68,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!tokens)
 		return ;
 	lex_tokens(tokens);
+	debug(tokens);
 	shell->tkns = tokens;
 	expand_variable(shell);
 	cmds = parse_tokens(tokens);
@@ -79,14 +86,12 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
-	int		l_e_s;
 	t_shell	*shell;
 
 	(void)argc;
 	(void)argv;
 	shell = init_shell();
 	shell->env = convert_env(envp);
-	l_e_s = 0;
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
@@ -99,7 +104,6 @@ int	main(int argc, char *argv[], char **envp)
 		{
 			add_history(line);
 			handle_commands(line, shell, envp);
-			l_e_s = (l_e_s + 1) % 256;
 		}
 		free(line);
 	}
