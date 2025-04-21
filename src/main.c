@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/21 15:59:23 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:15:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 	}
 }
 
-/*static void debug_print_tokens(t_tkn *tokens)
+static void debug(t_tkn *tkn)
 {
-    t_tkn *current = tokens;
-    while (current)
-    {
-        printf("Token: %s, Type: %d\n", current->value, current->type);
-        current = current->next;
-    }
-}*/
+	t_tkn *curr = tkn;
+	while (curr)
+	{
+		printf("Token: %s | type: %d | sq: %d | dq: %d\n",
+				curr->value, curr->type, curr->single_quote, curr->double_quote);
+		curr = curr->next;
+	}
+}
 
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
@@ -67,6 +68,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!tokens)
 		return ;
 	lex_tokens(tokens);
+	debug(tokens);
 	shell->tkns = tokens;
 	expand_variable(shell);
 	cmds = parse_tokens(tokens);

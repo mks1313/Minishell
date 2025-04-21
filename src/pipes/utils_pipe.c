@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:12 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 15:55:39 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:48:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	init_pipe_data(t_pipe *pdata, t_cmd *cmds)
 	}
 	pdata->n_cmds = count;
 	pdata->pids = malloc(sizeof(pid_t) * count);
+	if (!pdata->pids)
+	{
+		perror("malloc!!!");
+		exit(1);
+	}
 	pdata->prev_fd = -1;
 }
 
@@ -63,6 +68,7 @@ int	wait_all(t_pipe *pdata)
 	i = 0;
 	while (i < pdata->n_cmds)
 	{
+		status = 0;
 		waitpid(pdata->pids[i], &status, 0);
 		if (WIFEXITED(status))
 			last_status = WEXITSTATUS(status);
