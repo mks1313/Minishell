@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 17:38:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:39:33 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	handle_quoted_token(t_tkn **token, char **str)
 	char	*start;
 
 	start = *str;
+	printf("Handling quoted token starting at: [%s]\n", *str);
 	new_token = create_token(NULL, TOK_WORD);
 	*str = handle_quotes(*str, new_token);
 	if (!*str)
@@ -27,6 +28,7 @@ static int	handle_quoted_token(t_tkn **token, char **str)
 		return (0);
 	}
 	add_token_to_list(token, new_token, start, *str);
+	printf("Token: %s | Type: %d | sq: %d | dq: %d\n", new_token->value, new_token->type, new_token->s_quote, new_token->db_quote);
 	return (1);
 }
 
@@ -36,17 +38,20 @@ static int	handle_normal_token(t_tkn **token, char **str)
 	char	*start;
 
 	start = *str;
+	printf("Handling normal token starting at: [%s]\n", *str);
 	new_token = create_token(NULL, TOK_WORD);
 	*str = process_non_quotes(*str);
 	add_token_to_list(token, new_token, start, *str);
+	printf("Token: %s\n", new_token->value);
 	return (1);
 }
 
 static int	process_token(t_tkn **token, char **str)
 {
-	*str = skip_delimiters(*str, " \t\n");
+	skip_delimiters(str);
 	if (**str == '\0')
 		return (0);
+	printf("Current character: %c\n", **str);
 	if (**str == '\'' || **str == '\"')
 		return (handle_quoted_token(token, str));
 	else
@@ -56,18 +61,24 @@ static int	process_token(t_tkn **token, char **str)
 t_tkn	*tokenize_input(char *line)
 {
 	t_tkn	*token[2];
-	 char	*str;
+	char	*str;
 
 	token[HEAD] = NULL;
 	token[TAIL] = NULL;
 	str = line;
+	printf("== Tokenizing line: [%s] ==\n", line);
 	while (*str)
 	{
+		skip_delimiters(&str);
+		if (*str == '\0')
+			break ;
 		if (!process_token(token, &str))
 		{
+			printf("Tokenization failed\n");
 			ft_free_tokens(token[HEAD]);
 			return (NULL);
 		}
 	}
+	printf("== Tokenization complete ==\n");
 	return (token[HEAD]);
 }

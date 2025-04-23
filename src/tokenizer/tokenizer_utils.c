@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/18 18:21:40 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:46:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -23,8 +23,8 @@ t_tkn	*create_token(char *value, t_tkn_type type)
 	else
 		new_token->value = NULL;
 	new_token->type = type;
-	new_token->single_quote = false;
-	new_token->double_quote = false;
+	new_token->s_quote = false;
+	new_token->db_quote = false;
 	new_token->next = NULL;
 	return (new_token);
 }
@@ -39,9 +39,9 @@ char	*handle_quotes(char *str, t_tkn *token)
 	start = str + 1;
 	str++;
 	if (quote == '\'')
-		token->single_quote = true;
+		token->s_quote = true;
 	else if (quote == '\"')
-		token->double_quote = true;
+		token->db_quote = true;
 	while (*str && *str != quote)
 		str++;
 	if (*str == '\0')
@@ -79,7 +79,7 @@ void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end)
 		return ;
 	}
 	if (new_tkn->value)
-	free(new_tkn->value);
+		free(new_tkn->value);
 	new_tkn->value = token_value;
 	if (!tkn[HEAD])
 		tkn[HEAD] = new_tkn;

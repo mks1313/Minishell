@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 14:56:48 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:42:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_tkn
 {
 	char				*value; // Valor del token (ej: "echo", ">", "file.txt")
 	t_tkn_type			type; // Tipo de token (WORD, OPERATOR, etc.)
-	bool				single_quote;
-	bool				double_quote;
+	bool				s_quote;
+	bool				db_quote;
 	struct s_tkn		*next; // Siguiente token en la lista
 }	t_tkn;
 

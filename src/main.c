@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/21 18:15:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:13:16 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 		execute_piped_commands(cmd, &pipe_data, shell->env);
 	}
 }
-
+/*
 static void debug(t_tkn *tkn)
 {
 	t_tkn *curr = tkn;
@@ -54,7 +54,7 @@ static void debug(t_tkn *tkn)
 				curr->value, curr->type, curr->single_quote, curr->double_quote);
 		curr = curr->next;
 	}
-}
+}*/
 
 static void	handle_commands(char *line, t_shell *shell, char **envp)
 {
@@ -68,7 +68,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!tokens)
 		return ;
 	lex_tokens(tokens);
-	debug(tokens);
+	//debug(tokens);
 	shell->tkns = tokens;
 	expand_variable(shell);
 	cmds = parse_tokens(tokens);
