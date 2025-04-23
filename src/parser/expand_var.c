@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 12:47:45 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 16:57:18 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:44:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	expand_variable(t_shell *shell)
 	current_token = shell->tkns;
 	while (current_token)
 	{
-		if (!current_token->single_quote)
+		if (!current_token->s_quote)
 		{
 			expanded = expand_var_value(current_token->value, shell);
 			expanded = strip_quotes(expanded);

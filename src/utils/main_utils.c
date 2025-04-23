@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/13 14:02:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:56:04 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void	error_exit(const char *msg, int exit_code)
 	exit(exit_code);
 }
 
-char	*skip_delimiters(char *str, const char *delimiters)
+void	skip_delimiters(char **str)
 {
-	while (*str && ft_strchr(delimiters, *str))
-		str++;
-	return (str);
+	while (**str && ft_strchr(" \t\r\n", **str))
+		(*str)++;
 }
 
 void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)

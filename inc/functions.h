@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 15:59:07 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:56:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		is_valid_identifier(const char *key);
 int		is_valid_identifier_export(const char *key);
 void	append_to_env(t_env **env, const char *key, const char *value);
 // Else
-char	*skip_delimiters(char *str, const char *delimiters);
+void	skip_delimiters(char **str);
 void	builtin_error(char *cmd, char *arg, char *msg);
 char	*safe_strdup(const char *str);
 int		exec_cmd(char *cmd, char **args, t_env *env);;
