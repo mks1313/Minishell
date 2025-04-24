@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:33:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 15:43:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:54:13 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
 	}
 	else if (ft_isalnum(value[*i]) || value[*i] == '_')
 		expanded = handle_env_variable(value, i, shell->env);
+	else if (value [*i] == '$')
+	{
+		pid_t	pid = ft_get_pid();
+		expanded = ft_itoa(pid);
+		(*i)++;
+	}
 	else
 	{
 		expanded = ft_strdup("$");

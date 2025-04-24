@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/23 15:56:04 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:24:13 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 void	handle_external_command(t_cmd *cmd, t_shell *shell)
 {
 	char	**args;
+	int		status;
 
 	args = cmd->args;
 	if (args)
 	{
-		shell->exit_status = exec_cmd(cmd->cmd, args, shell->env);
+		status = exec_cmd(cmd->cmd, args, shell->env);
+		shell->exit_status = WEXITSTATUS(status);
 	}
 }

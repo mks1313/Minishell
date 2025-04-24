@@ -6,7 +6,7 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:11:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/10 15:25:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:57:29 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <limits.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1024
 # endif
 
 # ifndef MAX_FILES
@@ -113,6 +113,6 @@ int		ft_print_upper_hex(unsigned int n);
 char	*get_next_line(int fd);
 // Utils
 int		ft_getopt(int argc, char **argv, const char *optstring);
-int		ft_getpid(void);
+int		ft_get_pid(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 12:47:45 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/23 15:44:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 13:43:23 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*expand_var_value(char *value, t_shell *shell)
 	}
 	return (expanded);
 }
-
+// Tal vez no es muy apropiado, revisar
 static char	*strip_quotes(char *expanded)
 {
 	char	*tmp_expanded;
@@ -55,12 +55,12 @@ static char	*strip_quotes(char *expanded)
 		free(expanded);
 		return (tmp_expanded);
 	}
-	if (expanded[0] == '\'' && expanded[ft_strlen(expanded) - 1] == '\'')
+	/*if (expanded[0] == '\'' && expanded[ft_strlen(expanded) - 1] == '\'')
 	{
 		tmp_expanded = ft_substr(expanded, 1, ft_strlen(expanded) - 2);
 		free(expanded);
 		return (tmp_expanded);
-	}
+	}*/
 	return (expanded);
 }
 
