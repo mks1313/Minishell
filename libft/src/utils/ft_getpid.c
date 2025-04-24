@@ -6,47 +6,35 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:29:25 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/05 20:22:15 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:35:12 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#define BUF_SIZE 1024
-
-pid_t	get_pid_from_status(void)
+pid_t	ft_get_pid(void)
 {
-	FILE	*file;
-	char	buffer[BUF_SIZE];
+	int		fd;
+	char	buffer[BUFFER_SIZE];
+	ssize_t	bytes_read;
+	char	*pid_line;
 	pid_t	pid;
 
 	pid = -1;
-	file = fopen("/proc/self/status", "r");
-	if (!file)
+	fd = open("/proc/self/status", O_RDONLY);
+	if (fd == -1)
+		return (perror("Error at open  /proc/self/status"), -1);
+	bytes_read = read(fd, buffer, sizeof(buffer) - 1);
+	if (bytes_read < 0)
 	{
-		perror("Error al abrir /proc/self/status");
+		perror("Error of read /proc/self/status");
+		close(fd);
 		return (-1);
 	}
-	while (fgets(buffer, sizeof(buffer), file))
-	{
-		if (ft_strstr(buffer, "Pid:"))
-		{
-			sscanf(buffer, "Pid:\t%d", &pid);
-			break ;
-		}
-	}
-	fclose(file);
-	if (pid == -1)
-		printf("No se encontró la línea 'Pid:' en el archivo.\n");
+	buffer[bytes_read] = '\0';
+	pid_line = ft_strstr(buffer, "Pid:");
+	if (pid_line)
+		pid = ft_atoi(pid_line + 4);
+	close(fd);
 	return (pid);
 }
-/*
-int main() {
-	pid_t pid = get_pid_from_status();
-	if (pid != -1) {
-		printf("El PID de este proceso es: %d\n", pid);
-	} else {
-		printf("Error al obtener el PID.\n");
-	}
-	return 0;
-}*/
