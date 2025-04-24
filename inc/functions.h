@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/23 15:56:01 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 19:13:57 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	handle_redirect(t_redir **redir_list, t_tkn **tkn);
 char	*handle_exit_status(int exit_status);
 char	*handle_env_variable(char *value, int *i, t_env *env);
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
+char	*append_doll_and_char(char *expanded, char next_char);
 //Signals
 void	handle_signal(int sig, siginfo_t *info, void *context);
 //Pipe
