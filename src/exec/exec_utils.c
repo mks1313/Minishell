@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/03/29 18:17:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 21:17:53 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ char	**env_to_array(t_env *env)
 	while (curr)
 	{
 		env_array[i] = ft_strjoin3(curr->key, "=", curr->value);
+		if (!env_array[i])
+		{
+			clean_array(env_array);
+			return (NULL);
+		}
 		i++;
 		curr = curr->next;
 	}

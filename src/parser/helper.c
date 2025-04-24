@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/23 17:41:36 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:59:42 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*ft_strjoin_char(char *s, char c)
 	free(s);
 	return (str);
 }
+
 //MIrara co lexer, para no duplicar
 t_redir	*create_redir(t_tkn *tkn)
 {

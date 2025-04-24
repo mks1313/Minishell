@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/23 15:42:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:50:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ typedef struct s_pipe
 
 typedef struct s_env
 {
-	char				*key;// Nombre de la variable (ej: "PATH")
-	char				*value;// Valor de la variable (ej: "/usr/bin")
-	struct s_env		*next;// Siguiente variable en la lista
+	char				*key;
+	char				*value;
+	struct s_env		*next;
 }	t_env;
 
 /*  ====================

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:33:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/24 15:54:13 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/24 19:17:06 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,29 @@ char	*handle_env_variable(char *value, int *i, t_env *env)
 		return (ft_strdup(""));
 }
 
+static char	*expand_pid(void)
+{
+	pid_t	pid;
+
+	pid = ft_get_pid();
+	return (ft_itoa(pid));
+}
+
+char	*append_doll_and_char(char *expanded, char next_char)
+{
+	char	tmp[2];
+	char	*aux;
+
+	tmp[0] = next_char;
+	tmp[1] = '\0';
+	aux = ft_strjoin(expanded, tmp);
+	free(expanded);
+	return (aux);
+}
+
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
 {
 	char	*expanded;
-	char	*aux;
-	char	tmp[2];
 
 	(*i)++;
 	if (value[*i] == '?')
@@ -54,8 +72,7 @@ char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
 		expanded = handle_env_variable(value, i, shell->env);
 	else if (value [*i] == '$')
 	{
-		pid_t	pid = ft_get_pid();
-		expanded = ft_itoa(pid);
+		expanded = expand_pid();
 		(*i)++;
 	}
 	else
@@ -63,11 +80,7 @@ char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
 		expanded = ft_strdup("$");
 		if (value[*i])
 		{
-			tmp[0] = value[*i];
-			tmp[1] = '\0';
-			aux = ft_strjoin(expanded, tmp);
-			free(expanded);
-			expanded = aux;
+			expanded = append_doll_and_char(expanded, value[*i]);
 			(*i)++;
 		}
 	}
