@@ -6,56 +6,79 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/23 16:39:33 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:48:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	handle_quoted_token(t_tkn **token, char **str)
+char	*read_token_segment(char **str, bool *s_quote, bool *db_quote)
 {
-	t_tkn	*new_token;
-	char	*start;
+	char	*start = *str;
+	char	*result = NULL;
+	char	*temp;
+	char	quote;
 
-	start = *str;
-	printf("Handling quoted token starting at: [%s]\n", *str);
-	new_token = create_token(NULL, TOK_WORD);
-	*str = handle_quotes(*str, new_token);
-	if (!*str)
+	*s_quote = false;
+	*db_quote = false;
+	if (**str == '\'' || **str == '"')
 	{
-		free(new_token);
-		ft_putendl_fd("syntax error: unclosed quote", STDERR_FILENO);
-		return (0);
+		quote = *(*str)++;
+		if (quote == '\'') *s_quote = true;
+		if (quote == '"') *db_quote = true;
+
+		while (**str && **str != quote)
+		{
+			if (**str == '\\' && quote == '"')
+				(*str)++;
+			(*str)++;
+		}
+		if (**str == quote)
+			(*str)++;
 	}
-	add_token_to_list(token, new_token, start, *str);
-	printf("Token: %s | Type: %d | sq: %d | dq: %d\n", new_token->value, new_token->type, new_token->s_quote, new_token->db_quote);
-	return (1);
-}
-
-static int	handle_normal_token(t_tkn **token, char **str)
-{
-	t_tkn	*new_token;
-	char	*start;
-
-	start = *str;
-	printf("Handling normal token starting at: [%s]\n", *str);
-	new_token = create_token(NULL, TOK_WORD);
-	*str = process_non_quotes(*str);
-	add_token_to_list(token, new_token, start, *str);
-	printf("Token: %s\n", new_token->value);
-	return (1);
+	else
+	{
+		while (**str && !ft_strchr(" \t\n|<>\"\'", **str))
+		{
+			if (**str == '\\' && *(*str + 1)) (*str)++;
+			(*str)++;
+		}
+	}
+	temp = ft_substr(start, 0, *str - start);
+	if (!temp)
+		return (NULL);
+	result = temp;
+	return (result);
 }
 
 static int	process_token(t_tkn **token, char **str)
 {
+	char	*accum = ft_strdup("");
+	char	*seg;
+	bool	sq, dq;
+
 	skip_delimiters(str);
 	if (**str == '\0')
 		return (0);
-	printf("Current character: %c\n", **str);
-	if (**str == '\'' || **str == '\"')
-		return (handle_quoted_token(token, str));
-	else
-		return (handle_normal_token(token, str));
+	while (**str && !ft_strchr(" \t\n|<>", **str))
+	{
+		seg = read_token_segment(str, &sq, &dq);
+		if (!seg)
+		{
+			free(accum);
+			return (0);
+		}
+		char *tmp = ft_strjoin(accum, seg);
+		free(accum);
+		free(seg);
+		accum = tmp;
+	}
+	t_tkn *new = create_token(accum, TOK_WORD);
+	new->s_quote = sq;
+	new->db_quote = dq;
+	add_token_to_list(token, new, accum, accum + ft_strlen(accum));
+	free(accum);
+	return (1);
 }
 
 t_tkn	*tokenize_input(char *line)

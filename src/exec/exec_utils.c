@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/24 21:17:53 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:03:12 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	char	*tmp;
 	char	*res;
 
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
+	if (!s3)
+		s3 = ft_strdup("");
 	tmp = ft_strjoin(s1, s2);
 	if (!tmp)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/24 19:13:57 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:55:39 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ t_shell	*init_shell(void);
 t_cmd	*create_cmd(void);
 //Tokens
 t_tkn	*tokenize_input(char *line);
-t_tkn	*new_token(char *value, t_tkn_type type);
 t_tkn	*create_token(char *value, t_tkn_type type);
 char	*handle_quotes(char *str, t_tkn *token);
 char	*process_non_quotes(char *str);
 void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end);
+char	*read_token_segment(char **str, bool *s_quote, bool *db_quote);
 //Lexer
 void	lex_tokens(t_tkn *tkn);
 //Utils

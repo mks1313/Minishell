@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/23 16:46:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:41:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -42,6 +42,8 @@ char	*handle_quotes(char *str, t_tkn *token)
 		token->s_quote = true;
 	else if (quote == '\"')
 		token->db_quote = true;
+	while (*str && (*str == ' ' || *str == '\t'))
+		str++;
 	while (*str && *str != quote)
 		str++;
 	if (*str == '\0')
