@@ -6,7 +6,7 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/10 15:10:33 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/27 18:43:41 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ CFLAGS = -Wall -Wextra -Werror -g -Iincludes
 INCL = includes/libft.h
 OBJ_DIR = obj/
 
-# Archivos fuente organizados por  carpetas y mas
 SRCS =  \
 		src/num/ft_isalnum.c src/num/ft_atoi.c src/num/ft_isdigit.c \
 		src/num/ft_itoa.c src/num/ft_utoa.c src/num/ft_atol.c\
@@ -47,34 +46,28 @@ SRCS =  \
 		src/str/ft_strtok.c src/utils/ft_getopt.c src/str/ft_strcmp.c \
 		src/utils/ft_getpid.c src/str/ft_strstr.c
 
-# Crear los objetos a partir de los archivos fuente
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 
-# Regla principal
+.PHONY: all
 all: $(NAME)
 
-# Regla para crear la librería estática
 $(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 	@echo -- "\033[1;32mLibft created \033[0m"
 
-# Regla para compilar cada archivo fuente en un archivo objeto
 $(OBJ_DIR)%.o: %.c $(INCL) Makefile
-	@mkdir -p $(@D)  # Crear el directorio correspondiente para cada objeto
-	@$(CC) $(CFLAGS) -c $< -o $@
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Limpiar los archivos objeto generados
+.PHONY: clean
 clean:
-	@$(RM) $(OBJ_DIR)
+	$(RM) $(OBJ_DIR)
 	@echo -- "\033[1;31mCleaned objects \033[0m"
 
-# Limpiar todos los archivos generados, incluidos los objetos y la librería
+.PHONY: fclean
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 	@echo -- "\033[1;31mCleaned libft \033[0m"
 
-# Limpiar todo y luego recompilar
+.PHONY: re
 re: fclean all
-
-.PHONY: all clean fclean re
-

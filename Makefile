@@ -6,25 +6,23 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/25 13:40:34 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/04/27 18:47:17 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-# Librerías y opciones
+# Libraries and options
 READLINE = -lreadline
-SANITIZE = -g #-fsanitize=address
-# importante el -r
+SANITIZE = -g -fsanitize=address
 RM = rm -rf
 
-# Directorios y archivos
+# Files and folders
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 INC_FOLDER = inc
 SRC_PATH = src
 OBJ_DIR = obj
-#   CC = cc
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Darwin)
@@ -33,22 +31,13 @@ else
 	CC = cc
 endif
 
-# -----------------------------------------------------------------------------#
-#           Correctly specify the header paths                                 #
-#------------------------------------------------------------------------------#
 CFLAGS = -Wall -Wextra -Werror  -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
 
-#------------------------------------------------------------------------------#
-#           Specify the main header file                                       #
-#------------------------------------------------------------------------------#
-
+# Specify the main header file
 INCLUDES = minishell.h shell_types.h sys_includes.h
 
-#------------------------------------------------------------------------------#
-#           Specify the main header file                                       #
-#------------------------------------------------------------------------------#
-
+# Specify the main header file
 SRC_FOLDER =  main.c signals/signals.c
 SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
 			  parser/parser_utils.c parser/expand_helper.c
@@ -64,75 +53,45 @@ SRC_FOLDER += utils/inits.c utils/main_utils.c utils/free_data.c           \
 SRC_FOLDER += pipes/execute_child.c pipes/heredoc.c pipes/pipes.c          \
 			  pipes/redir.c pipes/utils_pipe.c
 
-#------------------------------------------------------------------------------#
-#           Add header paths, source paths, objects, dependency files          #
-#------------------------------------------------------------------------------#
-
+# Add header paths, source paths, objects, dependency files
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))
 OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-#------------------------------------------------------------------------------#
-#            Dependency files                                                  #
-#------------------------------------------------------------------------------#
-
+# Dependency file, default command and dependency for the libft
 DEPS = $(OBJS:.o=.d)
 
-#------------------------------------------------------------------------------#
-#            Default commands                                                  #
-#------------------------------------------------------------------------------#
-
+.PHONY: all
 all: libs $(NAME)
-
-#------------------------------------------------------------------------------#
-#            Dependency for the libft library                                  #
-#------------------------------------------------------------------------------#
-
+.PHONY: libs
 libs:
 	make -C $(LIBFT_DIR)
 
-#------------------------------------------------------------------------------#
-#             Rule for creating the final binary                               #
-#------------------------------------------------------------------------------#
-
+# For creating the final binary
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS) $(READLINE)
 	@echo -- "\033[1;32mMiniShell created \033[0m"
 
-#------------------------------------------------------------------------------#
-#             Rule to compile source files to object files                     #
-#------------------------------------------------------------------------------#
-
+# To compile source files to object files
 $(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INC_H) Makefile
-	mkdir -p $(dir $@)
+	@if [ ! -d $(dir $@) ]; then \
+		mkdir -p $(dir $@); \
+	fi
 	$(CC) $(CFLAGS) $(SANITIZE) -c $< -o $@
 
-#------------------------------------------------------------------------------#
-#             Include dependency files                                         #
-#------------------------------------------------------------------------------#
-
+# Include dependency files
 -include $(DEPS)
 
-#------------------------------------------------------------------------------#
-#              Clean generated objects                                         #
-#------------------------------------------------------------------------------#
-
+.PHONY: clean
 clean:
 	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJ_DIR)
 
-#------------------------------------------------------------------------------#
-#              Clean everything (objects and executables)                      #
-#------------------------------------------------------------------------------#
-
+.PHONY: fclean
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 
-#------------------------------------------------------------------------------#
-#               Reload everything                                              #
-#------------------------------------------------------------------------------#
-
+.PHONY: re
 re: fclean all
 
-.PHONY: all clean fclean re
