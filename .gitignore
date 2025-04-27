@@ -4,3 +4,7 @@ libft.a
 Doxyfile
 obj
 minishell
+*.gch
+*.o
+*.c~
+*.h~
