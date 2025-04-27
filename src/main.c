@@ -12,13 +12,21 @@
 
 #include "minishell.h"
 
-static int	is_builtin(char *cmd)
+static int	is_builtin_command(char *cmd)
 {
-	if (ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "env") == 0
-		|| ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "echo") == 0
-		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0
-		|| ft_strcmp(cmd, "unset") == 0)
-		return (1);
+	const char	*builtins[] = {"exit", "env", "cd", "echo",
+		"pwd", "export", "unset", NULL};
+	int			i;
+
+	if (!cmd)
+		return (0);
+	i = 0;
+	while (builtins[i])
+	{
+		if (ft_strcmp(cmd, builtins[i]) == 0)
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -32,7 +40,7 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 	n_cmds = count_cmds(cmd);
 	if (n_cmds == 1)
 	{
-		if (is_builtin(cmd->cmd))
+		if (is_builtin_command(cmd->cmd))
 			handle_builtin_commands(cmd, shell, line);
 		else
 			execute_single_command(cmd, shell->env);
@@ -43,6 +51,7 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 		execute_piped_commands(cmd, &pipe_data, shell->env);
 	}
 }
+
 /*
 static void debug(t_tkn *tkn)
 {
