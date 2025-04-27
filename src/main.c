@@ -99,13 +99,13 @@ static int	process_input_line(char **line_ptr, t_shell *shell)
 	line = readline(GREEN"minishell$ "RES);
 	*line_ptr = line;
 	if (!line)
-		return (ft_putstr_fd("\nexit\n", 1), EXIT_FAILURE);
+		return (ft_putstr_fd("\nexit\n", 1), SHELL_EXIT);
 	if (*line)
 	{
 		add_history(line);
 		handle_commands(line, shell);
 	}
-	return (EXIT_SUCCESS);
+	return SHELL_CONTINUE;
 }
 
 static int	shell_loop(t_shell *shell)
@@ -116,8 +116,8 @@ static int	shell_loop(t_shell *shell)
 	while (1)
 	{
 		status = process_input_line(&line, shell);
-		if (status == EXIT_FAILURE)
-			return (EXIT_SUCCESS);
+		if (status == SHELL_EXIT)
+			return EXIT_SUCCESS;
 		free(line);
 	}
 	return (EXIT_SUCCESS);

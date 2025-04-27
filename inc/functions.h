@@ -13,6 +13,12 @@
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
 
+# ifndef SHELL_CONTINUE 
+#  define SHELL_CONTINUE 0
+# endif
+# ifndef SHELL_EXIT 
+#  define SHELL_EXIT 1
+# endif
 //Init Shell
 int		init_shell(t_shell **shell);
 t_cmd	*create_cmd(void);
