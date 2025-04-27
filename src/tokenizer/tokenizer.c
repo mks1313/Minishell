@@ -16,6 +16,7 @@ char	*read_token_segment(char **str, bool *s_quote, bool *db_quote)
 {
 	char	*buffer;
 	char	quote;
+	char	*tmp;
 
 	buffer = ft_calloc(1, 1);
 	if (!buffer)
@@ -34,7 +35,11 @@ char	*read_token_segment(char **str, bool *s_quote, bool *db_quote)
 				*db_quote = true;
 			while (**str && **str != quote)
 			{
-				buffer = ft_strjoin_free(buffer, ft_substr(*str, 0, 1));
+				tmp = ft_substr(*str, 0, 1);
+				if (!tmp)
+					return (free(buffer), NULL);
+				buffer = ft_strjoin_free(buffer, tmp);
+				free(tmp);
 				(*str)++;
 			}
 			if (**str == quote)
@@ -42,7 +47,11 @@ char	*read_token_segment(char **str, bool *s_quote, bool *db_quote)
 		}
 		else
 		{
-			buffer = ft_strjoin_free(buffer, ft_substr(*str, 0, 1));
+			tmp = ft_substr(*str, 0, 1);
+			if (!tmp)
+				return (free(buffer), NULL);
+			buffer = ft_strjoin_free(buffer, tmp);
+			free(tmp);
 			(*str)++;
 		}
 	}
@@ -59,17 +68,16 @@ static int	process_token(t_tkn **token, char **str)
 	t_tkn	*new;
 
 	accum = ft_strdup("");
+	if (!accum)
+		return (0);
 	skip_delimiters(str);
 	if (**str == '\0')
-		return (0);
+		return (free(accum), 0);
 	while (**str && !ft_strchr(" \t\n|<>", **str))
 	{
 		seg = read_token_segment(str, &sq, &dq);
 		if (!seg)
-		{
-			free(accum);
-			return (0);
-		}
+			return (free(accum), 0);
 		tmp = ft_strjoin(accum, seg);
 		free(accum);
 		free(seg);

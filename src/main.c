@@ -27,9 +27,8 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 	int		n_cmds;
 	t_pipe	pipe_data;
 
-	if (!cmd || !cmd->cmd)
+	if (!cmd || !cmd->cmd || !shell || !line)
 		return ;
-
 	n_cmds = count_cmds(cmd);
 	if (n_cmds == 1)
 	{
@@ -62,7 +61,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	t_cmd	*cmds;
 
 	(void)envp;
-	if (!shell)
+	if (!shell || !line)
 		return ;
 	tokens = tokenize_input(line);
 	if (!tokens)
@@ -91,15 +90,16 @@ int	main(int argc, char *argv[], char **envp)
 	(void)argc;
 	(void)argv;
 	shell = init_shell();
+	if (!shell)
+		return (1);
 	shell->env = convert_env(envp);
+	if (!shell->env)
+		return (free_data(shell), 1);
 	while (1)
 	{
 		line = readline(GREEN"minishell$ "RES);
 		if (!line)
-		{
-			ft_putstr_fd("\nexit\n", 1);
-			return (0);
-		}
+			return (ft_putstr_fd("\nexit\n", 1), 0);
 		if (*line)
 		{
 			add_history(line);
