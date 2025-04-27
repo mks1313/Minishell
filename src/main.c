@@ -123,16 +123,22 @@ static int	shell_loop(t_shell *shell)
 	return (EXIT_SUCCESS);
 }
 
+static int	clean_exit(t_shell *shell, int status)
+{
+	free_data(shell);
+	rl_clear_history();
+	return (status);
+}
+
 int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
-	int		exit_status;
 
+	(void)argc;
+	(void)argv;
 	if (init_shell(&shell))
 		return (EXIT_FAILURE);
 	if (setup_environment(shell, envp))
-		return (free_data(shell), EXIT_FAILURE);
-	exit_status = shell_loop(shell);
-	free_data(shell);
-	return ((void)argc, (void)argv, rl_clear_history(), exit_status);
+		return (clean_exit(shell, EXIT_FAILURE));
+	return (clean_exit(shell, shell_loop(shell)));
 }
