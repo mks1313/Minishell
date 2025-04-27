@@ -11,21 +11,31 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+/**
+ * create_token - Creates and initializes a new token structure
+ * @value: The string value of the token (can be NULL)
+ * @type: The type of token (enum t_tkn_type)
+ *
+ * Allocates memory for a new token and initializes all its fields.
+ * Uses ft_calloc instead of malloc to ensure zero-initialized memory.
+ * Handles memory allocation failures gracefully.
+ *
+ * Return: Pointer to the new token, or NULL if allocation fails
+ */
 t_tkn	*create_token(char *value, t_tkn_type type)
 {
 	t_tkn	*new_token;
 
-	new_token = (t_tkn *)malloc(sizeof(t_tkn));
+	new_token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
 	if (!new_token)
 		return (NULL);
 	if (value)
+	{
 		new_token->value = ft_strdup(value);
-	else
-		new_token->value = NULL;
+		if (!new_token->value)
+			return (free(new_token), NULL);
+	}
 	new_token->type = type;
-	new_token->s_quote = false;
-	new_token->db_quote = false;
-	new_token->next = NULL;
 	return (new_token);
 }
 
