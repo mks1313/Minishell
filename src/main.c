@@ -64,12 +64,11 @@ static void debug(t_tkn *tkn)
 	}
 }*/
 
-static void	handle_commands(char *line, t_shell *shell, char **envp)
+static void	handle_commands(char *line, t_shell *shell)
 {
 	t_tkn	*tokens;
 	t_cmd	*cmds;
 
-	(void)envp;
 	if (!shell || !line)
 		return ;
 	tokens = tokenize_input(line);
@@ -93,7 +92,7 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	shell->cmds = NULL;
 }
 
-static int	process_input_line(char **line_ptr, t_shell *shell, char **envp)
+static int	process_input_line(char **line_ptr, t_shell *shell)
 {
 	char *line;
 	
@@ -104,19 +103,19 @@ static int	process_input_line(char **line_ptr, t_shell *shell, char **envp)
 	if (*line)
 	{
 		add_history(line);
-		handle_commands(line, shell, envp);
+		handle_commands(line, shell);
 	}
 	return (EXIT_SUCCESS);
 }
 
-static int	shell_loop(t_shell *shell, char **envp)
+static int	shell_loop(t_shell *shell)
 {
 	char	*line;
 	int		status;
 	
 	while (1)
 	{
-		status = process_input_line(&line, shell, envp);
+		status = process_input_line(&line, shell);
 		if (status == EXIT_FAILURE)
 			return (EXIT_SUCCESS);
 		free(line);
@@ -133,7 +132,7 @@ int main(int argc, char *argv[], char **envp)
 		return (EXIT_FAILURE);
 	if (setup_environment(shell, envp))
 		return (free_data(shell), EXIT_FAILURE);
-	exit_status = shell_loop(shell, envp);
+	exit_status = shell_loop(shell);
 	free_data(shell);
 	rl_clear_history();
 	(void)argc;
