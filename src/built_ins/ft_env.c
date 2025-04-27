@@ -55,31 +55,6 @@ void	add_env_node(t_env **head, t_env *new_node)
 	}
 }
 
-/**
- * convert_env - Convierte el array envp en una lista enlazada de t_env
- * @envp: Array de strings de entorno (key=value)
- * 
- * Return: Lista enlazada de entorno o NULL en caso de error
- */
-t_env	*convert_env(char **envp)
-{
-	t_env	*head;
-	t_env	*new_node;
-	int		i;
-
-	head = NULL;
-	i = 0;
-	while (envp[i])
-	{
-		new_node = create_env_node(envp[i]);
-		if (!new_node)
-			return (NULL);
-		add_env_node(&head, new_node);
-		i++;
-	}
-	return (head);
-}
-
 void	ft_env(t_env *env_list)
 {
 	t_env	*current;
@@ -90,4 +65,33 @@ void	ft_env(t_env *env_list)
 		ft_printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
+}
+
+/**
+ * setup_environment - Initializes the environment for the shell
+ * @shell: Main shell structure
+ * @envp: System environment array
+ * 
+ * Return: 0 on success, 1 on failure
+ */
+int	setup_environment(t_shell *shell, char **envp)
+{
+	t_env	*env_list;
+	int		i;
+	t_env	*new_node;
+
+	if (!shell || !envp)
+		return (1);
+	env_list = NULL;
+	i = 0;
+	while (envp[i])
+	{
+		new_node = create_env_node(envp[i]);
+		if (!new_node)
+			return (free_env_list(env_list), 1);
+		add_env_node(&env_list, new_node);
+		i++;
+	}
+	shell->env = env_list;
+	return (0);
 }

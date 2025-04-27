@@ -46,14 +46,25 @@ void	free_cmd_list(t_cmd *cmd)
  */
 void	free_data(t_shell *shell)
 {
+	if (!shell)
+		return;	
 	if (shell->env)
+	{
 		free_env_list(shell->env);
+		shell->env = NULL;
+	}
 	if (shell->tkns)
+	{
 		ft_free_tokens(shell->tkns);
+		shell->tkns = NULL;
+	}
 	if (shell->cmds)
-		free_cmd_list(shell->cmds);
+	{
+		ft_free_list(shell->cmds);
+		shell->cmds = NULL;
+	}
 	if (shell->cur_dir)
 		free(shell->cur_dir);
-	if (shell)
-		free(shell);
+	free(shell);
+	shell = NULL;
 }

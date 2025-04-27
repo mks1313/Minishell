@@ -76,52 +76,67 @@ static void	handle_commands(char *line, t_shell *shell, char **envp)
 	if (!tokens)
 		return ;
 	lex_tokens(tokens);
-	//debug(tokens);
 	shell->tkns = tokens;
 	expand_variable(shell);
 	cmds = parse_tokens(tokens);
 	if (!cmds)
 	{
 		ft_free_tokens(tokens);
+		shell->tkns = NULL;
 		return ;
 	}
 	shell->cmds = cmds;
 	execute_commands(cmds, shell, line);
 	ft_free_tokens(tokens);
+	shell->tkns = NULL;
 	ft_free_list(cmds);
+	shell->cmds = NULL;
 }
 
-int	main(int argc, char *argv[], char **envp)
+static int	process_input_line(char **line_ptr, t_shell *shell, char **envp)
+{
+	char *line;
+	
+	line = readline(GREEN"minishell$ "RES);
+	*line_ptr = line;
+	if (!line)
+		return (ft_putstr_fd("\nexit\n", 1), EXIT_FAILURE);
+	if (*line)
+	{
+		add_history(line);
+		handle_commands(line, shell, envp);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	shell_loop(t_shell *shell, char **envp)
 {
 	char	*line;
-	t_shell	*shell;
-
-	(void)argc;
-	(void)argv;
-	shell = init_shell();
-	if (!shell)
-		return (1);
-	shell->env = convert_env(envp);
-	if (!shell->env)
-		return (free_data(shell), 1);
+	int		status;
+	
 	while (1)
 	{
-		line = readline(GREEN"minishell$ "RES);
-		if (!line)
-		{
-			ft_putstr_fd("\nexit\n", 1);
-			free_data(shell);
-			rl_clear_history();
-			return (0);
-		}
-		if (*line)
-		{
-			add_history(line);
-			handle_commands(line, shell, envp);
-		}
+		status = process_input_line(&line, shell, envp);
+		if (status == EXIT_FAILURE)
+			return (EXIT_SUCCESS);
 		free(line);
 	}
+	return (EXIT_SUCCESS);
+}
+
+int main(int argc, char *argv[], char **envp)
+{
+	t_shell	*shell;
+	int		exit_status;
+	
+	if (init_shell(&shell))
+		return (EXIT_FAILURE);
+	if (setup_environment(shell, envp))
+		return (free_data(shell), EXIT_FAILURE);
+	exit_status = shell_loop(shell, envp);
 	free_data(shell);
 	rl_clear_history();
-	return (0);
+	(void)argc;
+	(void)argv;
+	return (exit_status);
 }

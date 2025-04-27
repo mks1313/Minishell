@@ -12,19 +12,18 @@
 
 #include "minishell.h"
 
-t_shell	*init_shell(void)
+/**
+	Initializes the shell structure.
+	@param shell_ptr: Pointer to the shell structure pointer.
+	@return 0 on success, 1 on failure.
+ */
+int	init_shell(t_shell **shell_ptr)
 {
-	t_shell	*shell;
-
-	shell = malloc(sizeof(t_shell));
-	if (!shell)
-		return (NULL);
-	shell->env = NULL;
-	shell->tkns = NULL;
-	shell->cmds = NULL;
-	shell->exit_status = 0;
-	shell->cur_dir = NULL;
-	return (shell);
+	*shell_ptr = (t_shell *)malloc(sizeof(t_shell));
+	if (!*shell_ptr)
+		return (1);
+	ft_memset(*shell_ptr, 0, sizeof(t_shell));
+	return (0);
 }
 /*
 t_cmd	*create_cmd(void)
