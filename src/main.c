@@ -94,8 +94,8 @@ static void	handle_commands(char *line, t_shell *shell)
 
 static int	process_input_line(char **line_ptr, t_shell *shell)
 {
-	char *line;
-	
+	char	*line;
+
 	line = readline(GREEN"minishell$ "RES);
 	*line_ptr = line;
 	if (!line)
@@ -105,37 +105,34 @@ static int	process_input_line(char **line_ptr, t_shell *shell)
 		add_history(line);
 		handle_commands(line, shell);
 	}
-	return SHELL_CONTINUE;
+	return (SHELL_CONTINUE);
 }
 
 static int	shell_loop(t_shell *shell)
 {
 	char	*line;
 	int		status;
-	
+
 	while (1)
 	{
 		status = process_input_line(&line, shell);
 		if (status == SHELL_EXIT)
-			return EXIT_SUCCESS;
+			return (EXIT_SUCCESS);
 		free(line);
 	}
 	return (EXIT_SUCCESS);
 }
 
-int main(int argc, char *argv[], char **envp)
+int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
 	int		exit_status;
-	
+
 	if (init_shell(&shell))
 		return (EXIT_FAILURE);
 	if (setup_environment(shell, envp))
 		return (free_data(shell), EXIT_FAILURE);
 	exit_status = shell_loop(shell);
 	free_data(shell);
-	rl_clear_history();
-	(void)argc;
-	(void)argv;
-	return (exit_status);
+	return ((void)argc, (void)argv, rl_clear_history(), exit_status);
 }
