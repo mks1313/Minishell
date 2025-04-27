@@ -51,12 +51,14 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 .PHONY: all
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) ../Makefile Makefile
 	ar rcs $(NAME) $(OBJS)
 	@echo -- "\033[1;32mLibft created \033[0m"
 
-$(OBJ_DIR)%.o: %.c $(INCL) Makefile
-	mkdir -p $(@D)
+$(OBJ_DIR)%.o: %.c $(INCL) ../Makefile Makefile
+	@if [ ! -d $(dir $@) ]; then \
+		mkdir -p $(dir $@); \
+	fi
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean

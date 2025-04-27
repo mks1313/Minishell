@@ -62,12 +62,14 @@ OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 DEPS = $(OBJS:.o=.d)
 
 .PHONY: all
-all: libs $(NAME)
-.PHONY: libs
-libs:
-	make -C $(LIBFT_DIR)
+all: $(NAME)
 
-# For creating the final binary
+# Dependency for libft now includes this Makefile
+$(LIBFT): $(LIBFT_DIR)/Makefile Makefile
+	@echo "Compiling libft..."
+	@make -C $(LIBFT_DIR)
+
+# To create the final executable
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS) $(READLINE)
 	@echo -- "\033[1;32mMiniShell created \033[0m"
