@@ -13,6 +13,13 @@
 #ifndef SHELL_TYPES_H
 # define SHELL_TYPES_H
 
+# ifndef SHELL_CONTINUE 
+#  define SHELL_CONTINUE 0
+# endif
+# ifndef SHELL_EXIT 
+#  define SHELL_EXIT 1
+# endif
+
 typedef enum e_pos
 {
 	HEAD,

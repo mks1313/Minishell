@@ -13,25 +13,22 @@
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
 
-# ifndef SHELL_CONTINUE 
-#  define SHELL_CONTINUE 0
-# endif
-# ifndef SHELL_EXIT 
-#  define SHELL_EXIT 1
-# endif
-//Init Shell
+/* Init Shell */
 int		init_shell(t_shell **shell);
 t_cmd	*create_cmd(void);
-//Tokens
+
+/* Tokens */
 t_tkn	*tokenize_input(char *line);
 t_tkn	*create_token(char *value, t_tkn_type type);
 char	*handle_quotes(char *str, t_tkn *token);
 char	*process_non_quotes(char *str);
 void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end);
 char	*read_token_segment(char **str, bool *s_quote, bool *db_quote);
-//Lexer
+
+/* Lexer */
 void	lex_tokens(t_tkn *tkn);
-//Utils
+
+/* Utils */
 void	error_exit(const char *msg, int exit_code);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
@@ -41,7 +38,8 @@ void	free_env_list(t_env *env);
 void	ft_free_cmd_list(t_cmd *cmd);
 void	change_env_variable(t_env *env, char *key, char *value);
 char	*get_env_variable_value(t_env *env, char *key);
-//Parser
+
+/* Parser */
 int		count_envp(t_env *env);
 void	expand_variable(t_shell *shell);
 void	process_input(const char *input, t_shell *shell);
@@ -58,9 +56,11 @@ char	*handle_exit_status(int exit_status);
 char	*handle_env_variable(char *value, int *i, t_env *env);
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 char	*append_doll_and_char(char *expanded, char next_char);
-//Signals
+
+/* Signals */
 void	handle_signal(int sig, siginfo_t *info, void *context);
-//Pipe
+
+/* Pipe */
 void	execute_child(t_cmd *cmd, t_pipe *pdata, int index, t_env *env);
 int		execute_cmds(t_cmd *cmds, t_env *env);
 int		handle_heredoc(char *delimiter);
@@ -72,7 +72,8 @@ int		wait_all(t_pipe *pdata);
 void	free_pipe_data(t_pipe *pdata);
 int		count_cmds(t_cmd *cmd);
 int		execute_single_command(t_cmd *cmd, t_env *env);
-//Commands
+
+/* Commands */
 void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
 t_cmd	*parse_tokens(t_tkn *tokens);
 void	ft_echo(t_cmd *cmd);
@@ -90,14 +91,16 @@ t_env	*find_env(t_env *env_list, const char *key);
 int		is_valid_identifier(const char *key);
 int		is_valid_identifier_export(const char *key);
 void	append_to_env(t_env **env, const char *key, const char *value);
-// Else
+
+/* Else */
 void	skip_delimiters(char **str);
 void	builtin_error(char *cmd, char *arg, char *msg);
 char	*safe_strdup(const char *str);
-int		exec_cmd(char *cmd, char **args, t_env *env);;
+int		exec_cmd(char *cmd, char **args, t_env *env);
 void	clean_array(char **array);
 void	ft_pwd(void);
-//Execute
+
+/* Execute */
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
