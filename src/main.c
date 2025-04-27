@@ -111,12 +111,10 @@ static int	process_input_line(char **line_ptr, t_shell *shell)
 static int	shell_loop(t_shell *shell)
 {
 	char	*line;
-	int		status;
 
 	while (1)
 	{
-		status = process_input_line(&line, shell);
-		if (status == SHELL_EXIT)
+		if (process_input_line(&line, shell) == SHELL_EXIT)
 			return (EXIT_SUCCESS);
 		free(line);
 	}
