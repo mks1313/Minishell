@@ -99,7 +99,12 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		line = readline(GREEN"minishell$ "RES);
 		if (!line)
-			return (ft_putstr_fd("\nexit\n", 1), 0);
+		{
+			ft_putstr_fd("\nexit\n", 1);
+			free_data(shell);
+			rl_clear_history();
+			return (0);
+		}
 		if (*line)
 		{
 			add_history(line);
