@@ -6,26 +6,30 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/25 13:48:51 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:30:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*read_token_segment(char **str, bool *s_quote, bool *db_quote)
+char	*read_token_segment(char **str, t_tkn *token)
 {
-	char	*start = *str;
-	char	*result = NULL;
+	char	*start;
+	char	*result;
 	char	*temp;
 	char	quote;
 
-	*s_quote = false;
-	*db_quote = false;
+	start = *str;
+	result = NULL;
+	token->s_quote = false;
+	token->db_quote = false;
 	if (**str == '\'' || **str == '"')
 	{
 		quote = *(*str)++;
-		if (quote == '\'') *s_quote = true;
-		if (quote == '"') *db_quote = true;
+		if (quote == '\'')
+			token->s_quote = true;
+		if (quote == '"')
+			token->db_quote = true;
 
 		while (**str && **str != quote)
 		{
@@ -62,7 +66,7 @@ static int	process_token(t_tkn **token, char **str)
 		return (0);
 	while (**str && !ft_strchr(" \t\n|<>", **str))
 	{
-		seg = read_token_segment(str, &sq, &dq);
+		seg = read_token_segment(str, token);
 		if (!seg)
 		{
 			free(accum);
