@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/27 17:57:48 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:43:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ t_env	*find_env(t_env *env_list, const char *key);
 int		is_valid_identifier(const char *key);
 int		is_valid_identifier_export(const char *key);
 void	append_to_env(t_env **env, const char *key, const char *value);
+
+//Pipes de prueba
+void	execute_pipe(char **cmd1, char **cmd2);
 
 /* Else */
 void	skip_delimiters(char **str);

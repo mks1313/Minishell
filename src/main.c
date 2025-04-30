@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/23 15:13:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:06:44 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,57 @@ static int	is_builtin_command(char *cmd)
 	return (0);
 }
 
+void execute_simple_pipe(t_cmd *cmd1, t_cmd *cmd2, t_shell *shell)
+{
+    int pipefd[2];
+    pid_t pid1, pid2;
+
+    if (pipe(pipefd) == -1)
+        return perror("pipe");
+
+    pid1 = fork();
+    if (pid1 == -1)
+        return perror("fork");
+
+    if (pid1 == 0)
+    {
+        dup2(pipefd[1], STDOUT_FILENO);
+        close(pipefd[0]);
+        close(pipefd[1]);
+        if (is_builtin_command(cmd1->cmd))
+            handle_builtin_commands(cmd1, shell, NULL);
+        else
+            execute_single_command(cmd1, shell->env);
+        exit(EXIT_FAILURE);
+    }
+
+    pid2 = fork();
+    if (pid2 == -1)
+        return perror("fork");
+
+    if (pid2 == 0)
+    {
+        dup2(pipefd[0], STDIN_FILENO);
+        close(pipefd[1]);
+        close(pipefd[0]);
+        if (is_builtin_command(cmd2->cmd))
+            handle_builtin_commands(cmd2, shell, NULL);
+        else
+            execute_single_command(cmd2, shell->env);
+        exit(EXIT_FAILURE);
+    }
+
+    close(pipefd[0]);
+    close(pipefd[1]);
+    waitpid(pid1, NULL, 0);
+    waitpid(pid2, NULL, 0);
+}
+
+
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
 	int		n_cmds;
-	t_pipe	pipe_data;
+	//t_pipe	pipe_data;
 
 	if (!cmd || !cmd->cmd || !shell || !line)
 		return ;
@@ -45,10 +92,14 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 		else
 			execute_single_command(cmd, shell->env);
 	}
-	else
+	if (cmd && cmd->next && !cmd->next->next)
 	{
-		pipe_data.n_cmds = n_cmds;
-		execute_piped_commands(cmd, &pipe_data, shell->env);
+		//pipe_data.n_cmds = n_cmds;
+		//execute_piped_commands(cmd, &pipe_data, shell->env);
+		//char *cmd1[] = {"ls", NULL};
+		//char *cmd2[] = {"wc", NULL};
+		//execute_pipe(cmd, cmd->next);
+		execute_simple_pipe(cmd, cmd->next, shell);
 	}
 }
 

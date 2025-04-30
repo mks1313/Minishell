@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/23 15:10:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:43:44 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,3 +112,41 @@ int	execute_cmds(t_cmd *cmds, t_env *env)
 	free_pipe_data(&pipe_data);
 	return (status);
 }
+
+void execute_pipe(char **cmd1, char **cmd2)
+{
+    int pipefd[2];
+    pid_t pid1, pid2;
+
+    if (pipe(pipefd) == -1)
+        return perror("pipe");
+
+    pid1 = fork();
+    if (pid1 == 0) // Hijo 1 (ls)
+    {
+        dup2(pipefd[1], STDOUT_FILENO); // Redirige stdout al pipe
+        close(pipefd[0]); // Cierra lectura
+        close(pipefd[1]);
+        execvp(cmd1[0], cmd1);
+        perror("execvp cmd1");
+        exit(1);
+    }
+
+    pid2 = fork();
+    if (pid2 == 0) // Hijo 2 (wc)
+    {
+        dup2(pipefd[0], STDIN_FILENO); // Redirige stdin al pipe
+        close(pipefd[1]); // Cierra escritura
+        close(pipefd[0]);
+        execvp(cmd2[0], cmd2);
+        perror("execvp cmd2");
+        exit(1);
+    }
+
+    // Padre
+    close(pipefd[0]);
+    close(pipefd[1]);
+    waitpid(pid1, NULL, 0);
+    waitpid(pid2, NULL, 0);
+}
+
