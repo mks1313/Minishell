@@ -31,21 +31,21 @@ void	del(void *content)
 
 int	main(void)
 {
-	char	*content1 = ft_strdup("Nodo1");
-	char	*content2 = ft_strdup("content of second node");
+	char	*content1 = ft_strdup("Node 1");
+	char	*content2 = ft_strdup("Node 2");
 
 	t_list	*node1 = ft_lstnew((void *) content1);
 	t_list	*node2 = ft_lstnew((void *) content2);
 
 	if (!node1 || !node2)
 	{
-		printf("Error a crear nodos.\n");
+		printf("Error creating nodes.\n");
 		return (1);
 	}
 
 	node1->next = node2;
 	ft_lstdelone(node1, del);
-	printf("Contenido del Nodo2: %s\n", (char *)node2->content);
+	printf("Content of Node 2: %s\n", (char *)node2->content);
 	free(node2->content);
 	free(node2);
 	return (0);

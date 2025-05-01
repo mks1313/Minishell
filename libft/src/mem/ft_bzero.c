@@ -25,8 +25,8 @@ void	ft_bzero(void *s, size_t n)
 		counter++;
 	}
 }
-/* Tambien funviona con misma funcion:
+/* Also works with the same function:
  
 	ft_memset(s, 0, n);
-	ya que se puede usar simplemente asi
+	We can use it simply like this
 	*/

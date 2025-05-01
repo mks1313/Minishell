@@ -27,7 +27,7 @@ t_list	*ft_lstlast(t_list *lst)
 
 int	main(void)
 {
-	t_list	*list = ft_lstnew("Nodo 1");
+	t_list	*list = ft_lstnew("Node 1");
 	t_list	*node2 = ft_lstnew("Node 2");
 	t_list	*node3 = ft_lstnew("Node 3");
 
@@ -36,8 +36,8 @@ int	main(void)
 
 	t_list *last = ft_lstlast(list);
 	if (last)
-		printf("El content of the last node is: %s\n", (char *)last->content);
-		printf("direccion es %p\n", last);
+		printf("The content of the last node is: %s\n", (char *)last->content);
+		printf("The address is %p\n", last);
 	free(node3);
 	free(node2);
 	free(list);

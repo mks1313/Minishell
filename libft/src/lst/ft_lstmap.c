@@ -36,7 +36,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 /*
 #include <stdio.h>
 
-// Función de transformación para pruebas.
+// Transformation function for tests.
 void *double_content(void *content)
 {
     int *new_content = (int *)malloc(sizeof(int));
@@ -45,13 +45,13 @@ void *double_content(void *content)
     return new_content;
 }
 
-// Función de eliminación para pruebas.
+// Deletion function for tests.
 void delete_content(void *content)
 {
     free(content);
 }
 
-// Función para imprimir una lista de enteros.
+// Function to print a list of integers.
 void print_list(t_list *lst)
 {
     while (lst)
@@ -64,26 +64,26 @@ void print_list(t_list *lst)
 
 int	main(void)
 {
-    // Crear una lista simple de enteros.
+    // Create a simple list of integers.
     int a = 1, b = 2, c = 3;
     t_list *lst = ft_lstnew(&a);
     ft_lstadd_back(&lst, ft_lstnew(&b));
     ft_lstadd_back(&lst, ft_lstnew(&c));
 
-    // Imprimir la lista original.
-    printf("Lista original:\n");
+    // Print the original list.
+    printf("Original list:\n");
     print_list(lst);
 
-    // Crear una nueva lista aplicando la función double_content.
+    // Create a new list applying the double_content function.
     t_list *new_lst = ft_lstmap(lst, double_content, delete_content);
 
-    // Imprimir la nueva lista.
-    printf("Nueva lista (contenido duplicado):\n");
+    // Print the new list.
+    printf("New list (duplicated content):\n");
     print_list(new_lst);
 
-    // Limpiar la memoria.
+    // Clean memory.
     ft_lstclear(&new_lst, delete_content);
-    ft_lstclear(&lst, NULL); // No necesita borrar el cont. orig, es estático.
+    ft_lstclear(&lst, NULL); // No needs to delete the original content, it's static.
 
     return 0;
 }*/

@@ -36,23 +36,23 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 
 int	main(void)
 {
-	char	*string1 = "Gralada todo el mundo.";
-	char	*string2 = "Holla mis queridos amiguetes.";
+	char	*string1 = "Gralada all the world.";
+	char	*string2 = "We are the world.";
 	size_t	num = 10;
 	int		result = ft_memcmp(string1, string2, num);
 
 	if (result < 0)
 	{
-		printf("El primer bloque de memoria es menor.\n");
+		printf("The first block of memory is smaller.\n");
 	}
 	else if (result > 0)
 	{
-		printf("El primer bloque de memoria es mayor.\n");
+		printf("The first block of memory is greater.\n");
 	}
 	else
 	{
-		printf("Los bloques de memoria son igales.\n");
+		printf("The blocks of memory are equal.\n");
 	}
-	printf("Resultado dde FT_MEMCMP: %d\n", result);
+	printf("The result of FT_MEMCMP: %d\n", result);
 	return (0);
 }*/

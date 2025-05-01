@@ -37,9 +37,9 @@ void	del(void *content)
 
 int	main(void)
 {
-	char	*content1 = ft_strdup("Nodo 1");
-	char	*content2 = ft_strdup("Nodo 2");
-	char	*content3 = ft_strdup("nodo 3");
+	char	*content1 = ft_strdup("Node 1");
+	char	*content2 = ft_strdup("Node 2");
+	char	*content3 = ft_strdup("Node 3");
 
 	t_list	*node1 = ft_lstnew((void *)content1);
 	t_list	*node2 = ft_lstnew((void *)content2);
@@ -47,7 +47,7 @@ int	main(void)
 
 	if (!node1 || !node2 || !node3)
 	{
-		printf("Error al crear nodos.\n");
+		printf("Error creating nodes.\n");
 		return (1);
 	}
 	node1->next = node2;
@@ -57,11 +57,11 @@ int	main(void)
 	ft_lstclear(&list, del);
 	if (!list)
 	{
-		printf("LA LISTA SE HA LIMPIADO CORRECTAMENTE.\n");
+		printf("The list has been cleaned correctly.\n");
 	}
 	else
 	{
-		printf("Error al limpiar lista.\n");
+		printf("Error cleaning list.\n");
 		return (0);
 	}
 }*/

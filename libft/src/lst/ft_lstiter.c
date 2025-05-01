@@ -32,29 +32,29 @@ void print_content(void *content)
 
 int main(void)
 {
-	// Crear contenido dinámicamente
-	char *content1 = ft_strdup("Nodo 1");
-	char *content2 = ft_strdup("Nodo 2");
-	char *content3 = ft_strdup("Nodo 3");
+	// Create content dynamically
+	char *content1 = ft_strdup("Node 1");
+	char *content2 = ft_strdup("Node 2");
+	char *content3 = ft_strdup("Node 3");
 
-	// Crear nodos
+	// Create nodes
 	t_list *node1 = ft_lstnew((void *)content1);
 	t_list *node2 = ft_lstnew((void *)content2);
 	t_list *node3 = ft_lstnew((void *)content3);
 
 	if (!node1 || !node2 || !node3)
 	{
-		printf("Error al crear nodos.\n");
+		printf("Error creating nodes.\n");
 		return (1);
 	}
-	// Enlazar nodos
+	// Link nodes
 	node1->next = node2;
 	node2->next = node3;
-	// Crear la lista
+	// Create the list
 	t_list *list = node1;
-	// Iterar sobre la lista e imprimir su contenido
+	// Iterate over the list and print its content
 	ft_lstiter(list, print_content);
-	// Limpiar la memoria (opcional)
+	// Clean memory (optional)
 	ft_lstclear(&list, free);
 	return (0);
 }*/
