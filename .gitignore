@@ -8,3 +8,6 @@ minishell
 *.o
 *.c~
 *.h~
+*~
+.un~
+*.bak
