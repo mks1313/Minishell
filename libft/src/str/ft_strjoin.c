@@ -45,17 +45,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 int	main(void)
 {
-	char	*string1 = "Hola, mundo!";
+	char	*string1 = "Hello, world!";
 	char	*string2 = "";
 	char	*result = ft_strjoin(string1, string2);
 
 	if (result == NULL)
 	{
-		printf("No se ha podido concatenar el resultado es NULL.\n");
+		printf("The result is NULL.\n");
 	}
 	else
 	{
-		printf("el resultado de la funcion ft_strjoin es: %s\n", result);
+		printf("the result of the function ft_strjoin is: %s\n", result);
 	}
 	return (0);
 }*/

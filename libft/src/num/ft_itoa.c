@@ -72,14 +72,14 @@ printf("\n");
 
 if(result)
 {
-printf("resultado de conversion es: %s\n", result);
+printf("the result of conversion is: %s\n", result);
 free(result);
 }
 else
 {
-printf("Error: Memoria insufuciente para convertit el numero.\n");
+printf("Error: Insufficient memory to convert the number.\n");
 }
-printf("El tamaño de long es: %zu bytes\n", sizeof(long));
-printf("El tamaño de long es: %zu bytes\n", sizeof(long long));
+printf("The size of long is: %zu bytes\n", sizeof(long));
+printf("The size of long long is: %zu bytes\n", sizeof(long long));
 return (0);
 }*/

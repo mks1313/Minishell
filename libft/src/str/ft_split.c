@@ -92,13 +92,13 @@ char	**ft_split(char const *s, char c)
 		char **result;
 		size_t i;
 
-		result = ft_split("Hola mundo, bienvenidos al 42!", ' ');
+		result = ft_split("Hello world, welcome to 42!", ' ');
 		if (result) {
 			for (i = 0; result[i] != NULL; i++) {
 				printf("%s\n", result[i]);
-				free(result[i]); // Liberar cada subcadena individualmente
+				free(result[i]); // Free each individual substring
 			}
-			free(result); // Liberar el arreglo de punteros
+			free(result); // Free the array of pointers
 		}
 		return 0;
 	}*/

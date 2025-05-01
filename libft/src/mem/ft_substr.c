@@ -36,22 +36,22 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 int	main(void)
 {
 	char	*origin = "";
-	unsigned int	indice = 29;
-	size_t	longitud = 4;
-	char	*result = ft_substr(origin, indice, longitud);
+	unsigned int	index = 29;
+	size_t	length = 4;
+	char	*result = ft_substr(origin, index, length);
 
 	if (result == NULL)
 	{
-		printf("La funcion ft_substr devuelve NULL.\n");
+		printf("The function ft_substr returns NULL.\n");
 	}
 	else if (result[0] == '\0')
 	{
-		printf("El indice de inicio es mayor a la longitud de la cadena.\n");
+		printf("The starting index is greater than the length of the string.\n");
 		free(result);
 	}
 	else
 	{
-		printf("El resultado de la copia de ft_substr es: %s.\n", result);
+		printf("The result of the copy of ft_substr is: %s.\n", result);
 		free(result);
 	}
 	return (0);

@@ -46,14 +46,14 @@ int	main(void)
 
 	if(result)
 	{
-		printf("resultado de conversion es: %s\n", result);
+		printf("the result of conversion is: %s\n", result);
 		free(result);
 	}
 	else
 	{
-		printf("Error: Memoria insufuciente para convertit el numero.\n");
+		printf("Error: Insufficient memory to convert the number.\n");
 	}
-	printf("El tamaño de unsignd int es: %zu bytes\n", sizeof(unsigned int));
-	printf("El tamaño de unsigned long es: %zu bytes\n", sizeof(unsigned long));
+	printf("The size of unsigned int is: %zu bytes\n", sizeof(unsigned int));
+	printf("The size of unsigned long is: %zu bytes\n", sizeof(unsigned long));
 	return (0);
 }*/

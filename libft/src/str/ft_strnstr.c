@@ -42,17 +42,17 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 int	main(void)
 {
-	const char	*large = "helloHolahola";
-	const char	*small = "Hola";
+	const char	*large = "hello world";
+	const char	*small = "world";
 	size_t		ptr = 12;
 	char	*result = ft_strnstr(large, small, ptr);
 
 	if (result != NULL)
 	{
-	printf("La subcadea %s se encontro en: %s\n",small, result);
+	printf("The substring %s was found in: %s\n",small, result);
 	}
 	else
 	{
-	printf("La subcadena %s no se encontro.\n", small);
+	printf("The substring %s was not found.\n", small);
 	}
 }*/

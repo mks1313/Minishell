@@ -30,11 +30,11 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 
 static void example_function(unsigned int i, char *c) {
 	if (*c >= 'a' && *c <= 'z')
-		*c = *c - 'a' + 'A'; // Convertir a mayúsculas
+		*c = *c - 'a' + 'A'; // Convert to uppercase
 }
 
 int main() {
-	char str[] = "hola mundo";
+	char str[] = "hello world";
 	ft_striteri(str, example_function);
 	printf("%s\n", str); 
 	return 0;
