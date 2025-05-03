@@ -6,11 +6,13 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/03 16:23:11 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:41:14 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_status = 0;
 
 int	is_builtin_command(char *cmd)
 {
@@ -112,6 +114,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	(void)argc;
 	(void)argv;
+	set_signals();
 	if (init_shell(&shell))
 		return (EXIT_FAILURE);
 	if (setup_environment(shell, envp))

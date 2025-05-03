@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 16:22:28 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:43:11 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 char	*append_doll_and_char(char *expanded, char next_char);
 
 /* Signals */
-void	handle_signal(int sig, siginfo_t *info, void *context);
+void	set_signals(void);
 
 /* Pipe */
 int		execute_cmds(t_cmd *cmds, t_env *env);
