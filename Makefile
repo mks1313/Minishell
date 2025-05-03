@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/03 18:02:47 by meghribe         ###   ########.fr        #
+#    Updated: 2025/05/03 18:11:17 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
 SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
 			  builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \
 			  builtins/ft_export.c builtins/ft_unset.c                   \
-			  builtins/ft_export_util.c builtins/builtins_utils.c
+			  builtins/ft_export_util.c
 SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_utils.c
 SRC_FOLDER += utils/inits.c utils/main_utils.c utils/memory_management.c
 SRC_FOLDER += utils/string.c
