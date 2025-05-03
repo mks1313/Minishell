@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/24 16:59:42 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 19:33:12 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ char	*ft_strjoin_free(char *s1, const char *s2)
 	char	*result;
 
 	result = ft_strjoin(s1, s2);
-	free(s1);
-	return (result);
+	return (free(s1), result);
 }
 
 char	*ft_strjoin_char(char *s, char c)

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 14:31:45 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 19:36:16 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*read_token_segment(char **str, bool *s_quote, bool *db_quote)
 		return (NULL);
 	*s_quote = false;
 	*db_quote = false;
-
 	while (**str && !ft_strchr(" \t\n|<>", **str))
 	{
 		if (**str == '\'' || **str == '"')
@@ -140,7 +139,6 @@ static int	process_operator_token(t_tkn **token, char **str)
 	}
 	else
 		return (0);
-
 	if (!new)
 		return (0);
 	add_token_to_list(token, new, op, op + ft_strlen(op));
@@ -161,21 +159,11 @@ t_tkn	*tokenize_input(char *line)
 		if (*str == '\0')
 			break ;
 		if (ft_strchr("|<>", *str))
-		{
 			if (!process_operator_token(token, &str))
-			{
-				ft_free_tokens(token[HEAD]);
-				return (NULL);
-			}
-		}
+				return (ft_free_tokens(token[HEAD]), NULL);
 		else
-		{
 			if (!process_token(token, &str))
-			{
-				ft_free_tokens(token[HEAD]);
-				return (NULL);
-			}
-		}
+				return (ft_free_tokens(token[HEAD]), NULL);
 	}
 	return (token[HEAD]);
 }
