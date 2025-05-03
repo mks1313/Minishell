@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/25 15:31:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:43:34 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
  * Imprimir argumentos, si hay mas tokens separlos por un espacio
  * Salto de linea solo si no se encontro -n
  */
-
-static int	is_n_option(char *arg)
+static int	is_n_option(const char *arg)
 {
 	int	i;
 
@@ -35,25 +34,41 @@ static int	is_n_option(char *arg)
 	return (1);
 }
 
-void	ft_echo(t_cmd *cmd)
-{
-	int	i;
-	int	newline;
 
-	i = 1;
-	newline = 1;
-	while (cmd->args[i] && is_n_option(cmd->args[i]))
+static void	print_arguments(char	**args, int i)
+{
+	if (!args)
+		return ;
+	while (args[i])
 	{
-		newline = 0;
-		i++;
-	}
-	while (cmd->args[i])
-	{
-		ft_putstr_fd(cmd->args[i], STDOUT_FILENO);
-		if (cmd->args[i + 1])
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i + 1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
+}
+
+static int	handle_options(char **args, int *newline)
+{
+	int	i;
+
+	i = 1;
+	*newline = 1;
+	while (args[i] && is_n_option(args[i]))
+	{
+		*newline = 0;
+		i++;
+	}
+	return (i);
+}
+
+void	ft_echo(t_cmd *cmd)
+{
+	int	newline;
+
+	if (!cmd || !cmd->args)
+		return ;
+	print_arguments(cmd->args, handle_options(cmd->args, &newline));
 	if (newline)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }
