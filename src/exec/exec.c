@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/15 17:49:05 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:07:25 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,20 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	else
 		return (wait_for_process(pid, cmd_path));
 	return (1);
+}
+
+void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
+{
+	if (!cmd || !cmd->cmd || !shell || !line)
+		return ;
+	handle_heredoc(cmd, shell);
+	if (!cmd->next)
+	{
+		if (is_builtin_command(cmd->cmd))
+			handle_builtin_commands(cmd, shell, line);
+		else
+			handle_external_command(cmd, shell);
+	}
+	else
+		execute_piped_commands(cmd, shell);
 }

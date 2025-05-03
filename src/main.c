@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/03 15:23:13 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:07:28 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,6 @@ int	is_builtin_command(char *cmd)
 		i++;
 	}
 	return (0);
-}
-
-void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
-{
-	if (!cmd || !cmd->cmd || !shell || !line)
-		return ;
-	handle_heredoc(cmd, shell);
-	if (!cmd->next)
-	{
-		if (is_builtin_command(cmd->cmd))
-			handle_builtin_commands(cmd, shell, line);
-		else
-			handle_external_command(cmd, shell);
-	}
-	else
-	{
-		execute_piped_commands(cmd, shell);
-	}
 }
 
 /*
