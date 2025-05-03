@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 18:43:34 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:48:05 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * Imprimir argumentos, si hay mas tokens separlos por un espacio
  * Salto de linea solo si no se encontro -n
  */
-static int	is_n_option(const char *arg)
+static int	is_valid_n_flag(const char *arg)
 {
 	int	i;
 
@@ -48,13 +48,13 @@ static void	print_arguments(char	**args, int i)
 	}
 }
 
-static int	handle_options(char **args, int *newline)
+static int	parse_echo_flags(char **args, int *newline)
 {
 	int	i;
 
 	i = 1;
 	*newline = 1;
-	while (args[i] && is_n_option(args[i]))
+	while (args[i] && is_valid_n_flag(args[i]))
 	{
 		*newline = 0;
 		i++;
@@ -68,7 +68,7 @@ void	ft_echo(t_cmd *cmd)
 
 	if (!cmd || !cmd->args)
 		return ;
-	print_arguments(cmd->args, handle_options(cmd->args, &newline));
+	print_arguments(cmd->args, parse_echo_flags(cmd->args, &newline));
 	if (newline)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }
