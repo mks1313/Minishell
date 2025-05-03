@@ -41,11 +41,11 @@ char	*result = ft_strtrim(s1, set);
 
 if (result)
 {
-printf("Nueva cadena recortada es: %s.\n", result);
+printf("New trimmed string is: %s.\n", result);
 }
 else
 {
-printf("No se pudo recortar la cadena.\n");
+printf("The string could not be trimmed.\n");
 }
 return (0);
 }*/

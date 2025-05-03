@@ -35,12 +35,12 @@ int	main(void)
 	void *result = ft_calloc(mem, s);
 	if (result != NULL)
 	{
-		printf("resultado es: %p\n", result);
+		printf("The result is: %p\n", result);
 		unsigned char	*ptr = (unsigned char *)result;
 		int	zero = 1;
 		size_t	i = 0;
 
-	printf("valores de la memoria reservada:\n");
+		printf("The values of the reserved memory:\n");
 		while (i < (size_t)(mem * s))
 		{
 			if (ptr[i] != 0)
@@ -54,11 +54,11 @@ int	main(void)
 	
 	if (zero)
 	{
-		printf("la memoria esta correctamente inicializada a cero.\n");
+		printf("The memory is correctly initialized to zero.\n");
 	}
 	else
 	{
-		printf("Error: la memoria no esta correctamente inicializada a cero.\n");
+		printf("Error: The memory is not correctly initialized to zero.\n");
 	}
 	}
 	free (result);

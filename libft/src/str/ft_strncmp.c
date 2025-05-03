@@ -36,22 +36,22 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 int	main(void)
 {
-	char	temp1[] = "manIcomio";
-	char	temp2[] = "manafomnio";
+	char	temp1[] = "anonymity";
+	char	temp2[] = "anonymous";
 	size_t	num = 5;
 	int	result = ft_strncmp(temp1, temp2, num);
 	if (result < 0)
 	{
-		printf("temp1 es menor que temp2\n");
+		printf("temp1 is less than temp2\n");
 	}
 	else if (result > 0)
 	{
-		printf("temp1 es mayor que temp2\n");
+		printf("temp1 is greater than temp2\n");
 	}
 	else 
 	{
-		printf("temp1 y temp2 son iguales hasta  %zu caracteres\n", num);
+		printf("temp1 and temp2 are equal up to %zu characters\n", num);
 	}
-	printf("Resultado de la funcion FT_STRNCMP es %d", result);
+	printf("The result of the function FT_STRNCMP is %d", result);
 	return(0);
 }*/

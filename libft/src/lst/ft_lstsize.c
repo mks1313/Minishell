@@ -29,16 +29,16 @@ int	ft_lstsize(t_list *lst)
 
 int	main(void)
 {
-	t_list	*lista = ft_lstnew("hello!");
-	ft_lstadd_front(&lista,ft_lstnew("world!"));
-	ft_lstadd_front(&lista, ft_lstnew("hola"));
+	t_list	*list = ft_lstnew("hello!");
+	ft_lstadd_front(&list,ft_lstnew("world!"));
+	ft_lstadd_front(&list, ft_lstnew("hola"));
 
-	int	num = ft_lstsize(lista);
-	printf("Numero total de listas son: %d\n", num);
-	while (lista)
+	int	num = ft_lstsize(list);
+	printf("The total number of lists is: %d\n", num);
+	while (list)
 	{
-	printf("%s", (char *)lista->content);
-	lista = lista->next;
+	printf("%s", (char *)list->content);
+	list = list->next;
 	}
 	return (0);
 }*/

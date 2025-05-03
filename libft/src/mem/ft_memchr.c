@@ -36,17 +36,17 @@ void	*ft_memchr(const void *s, int c, size_t n)
 
 int	main(void)
 {
-	const char	*string = "Hola, hola como estais";
+	const char	*string = "Hello, world!";
 	unsigned char	let = 'z';
 	size_t	z = 40;
 	unsigned char	*result = ft_memchr(string, let, z);
 	if (result != 0)
 	{
-		printf("Letra buscada %c se coincide en posicion  %s\n", let, result);
+		printf("Searched letter %c matches at position %s\n", let, result);
 	}
 	else 
 	{
-		printf("El caracter %c'no se encontro'\n", let);
+		printf("Character %c was not found\n", let);
 	}
 	return (0);
 }*/

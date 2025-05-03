@@ -28,10 +28,10 @@ char	*ft_strdup(const char *s)
 
 int	main(void)
 {
-	char	*origin = "Hola, como estas";
+	char	*origin = "Hello, world!";
 	char	*result = ft_strdup(origin);
-	printf("cadena copiada %s\n", result);
-	printf("direccion de memoria es: %p", result);
-	printf("direccion de memoria es: %p", origin); 
+	printf("copied string %s\n", result);
+	printf("memory address is: %p", result);
+	printf("memory address is: %p", origin); 
 	return (0);
 }*/

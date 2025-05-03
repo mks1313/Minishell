@@ -35,11 +35,11 @@ int	main(void)
 
 	if (result != NULL)
 	{
-		printf("Caracer encontrado %s\n", result);
+		printf("Character found %s\n", result);
 	}
 	else
 	{
-		printf("Caracter no encontrado\n");
+		printf("Character not found\n");
 	}
 	return (0);
 }*/

@@ -47,14 +47,14 @@ char	example_funct(unsigned int i, char c)
 
 int	main(void)
 {
-	char	str[] = "Hola, Que tal 42";
+	char	str[] = "Hello, how are you 42";
 	char	*result;
 
 	result = ft_strmapi(str, example_funct);
 	if (result)
 	{
 		printf("Original: %s\n", str);
-		printf("Modificadad por ft_str_mapi: %s\n", result);
+		printf("Modified by ft_strmapi: %s\n", result);
 		free(result);
 	}
 	return (0);

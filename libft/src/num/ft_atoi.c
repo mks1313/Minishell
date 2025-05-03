@@ -45,5 +45,5 @@ int	main(void)
 {
 	char	*string = "   \n  +-239skdfbfksd0450";
 	int		result = ft_atoi(string);
-	printf("se ha encontrado %d\n", result);
+	printf("the result is: %d\n", result);
 }*/

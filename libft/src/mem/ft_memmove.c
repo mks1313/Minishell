@@ -48,8 +48,8 @@ int	main(void)
 	unsigned char	destiny2[20] = {0};
 
 	ft_memmove(destiny1, source, strlen((char *)source) + 1);
-	printf("esto es mi funcion: %s \n", destiny1);
+	printf("this is my function: %s \n", destiny1);
 	memmove(destiny2, source, strlen((char *)source) + 1);
-	printf("esto es ofical memmove: %s \n", destiny2);
+	printf("this is the official memmove: %s \n", destiny2);
 	return (0);
 }*/

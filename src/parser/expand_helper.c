@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//mejorar
 char	*handle_exit_status(int exit_status)
 {
 	char	*tmp;

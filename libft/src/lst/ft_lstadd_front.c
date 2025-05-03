@@ -26,9 +26,9 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 
 int	main(void)
 {
-	char	*content1 = "Nodo 1";
-	char	*content2 = "Nodo 2";
-	char	*content3 = "Nodo 3";
+	char	*content1 = "Node 1";
+	char	*content2 = "Node 2";
+	char	*content3 = "Node 3";
 
 	t_list *node1 = ft_lstnew((void *)content1);
 	t_list *node2 = ft_lstnew((void *)content2);
@@ -36,7 +36,7 @@ int	main(void)
 
 	if (!node1 || !node2 || !node3)
 	{
-		printf("Error al crear nodos.\n");
+		printf("Error creating nodes.\n");
 		return (1);
 	}
 

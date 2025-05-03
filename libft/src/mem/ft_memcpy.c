@@ -38,7 +38,7 @@ int	main(void)
 char src[] = "";
 char dest[sizeof(src)];
 ft_memcpy(dest, src, sizeof(src));
-printf("Destino: %s\n", dest);
+printf("Destination: %s\n", dest);
 
 return (0);
 }*/
