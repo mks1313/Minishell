@@ -6,7 +6,7 @@
 #    By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:27:43 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/27 18:43:41 by meghribe         ###   ########.fr        #
+#    Updated: 2025/05/03 16:00:36 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,11 +51,11 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 .PHONY: all
 all: $(NAME)
 
-$(NAME): $(OBJS) ../Makefile Makefile
+$(NAME): $(OBJS) ../../Makefile Makefile
 	ar rcs $(NAME) $(OBJS)
-	@echo -- "\033[1;32mLibft created \033[0m"
+	@echo -- "\033[1;32mlibft created \033[0m"
 
-$(OBJ_DIR)%.o: %.c $(INCL) ../Makefile Makefile
+$(OBJ_DIR)%.o: %.c $(INCL) ../../Makefile Makefile
 	@if [ ! -d $(dir $@) ]; then \
 		mkdir -p $(dir $@); \
 	fi
@@ -64,12 +64,12 @@ $(OBJ_DIR)%.o: %.c $(INCL) ../Makefile Makefile
 .PHONY: clean
 clean:
 	$(RM) $(OBJ_DIR)
-	@echo -- "\033[1;31mCleaned objects \033[0m"
+	@echo -- "\033[1;31mcleaned objects \033[0m"
 
 .PHONY: fclean
 fclean: clean
 	$(RM) $(NAME)
-	@echo -- "\033[1;31mCleaned libft \033[0m"
+	@echo -- "\033[1;31mcleaned libft \033[0m"
 
 .PHONY: re
 re: fclean all

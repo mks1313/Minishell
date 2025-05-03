@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/03 12:02:54 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/03 16:00:46 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SANITIZE = -g -fsanitize=address
 RM = rm -rf
 
 # Files and folders
-LIBFT_DIR = libft
+LIBFT_DIR = inc/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 INC_FOLDER = inc
 SRC_PATH = src
@@ -71,7 +71,7 @@ $(LIBFT): $(LIBFT_DIR)/Makefile Makefile
 # To create the final executable
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS) $(READLINE)
-	@echo -- "\033[1;32mMiniShell created \033[0m"
+	@echo -- "\033[1;32mminishell created \033[0m"
 
 # To compile source files to object files
 $(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INC_H) Makefile
