@@ -6,19 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/24 21:29:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:25:50 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Duplicar cadena si no es NULL, devolviendo NULL si la cadena no es válida
-static char	*dup_if_needed(char *str)
-{
-	if (str == NULL)
-		return (NULL);
-	return (ft_strdup(str));
-}
 
 // Función que actualiza el valor de una variable de entorno
 static void	update_env_variable(t_env *env, char *key, char *value)

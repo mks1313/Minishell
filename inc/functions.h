@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 16:43:11 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:26:03 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ int		is_builtin_command(char *cmd);
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
+char	*dup_if_needed(char *s);
 
 #endif
