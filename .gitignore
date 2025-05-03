@@ -13,3 +13,4 @@ minishell
 *.bak
 *.swp
 docker-compose.yml
+Dockerfile
