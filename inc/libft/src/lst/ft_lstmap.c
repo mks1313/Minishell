@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:32:40 by mmarinov          #+#    #+#             */
-/*   Updated: 2024/07/18 12:11:56 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 19:03:48 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	main(void)
 
     // Clean memory.
     ft_lstclear(&new_lst, delete_content);
-    ft_lstclear(&lst, NULL); // No needs to delete the original content, it's static.
+    // No needs to delete the original content, it's static.
+    ft_lstclear(&lst, NULL); 
 
     return 0;
 }*/

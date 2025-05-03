@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 18:48:05 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:53:15 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	is_valid_n_flag(const char *arg)
 	}
 	return (1);
 }
-
 
 static void	print_arguments(char	**args, int i)
 {

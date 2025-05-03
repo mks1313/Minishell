@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 16:07:25 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:54:12 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 	char	**envp;
 
 	envp = env_to_array(env);
-	execve(cmd_path, args, envp);
-	perror(cmd_path); // Solo si execve falla
+	if (execve(cmd_path, args, envp) == -1)
+		perror(cmd_path);
 	clean_array(envp);
 	free(cmd_path);
 	exit(EXIT_FAILURE);

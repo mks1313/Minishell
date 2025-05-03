@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 12:05:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:59:58 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ t_cmd	*create_cmd(void)
 {
 	t_cmd	*cmd;
 
-	cmd = malloc(sizeof(t_cmd));
+	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->cmd = NULL;
-	cmd->args = NULL;
-	cmd->redirs = NULL;
-	cmd->next = NULL;
 	return (cmd);
 }
 

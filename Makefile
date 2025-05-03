@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/03 18:11:17 by meghribe         ###   ########.fr        #
+#    Updated: 2025/05/03 18:52:16 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ else
 	CC = cc
 endif
 
-CFLAGS = -Wall -Wextra -Werror  -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
+CFLAGS = -Wall -Wextra -Werror -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
 
 # Specify the main header file

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:14:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/15 17:49:57 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 19:04:33 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static char	*search_in_paths(char **paths, char *cmd)
 	return (NULL);
 }
 
+// Si contiene /, chequeamos si existe y es ejecutable
 char	*find_command_path(char *cmd, t_env *env)
 {
 	char	**paths;
 	char	*cmd_path;
 	char	*path_env;
 
-	// Si contiene /, chequeamos si existe y es ejecutable
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
