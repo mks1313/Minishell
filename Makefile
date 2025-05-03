@@ -1,4 +1,4 @@
-# **************************************************************************** #
+#***************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/04/27 18:47:17 by meghribe         ###   ########.fr        #
+#    Updated: 2025/05/03 12:02:54 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,7 @@ SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c     \
 SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_utils.c
 SRC_FOLDER += utils/inits.c utils/main_utils.c utils/free_data.c           \
 			  utils/free_data_utils.c
-SRC_FOLDER += pipes/execute_child.c pipes/heredoc.c pipes/pipes.c          \
-			  pipes/redir.c pipes/utils_pipe.c
+SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c
 
 # Add header paths, source paths, objects, dependency files
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))

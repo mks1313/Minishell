@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/19 14:06:56 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:06:40 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	ft_free_list(t_cmd *cmd)
 			}
 			free(tmp->args);
 		}
-		if (tmp->redirects)
-			free_redirect_list(tmp->redirects);
+		if (tmp->redirs)
+			free_redirect_list(tmp->redirs);
 		free(tmp);
 	}
 }

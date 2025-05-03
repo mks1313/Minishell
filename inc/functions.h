@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/30 18:43:01 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:22:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ char	*append_doll_and_char(char *expanded, char next_char);
 void	handle_signal(int sig, siginfo_t *info, void *context);
 
 /* Pipe */
-void	execute_child(t_cmd *cmd, t_pipe *pdata, int index, t_env *env);
 int		execute_cmds(t_cmd *cmds, t_env *env);
-int		handle_heredoc(char *delimiter);
-int		execute_piped_commands(t_cmd *cmds, t_pipe *pdata, t_env *env);
-int		handle_redirections(t_redir *redir);
+void	handle_heredoc(t_cmd *cmd, t_shell *shell);
+void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell);
+int		handle_redirections(t_cmd *cmd);
 void	init_pipe_data(t_pipe *pdata, t_cmd *cmds);
 void	close_unused_fds(t_pipe *pdata);
 int		wait_all(t_pipe *pdata);
@@ -92,9 +91,6 @@ int		is_valid_identifier(const char *key);
 int		is_valid_identifier_export(const char *key);
 void	append_to_env(t_env **env, const char *key, const char *value);
 
-//Pipes de prueba
-void	execute_pipe(char **cmd1, char **cmd2);
-
 /* Else */
 void	skip_delimiters(char **str);
 void	builtin_error(char *cmd, char *arg, char *msg);
@@ -102,6 +98,7 @@ char	*safe_strdup(const char *str);
 int		exec_cmd(char *cmd, char **args, t_env *env);
 void	clean_array(char **array);
 void	ft_pwd(void);
+int		is_builtin_command(char *cmd);
 
 /* Execute */
 char	*find_command_path(char *cmd, t_env *env);

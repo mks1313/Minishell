@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/30 18:57:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 14:31:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	process_token(t_tkn **token, char **str)
 	free(accum);
 	return (1);
 }
-
+/*
 static void debug(t_tkn *head)
 {
 	t_tkn	*curr = head;
@@ -99,11 +99,10 @@ static void debug(t_tkn *head)
 			ft_printf("Token: [%s], Type: %d\n", curr->value, curr->type);
 			curr = curr->next;
 		}
-}
+}*/
 
 static int	process_operator_token(t_tkn **token, char **str)
 {
-	//char	*start = *str;
 	t_tkn	*new;
 	char	op[3] = {0};
 
@@ -140,7 +139,7 @@ static int	process_operator_token(t_tkn **token, char **str)
 		new = create_token(op, TOK_PIPE);
 	}
 	else
-		return (0);  // no recognized operator
+		return (0);
 
 	if (!new)
 		return (0);
@@ -156,32 +155,27 @@ t_tkn	*tokenize_input(char *line)
 	token[HEAD] = NULL;
 	token[TAIL] = NULL;
 	str = line;
-	printf("== Tokenizing line: [%s] ==\n", line);
 	while (*str)
 	{
 		skip_delimiters(&str);
 		if (*str == '\0')
 			break ;
-		if (ft_strchr("|<>", *str))  // Si el carácter es un operador
+		if (ft_strchr("|<>", *str))
 		{
-			if (!process_operator_token(token, &str))  // Procesamos operadores
+			if (!process_operator_token(token, &str))
 			{
-				printf("Tokenization failed on operator\n");
 				ft_free_tokens(token[HEAD]);
 				return (NULL);
 			}
 		}
-		else  // Si no es un operador, procesamos una palabra
+		else
 		{
 			if (!process_token(token, &str))
 			{
-				printf("Tokenization failed\n");
 				ft_free_tokens(token[HEAD]);
 				return (NULL);
 			}
 		}
 	}
-	printf("== Tokenization complete ==\n");
-	debug(token[HEAD]);
 	return (token[HEAD]);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 12:15:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:05:58 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*create_cmd(void)
 		return (NULL);
 	cmd->cmd = NULL;
 	cmd->args = NULL;
-	cmd->redirects = NULL;
+	cmd->redirs = NULL;
 	cmd->next = NULL;
 	return (cmd);
 }

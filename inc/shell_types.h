@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/24 17:50:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:15:25 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef enum e_tkn_type
 	TOK_REDIR_OUT, // >
 	TOK_APPEND, // >>
 	TOK_HEREDOC, // <<
-	TOK_EOF,
 }	t_tkn_type;
 
 typedef struct s_tkn
@@ -68,6 +67,7 @@ typedef struct s_redir
 	t_redir_type			type; // Tipo de redirección (<, >, <<, >>)
 	char					*file;// Archivo asociado a la redirección
 	int						fd;// File descriptor
+	char					*delimiter;
 	struct s_redir			*next;// Siguiente redirección en la lista
 }	t_redir;
 
@@ -79,7 +79,7 @@ typedef struct s_cmd
 {
 	char				*cmd; // Comando a ejecutar (ej: "echo")
 	char				**args; // Argumentos del comando (ej: {"-n", "Hola"})
-	t_redir				*redirects; // Lista de redirecciones
+	t_redir				*redirs; // Lista de redirecciones
 	struct s_cmd		*next;// Siguiente comando en la lista
 }	t_cmd;
 

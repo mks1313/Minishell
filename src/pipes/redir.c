@@ -6,36 +6,48 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 15:10:04 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 13:45:57 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_redirections(t_redir *redir)
+int	handle_redirections(t_cmd *cmd)
 {
-	int	fd;
+	t_redir	*r = cmd->redirs;
+	int		fd;
 
-	while (redir)
+	while (r)
 	{
-		if (redir->type == REDIR_IN)
-			fd = open(redir->file, O_RDONLY);
-		else if (redir->type == REDIR_OUT)
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (redir->type == REDIR_APPEND)
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else if (redir->type == REDIR_HEREDOC)
-			fd = handle_heredoc(redir->file);
-		else
-			fd = -1;
+		fd = -1;
+		if (r->type == REDIR_IN || r->type == REDIR_HEREDOC)
+			fd = open(r->file, O_RDONLY);
+		else if (r->type == REDIR_OUT)
+			fd = open(r->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if (r->type == REDIR_APPEND)
+			fd = open(r->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+
 		if (fd < 0)
-			return (perror(redir->file), -1);
-		if (redir->type == REDIR_IN || redir->type == REDIR_HEREDOC)
-			dup2(fd, STDIN_FILENO);
-		else
-			dup2(fd, STDOUT_FILENO);
+		{
+			perror(r->file);
+			return (-1);
+		}
+
+		if ((r->type == REDIR_IN || r->type == REDIR_HEREDOC) && dup2(fd, STDIN_FILENO) == -1)
+		{
+			perror("dup2 in");
+			close(fd);
+			return (-1);
+		}
+		else if ((r->type == REDIR_OUT || r->type == REDIR_APPEND) && dup2(fd, STDOUT_FILENO) == -1)
+		{
+			perror("dup2 out");
+			close(fd);
+			return (-1);
+		}
 		close(fd);
-		redir = redir->next;
+		r = r->next;
 	}
 	return (0);
 }
+

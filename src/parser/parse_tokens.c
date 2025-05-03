@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:44:50 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 12:37:39 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:05:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	start_new_cmd_if_needed(t_cmd **current_cmd)
 static void	process_token(t_cmd **current_cmd, t_tkn **tokens, t_cmd **cmd_list)
 {
 	if (is_redirect((*tokens)->type))
-		handle_redirect(&(*current_cmd)->redirects, tokens);
+		handle_redirect(&(*current_cmd)->redirs, tokens);
 	else if ((*tokens)->type == TOK_PIPE)
 	{
 		add_cmd_to_list(cmd_list, *current_cmd);
