@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/03 16:07:28 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:23:11 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	handle_commands(char *line, t_shell *shell)
 	execute_commands(cmds, shell, line);
 	ft_free_tokens(tokens);
 	shell->tkns = NULL;
-	ft_free_list(cmds);
+	free_cmd_list(cmds);
 	shell->cmds = NULL;
 }
 

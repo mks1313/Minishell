@@ -1,20 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data_utils.c                                  :+:      :+:    :+:   */
+/*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 13:17:36 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 12:07:16 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/05/03 16:27:04 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * free_cmd_list - Libera la lista de comandos y sus argumentos.
- * @cmd_list: Puntero a la lista de comandos.
+ * free_env_list - Libera la lista de variables de entorno.
+ * @env: Puntero a la lista de variables de entorno.
+ */
+void	free_env_list(t_env *env)
+{
+	t_env	*tmp;
+
+	while (env)
+	{
+		tmp = env->next;
+		if (env->key != NULL)
+			free(env->key);
+		if (env->value != NULL)
+			free(env->value);
+		free(env);
+		env = tmp;
+	}
+}
+
+/**
+ * ft_free_tokens - Libera la lista de tokens.
+ * @tokens: Puntero a la lista de tokens.
+ */
+void	ft_free_tokens(t_tkn *tokens)
+{
+	t_tkn	*tmp;
+
+	while (tokens)
+	{
+		tmp = tokens;
+		if (tmp->value)
+			free(tmp->value);
+		tokens = tokens->next;
+		free(tmp);
+	}
+}
+
+/**
+ * free_redirect_list - Libera la lista de redireccionamientos de un comando.
+ * @redirect: Puntero a la lista de redireccionamientos.
+ */
+void	free_redirect_list(t_redir *redir)
+{
+	t_redir	*tmp;
+
+	while (redir)
+	{
+		tmp = redir->next;
+		if (redir->file)
+			free(redir->file);
+		free(redir);
+		redir = tmp;
+	}
+}
+
+/**
+ * free_cmd_list - frees the list of commands and the args
+ * @cmd: Pointer ot the list
  */
 void	free_cmd_list(t_cmd *cmd)
 {
@@ -35,7 +91,8 @@ void	free_cmd_list(t_cmd *cmd)
 			}
 			free(tmp->args);
 		}
-		free_redirect_list(tmp->redirs);
+		if (tmp->redirs)
+			free_redirect_list(tmp->redirs);
 		free(tmp);
 	}
 }
@@ -47,7 +104,7 @@ void	free_cmd_list(t_cmd *cmd)
 void	free_data(t_shell *shell)
 {
 	if (!shell)
-		return;	
+		return ;
 	if (shell->env)
 	{
 		free_env_list(shell->env);
@@ -60,7 +117,7 @@ void	free_data(t_shell *shell)
 	}
 	if (shell->cmds)
 	{
-		ft_free_list(shell->cmds);
+		free_cmd_list(shell->cmds);
 		shell->cmds = NULL;
 	}
 	if (shell->cur_dir)

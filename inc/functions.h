@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 15:22:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:22:28 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_free_tokens(t_tkn *tokens);
 void	ft_free_list(t_cmd *cmd);
 void	free_redirect_list(t_redir *redir);
 void	free_env_list(t_env *env);
-void	ft_free_cmd_list(t_cmd *cmd);
+void	free_cmd_list(t_cmd *cmd);
 void	change_env_variable(t_env *env, char *key, char *value);
 char	*get_env_variable_value(t_env *env, char *key);
 

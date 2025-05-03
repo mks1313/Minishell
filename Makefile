@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/03 16:00:46 by meghribe         ###   ########.fr        #
+#    Updated: 2025/05/03 16:27:46 by meghribe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,7 @@ SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c     \
 			  built_ins/ft_export.c built_ins/ft_unset.c                   \
 			  built_ins/ft_export_util.c built_ins/builtins_utils.c
 SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_utils.c
-SRC_FOLDER += utils/inits.c utils/main_utils.c utils/free_data.c           \
-			  utils/free_data_utils.c
+SRC_FOLDER += utils/inits.c utils/main_utils.c utils/memory_management.c
 SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c
 
 # Add header paths, source paths, objects, dependency files
