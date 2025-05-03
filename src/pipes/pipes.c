@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 15:26:18 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/03 19:23:21 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 	{
 		if (curr->next)
 			pipe(pipefd);
-
 		pid = fork();
 		if (pid == 0)
 		{
@@ -83,7 +82,6 @@ void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 				execute_single_command(curr, shell->env);
 			exit(EXIT_FAILURE);
 		}
-
 		if (prev_fd != -1)
 			close(prev_fd);
 		if (curr->next)
@@ -93,7 +91,6 @@ void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 		}
 		curr = curr->next;
 	}
-
 	// Esperar todos los hijos
 	curr = cmd_list;
 	while (curr)
