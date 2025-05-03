@@ -12,3 +12,4 @@ minishell
 .un~
 *.bak
 *.swp
+docker-compose.yml

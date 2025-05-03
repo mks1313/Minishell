@@ -1,8 +1,0 @@
-services:
-  minishell-dev:
-    image: ubuntu:22.04
-    container_name: minishell-dev
-    volumes:
-      - /Users/maksim/GitHub/CURSUS-42/Minishell:/mnt/minishell
-    working_dir: /mnt/minishell
-    tty: true  # Mantener la terminal abierta

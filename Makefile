@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/03 16:27:46 by meghribe         ###   ########.fr        #
+#    Updated: 2025/05/03 17:28:18 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,10 +43,10 @@ SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
 			  parser/parser_utils.c parser/expand_helper.c
 SRC_FOLDER += lexer/lex_tokens.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
-SRC_FOLDER += built_ins/ft_env.c built_ins/ft_exit.c built_ins/ft_cd.c     \
-			  built_ins/ft_echo.c built_ins/ft_getenv.c built_ins/ft_pwd.c \
-			  built_ins/ft_export.c built_ins/ft_unset.c                   \
-			  built_ins/ft_export_util.c built_ins/builtins_utils.c
+SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
+			  builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \
+			  builtins/ft_export.c builtins/ft_unset.c                   \
+			  builtins/ft_export_util.c builtins/builtins_utils.c
 SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_utils.c
 SRC_FOLDER += utils/inits.c utils/main_utils.c utils/memory_management.c
 SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c
