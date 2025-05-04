@@ -159,8 +159,10 @@ t_tkn	*tokenize_input(char *line)
 		if (*str == '\0')
 			break ;
 		if (ft_strchr("|<>", *str))
+        {
 			if (!process_operator_token(token, &str))
 				return (ft_free_tokens(token[HEAD]), NULL);
+        }
 		else
 			if (!process_token(token, &str))
 				return (ft_free_tokens(token[HEAD]), NULL);
