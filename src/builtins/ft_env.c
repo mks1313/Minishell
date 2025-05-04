@@ -55,10 +55,16 @@ void	add_env_node(t_env **head, t_env *new_node)
 	}
 }
 
-void	ft_env(t_env *env_list)
+void	ft_env(t_env *env_list, char **args)
 {
 	t_env	*current;
+    int     i;
 
+    i  = 0;
+    while (args[++i])
+    {
+        return ;
+    }
 	current = env_list;
 	while (current)
 	{

@@ -77,7 +77,7 @@ void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
 t_cmd	*parse_tokens(t_tkn *tokens);
 void	ft_echo(t_cmd *cmd);
 int		setup_environment(t_shell *shell, char **envp);
-void	ft_env(t_env *env_list);
+void	ft_env(t_env *env_list, char **args);
 char	*ft_getenv(const char *name, t_env *env);
 void	ft_exit(t_cmd *cmd, t_shell *shell);
 void	ft_cd(t_cmd *cmd, t_shell *shell);

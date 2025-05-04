@@ -26,8 +26,22 @@ void	skip_delimiters(char **str)
 		(*str)++;
 }
 
+static void free_args(char **args)
+{
+    int i = 0;
+
+    while (args[i])
+    {
+        free(args[i]);
+        i++;
+    }
+    free(args);
+}
+
 void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
+    char    **args;
+
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		ft_putstr_fd(RED"exit\n"RES, 1);
@@ -35,7 +49,11 @@ void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 		ft_exit(cmd, shell);
 	}
 	else if (ft_strcmp(cmd->cmd, "env") == 0)
-		ft_env(shell->env);
+    {
+        args = ft_split(line, ' ');
+		ft_env(shell->env, args);
+        free_args(args);
+    }
 	else if (ft_strcmp(cmd->cmd, "cd") == 0)
 		ft_cd(cmd, shell);
 	else if (ft_strcmp(cmd->cmd, "echo") == 0)
