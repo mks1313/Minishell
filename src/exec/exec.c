@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/06 14:41:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:57:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 {
 	char	*cmd_path;
 	pid_t	pid;
+	int		status;
 
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
@@ -57,8 +58,8 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	if (pid == 0)
 		execute_child_process(cmd_path, args, env);
 	else
-		return (wait_for_process(pid, cmd_path));
-	return (1);
+		status = wait_for_process(pid, cmd_path);
+	return (status);
 }
 
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)

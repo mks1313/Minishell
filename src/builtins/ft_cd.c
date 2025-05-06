@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 18:25:50 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:06:28 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 	free(new_pwd_dup);
 }
 
-// Función principal para cambiar el directorio y actualizar las variables
 void	change_environment_pwd(t_env *env, char *new_path)
 {
 	char	*old_pwd_val;
@@ -59,7 +58,7 @@ void	change_environment_pwd(t_env *env, char *new_path)
 	update_pwd_variables(env, old_pwd_val, new_path);
 }
 
-void	ft_cd(t_cmd *cmd, t_shell *shell)
+int	ft_cd(t_cmd *cmd, t_shell *shell)
 {
 	char	*target_dir;
 	char	*home;
@@ -67,22 +66,32 @@ void	ft_cd(t_cmd *cmd, t_shell *shell)
 	if (!cmd->args[1])
 	{
 		home = ft_getenv("HOME", shell->env);
-		if (home)
+		if (!home)
 		{
-			if (chdir(home) == -1)
-				perror("minishell: cd");
-			else
-				change_environment_pwd(shell->env, home);
-		}
-		else
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			shell->exit_status = 1;
+			return (1);
+		}
+		if (chdir(home) == -1)
+		{
+			perror("minishell: cd");
+			shell->exit_status = 1;
+			return (1);
+		}
+		change_environment_pwd(shell->env, home);
+		shell->exit_status = 0;
 	}
 	else
 	{
 		target_dir = cmd->args[1];
 		if (chdir(target_dir) == -1)
+		{
 			perror("minishell: cd");
-		else
-			change_environment_pwd(shell->env, target_dir);
+			shell->exit_status = 1;
+			return (1);
+		}
+		change_environment_pwd(shell->env, target_dir);
+		shell->exit_status = 0;
 	}
+	return (0);
 }

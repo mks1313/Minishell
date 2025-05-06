@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:37:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/05 13:36:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:19:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	add_env_node(t_env **head, t_env *new_node)
 	}
 }
 
-void	ft_env(t_env *env_list)
+int	ft_env(t_env *env_list)
 {
 	t_env	*current;
 
@@ -66,6 +66,7 @@ void	ft_env(t_env *env_list)
 			ft_printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
+	return (0);
 }
 
 /**

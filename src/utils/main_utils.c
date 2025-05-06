@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/06 14:38:48 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:48:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	skip_delimiters(char **str)
 		(*str)++;
 }
 
-void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
+int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
@@ -37,19 +37,20 @@ void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 	else if (ft_strcmp(cmd->cmd, "env") == 0)
     {
 		if (cmd->args[1] != NULL)
-			return ;
-		ft_env(shell->env);
+			return (1);
+		return (ft_env(shell->env));
     }
 	else if (ft_strcmp(cmd->cmd, "cd") == 0)
-		ft_cd(cmd, shell);
+		return (ft_cd(cmd, shell));
 	else if (ft_strcmp(cmd->cmd, "echo") == 0)
-		ft_echo(cmd);
+		return (ft_echo(cmd));
 	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
-		ft_pwd();
+		return (ft_pwd());
 	else if (ft_strcmp(cmd->cmd, "export") == 0)
-		ft_export(&shell->env, cmd);
+		return (ft_export(&shell->env, cmd));
 	else if (ft_strcmp(cmd->cmd, "unset") == 0)
-		ft_unset(cmd, shell);
+		return (ft_unset(cmd, shell));
+	return (1);
 }
 
 int	handle_external_command(t_cmd *cmd, t_shell *shell)

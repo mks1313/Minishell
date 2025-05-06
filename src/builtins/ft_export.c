@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/05 16:23:46 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:23:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	export_single_arg(t_env **env, const char *arg, int *status)
 		process_simple_arg(env, arg);
 }
 
-void	ft_export(t_env **env, t_cmd *cmd)
+int	ft_export(t_env **env, t_cmd *cmd)
 {
 	int	status;
 	int	i;
@@ -74,8 +74,9 @@ void	ft_export(t_env **env, t_cmd *cmd)
 	if (!cmd->args[1])
 	{
 		print_export_list(*env);
-		return ;
+		return (1);
 	}
 	while (cmd->args[i])
 		export_single_arg(env, cmd->args[i++], &status);
+	return (0);
 }
