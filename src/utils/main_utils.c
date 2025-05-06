@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/05 13:38:00 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:38:48 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 		ft_unset(cmd, shell);
 }
 
-void	handle_external_command(t_cmd *cmd, t_shell *shell)
+int	handle_external_command(t_cmd *cmd, t_shell *shell)
 {
 	char	**args;
 	int		status;
 
 	args = cmd->args;
-	if (args)
-	{
+	if (!args)
+		return (1);
+	else
 		status = exec_cmd(cmd->cmd, args, shell->env);
-		shell->exit_status = WEXITSTATUS(status);
-	}
+	return (status);
 }

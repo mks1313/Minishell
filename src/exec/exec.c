@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 18:54:12 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:41:12 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,25 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
+	int	status;
+
 	if (!cmd || !cmd->cmd || !shell || !line)
 		return ;
 	handle_heredoc(cmd, shell);
 	if (!cmd->next)
 	{
 		if (is_builtin_command(cmd->cmd))
+		{
 			handle_builtin_commands(cmd, shell, line);
+			status = shell->exit_status;
+		}
 		else
-			handle_external_command(cmd, shell);
+			status = handle_external_command(cmd, shell);
 	}
 	else
+	{
 		execute_piped_commands(cmd, shell);
+		status = shell->exit_status;
+	}
+	shell->exit_status = status;
 }
