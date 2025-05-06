@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:06 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 18:53:15 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:15:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ static int	parse_echo_flags(char **args, int *newline)
 	return (i);
 }
 
-void	ft_echo(t_cmd *cmd)
+int	ft_echo(t_cmd *cmd)
 {
 	int	newline;
 
 	if (!cmd || !cmd->args)
-		return ;
+		return (1);
 	print_arguments(cmd->args, parse_echo_flags(cmd->args, &newline));
 	if (newline)
 		ft_putchar_fd('\n', STDOUT_FILENO);
+	return (0);
 }

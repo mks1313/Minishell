@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:18:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/16 14:29:53 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/05 15:49:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,17 @@ void	update_or_append_env(t_env **env, const char *key, const char *value)
 			new->value = NULL;
 		new->next = *env;
 		*env = new;
+	}
+}
+
+void	print_export_list(t_env *env)
+{
+	while (env)
+	{
+		if (env->value)
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		else
+			printf("declare -x %s\n", env->key);
+		env = env->next;
 	}
 }

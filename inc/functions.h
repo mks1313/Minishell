@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 18:26:03 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:23:57 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,18 @@ int		execute_single_command(t_cmd *cmd, t_env *env);
 /* Commands */
 void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
 t_cmd	*parse_tokens(t_tkn *tokens);
-void	ft_echo(t_cmd *cmd);
+int		ft_echo(t_cmd *cmd);
 int		setup_environment(t_shell *shell, char **envp);
-void	ft_env(t_env *env_list, char **args);
+int		ft_env(t_env *env_list);
 char	*ft_getenv(const char *name, t_env *env);
 void	ft_exit(t_cmd *cmd, t_shell *shell);
-void	ft_cd(t_cmd *cmd, t_shell *shell);
-void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line);
-void	ft_unset(t_cmd *cmd, t_shell *shell);
-void	handle_external_command(t_cmd *cmd, t_shell *shell);
-void	ft_export(t_env **env, t_cmd *cmd);
+int		ft_pwd(void);
+int		ft_cd(t_cmd *cmd, t_shell *shell);
+int		handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line);
+int		ft_unset(t_cmd *cmd, t_shell *shell);
+int		handle_external_command(t_cmd *cmd, t_shell *shell);
+int		ft_export(t_env **env, t_cmd *cmd);
+void	print_export_list(t_env *env);
 void	update_or_append_env(t_env **env, const char *key, const char *value);
 t_env	*find_env(t_env *env_list, const char *key);
 int		is_valid_identifier(const char *key);
@@ -97,7 +99,6 @@ void	builtin_error(char *cmd, char *arg, char *msg);
 char	*safe_strdup(const char *str);
 int		exec_cmd(char *cmd, char **args, t_env *env);
 void	clean_array(char **array);
-void	ft_pwd(void);
 int		is_builtin_command(char *cmd);
 
 /* Execute */

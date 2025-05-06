@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/04/25 13:41:42 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:48:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,8 @@ void	skip_delimiters(char **str)
 		(*str)++;
 }
 
-static void free_args(char **args)
+int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-    int i = 0;
-
-    while (args[i])
-    {
-        free(args[i]);
-        i++;
-    }
-    free(args);
-}
-
-void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
-{
-    char    **args;
-
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		ft_putstr_fd(RED"exit\n"RES, 1);
@@ -50,31 +36,32 @@ void	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 	}
 	else if (ft_strcmp(cmd->cmd, "env") == 0)
     {
-        args = ft_split(line, ' ');
-		ft_env(shell->env, args);
-        free_args(args);
+		if (cmd->args[1] != NULL)
+			return (1);
+		return (ft_env(shell->env));
     }
 	else if (ft_strcmp(cmd->cmd, "cd") == 0)
-		ft_cd(cmd, shell);
+		return (ft_cd(cmd, shell));
 	else if (ft_strcmp(cmd->cmd, "echo") == 0)
-		ft_echo(cmd);
+		return (ft_echo(cmd));
 	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
-		ft_pwd();
+		return (ft_pwd());
 	else if (ft_strcmp(cmd->cmd, "export") == 0)
-		ft_export(&shell->env, cmd);
+		return (ft_export(&shell->env, cmd));
 	else if (ft_strcmp(cmd->cmd, "unset") == 0)
-		ft_unset(cmd, shell);
+		return (ft_unset(cmd, shell));
+	return (1);
 }
 
-void	handle_external_command(t_cmd *cmd, t_shell *shell)
+int	handle_external_command(t_cmd *cmd, t_shell *shell)
 {
 	char	**args;
 	int		status;
 
 	args = cmd->args;
-	if (args)
-	{
+	if (!args)
+		return (1);
+	else
 		status = exec_cmd(cmd->cmd, args, shell->env);
-		shell->exit_status = WEXITSTATUS(status);
-	}
+	return (status);
 }
