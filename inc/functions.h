@@ -56,6 +56,7 @@ char	*handle_exit_status(int exit_status);
 char	*handle_env_variable(char *value, int *i, t_env *env);
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 char	*append_doll_and_char(char *expanded, char next_char);
+int		validate_syntax(t_cmd *cmd_list);
 
 /* Signals */
 void	set_signals(void);

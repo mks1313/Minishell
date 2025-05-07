@@ -46,12 +46,13 @@ char	*find_command_path(char *cmd, t_env *env)
 	char	*cmd_path;
 	char	*path_env;
 
+	if (!cmd || cmd[0] == '\0')
+		return (NULL);
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
 			return (ft_strdup(cmd));
-		else
-			return (NULL);
+		return (NULL);
 	}
 	path_env = ft_getenv("PATH", env);
 	if (!path_env)

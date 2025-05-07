@@ -46,6 +46,16 @@ static void	handle_commands(char *line, t_shell *shell)
 		shell->tkns = NULL;
 		return ;
 	}
+	
+	if (!validate_syntax(cmds))
+	{
+		shell->exit_status = 2;
+		ft_free_tokens(tokens);
+		shell->tkns = NULL;
+		free_cmd_list(cmds);
+		return ;
+	}
+	
 	shell->cmds = cmds;
 	execute_commands(cmds, shell, line);
 	ft_free_tokens(tokens);
