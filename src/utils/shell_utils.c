@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/06 17:48:45 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:51:02 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 		ft_exit(cmd, shell);
 	}
 	else if (ft_strcmp(cmd->cmd, "env") == 0)
-    {
+	{
 		if (cmd->args[1] != NULL)
 			return (1);
 		return (ft_env(shell->env));
-    }
+	}
 	else if (ft_strcmp(cmd->cmd, "cd") == 0)
 		return (ft_cd(cmd, shell));
 	else if (ft_strcmp(cmd->cmd, "echo") == 0)
