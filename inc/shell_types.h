@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 12:15:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:46:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ typedef enum e_tkn_type
 	TOK_WORD,
 	TOK_OPERATOR,
 	TOK_PIPE,
-	TOK_REDIR_IN, // <
-	TOK_REDIR_OUT, // >
-	TOK_APPEND, // >>
-	TOK_HEREDOC, // <<
+	TOK_REDIR_IN,
+	TOK_REDIR_OUT,
+	TOK_APPEND,
+	TOK_HEREDOC,
 }	t_tkn_type;
 
 typedef struct s_tkn

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/05 13:27:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:43:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,6 @@ static int	process_token(t_tkn **token, char **str)
 	free(accum);
 	return (1);
 }
-/*
-static void debug(t_tkn *head)
-{
-	t_tkn	*curr = head;
-		while (curr)
-		{
-			ft_printf("Token: [%s], Type: %d\n", curr->value, curr->type);
-			curr = curr->next;
-		}
-}*/
 
 static int	process_operator_token(t_tkn **token, char **str)
 {
