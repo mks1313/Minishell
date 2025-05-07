@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/03 19:13:13 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:57:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	handle_commands(char *line, t_shell *shell)
 		shell->tkns = NULL;
 		return ;
 	}
-	
 	if (!validate_syntax(cmds))
 	{
 		shell->exit_status = 2;
@@ -55,7 +54,6 @@ static void	handle_commands(char *line, t_shell *shell)
 		free_cmd_list(cmds);
 		return ;
 	}
-	
 	shell->cmds = cmds;
 	execute_commands(cmds, shell, line);
 	ft_free_tokens(tokens);

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:18:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/05 15:49:34 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:24:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,19 @@ int	is_valid_identifier(const char *key)
 	int	i;
 
 	if (!key || (!ft_isalpha(key[0]) && key[0] != '_'))
+	{
+		ft_printf("export: `%s`: not a valid identifier\n", key);
 		return (0);
+	}
 	i = 1;
 	while (key[i])
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
+		{
+			ft_printf("export: `%s`: not a valid identifier\n", key);
 			return (0);
+		}
 		i++;
-	}
-	return (1);
-}
-
-int	is_valid_identifier_export(const char *key)
-{
-	if (!is_valid_identifier(key))
-	{
-		ft_printf("export; `%s': not a valid identifier\n", key);
-		return (0);
 	}
 	return (1);
 }

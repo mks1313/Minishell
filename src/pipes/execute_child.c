@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:31 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 11:50:37 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:28:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	execute_child(t_cmd *cmd, t_pipe *pdata, int index, t_env *env)
 	if (!cmd->args || !cmd->args[0])
 		exit(0);
 	exec_cmd(cmd->args[0], cmd->args, env);
-	exit(127); 
+	exit(127);
 }

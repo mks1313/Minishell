@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 12:21:12 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:30:11 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ int	handle_redirections(t_cmd *cmd)
 			perror(r->file);
 			return (-1);
 		}
-		if ((r->type == REDIR_IN || r->type == REDIR_HEREDOC) && dup2(fd, STDIN_FILENO) == -1)
+		if ((r->type == REDIR_IN || r->type == REDIR_HEREDOC)
+			&& dup2(fd, STDIN_FILENO) == -1)
 		{
 			perror("dup2 in");
 			close(fd);
 			return (-1);
 		}
-		else if ((r->type == REDIR_OUT || r->type == REDIR_APPEND) && dup2(fd, STDOUT_FILENO) == -1)
+		else if ((r->type == REDIR_OUT || r->type == REDIR_APPEND)
+			&& dup2(fd, STDOUT_FILENO) == -1)
 		{
 			perror("dup2 out");
 			close(fd);

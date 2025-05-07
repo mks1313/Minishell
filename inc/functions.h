@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/06 17:23:57 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:23:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	print_export_list(t_env *env);
 void	update_or_append_env(t_env **env, const char *key, const char *value);
 t_env	*find_env(t_env *env_list, const char *key);
 int		is_valid_identifier(const char *key);
-int		is_valid_identifier_export(const char *key);
 void	append_to_env(t_env **env, const char *key, const char *value);
 
 /* Else */

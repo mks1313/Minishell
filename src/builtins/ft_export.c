@@ -6,13 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:14:32 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/06 17:23:37 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:20:03 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Process kye & value for the argument `+=`
 static void	process_plus_equals(t_env **env, const char *arg, int *status)
 {
 	char	*key;
@@ -22,7 +21,7 @@ static void	process_plus_equals(t_env **env, const char *arg, int *status)
 	plus = ft_strnstr(arg, "+=", ft_strlen(arg));
 	key = ft_substr(arg, 0, plus - arg);
 	value = ft_strdup(plus + 2);
-	if (is_valid_identifier_export(key))
+	if (is_valid_identifier(key))
 		append_to_env(env, key, value);
 	if (*status == 0)
 		*status = 1;
@@ -30,7 +29,6 @@ static void	process_plus_equals(t_env **env, const char *arg, int *status)
 	free(value);
 }
 
-// Procesa argument with `=`
 static void	process_equals(t_env **env, const char *arg, int *status)
 {
 	char	*key;
@@ -38,7 +36,7 @@ static void	process_equals(t_env **env, const char *arg, int *status)
 
 	key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
 	value = ft_strdup(ft_strchr(arg, '=') + 1);
-	if (is_valid_identifier_export(key))
+	if (is_valid_identifier(key))
 		update_or_append_env(env, key, value);
 	if (*status == 0)
 		*status = 1;
@@ -46,14 +44,12 @@ static void	process_equals(t_env **env, const char *arg, int *status)
 	free(value);
 }
 
-// Process simple arg without `=` ni `+=`
 static void	process_simple_arg(t_env **env, const char *arg)
 {
-	if (is_valid_identifier_export(arg) && !find_env(*env, arg))
+	if (is_valid_identifier(arg) && !find_env(*env, arg))
 		update_or_append_env(env, arg, NULL);
 }
 
-// Principal function to export arg
 static void	export_single_arg(t_env **env, const char *arg, int *status)
 {
 	if (ft_strnstr(arg, "+=", ft_strlen(arg)))

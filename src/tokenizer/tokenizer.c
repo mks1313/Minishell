@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 12:43:45 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:26:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,10 @@ t_tkn	*tokenize_input(char *line)
 		if (*str == '\0')
 			break ;
 		if (ft_strchr("|<>", *str))
-        {
+		{
 			if (!process_operator_token(token, &str))
 				return (ft_free_tokens(token[HEAD]), NULL);
-        }
+		}
 		else
 			if (!process_token(token, &str))
 				return (ft_free_tokens(token[HEAD]), NULL);
