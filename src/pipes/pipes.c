@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 11:58:03 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:20:35 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	execute_single_command(t_cmd *cmd, t_env *env)
 		if (!cmd->args || !cmd->args[0])
 			exit(0);
 		exec_cmd(cmd->args[0], cmd->args, env);
-		exit(127);  
+		exit(127);
 	}
 	else if (pid < 0)
 		return (perror("fork"), 1);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));  
-	return (1);  
+		return (WEXITSTATUS(status));
+	return (1);
 }
 
 // Crear un pipe para conectar los procesos
@@ -58,16 +58,17 @@ int	execute_single_command(t_cmd *cmd, t_env *env)
 void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 {
 	int		pipefd[2];
-	int		prev_fd = -1;
+	int		prev_fd;
 	pid_t	pid;
 	t_cmd	*curr;
 	int		status;
 
 	curr = cmd_list;
+	prev_fd = -1;
 	while (curr)
 	{
 		if (curr->next)
-			pipe(pipefd);  
+			pipe(pipefd);
 		pid = fork();
 		if (pid == 0)
 		{
@@ -96,7 +97,7 @@ void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 			close(pipefd[1]);
 			prev_fd = pipefd[0];
 		}
-		curr = curr->next;  
+		curr = curr->next;
 	}
 	curr = cmd_list;
 	while (curr)
