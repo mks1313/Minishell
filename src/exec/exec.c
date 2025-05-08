@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 16:39:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:23:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 	if (!cmd->next)
 	{
 		if (handle_redirections(cmd) < 0)
-			return ; // o setear exit_status a 1
+			return ;
 		if (is_builtin_command(cmd->cmd))
 			shell->exit_status = handle_builtin_commands(cmd, shell, line);
 		else

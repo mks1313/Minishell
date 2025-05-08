@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:12:10 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 16:27:18 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:25:04 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	fill_heredoc_pipe(int write_end, const char *delimiter)
 		write(write_end, "\n", 1);
 		free(line);
 	}
-	close(write_end); // Importantísimo
+	close(write_end);
 	printf("✅ heredoc terminado y cerrado (write_end)\n");
 }
 
@@ -44,22 +44,23 @@ static void	create_heredoc_pipe(t_redir *redir)
 {
 	int		pipefd[2];
 
-	printf("→ Entrando a create_heredoc_pipe() para delimitador: [%s]\n", redir->delimiter);
+	printf("→ Entrando a create_heredoc_pipe() para delimitador: \
+		[%s]\n", redir->delimiter);
 	if (pipe(pipefd) == -1)
 	{
 		perror("❌ pipe");
 		return ;
 	}
 	fill_heredoc_pipe(pipefd[1], redir->delimiter);
-	redir->fd = pipefd[0]; // Guardamos el read-end
+	redir->fd = pipefd[0];
 	printf("✅ heredoc listo, fd de lectura guardado: %d\n", redir->fd);
 }
 
 void	handle_heredoc(t_cmd *cmd, t_shell *shell)
 {
 	t_redir	*redir;
-	(void)shell;
 
+	(void)shell;
 	while (cmd)
 	{
 		redir = cmd->redirs;

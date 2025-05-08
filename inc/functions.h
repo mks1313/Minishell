@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 13:23:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:17:38 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	error_exit(const char *msg, int exit_code);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
 void	ft_free_list(t_cmd *cmd);
+int		clean_exit(t_shell *shell, int status);
 void	free_redirect_list(t_redir *redir);
 void	free_env_list(t_env *env);
 void	free_cmd_list(t_cmd *cmd);
@@ -106,5 +107,6 @@ char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
 char	*dup_if_needed(char *s);
+void	handle_commands(char *line, t_shell *shell);
 
 #endif
