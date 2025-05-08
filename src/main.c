@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/07 12:57:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:52:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ static void	handle_commands(char *line, t_shell *shell)
 {
 	t_tkn	*tokens;
 	t_cmd	*cmds;
+	int		stdin_backup;
+	int		stdout_backup;
 
 	if (!shell || !line)
 		return ;
+
 	tokens = tokenize_input(line);
 	if (!tokens)
 		return ;
@@ -54,8 +57,20 @@ static void	handle_commands(char *line, t_shell *shell)
 		free_cmd_list(cmds);
 		return ;
 	}
+
+	// 🛡️ BACKUP antes de ejecutar
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+
 	shell->cmds = cmds;
 	execute_commands(cmds, shell, line);
+
+	// 🔄 RESTORE después de ejecutar
+	dup2(stdin_backup, STDIN_FILENO);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdin_backup);
+	close(stdout_backup);
+
 	ft_free_tokens(tokens);
 	shell->tkns = NULL;
 	free_cmd_list(cmds);

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 15:31:41 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:50:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,6 @@ void	handle_redirect(t_redir **redir_list, t_tkn **tkn)
 		return ;
 	add_redir_to_list(redir_list, redir);
 	*tkn = (*tkn)->next;
+	if (*tkn)
+		*tkn = (*tkn)->next;
 }

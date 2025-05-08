@@ -1,0 +1,3 @@
+ls
+cat 
+veremoa ahorita
