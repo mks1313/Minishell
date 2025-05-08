@@ -1,3 +1,5 @@
-ls
-cat 
-veremoa ahorita
+hola
+prueba
+de heredoc 
+redirigiendo
+en le arhcivo
