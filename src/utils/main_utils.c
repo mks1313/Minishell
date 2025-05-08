@@ -3,65 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
+/*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/06 17:48:45 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/05/08 20:16:42 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_exit(const char *msg, int exit_code)
+static t_tkn	*prepare_tokens(char *line, t_shell *shell)
 {
-	ft_putstr_fd(RED, 2);
-	ft_putstr_fd((char *)msg, 2);
-	ft_putstr_fd(RES, 2);
-	exit(exit_code);
+	t_tkn	*tokens;
+
+	tokens = tokenize_input(line);
+	if (!tokens)
+		return (NULL);
+	lex_tokens(tokens);
+	shell->tkns = tokens;
+	expand_variable(shell);
+	return (tokens);
 }
 
-void	skip_delimiters(char **str)
+static t_cmd	*check_and_parse(t_tkn *tokens, t_shell *shell)
 {
-	while (**str && ft_strchr(" \t\r\n", **str))
-		(*str)++;
-}
+	t_cmd	*cmds;
 
-int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
-{
-	if (ft_strcmp(cmd->cmd, "exit") == 0)
+	cmds = parse_tokens(tokens);
+	if (!cmds)
 	{
-		ft_putstr_fd(RED"exit\n"RES, 1);
-		free(line);
-		ft_exit(cmd, shell);
+		ft_free_tokens(tokens);
+		shell->tkns = NULL;
+		return (NULL);
 	}
-	else if (ft_strcmp(cmd->cmd, "env") == 0)
-    {
-		if (cmd->args[1] != NULL)
-			return (1);
-		return (ft_env(shell->env));
-    }
-	else if (ft_strcmp(cmd->cmd, "cd") == 0)
-		return (ft_cd(cmd, shell));
-	else if (ft_strcmp(cmd->cmd, "echo") == 0)
-		return (ft_echo(cmd));
-	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
-		return (ft_pwd());
-	else if (ft_strcmp(cmd->cmd, "export") == 0)
-		return (ft_export(&shell->env, cmd));
-	else if (ft_strcmp(cmd->cmd, "unset") == 0)
-		return (ft_unset(cmd, shell));
-	return (1);
+	if (!validate_syntax(cmds))
+	{
+		shell->exit_status = 2;
+		ft_free_tokens(tokens);
+		free_cmd_list(cmds);
+		shell->tkns = NULL;
+		return (NULL);
+	}
+	return (cmds);
 }
 
-int	handle_external_command(t_cmd *cmd, t_shell *shell)
+static void	restore_stdio(int stdin_backup, int stdout_backup)
 {
-	char	**args;
-	int		status;
+	dup2(stdin_backup, STDIN_FILENO);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdin_backup);
+	close(stdout_backup);
+}
 
-	args = cmd->args;
-	if (!args)
-		return (1);
-	else
-		status = exec_cmd(cmd->cmd, args, shell->env);
-	return (status);
+void	handle_commands(char *line, t_shell *shell)
+{
+	t_tkn	*tokens;
+	t_cmd	*cmds;
+	int		stdin_backup;
+	int		stdout_backup;
+
+	if (!shell || !line)
+		return ;
+	tokens = prepare_tokens(line, shell);
+	if (!tokens)
+		return ;
+	cmds = check_and_parse(tokens, shell);
+	if (!cmds)
+		return ;
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+	shell->cmds = cmds;
+	execute_commands(cmds, shell, line);
+	restore_stdio(stdin_backup, stdout_backup);
+	ft_free_tokens(tokens);
+	free_cmd_list(cmds);
+	shell->tkns = NULL;
+	shell->cmds = NULL;
 }

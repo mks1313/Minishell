@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
+/*   memory_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 16:27:04 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:32:12 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_free_tokens(t_tkn *tokens)
  * free_redirect_list - Libera la lista de redireccionamientos de un comando.
  * @redirect: Puntero a la lista de redireccionamientos.
  */
+
 void	free_redirect_list(t_redir *redir)
 {
 	t_redir	*tmp;
@@ -63,6 +64,8 @@ void	free_redirect_list(t_redir *redir)
 		tmp = redir->next;
 		if (redir->file)
 			free(redir->file);
+		if (redir->delimiter)
+			free(redir->delimiter);
 		free(redir);
 		redir = tmp;
 	}

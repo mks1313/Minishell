@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/25 11:03:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:39:16 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,57 +31,49 @@ void	clean_array(char **array)
 	free(array);
 }
 
-char	*ft_strjoin3(char *s1, char *s2, char *s3)
+static int	count_env_vars(t_env *env)
 {
-	char	*tmp;
-	char	*res;
+	int	count;
 
-	if (!s1)
-		s1 = ft_strdup("");
-	if (!s2)
-		s2 = ft_strdup("");
-	if (!s3)
-		s3 = ft_strdup("");
-	tmp = ft_strjoin(s1, s2);
-	if (!tmp)
-		return (NULL);
-	res = ft_strjoin(tmp, s3);
-	free(tmp);
-	if (!res)
-		return (NULL);
-	return (res);
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
+
+static int	fill_env_array(char **env_array, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env)
+	{
+		env_array[i] = ft_strjoin3(env->key, "=", env->value);
+		if (!env_array[i])
+		{
+			clean_array(env_array);
+			return (0);
+		}
+		i++;
+		env = env->next;
+	}
+	env_array[i] = NULL;
+	return (1);
 }
 
 char	**env_to_array(t_env *env)
 {
-	int		i;
 	int		count;
 	char	**env_array;
-	t_env	*curr;
 
-	count = 0;
-	curr = env;
-	while (curr)
-	{
-		count++;
-		curr = curr->next;
-	}
+	count = count_env_vars(env);
 	env_array = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!env_array)
 		return (NULL);
-	i = 0;
-	curr = env;
-	while (curr)
-	{
-		env_array[i] = ft_strjoin3(curr->key, "=", curr->value);
-		if (!env_array[i])
-		{
-			clean_array(env_array);
-			return (NULL);
-		}
-		i++;
-		curr = curr->next;
-	}
-	env_array[i] = NULL;
+	if (!fill_env_array(env_array, env))
+		return (NULL);
 	return (env_array);
 }

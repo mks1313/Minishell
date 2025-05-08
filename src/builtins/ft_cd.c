@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/06 18:06:28 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:16:20 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Función que actualiza el valor de una variable de entorno
+// Update value of var in env
 static void	update_env_variable(t_env *env, char *key, char *value)
 {
 	t_env	*copy;
@@ -31,7 +31,7 @@ static void	update_env_variable(t_env *env, char *key, char *value)
 	}
 }
 
-// Actualiza las variables OLDWD y PWD en el entorno
+// Update vars OLDWD y PWD in ENV
 static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 {
 	char	*old_pwd_dup;
@@ -58,40 +58,54 @@ void	change_environment_pwd(t_env *env, char *new_path)
 	update_pwd_variables(env, old_pwd_val, new_path);
 }
 
+static int	cd_to_home(t_shell *shell)
+{
+	char	*home;
+	char	cwd[PATH_MAX];
+
+	home = ft_getenv("HOME", shell->env);
+	if (!home)
+	{
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		shell->exit_status = 1;
+		return (1);
+	}
+	if (chdir(home) == -1)
+	{
+		perror("minishell: cd");
+		shell->exit_status = 1;
+		return (1);
+	}
+	if (!getcwd(cwd, sizeof(cwd)))
+		ft_putstr_fd("minishell: cd: error retrieving current directory: \
+			getcwd: cannot access parent directories: \
+			No such file or directory\n", 2);
+	else
+		change_environment_pwd(shell->env, home);
+	shell->exit_status = 0;
+	return (0);
+}
+
 int	ft_cd(t_cmd *cmd, t_shell *shell)
 {
 	char	*target_dir;
-	char	*home;
+	char	cwd[PATH_MAX];
 
 	if (!cmd->args[1])
+		return (cd_to_home(shell));
+	target_dir = cmd->args[1];
+	if (chdir(target_dir) == -1)
 	{
-		home = ft_getenv("HOME", shell->env);
-		if (!home)
-		{
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-			shell->exit_status = 1;
-			return (1);
-		}
-		if (chdir(home) == -1)
-		{
-			perror("minishell: cd");
-			shell->exit_status = 1;
-			return (1);
-		}
-		change_environment_pwd(shell->env, home);
-		shell->exit_status = 0;
+		perror("minishell: cd");
+		shell->exit_status = 1;
+		return (1);
 	}
+	if (!getcwd(cwd, sizeof(cwd)))
+		ft_putstr_fd("minishell: cd: error retrieving current directory: \
+				getcwd: cannot access parent directories: \
+				No such file or directory\n", 2);
 	else
-	{
-		target_dir = cmd->args[1];
-		if (chdir(target_dir) == -1)
-		{
-			perror("minishell: cd");
-			shell->exit_status = 1;
-			return (1);
-		}
 		change_environment_pwd(shell->env, target_dir);
-		shell->exit_status = 0;
-	}
+	shell->exit_status = 0;
 	return (0);
 }
