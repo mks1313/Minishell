@@ -6,71 +6,68 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:12:10 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 13:28:24 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:27:18 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	create_heredoc_file(t_redir *redir, t_shell *shell)
+static void	fill_heredoc_pipe(int write_end, const char *delimiter)
 {
 	char	*line;
-	int		fd;
-	char	tmp_name[64];
-	t_tkn	*temp_token;
 
-	snprintf(tmp_name, sizeof(tmp_name), "/tmp/.heredoc_%d", getpid());
-	fd = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-	if (fd < 0)
-	{
-		perror("heredoc: open");
-		return ;
-	}
-	free(redir->file);
-	redir->file = ft_strdup(tmp_name);
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
-			break ;
-		if (redir->delimiter && ft_strcmp(line, redir->delimiter) == 0)
 		{
-			free(line);
+			printf("🚨 readline devolvió NULL\n");
 			break ;
 		}
-		temp_token = malloc(sizeof(t_tkn));
-		temp_token->value = line;
-		temp_token->next = NULL;
-		temp_token->s_quote = 0;
-		expand_variable(shell);
-		expand_variable(shell);
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
+		printf("🟡 línea ingresada: [%s]\n", line);
+		printf("🟢 comparando con delimitador: [%s]\n", delimiter);
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			printf("✅ delimitador encontrado, cerrando heredoc\n");
+			break ;
+		}
+		write(write_end, line, ft_strlen(line));
+		write(write_end, "\n", 1);
 		free(line);
 	}
-	close(fd);
+	close(write_end); // Importantísimo
+	printf("✅ heredoc terminado y cerrado (write_end)\n");
 }
 
-/**
- * Iterar sobre los elementos
- * Iterar sobre las redirecciones del comando
- * Si la redirección es un heredoc
- * Llamar a la función para crear el archivo heredoc
- * Avanzar a la siguiente redirección
- * Avanzar al siguiente comando
- */
+static void	create_heredoc_pipe(t_redir *redir)
+{
+	int		pipefd[2];
+
+	printf("→ Entrando a create_heredoc_pipe() para delimitador: [%s]\n", redir->delimiter);
+	if (pipe(pipefd) == -1)
+	{
+		perror("❌ pipe");
+		return ;
+	}
+	fill_heredoc_pipe(pipefd[1], redir->delimiter);
+	redir->fd = pipefd[0]; // Guardamos el read-end
+	printf("✅ heredoc listo, fd de lectura guardado: %d\n", redir->fd);
+}
+
 void	handle_heredoc(t_cmd *cmd, t_shell *shell)
 {
-	t_redir	*r;
+	t_redir	*redir;
+	(void)shell;
 
 	while (cmd)
 	{
-		r = cmd->redirs;
-		while (r)
+		redir = cmd->redirs;
+		while (redir)
 		{
-			if (r->type == REDIR_HEREDOC)
-				create_heredoc_file(r, shell);
-			r = r->next;
+			if (redir->type == REDIR_HEREDOC)
+				create_heredoc_pipe(redir);
+			redir = redir->next;
 		}
 		cmd = cmd->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 19:33:12 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:31:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*ft_strjoin_char(char *s, char c)
 	return (str);
 }
 
-//MIrara co lexer, para no duplicar
 t_redir	*create_redir(t_tkn *tkn)
 {
 	t_redir	*redir;
@@ -52,7 +51,17 @@ t_redir	*create_redir(t_tkn *tkn)
 		redir->type = REDIR_APPEND;
 	else if (tkn->type == TOK_HEREDOC)
 		redir->type = REDIR_HEREDOC;
-	redir->file = ft_strdup(tkn->next->value);
+
+	if (redir->type == REDIR_HEREDOC)
+	{
+		redir->delimiter = ft_strdup(tkn->next->value);
+		redir->file = NULL;
+	}
+	else
+	{
+		redir->file = ft_strdup(tkn->next->value);
+		redir->delimiter = NULL;
+	}
 	redir->fd = -1;
 	redir->next = NULL;
 	return (redir);

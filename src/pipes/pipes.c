@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 18:28:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:10:05 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,6 @@ int	execute_single_command(t_cmd *cmd, t_env *env)
 	return (1);
 }
 
-// Crear un pipe para conectar los procesos
-// Redirigir la entrada
-// Redirigir la salida
-// Cerrar el file descriptor anterior
-// Cerrar el pipe de lectura
-// Cerrar el pipe de escritura
-// Manejar redirecciones
-// Ejecutar comando builtin
-// Ejecutar comando externo
-// Si no se ejecuta correctamente, salir con un error
-// Cerrar el file descriptor anterior
-// Cerrar la escritura en el pipe
-// Guardar el file descriptor de lectura para el siguiente proceso
-// Avanzar al siguiente comando
-// Esperar a que todos los hijos terminen
-// Esperar a todos los procesos hijos
-// Guardar el estado de salida final
 static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 {
 	if (prev_fd != -1)
