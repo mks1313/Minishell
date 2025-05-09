@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:12:10 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 19:25:04 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:27:25 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ static void	create_heredoc_pipe(t_redir *redir)
 		return ;
 	}
 	fill_heredoc_pipe(pipefd[1], redir->delimiter);
-	redir->fd = pipefd[0];
+	redir->fd = dup(pipefd[0]);
 	printf("✅ heredoc listo, fd de lectura guardado: %d\n", redir->fd);
+	printf("🔧 heredoc fd asignado a redir %p: fd=%d, delim=%s\n",
+		(void *)redir, redir->fd, redir->delimiter);
+
 }
 
 void	handle_heredoc(t_cmd *cmd, t_shell *shell)
@@ -67,7 +70,12 @@ void	handle_heredoc(t_cmd *cmd, t_shell *shell)
 		while (redir)
 		{
 			if (redir->type == REDIR_HEREDOC)
+			{
+				printf("📥 heredoc - cmd: %p\n", (void *)cmd);
+				printf("📥 heredoc - redir: %p, delim=%s\n", (void *)redir, \
+					redir->delimiter);
 				create_heredoc_pipe(redir);
+			}
 			redir = redir->next;
 		}
 		cmd = cmd->next;
