@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 12:46:08 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:14:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,20 @@ typedef enum e_tkn_type
 	TOK_HEREDOC,
 }	t_tkn_type;
 
+typedef enum e_tkn_quote
+{
+	Q_NONE,
+	Q_SINGLE,
+	Q_DOUBLE,
+	Q_MIX
+}	t_tkn_quote;
+
 typedef struct s_tkn
 {
-	char				*value; // Valor del token (ej: "echo", ">", "file.txt")
-	t_tkn_type			type; // Tipo de token (WORD, OPERATOR, etc.)
-	bool				s_quote;
-	bool				db_quote;
-	struct s_tkn		*next; // Siguiente token en la lista
+	char				*value;
+	t_tkn_type			type;
+	t_tkn_quote			quote;
+	struct s_tkn		*next;
 }	t_tkn;
 
 /*  =====================
@@ -56,19 +63,19 @@ typedef struct s_tkn
 
 typedef enum e_redir_type
 {
-	REDIR_IN, // <
-	REDIR_OUT, // >
-	REDIR_APPEND, // >>
-	REDIR_HEREDOC, // <<
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APPEND,
+	REDIR_HEREDOC,
 }	t_redir_type;
 
 typedef struct s_redir
 {
-	t_redir_type			type; // Tipo de redirección (<, >, <<, >>)
-	char					*file;// Archivo asociado a la redirección
-	int						fd;// File descriptor
-	char					*delimiter;
-	struct s_redir			*next;// Siguiente redirección en la lista
+	t_redir_type		type; // Tipo de redirección (<, >, <<, >>)
+	char				*file;// Archivo asociado a la redirección
+	int					fd;// File descriptor
+	char				*delimiter;
+	struct s_redir		*next;
 }	t_redir;
 
 /*  ================
@@ -89,10 +96,10 @@ typedef struct s_cmd
 
 typedef struct s_pipe
 {
-	int		fd[2]; //Pipe actual
-	int		prev_fd;//Pipe anterior para el proximo hjo
-	pid_t	*pids; // Array de pids de hijos
-	int		n_cmds; // Cantidad de comandos
+	int					fd[2]; //Pipe actual
+	int					prev_fd;//Pipe anterior para el proximo hjo
+	pid_t				*pids; // Array de pids de hijos
+	int					n_cmds; // Cantidad de comandos
 }	t_pipe;
 
 /*  ====================
@@ -112,11 +119,10 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	t_env				*env;// Variables de entorno
-	t_tkn				*tkns;// Lista de tokens (para parsing)
-	t_cmd				*cmds;// Lista de comandos a ejecutar
-	int					exit_status;// Estado de salida del último comando
-	char				*cur_dir;// Directorio actual
+	t_env				*env;
+	t_tkn				*tkns;
+	t_cmd				*cmds;
+	int					exit_status;
 }	t_shell;
 
 #endif

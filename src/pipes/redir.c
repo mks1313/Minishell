@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 12:20:42 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:06:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	handle_output(t_redir *r, int append)
 	fd = open(r->file, flags, 0644);
 	if (fd < 0)
 		return (perror(r->file), -1);
-	//LOG_DEBUG("✅ dup2(%d -> STDOUT)\n", fd);
+	LOG_DEBUG("✅ dup2(%d -> STDOUT)\n", fd);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		perror("❌ dup2 output");
@@ -81,48 +81,6 @@ static int	handle_output(t_redir *r, int append)
 	close(fd);
 	return (0);
 }
-/*
-int	handle_redirections(t_cmd *cmd)
-{
-	t_redir	*r;
-
-	//LOG_DEBUG(BLUE"🔧 handle_redirections: cmd = %p\n"RES, (void *)cmd);
-	r = cmd->redirs;
-	//if (!r)
-	//	LOG_DEBUG(YELL"⚠️  No hay redirecciones en este comando\n"RES);
-
-	while (r)
-	{
-		if (!r)
-		{
-			LOG_DEBUG(YELL"⚠️  No hay redirecciones en este comando\n"RES);
-			return (0);
-		}
-		LOG_DEBUG(CYAN"👀 redir actual: %p | delim=%s | fd=%d | type=%d\n"RES,
-				(void *)r, r->delimiter, r->fd, r->type);
-		if (r->type == REDIR_HEREDOC)
-		{
-			if (r->fd == -1)
-			{
-				LOG_DEBUG(RED"⚠️  HEREDOC sin fd asignado, saltando redir %p\n"RES,
-					(void *)r);
-				r = r->next;
-				continue;
-			}
-			if (process_heredoc_fd(r) < 0)
-				return (-1);
-		}
-		else if (r->type == REDIR_IN && handle_input(r) < 0)
-			return (-1);
-		else if (r->type == REDIR_OUT && handle_output(r, 0) < 0)
-			return (-1);
-		else if (r->type == REDIR_APPEND && handle_output(r, 1) < 0)
-			return (-1);
-
-		r = r->next;
-	}
-	return (0);
-}*/
 
 int	handle_redirections(t_cmd *cmd)
 {
