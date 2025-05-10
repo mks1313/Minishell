@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:28:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:38:17 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 char	*read_token_segment(char **str, t_tkn_quote *quote_type)
 {
-	char	*buffer = ft_calloc(1, 1);
+	char	*buffer;
 	char	*tmp;
 	char	quote;
-	bool	has_sq = false, has_dq = false;
+	bool	has_sq;
+	bool	has_dq;
 
+	has_sq = false;
+	has_dq = false;
+	buffer = ft_calloc(1, 1);
 	if (!buffer)
 		return (NULL);
 	while (**str && !ft_strchr(" \t\n|<>", **str))
@@ -26,8 +30,10 @@ char	*read_token_segment(char **str, t_tkn_quote *quote_type)
 		if (**str == '\'' || **str == '"')
 		{
 			quote = *(*str)++;
-			if (quote == '\'') has_sq = true;
-			else if (quote == '"') has_dq = true;
+			if (quote == '\'')
+				has_sq = true;
+			else if (quote == '"')
+				has_dq = true;
 			while (**str && **str != quote)
 			{
 				tmp = ft_substr(*str, 0, 1);
@@ -42,7 +48,7 @@ char	*read_token_segment(char **str, t_tkn_quote *quote_type)
 				ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
 				return (free(buffer), NULL);
 			}
-			(*str)++; // skip closing quote
+			(*str)++;
 		}
 		else if (**str == '\\')
 		{
