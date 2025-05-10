@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:44:50 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:37:45 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 15:40:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,12 @@ t_cmd	*parse_tokens(t_tkn *tokens)
 	while (tokens)
 	{
 		if (!process_token_into_cmd(&tokens, &current_cmd, &cmd_list))
-			return (free_cmd_list(cmd_list), NULL);
+		{
+			if (current_cmd)
+				free_cmd_list(current_cmd);
+			free_cmd_list(cmd_list);
+			return (NULL);
+		}
 	}
 	if (current_cmd)
 		add_cmd_to_list(&cmd_list, current_cmd);
