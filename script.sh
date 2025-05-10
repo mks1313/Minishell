@@ -26,7 +26,7 @@ while IFS= read -r cmd; do
     minishell_raw_output=$(echo "$cmd" | $MINISHELL 2>&1 | cat -e)
 
     # Limpiar el output de minishell
-    minishell_output=$(echo "$minishell_raw_output" | sed -e '/^minishell\$/d' -e '/^exit$/d' | sed ':a;N;$!ba;s/\n/ /g' | sed 's/ *$//g')
+    minishell_output=$(echo "$minishell_raw_output" | sed -e '/^minishell\$/d' -e '/^exit$/d' | sed ':a;N;$!ba;s/\n/ /g')
 
     # Comparar los outputs
     if [ "$bash_output" == "$minishell_output" ]; then
