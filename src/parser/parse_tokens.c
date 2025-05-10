@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:44:50 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/09 12:25:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:18:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
 		tmp->next = new_cmd;
 	}
 	// 🔍 Debug de punteros:
-	printf("🧱 CMD añadido a lista: %p\n", (void *)new_cmd);
+	LOG_DEBUG("🧱 CMD añadido a lista: %p\n", (void *)new_cmd);
 	t_redir *rr = new_cmd->redirs;
 	while (rr)
 	{
-		printf("🔗 redir añadido: %p, delim=%s, fd=%d\n",
+		LOG_DEBUG("🔗 redir añadido: %p, delim=%s, fd=%d\n",
 			(void *)rr, rr->delimiter, rr->fd);
 		rr = rr->next;
 	}

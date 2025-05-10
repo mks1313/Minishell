@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/09 14:58:37 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:20:26 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ int	execute_single_command(t_cmd *cmd, t_env *env)
 		return (WEXITSTATUS(status));
 	return (1);
 }
-/*
+
 static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 {
 	// 🐛 DEBUG: mostrar el comando actual (cmd y redir)
-	printf("👶 child_process: cmd = %p\n", (void *)curr);
+	LOG_DEBUG("👶 child_process: cmd = %p\n", (void *)curr);
 
 		if (!curr->redirs)
-		printf(YELL"⚠️  cmd %p NO tiene redirs\n"RES, (void *)curr);
+		LOG_DEBUG(YELL"⚠️  cmd %p NO tiene redirs\n"RES, (void *)curr);
 	else
 	{
 		t_redir *r = curr->redirs;
 		while (r)
 		{
-			printf(CYAN"👶 redir en child: %p | type=%d | delim=%s | fd=%d\n"RES,
+			LOG_DEBUG(CYAN"👶 redir en child: %p | type=%d | delim=%s | fd=%d\n"RES,
 				(void *)r, r->type, r->delimiter, r->fd);
 			r = r->next;
 		}
@@ -76,8 +76,8 @@ static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 	else
 		execute_single_command(curr, shell->env);
 	exit(EXIT_FAILURE);
-}*/
-
+}
+/*
 static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 {
 	// Heredoc/redirecciones primero
@@ -103,7 +103,7 @@ static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 		execute_single_command(curr, shell->env);
 	exit(EXIT_FAILURE); // Solo si falló algo
 }
-
+*/
 static void	wait_for_children(t_cmd *cmd_list, t_shell *shell)
 {
 	int		status;
