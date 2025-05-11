@@ -12,23 +12,21 @@
 
 #include "minishell.h"
 
+/**
+ * Directly returns the calloc pointer. If calloc fails, it returns NULL.
+ * So returns t_cmd if successful, NULL if not.
+ */
 t_cmd	*create_cmd(void)
 {
-	t_cmd	*cmd;
-
-	cmd = ft_calloc(1, sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	return (cmd);
+	return (ft_calloc(1, sizeof(t_cmd)));
 }
 
 static void	init_cmd_args(t_cmd *cmd, char *arg)
 {
-	cmd->args = malloc(sizeof(char *) * 2);
+	cmd->args = ft_calloc(2, sizeof(char *));
 	if (!cmd->args)
 		return ;
 	cmd->args[0] = ft_strdup(arg);
-	cmd->args[1] = NULL;
 	cmd->cmd = cmd->args[0];
 }
 
@@ -52,10 +50,7 @@ static void	append_arg_to_cmd(t_cmd *cmd, char *arg)
 	}
 	new_args[i] = ft_strdup(arg);
 	if (!new_args)
-	{
-		free(new_args);
-		return ;
-	}
+		return ((void)free(new_args));
 	new_args[i + 1] = NULL;
 	free(cmd->args);
 	cmd->args = new_args;

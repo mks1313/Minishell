@@ -19,6 +19,7 @@
 # include "sys_includes.h"
 # include "shell_types.h"
 # include "functions.h"
+# include "messages.h"
 
 /* Colors */
 # define RES	"\033[0m"

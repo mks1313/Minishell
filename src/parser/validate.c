@@ -85,12 +85,14 @@ static int	validate_pipes(t_cmd *cmd_list)
  */
 int	validate_syntax(t_cmd *cmd_list)
 {
+	t_cmd *cmd;
+
 	if (!cmd_list)
 		return (1);
+	cmd = cmd_list;
+	if (cmd && !cmd->next && cmd->cmd && cmd->cmd[0] == '\0')
+		return (ft_putstr_fd(SYNTAX_ERR_EMPTY, 2), 0);
 	if (!validate_pipes(cmd_list))
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-		return (0);
-	}
+		return (ft_putstr_fd(SYNTAX_ERR_PIPE, 2), 0);
 	return (1);
 }
