@@ -55,19 +55,20 @@ static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
 static bool	process_token_into_cmd(t_tkn **tokens, t_cmd **current_cmd, t_cmd **cmd_list)
 {
 	start_new_cmd_if_needed(current_cmd);
-
 	if ((*tokens)->type == TOK_PIPE)
-		return handle_pipe(cmd_list, current_cmd, tokens);
+		return (handle_pipe(cmd_list, current_cmd, tokens));
 	if (is_redirect((*tokens)->type))
-		return handle_redirect_wrapper(*current_cmd, tokens);
-	return handle_word(*current_cmd, tokens);
+		return (handle_redirect_wrapper(*current_cmd, tokens));
+	return (handle_word(*current_cmd, tokens));
 }
 
 t_cmd	*parse_tokens(t_tkn *tokens)
 {
-	t_cmd	*cmd_list = NULL;
-	t_cmd	*current_cmd = NULL;
+	t_cmd	*cmd_list;
+	t_cmd	*current_cmd;
 
+	cmd_list = NULL;
+	current_cmd = NULL;
 	while (tokens)
 	{
 		if (!process_token_into_cmd(&tokens, &current_cmd, &cmd_list))
