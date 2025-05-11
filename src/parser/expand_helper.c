@@ -26,8 +26,7 @@ char	*handle_env_variable(char *value, int *i, t_env *env)
 	free(tmp);
 	if (val)
 		return (ft_strdup(val));
-	else
-		return (ft_strdup(""));
+	return (ft_strdup(""));
 }
 
 char	*append_doll_and_char(char *expanded, char next_char)

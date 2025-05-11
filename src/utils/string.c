@@ -26,11 +26,3 @@ char	*safe_strdup(const char *s)
 		return (ft_strdup(""));
 	return (ft_strdup(s));
 }
-
-// Duplicates the spring if is not NULL. Returns NULL if its NULL
-char	*dup_if_needed(char *s)
-{
-	if (!s)
-		return (NULL);
-	return (ft_strdup(s));
-}

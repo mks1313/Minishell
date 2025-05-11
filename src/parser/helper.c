@@ -42,13 +42,12 @@ t_redir	*create_redir(t_tkn *tkn)
 {
 	t_redir	*redir;
 
-	redir = malloc(sizeof(t_redir));
+	redir = ft_calloc(1, sizeof(t_redir));
 	if (!redir)
 		return (NULL);
 	set_redir_type(redir, tkn);
 	set_redir_target(redir, tkn);
 	redir->fd = -1;
-	redir->next = NULL;
 	return (redir);
 }
 

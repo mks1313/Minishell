@@ -61,6 +61,5 @@ char	*find_command_path(char *cmd, t_env *env)
 	if (!paths)
 		return (NULL);
 	cmd_path = search_in_paths(paths, cmd);
-	clean_array(paths);
-	return (cmd_path);
+	return (clean_array(paths), cmd_path);
 }

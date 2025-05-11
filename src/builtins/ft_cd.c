@@ -37,7 +37,10 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 	char	*old_pwd_dup;
 	char	*new_pwd_dup;
 
-	old_pwd_dup = dup_if_needed(old_pwd_val);
+	if (!old_pwd_val)
+		old_pwd_dup = NULL;
+	else
+		old_pwd_dup = ft_strdup(old_pwd_val);
 	new_pwd_dup = ft_strdup(new_path);
 	if (new_pwd_dup == NULL)
 		return ((void)free(old_pwd_dup));

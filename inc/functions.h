@@ -105,7 +105,6 @@ int		is_builtin_command(char *cmd);
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
-char	*dup_if_needed(char *s);
 void	handle_commands(char *line, t_shell *shell);
 
 #endif
