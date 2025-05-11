@@ -32,10 +32,7 @@ static char	*expand_var_value(char *value, t_shell *shell)
 			expanded = aux;
 		}
 		else
-		{
-			expanded = append_doll_and_char(expanded, value[i]);
-			i++;
-		}
+			expanded = append_doll_and_char(expanded, value[i++]);
 	}
 	return (expanded);
 }
@@ -48,8 +45,7 @@ static char	*strip_quotes(char *expanded)
 	if (expanded[0] == '\"' && expanded[ft_strlen(expanded) - 1] == '\"')
 	{
 		tmp_expanded = ft_substr(expanded, 1, ft_strlen(expanded) - 2);
-		free(expanded);
-		return (tmp_expanded);
+		return (free(expanded), tmp_expanded);
 	}
 	return (expanded);
 }
