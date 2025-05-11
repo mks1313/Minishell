@@ -58,22 +58,13 @@ static int	cd_to_home(t_shell *shell)
 	char	cwd[PATH_MAX];
 
 	home = ft_getenv("HOME", shell->env);
+	shell->exit_status = 1;
 	if (!home)
-	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-		shell->exit_status = 1;
-		return (1);
-	}
+		return (ft_putstr_fd(ERR_CD_NOT_SET, 2), 1);
 	if (chdir(home) == -1)
-	{
-		perror("minishell: cd");
-		shell->exit_status = 1;
-		return (1);
-	}
+		return (perror(ERR_CD), 1);
 	if (!getcwd(cwd, sizeof(cwd)))
-		ft_putstr_fd("minishell: cd: error retrieving current directory: \
-			getcwd: cannot access parent directories: \
-			No such file or directory\n", 2);
+		ft_putstr_fd(ERR_RETRIEVING, 2);
 	else
 		change_environment_pwd(shell->env, home);
 	shell->exit_status = 0;

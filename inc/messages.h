@@ -10,4 +10,10 @@
 # define ERR_CMD_NOT_FOUND ": command not found\n"
 # define ERR_NO_FILE "minishell: no such file or directory\n"
 
+# define ERR_CD_NOT_SET "minishell: cd: HOME not set\n"
+# define ERR_CD "minishell: cd"
+# define ERR_RETRIEVING "minishell: cd: error retrieving current directory: \
+			getcwd: cannot access parent directories: \
+			No such file or directory\n"
+
 # endif
