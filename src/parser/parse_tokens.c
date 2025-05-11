@@ -66,9 +66,21 @@ t_cmd	*parse_tokens(t_tkn *tokens)
 {
 	t_cmd	*cmd_list;
 	t_cmd	*current_cmd;
+	t_tkn	*last_token;
+	t_tkn	*empty_cmd;
 
 	cmd_list = NULL;
 	current_cmd = NULL;
+	last_token = tokens;
+	while (last_token && last_token->next)
+		last_token = last_token->next;
+	if (last_token && last_token->type == TOK_PIPE)
+	{
+		empty_cmd = create_token("", TOK_WORD);
+		if (!empty_cmd)
+			return (NULL);
+		last_token->next = empty_cmd;
+	}
 	while (tokens)
 	{
 		if (!process_token_into_cmd(&tokens, &current_cmd, &cmd_list))

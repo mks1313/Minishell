@@ -54,6 +54,7 @@ static int	validate_command_syntax(t_cmd *cmd)
  * - "| echo"                   - Command starts with pipe
  * - "echo || grep"             - Empty command between pipes
  * - "echo | |"                 - Multiple consecutive pipes
+ * - "echo |"                   - Command ends with pipe (this case was missing)
  */
 static int	validate_pipes(t_cmd *cmd_list)
 {
@@ -67,6 +68,8 @@ static int	validate_pipes(t_cmd *cmd_list)
 		curr = curr->next;
 	}
 	if (curr && !validate_command_syntax(curr))
+		return (0);
+	if (curr && curr->next == NULL && !curr->cmd && !curr->redirs)
 		return (0);
 	return (1);
 }
