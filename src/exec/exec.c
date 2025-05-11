@@ -64,18 +64,10 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
-	{
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		return (127);
-	}
+		return (ft_putstr_fd(cmd, 2), ft_putstr_fd(ERR_CMD_NOT_FOUND, 2), 127);
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("fork");
-		free(cmd_path);
-		return (1);
-	}
+		return (perror("fork"), free(cmd_path), 1);
 	if (pid == 0)
 		execute_child_process(cmd_path, args, env);
 	else

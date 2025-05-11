@@ -40,10 +40,7 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 	old_pwd_dup = dup_if_needed(old_pwd_val);
 	new_pwd_dup = ft_strdup(new_path);
 	if (new_pwd_dup == NULL)
-	{
-		free(old_pwd_dup);
-		return ;
-	}
+		return ((void)free(old_pwd_dup));
 	update_env_variable(env, "OLDPWD", old_pwd_dup);
 	update_env_variable(env, "PWD", new_pwd_dup);
 	free(old_pwd_dup);
@@ -52,10 +49,7 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 
 void	change_environment_pwd(t_env *env, char *new_path)
 {
-	char	*old_pwd_val;
-
-	old_pwd_val = ft_getenv("PWD", env);
-	update_pwd_variables(env, old_pwd_val, new_path);
+	update_pwd_variables(env, ft_getenv("PWD", env), new_path);
 }
 
 static int	cd_to_home(t_shell *shell)
