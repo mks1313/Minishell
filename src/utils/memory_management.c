@@ -88,10 +88,7 @@ void	free_cmd_list(t_cmd *cmd)
 		{
 			i = 0;
 			while (tmp->args[i])
-			{
-				free(tmp->args[i]);
-				i++;
-			}
+				free(tmp->args[i++]);
 			free(tmp->args);
 		}
 		if (tmp->redirs)

@@ -19,9 +19,8 @@
  */
 int	init_shell(t_shell **shell_ptr)
 {
-	*shell_ptr = (t_shell *)malloc(sizeof(t_shell));
+	*shell_ptr = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (!*shell_ptr)
 		return (1);
-	ft_memset(*shell_ptr, 0, sizeof(t_shell));
 	return (0);
 }

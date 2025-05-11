@@ -34,21 +34,21 @@ int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 		free(line);
 		ft_exit(cmd, shell);
 	}
-	else if (ft_strcmp(cmd->cmd, "env") == 0)
+	if (ft_strcmp(cmd->cmd, "env") == 0)
 	{
 		if (cmd->args[1] != NULL)
 			return (1);
 		return (ft_env(shell->env));
 	}
-	else if (ft_strcmp(cmd->cmd, "cd") == 0)
+	if (ft_strcmp(cmd->cmd, "cd") == 0)
 		return (ft_cd(cmd, shell));
-	else if (ft_strcmp(cmd->cmd, "echo") == 0)
+	if (ft_strcmp(cmd->cmd, "echo") == 0)
 		return (ft_echo(cmd));
-	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
+	if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		return (ft_pwd());
-	else if (ft_strcmp(cmd->cmd, "export") == 0)
+	if (ft_strcmp(cmd->cmd, "export") == 0)
 		return (ft_export(&shell->env, cmd));
-	else if (ft_strcmp(cmd->cmd, "unset") == 0)
+	if (ft_strcmp(cmd->cmd, "unset") == 0)
 		return (ft_unset(cmd, shell));
 	return (1);
 }
