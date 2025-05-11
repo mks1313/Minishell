@@ -59,7 +59,7 @@ void	ft_exit(t_cmd *cmd, t_shell *shell)
 		exit_shell(shell, EXIT_SUCCESS);
 	if (arg_count > 2)
 	{
-		ft_putstr_fd("exit: too many arguments\n", 2);
+		ft_putstr_fd(ERR_EXIT, 2);
 		return ;
 	}
 	if (!is_numeric_argument(args[1]))

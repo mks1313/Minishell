@@ -16,4 +16,6 @@
 			getcwd: cannot access parent directories: \
 			No such file or directory\n"
 
+# define ERR_EXIT "exit: too many arguments\n"
+
 # endif
