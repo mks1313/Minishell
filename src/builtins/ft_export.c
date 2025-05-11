@@ -68,10 +68,7 @@ int	ft_export(t_env **env, t_cmd *cmd)
 	status = 0;
 	i = 1;
 	if (!cmd->args[1])
-	{
-		print_export_list(*env);
-		return (1);
-	}
+		return (print_export_list(*env), 1);
 	while (cmd->args[i])
 		export_single_arg(env, cmd->args[i++], &status);
 	return (0);
