@@ -32,14 +32,6 @@
 # define CYAN	"\033[1;36m"
 # define MAG	"\033[1;35m"
 
-/* Errors */
-# define EXIT_MSG			"exit\n"
-# define ERR_SIG			"Error: sigaction.\n"
-# define ERR_MEMORY			"Error: memory allocation failed.\n"
-# define EXIT_SUCCESS_CODE 0
-# define EXIT_TOO_MANY_ARGS 1
-# define EXIT_NON_NUMERIC_ARG 2
-
 /* macros, comandos y builtins */
 # define CD			"cd"
 # define PWD		"pwd"

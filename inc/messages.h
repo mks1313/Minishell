@@ -18,4 +18,11 @@
 
 # define ERR_EXIT "exit: too many arguments\n"
 
+# define EXIT_MSG			"exit\n"
+# define ERR_SIG			"Error: sigaction.\n"
+# define ERR_MEMORY			"Error: memory allocation failed.\n"
+# define EXIT_SUCCESS_CODE 0
+# define EXIT_TOO_MANY_ARGS 1
+# define EXIT_NON_NUMERIC_ARG 2
+
 # endif
