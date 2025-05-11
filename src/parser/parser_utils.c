@@ -79,17 +79,18 @@ void	process_input(const char *input, t_shell *shell)
 
 void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
 {
-	t_cmd	*tmp;
+	t_cmd	*last;
 
 	if (!new_cmd)
 		return ;
-	if (!*cmd_list)
-		*cmd_list = new_cmd;
-	else
+	if (!cmd_list || !*cmd_list)
 	{
-		tmp = *cmd_list;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_cmd;
+		if (cmd_list)
+			*cmd_list = new_cmd;
+		return ;
 	}
+	last = *cmd_list;
+	while (last->next)
+		last = last->next;
+	last->next = new_cmd;
 }
