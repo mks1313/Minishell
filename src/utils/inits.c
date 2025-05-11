@@ -13,14 +13,13 @@
 #include "minishell.h"
 
 /**
-	Initializes the shell structure.
-	@param shell_ptr: Pointer to the shell structure pointer.
-	@return 0 on success, 1 on failure.
+ * init_shell - Initializes the shell structure
+ * @shell_ptr: Pointer to the shell structure pointer
+ *
+ * Return: 0 on success, 1 on failure
  */
 int	init_shell(t_shell **shell_ptr)
 {
 	*shell_ptr = (t_shell *)ft_calloc(1, sizeof(t_shell));
-	if (!*shell_ptr)
-		return (1);
-	return (0);
+	return (*shell_ptr == NULL);
 }
