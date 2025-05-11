@@ -12,8 +12,10 @@ NC='\033[0m'       # Sin color
 BASH="/bin/bash"
 MINISHELL="./minishell"
 
-# Contador de pruebas
+# Contadores de pruebas
 i=0
+pass_count=0
+fail_count=0
 
 # Leer cada comando del archivo de casos de prueba
 while IFS= read -r cmd; do
@@ -31,9 +33,14 @@ while IFS= read -r cmd; do
     # Comparar los outputs
     if [ "$bash_output" == "$minishell_output" ]; then
         echo -e "${GREEN}Test #$i: OK${NC} -> $cmd"
+        pass_count=$((pass_count + 1))
     else
         echo -e "${RED}Test #$i: KO${NC} -> $cmd"
         echo -e "${RED}Bash Output:${NC} \"$bash_output\""
         echo -e "${RED}Minishell Output:${NC} \"$minishell_output\""
+        fail_count=$((fail_count + 1))
     fi
 done < "$TEST_CASES_FILE"
+
+# Mostrar resumen final
+echo -e "\n${GREEN}PASS: $pass_count${NC} - ${RED}FAIL: $fail_count${NC}"
