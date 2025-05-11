@@ -12,10 +12,13 @@
 
 #include "minishell.h"
 
+/*
+ * Checks if the token type is a redirection type.
+ * Can be: TOK_REDIR_IN, TOK_REDIR_OUT, TOK_APPEND, TOK_HEREDOC
+ */
 static bool	is_redirect(t_tkn_type type)
 {
-	return (type == TOK_REDIR_IN || type == TOK_REDIR_OUT
-		|| type == TOK_APPEND || type == TOK_HEREDOC);
+	return (type >= TOK_REDIR_IN && type <= TOK_HEREDOC);
 }
 
 static void	start_new_cmd_if_needed(t_cmd **current_cmd)
@@ -27,25 +30,19 @@ static void	start_new_cmd_if_needed(t_cmd **current_cmd)
 static bool	handle_pipe(t_cmd **cmd_list, t_cmd **current_cmd, t_tkn **tokens)
 {
 	if (!*current_cmd || (!(*current_cmd)->cmd && !(*current_cmd)->redirs))
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-		return false;
-	}
+		return (ft_putstr_fd(SYN_ERR_PIPE, 2), false);
 	add_cmd_to_list(cmd_list, *current_cmd);
 	*current_cmd = NULL;
 	*tokens = (*tokens)->next;
-	return true;
+	return (true);
 }
 
 static bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens)
 {
 	if (!(*tokens)->next)
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
-		return false;
-	}
+		return (ft_putstr_fd(SYN_ERR_NL, 2), false);
 	handle_redirect(&cmd->redirs, tokens);
-	return true;
+	return (true);
 }
 
 static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
@@ -61,10 +58,9 @@ static bool	process_token_into_cmd(t_tkn **tokens, t_cmd **current_cmd, t_cmd **
 
 	if ((*tokens)->type == TOK_PIPE)
 		return handle_pipe(cmd_list, current_cmd, tokens);
-	else if (is_redirect((*tokens)->type))
+	if (is_redirect((*tokens)->type))
 		return handle_redirect_wrapper(*current_cmd, tokens);
-	else
-		return handle_word(*current_cmd, tokens);
+	return handle_word(*current_cmd, tokens);
 }
 
 t_cmd	*parse_tokens(t_tkn *tokens)
