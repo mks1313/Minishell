@@ -62,7 +62,14 @@ void	process_input(const char *input, t_shell *shell)
 	tokens = tokenize_input((char *)input);
 	if (!tokens)
 		return ;
-	shell->tkns = tokens;
+	if (!validate_token_syntax(shell->tkns))
+	{
+		shell->exit_status = 2;
+		ft_free_tokens(shell->tkns);
+		shell->tkns = NULL;
+		return ;
+	}
+    shell->tkns = tokens;
 	expand_variable(shell);
 }
 
