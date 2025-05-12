@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:44:50 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 12:05:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:03:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,55 +18,69 @@ static bool	is_redirect(t_tkn_type type)
 		|| type == TOK_APPEND || type == TOK_HEREDOC);
 }
 
-static void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
-{
-	t_cmd	*tmp;
-
-	if (!*cmd_list)
-		*cmd_list = new_cmd;
-	else
-	{
-		tmp = *cmd_list;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_cmd;
-	}
-}
-
 static void	start_new_cmd_if_needed(t_cmd **current_cmd)
 {
 	if (!*current_cmd)
 		*current_cmd = create_cmd();
 }
 
-static void	process_token(t_cmd **current_cmd, t_tkn **tokens, t_cmd **cmd_list)
+static bool	handle_pipe(t_cmd **cmd_list, t_cmd **current_cmd, t_tkn **tokens)
 {
-	if (is_redirect((*tokens)->type))
-		handle_redirect(&(*current_cmd)->redirs, tokens);
-	else if ((*tokens)->type == TOK_PIPE)
+	if (!*current_cmd || (!(*current_cmd)->cmd && !(*current_cmd)->redirs))
 	{
-		add_cmd_to_list(cmd_list, *current_cmd);
-		*current_cmd = NULL;
-		*tokens = (*tokens)->next;
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return false;
 	}
+	add_cmd_to_list(cmd_list, *current_cmd);
+	*current_cmd = NULL;
+	*tokens = (*tokens)->next;
+	return true;
+}
+
+static bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens)
+{
+	if (!(*tokens)->next)
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		return false;
+	}
+	handle_redirect(&cmd->redirs, tokens);
+	return true;
+}
+
+static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
+{
+	add_arg_to_cmd(cmd, (*tokens)->value);
+	*tokens = (*tokens)->next;
+	return (true);
+}
+
+static bool	process_token_into_cmd(t_tkn **tokens, t_cmd **current_cmd, t_cmd **cmd_list)
+{
+	start_new_cmd_if_needed(current_cmd);
+
+	if ((*tokens)->type == TOK_PIPE)
+		return handle_pipe(cmd_list, current_cmd, tokens);
+	else if (is_redirect((*tokens)->type))
+		return handle_redirect_wrapper(*current_cmd, tokens);
 	else
-	{
-		add_arg_to_cmd(*current_cmd, (*tokens)->value);
-		*tokens = (*tokens)->next;
-	}
+		return handle_word(*current_cmd, tokens);
 }
 
 t_cmd	*parse_tokens(t_tkn *tokens)
 {
-	t_cmd	*cmd_list;
-	t_cmd	*current_cmd;
+	t_cmd	*cmd_list = NULL;
+	t_cmd	*current_cmd = NULL;
 
-	cmd_list = NULL;
-	current_cmd = NULL;
 	while (tokens)
 	{
-		start_new_cmd_if_needed(&current_cmd);
-		process_token(&current_cmd, &tokens, &cmd_list);
+		if (!process_token_into_cmd(&tokens, &current_cmd, &cmd_list))
+		{
+			if (current_cmd)
+				free_cmd_list(current_cmd);
+			free_cmd_list(cmd_list);
+			return (NULL);
+		}
 	}
 	if (current_cmd)
 		add_cmd_to_list(&cmd_list, current_cmd);

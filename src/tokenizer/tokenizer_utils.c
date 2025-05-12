@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/27 13:18:26 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:30:53 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -37,47 +37,6 @@ t_tkn	*create_token(char *value, t_tkn_type type)
 	}
 	new_token->type = type;
 	return (new_token);
-}
-
-char	*handle_quotes(char *str, t_tkn *token)
-{
-	char	quote;
-	char	*tkn_val;
-	char	*start;
-
-	quote = *str;
-	start = str + 1;
-	str++;
-	if (quote == '\'')
-		token->s_quote = true;
-	else if (quote == '\"')
-		token->db_quote = true;
-	while (*str && (*str == ' ' || *str == '\t'))
-		str++;
-	while (*str && *str != quote)
-		str++;
-	if (*str == '\0')
-	{
-		ft_putstr_fd("syntax error: unexpected EOF while matching quote\n", 2);
-		return (NULL);
-	}
-	tkn_val = ft_substr(start, 0, str - start);
-	if (!tkn_val)
-		return (NULL);
-	token->value = tkn_val;
-	return (str + 1);
-}
-
-char	*process_non_quotes(char *str)
-{
-	if (ft_strchr(" ;|&", *str))
-		str++;
-	else
-	{
-		while (*str && !ft_strchr(" ;|&'\" \t\n", *str))
-			str++;
-	}
-	return (str);
 }
 
 void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end)

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 18:59:58 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:42:04 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,21 @@ void	process_input(const char *input, t_shell *shell)
 		return ;
 	shell->tkns = tokens;
 	expand_variable(shell);
+}
+
+void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
+{
+	t_cmd	*tmp;
+
+	if (!new_cmd)
+		return ;
+	if (!*cmd_list)
+		*cmd_list = new_cmd;
+	else
+	{
+		tmp = *cmd_list;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_cmd;
+	}
 }

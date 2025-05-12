@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 20:17:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:44:06 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ t_cmd	*create_cmd(void);
 /* Tokens */
 t_tkn	*tokenize_input(char *line);
 t_tkn	*create_token(char *value, t_tkn_type type);
-char	*handle_quotes(char *str, t_tkn *token);
-char	*process_non_quotes(char *str);
 void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end);
-char	*read_token_segment(char **str, bool *s_quote, bool *db_quote);
+char	*read_token_segment(char **str, t_tkn_quote *quote_type);
 
 /* Lexer */
 void	lex_tokens(t_tkn *tkn);
@@ -58,6 +56,7 @@ char	*handle_env_variable(char *value, int *i, t_env *env);
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 char	*append_doll_and_char(char *expanded, char next_char);
 int		validate_syntax(t_cmd *cmd_list);
+void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd);
 
 /* Signals */
 void	set_signals(void);

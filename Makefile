@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/08 20:18:07 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/10 11:04:29 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,11 @@ endif
 
 CFLAGS = -Wall -Wextra -Werror -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
+
+# Activar con: make DEBUG=1
+ifeq ($(DEBUG), 1)
+CFLAGS += -DDEBUG_MODE
+endif
 
 # Specify the main header file
 INCLUDES = minishell.h shell_types.h sys_includes.h

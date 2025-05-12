@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/03/10 15:15:03 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:17:39 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,22 @@
 # define EXPORT 	"export"
 # define UNSET		"unset"
 # define ECHO		"echo"
+
+# ifdef DEBUG_MODE
+
+# define LOG_DEBUG(fmt, ...) \
+	dprintf(STDERR_FILENO, CYAN"[DEBUG] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#  define LOG_WARN(fmt, ...) \
+	dprintf(STDERR_FILENO, YELL"[WARN]  %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#  define LOG_ERROR(fmt, ...) \
+	dprintf(STDERR_FILENO, RED"[ERROR] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+
+# else
+
+#  define LOG_DEBUG(...) ((void)0)
+#  define LOG_WARN(...)  ((void)0)
+#  define LOG_ERROR(...) ((void)0)
+
+# endif
 
 #endif

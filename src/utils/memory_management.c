@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 16:32:12 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:46:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,6 @@ void	free_data(t_shell *shell)
 		free_cmd_list(shell->cmds);
 		shell->cmds = NULL;
 	}
-	if (shell->cur_dir)
-		free(shell->cur_dir);
 	free(shell);
 	shell = NULL;
 }
