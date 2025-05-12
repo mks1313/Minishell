@@ -13,11 +13,11 @@
 #include "minishell.h"
 
 /**
- * clean_array - Libera toda la memoria de un array de strings terminado en NULL
- * @array: El array a liberar
+ * clean_array - Frees all the memory of a NULL-terminated string array
+ * @array: The array to free
  *
- * Esta función libera cada string en el array y luego el propio array.
- * Es segura para usar con NULL.
+ * This function frees each string in the array and then the array itself.
+ * If the array is NULL, it does nothing.
  */
 void	clean_array(char **array)
 {
@@ -53,10 +53,7 @@ static int	fill_env_array(char **env_array, t_env *env)
 	{
 		env_array[i] = ft_strjoin3(env->key, "=", env->value);
 		if (!env_array[i])
-		{
-			clean_array(env_array);
-			return (0);
-		}
+			return (clean_array(env_array), 0);
 		i++;
 		env = env->next;
 	}

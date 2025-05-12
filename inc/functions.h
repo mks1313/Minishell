@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:44:06 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:09:40 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@
 int		init_shell(t_shell **shell);
 t_cmd	*create_cmd(void);
 
+//DEBUG
+const char	*quote_type_str(t_tkn_quote q);
+const char	*token_type_str(t_tkn_type t);
+void		for_tokens(t_tkn *tokens);
+void		por_cmds(t_cmd *cmds);
+
 /* Tokens */
 t_tkn	*tokenize_input(char *line);
-t_tkn	*create_token(char *value, t_tkn_type type);
-void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end);
-char	*read_token_segment(char **str, t_tkn_quote *quote_type);
-
-/* Lexer */
-void	lex_tokens(t_tkn *tkn);
+t_tkn	*read_operator(char **str);
+t_tkn	*read_token(char **str);
 
 /* Utils */
 void	error_exit(const char *msg, int exit_code);
@@ -41,6 +43,7 @@ char	*get_env_variable_value(t_env *env, char *key);
 /* Parser */
 int		count_envp(t_env *env);
 void	expand_variable(t_shell *shell);
+char    *expand_var_value(char *value, t_shell *shell);
 void	process_input(const char *input, t_shell *shell);
 void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);
@@ -57,6 +60,9 @@ char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 char	*append_doll_and_char(char *expanded, char next_char);
 int		validate_syntax(t_cmd *cmd_list);
 void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd);
+char	*join_token_parts(t_tkn_part *parts);
+bool	handle_pipe(t_cmd **cmd_list, t_cmd **current_cmd, t_tkn **tokens);
+bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens);
 
 /* Signals */
 void	set_signals(void);
@@ -105,7 +111,6 @@ int		is_builtin_command(char *cmd);
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
-char	*dup_if_needed(char *s);
 void	handle_commands(char *line, t_shell *shell);
 
 #endif

@@ -6,55 +6,140 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:30:53 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:22:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-/**
- * create_token - Creates and initializes a new token structure
- * @value: The string value of the token (can be NULL)
- * @type: The type of token (enum t_tkn_type)
- *
- * Allocates memory for a new token and initializes all its fields.
- * Uses ft_calloc instead of malloc to ensure zero-initialized memory.
- * Handles memory allocation failures gracefully.
- *
- * Return: Pointer to the new token, or NULL if allocation fails
- */
-t_tkn	*create_token(char *value, t_tkn_type type)
+static t_tkn_part	*create_part(char *text, t_tkn_quote quote)
 {
-	t_tkn	*new_token;
+	t_tkn_part	*part;
 
-	new_token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
-	if (!new_token)
+	part = ft_calloc(1, sizeof(t_tkn_part));
+	if (!part)
 		return (NULL);
-	if (value)
-	{
-		new_token->value = ft_strdup(value);
-		if (!new_token->value)
-			return (free(new_token), NULL);
-	}
-	new_token->type = type;
-	return (new_token);
+	part->value = text;
+	part->quote = quote;
+	return (part);
 }
 
-void	add_token_to_list(t_tkn **tkn, t_tkn *new_tkn, char *start, char *end)
+static void	add_part(t_tkn_part **head, t_tkn_part *new)
 {
-	char	*token_value;
+	t_tkn_part	*curr;
 
-	token_value = ft_substr(start, 0, end - start);
-	if (!token_value)
-	{
-		free(new_tkn);
-		return ;
-	}
-	if (new_tkn->value)
-		free(new_tkn->value);
-	new_tkn->value = token_value;
-	if (!tkn[HEAD])
-		tkn[HEAD] = new_tkn;
+	curr = *head;
+	if (!curr)
+		*head = new;
 	else
-		tkn[TAIL]->next = new_tkn;
-	tkn[TAIL] = new_tkn;
+	{
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new;
+	}
+}
+
+static t_tkn_part	*read_token_part(char **str)
+{
+	t_tkn_quote	quote;
+	char		*start;
+	char		*value;
+	char		quote_char;
+
+	quote = Q_NONE;
+	if (**str == '\'' || **str == '"')
+	{
+		if (**str == '\'')
+			quote = Q_SINGLE;
+		else
+			quote = Q_DOUBLE;
+		quote_char = *(*str)++;
+		start = *str;
+		while (**str && **str != quote_char)
+			(*str)++;
+		if (**str != quote_char)
+			return (NULL); // error: comilla no cerrada
+		value = ft_substr(start, 0, *str - start);
+		(*str)++;
+	}
+	else
+	{
+		start = *str;
+		while (**str && !ft_strchr(" \t\n|<>\"'", **str))
+			(*str)++;
+		value = ft_substr(start, 0, *str - start);
+	}
+	return (create_part(value, quote));
+}
+
+t_tkn	*read_token(char **str)
+{
+	t_tkn_part	*parts;
+	t_tkn		*token;
+	t_tkn_part	*part;
+
+	parts = NULL;
+	token = ft_calloc(1, sizeof(t_tkn));
+	while (**str && !ft_strchr(" \t\n|<>", **str))
+	{
+		part = read_token_part(str);
+		if (!part)
+			return (free(token), NULL); // manejar error de comillas no cerradas
+		add_part(&parts, part);
+	}
+	token->type = TOK_WORD;
+	token->parts = parts;
+	return (token);
+}
+
+t_tkn	*read_operator(char **str)
+{
+	t_tkn	*token;
+
+	if ((**str == '>' && *(*str + 1) == '>' && *(*str + 2) == '>') ||
+		(**str == '<' && *(*str + 1) == '<' && *(*str + 2) == '<') ||
+		(**str == '>' && *(*str + 1) == '<') ||
+		(**str == '<' && *(*str + 1) == '>') ||
+		(**str == '>' && *(*str + 1) == '|') ||
+		(**str == '<' && *(*str + 1) == '|'))
+	{
+		ft_putstr_fd(SYN_ERR_REDIRECT, STDERR_FILENO);
+		return (NULL);
+	}
+
+	token = ft_calloc(1, sizeof(t_tkn));
+	if (!token)
+		return (NULL);
+
+	if (**str == '>' && *(*str + 1) == '>')
+	{
+		token->type = TOK_APPEND;
+		*str += 2;
+	}
+	else if (**str == '<' && *(*str + 1) == '<')
+	{
+		token->type = TOK_HEREDOC;
+		*str += 2;
+	}
+	else if (**str == '>')
+	{
+		token->type = TOK_REDIR_OUT;
+		(*str)++;
+	}
+	else if (**str == '<')
+	{
+		token->type = TOK_REDIR_IN;
+		(*str)++;
+	}
+	else if (**str == '|')
+	{
+		token->type = TOK_PIPE;
+		(*str)++;
+	}
+	else
+	{
+		free(token);
+		return (NULL);
+	}
+	return (token);
 }

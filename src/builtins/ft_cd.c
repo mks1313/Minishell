@@ -37,13 +37,13 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 	char	*old_pwd_dup;
 	char	*new_pwd_dup;
 
-	old_pwd_dup = dup_if_needed(old_pwd_val);
+	if (!old_pwd_val)
+		old_pwd_dup = NULL;
+	else
+		old_pwd_dup = ft_strdup(old_pwd_val);
 	new_pwd_dup = ft_strdup(new_path);
 	if (new_pwd_dup == NULL)
-	{
-		free(old_pwd_dup);
-		return ;
-	}
+		return ((void)free(old_pwd_dup));
 	update_env_variable(env, "OLDPWD", old_pwd_dup);
 	update_env_variable(env, "PWD", new_pwd_dup);
 	free(old_pwd_dup);
@@ -52,10 +52,7 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 
 void	change_environment_pwd(t_env *env, char *new_path)
 {
-	char	*old_pwd_val;
-
-	old_pwd_val = ft_getenv("PWD", env);
-	update_pwd_variables(env, old_pwd_val, new_path);
+	update_pwd_variables(env, ft_getenv("PWD", env), new_path);
 }
 
 static int	cd_to_home(t_shell *shell)
@@ -64,22 +61,13 @@ static int	cd_to_home(t_shell *shell)
 	char	cwd[PATH_MAX];
 
 	home = ft_getenv("HOME", shell->env);
+	shell->exit_status = 1;
 	if (!home)
-	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-		shell->exit_status = 1;
-		return (1);
-	}
+		return (ft_putstr_fd(ERR_CD_NOT_SET, 2), 1);
 	if (chdir(home) == -1)
-	{
-		perror("minishell: cd");
-		shell->exit_status = 1;
-		return (1);
-	}
+		return (perror(ERR_CD), 1);
 	if (!getcwd(cwd, sizeof(cwd)))
-		ft_putstr_fd("minishell: cd: error retrieving current directory: \
-			getcwd: cannot access parent directories: \
-			No such file or directory\n", 2);
+		ft_putstr_fd(ERR_RETRIEVING, 2);
 	else
 		change_environment_pwd(shell->env, home);
 	shell->exit_status = 0;

@@ -5,14 +5,73 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 12:47:45 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:39:12 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/05/12 15:59:37 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/05/12 16:00:46 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_var_value(char *value, t_shell *shell)
+char	*handle_env_variable(char *value, int *i, t_env *env)
+{
+	int		start;
+	char	*key;
+	char	*val;
+
+	start = *i;
+	while (ft_isalnum(value[*i]) || value[*i] == '_')
+		(*i)++;
+	key = ft_substr(value, start, *i - start);
+	val = ft_getenv(key, env);
+	free(key);
+	if (val)
+		return (ft_strdup(val));
+	else
+		return (ft_strdup(""));
+}
+
+char	*append_doll_and_char(char *expanded, char next_char)
+{
+	char	tmp[2];
+	char	*aux;
+
+	tmp[0] = next_char;
+	tmp[1] = '\0';
+	aux = ft_strjoin(expanded, tmp);
+	free(expanded);
+	return (aux);
+}
+
+char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
+{
+	char	*expanded;
+
+	(*i)++;
+	if (value[*i] == '?')
+	{
+		expanded = ft_itoa(shell->exit_status);
+		(*i)++;
+	}
+	else if (ft_isalnum(value[*i]) || value[*i] == '_')
+		expanded = handle_env_variable(value, i, shell->env);
+	else if (value[*i] == '$')
+	{
+		expanded = ft_itoa(ft_get_pid());
+		(*i)++;
+	}
+	else
+	{
+		expanded = ft_strdup("$");
+		if (value[*i])
+		{
+			expanded = append_doll_and_char(expanded, value[*i]);
+			(*i)++;
+		}
+	}
+	return (expanded);
+}
+
+char	*expand_var_value(char *value, t_shell *shell)
 {
 	int		i;
 	char	*expanded;
@@ -32,43 +91,31 @@ static char	*expand_var_value(char *value, t_shell *shell)
 			expanded = aux;
 		}
 		else
-		{
-			expanded = append_doll_and_char(expanded, value[i]);
-			i++;
-		}
-	}
-	return (expanded);
-}
-
-// Tal vez no es muy apropiado, revisar
-static char	*strip_quotes(char *expanded)
-{
-	char	*tmp_expanded;
-
-	if (expanded[0] == '\"' && expanded[ft_strlen(expanded) - 1] == '\"')
-	{
-		tmp_expanded = ft_substr(expanded, 1, ft_strlen(expanded) - 2);
-		free(expanded);
-		return (tmp_expanded);
+			expanded = append_doll_and_char(expanded, value[i++]);
 	}
 	return (expanded);
 }
 
 void	expand_variable(t_shell *shell)
 {
-	t_tkn	*current_token;
-	char	*expanded;
+	t_tkn		*curr;
+	t_tkn_part	*part;
+	char		*expanded;
 
-	current_token = shell->tkns;
-	while (current_token)
+	curr = shell->tkns;
+	while (curr)
 	{
-		if (current_token->quote != Q_SINGLE)
+		part = curr->parts;
+		while (part)
 		{
-			expanded = expand_var_value(current_token->value, shell);
-			expanded = strip_quotes(expanded);
-			free(current_token->value);
-			current_token->value = expanded;
+			if (part->quote != Q_SINGLE)
+			{
+				expanded = expand_var_value(part->value, shell);
+				free(part->value);
+				part->value = expanded;
+			}
+			part = part->next;
 		}
-		current_token = current_token->next;
+		curr = curr->next;
 	}
 }

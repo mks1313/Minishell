@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/10 11:04:29 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/12 16:39:56 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,10 +43,9 @@ endif
 INCLUDES = minishell.h shell_types.h sys_includes.h
 
 # Specify the main header file
-SRC_FOLDER =  main.c signals/signals.c
+SRC_FOLDER =  main.c signals/signals.c debug.c
 SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
-			  parser/parser_utils.c parser/expand_helper.c parser/validate.c
-SRC_FOLDER += lexer/lex_tokens.c
+			  parser/parser_utils.c parser/validate.c parser/expand_helper.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
 SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
 			  builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \

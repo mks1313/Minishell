@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/10 12:17:39 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:51:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "sys_includes.h"
 # include "shell_types.h"
 # include "functions.h"
+# include "messages.h"
 
 /* Colors */
 # define RES	"\033[0m"
@@ -31,14 +32,6 @@
 # define CYAN	"\033[1;36m"
 # define MAG	"\033[1;35m"
 
-/* Errors */
-# define EXIT_MSG			"exit\n"
-# define ERR_SIG			"Error: sigaction.\n"
-# define ERR_MEMORY			"Error: memory allocation failed.\n"
-# define EXIT_SUCCESS_CODE 0
-# define EXIT_TOO_MANY_ARGS 1
-# define EXIT_NON_NUMERIC_ARG 2
-
 /* macros, comandos y builtins */
 # define CD			"cd"
 # define PWD		"pwd"
@@ -47,22 +40,5 @@
 # define EXPORT 	"export"
 # define UNSET		"unset"
 # define ECHO		"echo"
-
-# ifdef DEBUG_MODE
-
-# define LOG_DEBUG(fmt, ...) \
-	dprintf(STDERR_FILENO, CYAN"[DEBUG] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-#  define LOG_WARN(fmt, ...) \
-	dprintf(STDERR_FILENO, YELL"[WARN]  %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-#  define LOG_ERROR(fmt, ...) \
-	dprintf(STDERR_FILENO, RED"[ERROR] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-
-# else
-
-#  define LOG_DEBUG(...) ((void)0)
-#  define LOG_WARN(...)  ((void)0)
-#  define LOG_ERROR(...) ((void)0)
-
-# endif
 
 #endif

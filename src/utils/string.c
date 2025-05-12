@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 18:00:36 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/03 18:25:47 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:28:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,10 @@
  * @param s The string to duplicate
  * @return The copied string or empty string if its NULL
  */
+
 char	*safe_strdup(const char *s)
 {
 	if (!s)
 		return (ft_strdup(""));
-	return (ft_strdup(s));
-}
-
-// Duplicates the spring if is not NULL. Returns NULL if its NULL
-char	*dup_if_needed(char *s)
-{
-	if (!s)
-		return (NULL);
 	return (ft_strdup(s));
 }

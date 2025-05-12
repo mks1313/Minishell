@@ -32,13 +32,10 @@ char	*ft_strjoin_char(char *s, char c)
 	ft_strcpy(str, s);
 	str[len] = c;
 	str[len + 1] = '\0';
-	free(s);
-	return (str);
+	return (free(s), str);
 }
 
 int	clean_exit(t_shell *shell, int status)
 {
-	free_data(shell);
-	rl_clear_history();
-	return (status);
+	return (free_data(shell), rl_clear_history(), status);
 }

@@ -6,29 +6,18 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:42:04 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:51:21 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*create_cmd(void)
-{
-	t_cmd	*cmd;
-
-	cmd = ft_calloc(1, sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	return (cmd);
-}
-
 static void	init_cmd_args(t_cmd *cmd, char *arg)
 {
-	cmd->args = malloc(sizeof(char *) * 2);
+	cmd->args = ft_calloc(2, sizeof(char *));
 	if (!cmd->args)
 		return ;
 	cmd->args[0] = ft_strdup(arg);
-	cmd->args[1] = NULL;
 	cmd->cmd = cmd->args[0];
 }
 
@@ -51,11 +40,6 @@ static void	append_arg_to_cmd(t_cmd *cmd, char *arg)
 		j++;
 	}
 	new_args[i] = ft_strdup(arg);
-	if (!new_args)
-	{
-		free(new_args);
-		return ;
-	}
 	new_args[i + 1] = NULL;
 	free(cmd->args);
 	cmd->args = new_args;
@@ -84,17 +68,18 @@ void	process_input(const char *input, t_shell *shell)
 
 void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
 {
-	t_cmd	*tmp;
+	t_cmd	*last;
 
 	if (!new_cmd)
 		return ;
-	if (!*cmd_list)
-		*cmd_list = new_cmd;
-	else
+	if (!cmd_list || !*cmd_list)
 	{
-		tmp = *cmd_list;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_cmd;
+		if (cmd_list)
+			*cmd_list = new_cmd;
+		return ;
 	}
+	last = *cmd_list;
+	while (last->next)
+		last = last->next;
+	last->next = new_cmd;
 }

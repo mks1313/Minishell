@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/09 12:10:41 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:30:11 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,10 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
-	{
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		return (127);
-	}
+		return (ft_putstr_fd(cmd, 2), ft_putstr_fd(ERR_CMD_NOT_FOUND, 2), 127);
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("fork");
-		free(cmd_path);
-		return (1);
-	}
+		return (perror("fork"), free(cmd_path), 1);
 	if (pid == 0)
 		execute_child_process(cmd_path, args, env);
 	else
@@ -85,8 +77,13 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-	if (!cmd || !cmd->cmd || !shell || !line)
+	if (!cmd || !shell || !line)
 		return ;
+	if (!cmd->cmd && cmd->redirs)
+	{
+		handle_redirections(cmd);
+		return ;
+	}
 	handle_heredoc(cmd, shell);
 	if (!cmd->next)
 	{
