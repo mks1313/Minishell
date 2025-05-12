@@ -45,7 +45,8 @@ INCLUDES = minishell.h shell_types.h sys_includes.h
 # Specify the main header file
 SRC_FOLDER =  main.c signals/signals.c debug.c
 SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
-			  parser/parser_utils.c parser/validate.c parser/expand_helper.c
+			  parser/parser_utils.c parser/validate.c parser/expand_helper.c \
+			  parser/validate_tkn_syntax.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
 SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
 			  builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \
