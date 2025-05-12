@@ -77,10 +77,11 @@ typedef enum e_redir_type
 
 typedef struct s_redir
 {
-	t_redir_type		type; // Tipo de redirección (<, >, <<, >>)
+	t_redir_type		type;
 	char				*file;// Archivo asociado a la redirección
 	int					fd;// File descriptor
 	char				*delimiter;
+    t_tkn_quote         delim_quote;
 	struct s_redir		*next;
 }	t_redir;
 

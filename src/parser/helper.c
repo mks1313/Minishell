@@ -46,11 +46,15 @@ t_redir	*create_redir(t_tkn *tkn)
 	t_redir	*redir;
 
 	redir = ft_calloc(1, sizeof(t_redir));
-	if (!redir)
-		return (NULL);
-	set_redir_type(redir, tkn);
-	set_redir_target(redir, tkn->next);
-	redir->fd = -1;
+    if (!redir)
+        return (NULL);
+    set_redir_type(redir, tkn);
+    set_redir_target(redir, tkn->next);
+    if (redir->type == REDIR_HEREDOC && tkn->next && tkn->next->parts)
+        redir->delim_quote = tkn->next->parts->quote;
+    else
+        redir->delim_quote = Q_NONE;
+    redir->fd = -1;
 	return (redir);
 }
 

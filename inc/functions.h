@@ -43,6 +43,7 @@ char	*get_env_variable_value(t_env *env, char *key);
 /* Parser */
 int		count_envp(t_env *env);
 void	expand_variable(t_shell *shell);
+char    *expand_var_value(char *value, t_shell *shell);
 void	process_input(const char *input, t_shell *shell);
 void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);
