@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/09 12:10:41 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:30:11 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,13 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-	if (!cmd || !cmd->cmd || !shell || !line)
+	if (!cmd || !shell || !line)
 		return ;
+	if (!cmd->cmd && cmd->redirs)
+	{
+		handle_redirections(cmd);
+		return ;
+	}
 	handle_heredoc(cmd, shell);
 	if (!cmd->next)
 	{

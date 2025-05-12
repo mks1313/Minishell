@@ -6,20 +6,19 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 15:38:13 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:10:03 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_tkn	*prepare_tokens(char *line, t_shell *shell)
+static	t_tkn	*prepare_tokens(char *line, t_shell *shell)
 {
 	t_tkn	*tokens;
 
 	tokens = tokenize_input(line);
 	if (!tokens)
 		return (NULL);
-	lex_tokens(tokens);
 	shell->tkns = tokens;
 	expand_variable(shell);
 	return (tokens);
@@ -62,16 +61,20 @@ void	handle_commands(char *line, t_shell *shell)
 	int		stdin_backup;
 	int		stdout_backup;
 
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
 	if (!shell || !line)
 		return ;
 	tokens = prepare_tokens(line, shell);
 	if (!tokens)
 		return ;
+	//debug
+	for_tokens(tokens);
 	cmds = check_and_parse(tokens, shell);
 	if (!cmds)
 		return ;
-	stdin_backup = dup(STDIN_FILENO);
-	stdout_backup = dup(STDOUT_FILENO);
+	//debug
+	por_cmds(cmds);
 	shell->cmds = cmds;
 	execute_commands(cmds, shell, line);
 	restore_stdio(stdin_backup, stdout_backup);

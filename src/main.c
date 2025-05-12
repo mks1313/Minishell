@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/10 16:13:02 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:38:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	shell_loop(t_shell *shell, int interactive)
 int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
-	int	interactive;
+	int		interactive;
 
 	(void)argc;
 	(void)argv;

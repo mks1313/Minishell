@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 19:35:21 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:56:03 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,17 @@ static void	set_redir_type(t_redir *redir, t_tkn *tkn)
 
 static void	set_redir_target(t_redir *redir, t_tkn *tkn)
 {
+	char	*joined;
+
+	joined = join_token_parts(tkn->parts);
 	if (redir->type == REDIR_HEREDOC)
 	{
-		redir->delimiter = ft_strdup(tkn->next->value);
+		redir->delimiter = joined;
 		redir->file = NULL;
 	}
 	else
 	{
-		redir->file = ft_strdup(tkn->next->value);
+		redir->file = joined;
 		redir->delimiter = NULL;
 	}
 }
@@ -46,7 +49,7 @@ t_redir	*create_redir(t_tkn *tkn)
 	if (!redir)
 		return (NULL);
 	set_redir_type(redir, tkn);
-	set_redir_target(redir, tkn);
+	set_redir_target(redir, tkn->next);
 	redir->fd = -1;
 	return (redir);
 }
@@ -70,8 +73,6 @@ void	handle_redirect(t_redir **redir_list, t_tkn **tkn)
 {
 	t_redir	*redir;
 
-	if (!*tkn || !(*tkn)->next)
-		return ;
 	redir = create_redir(*tkn);
 	if (!redir)
 		return ;

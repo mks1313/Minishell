@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:47:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:46:08 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:13:58 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,22 @@ void	free_env_list(t_env *env)
  */
 void	ft_free_tokens(t_tkn *tokens)
 {
-	t_tkn	*tmp;
+	t_tkn		*tmp;
+	t_tkn_part	*part;
+	t_tkn_part	*next_part;
 
 	while (tokens)
 	{
 		tmp = tokens;
-		if (tmp->value)
-			free(tmp->value);
+		part = tmp->parts;
+		while (part)
+		{
+			next_part = part->next;
+			if (part->value)
+				free(part->value);
+			free(part);
+			part = next_part;
+		}
 		tokens = tokens->next;
 		free(tmp);
 	}

@@ -6,20 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:42:04 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:51:21 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * Directly returns the calloc pointer. If calloc fails, it returns NULL.
- * So returns t_cmd if successful, NULL if not.
- */
-t_cmd	*create_cmd(void)
-{
-	return (ft_calloc(1, sizeof(t_cmd)));
-}
 
 static void	init_cmd_args(t_cmd *cmd, char *arg)
 {
@@ -49,8 +40,6 @@ static void	append_arg_to_cmd(t_cmd *cmd, char *arg)
 		j++;
 	}
 	new_args[i] = ft_strdup(arg);
-	if (!new_args)
-		return ((void)free(new_args));
 	new_args[i + 1] = NULL;
 	free(cmd->args);
 	cmd->args = new_args;

@@ -5,66 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 15:33:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/03 19:30:44 by meghribe         ###   ########.fr       */
+/*   Created: 2025/05/12 16:39:58 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/05/12 16:51:11 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*handle_env_variable(char *value, int *i, t_env *env)
+t_cmd	*create_cmd(void)
 {
-	int		start;
+	return (ft_calloc(1, sizeof(t_cmd)));
+}
+
+char	*join_token_parts(t_tkn_part *parts)
+{
 	char	*tmp;
-	char	*val;
+	char	*result;
+	char	*joined;
 
-	start = *i;
-	while (ft_isalnum(value[*i]) || value[*i] == '_')
-		(*i)++;
-	tmp = ft_substr(value, start, *i - start);
-	val = ft_getenv(tmp, env);
-	free(tmp);
-	if (val)
-		return (ft_strdup(val));
-	return (ft_strdup(""));
+	result = ft_strdup("");
+	while (parts)
+	{
+		tmp = ft_strdup(parts->value);
+		joined = ft_strjoin(result, tmp);
+		free(result);
+		free(tmp);
+		result = joined;
+		parts = parts->next;
+	}
+	return (result);
 }
 
-char	*append_doll_and_char(char *expanded, char next_char)
+bool	handle_pipe(t_cmd **cmd_list, t_cmd **current_cmd, t_tkn **tokens)
 {
-	char	tmp[2];
-	char	*aux;
-
-	tmp[0] = next_char;
-	tmp[1] = '\0';
-	aux = ft_strjoin(expanded, tmp);
-	return (free(expanded), aux);
+	if (!*current_cmd || (!(*current_cmd)->cmd && !(*current_cmd)->redirs))
+		return (ft_putstr_fd(SYN_ERR_PIPE, STDERR_FILENO), 0);
+	add_cmd_to_list(cmd_list, *current_cmd);
+	*current_cmd = NULL;
+	*tokens = (*tokens)->next;
+	return (true);
 }
 
-char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
+bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens)
 {
-	char	*expanded;
+	t_redir	*redir;
 
-	(*i)++;
-	if (value[*i] == '?')
-	{
-		expanded = ft_itoa(shell->exit_status);
-		(*i)++;
-	}
-	else if (ft_isalnum(value[*i]) || value[*i] == '_')
-		expanded = handle_env_variable(value, i, shell->env);
-	else if (value [*i] == '$')
-	{
-		expanded = ft_itoa(ft_get_pid());
-		(*i)++;
-	}
-	else
-	{
-		expanded = ft_strdup("$");
-		if (value[*i])
-		{
-			expanded = append_doll_and_char(expanded, value[*i]);
-			(*i)++;
-		}
-	}
-	return (expanded);
+	if (!(*tokens)->next)
+		return (ft_putstr_fd(SYN_ERR_NL, STDERR_FILENO), 0);
+	redir = create_redir(*tokens);
+	if (!redir)
+		return (false);
+	add_redir_to_list(&cmd->redirs, redir);
+	*tokens = (*tokens)->next;
+	*tokens = (*tokens)->next;
+	return (true);
 }

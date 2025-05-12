@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:14:55 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:12:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,18 @@ typedef enum e_tkn_quote
 	Q_MIX
 }	t_tkn_quote;
 
-typedef struct s_tkn
+typedef struct s_tkn_part
 {
 	char				*value;
-	t_tkn_type			type;
 	t_tkn_quote			quote;
-	struct s_tkn		*next;
+	struct	s_tkn_part	*next;
+}	t_tkn_part;
+
+typedef struct s_tkn
+{
+	t_tkn_type		type;
+	t_tkn_part		*parts;
+	struct s_tkn	*next;
 }	t_tkn;
 
 /*  =====================

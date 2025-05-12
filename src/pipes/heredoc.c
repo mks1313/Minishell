@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:12:10 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 12:19:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:29:06 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	create_heredoc_pipe(t_redir *redir)
 	LOG_DEBUG("✅ heredoc listo, fd de lectura guardado: %d\n", redir->fd);
 	LOG_DEBUG("🔧 heredoc fd asignado a redir %p: fd=%d, delim=%s\n",
 		(void *)redir, redir->fd, redir->delimiter);
-
 }
 
 void	handle_heredoc(t_cmd *cmd, t_shell *shell)

@@ -25,4 +25,21 @@
 # define EXIT_TOO_MANY_ARGS 1
 # define EXIT_NON_NUMERIC_ARG 2
 
+# ifdef DEBUG_MODE
+
+# define LOG_DEBUG(fmt, ...) \
+	dprintf(STDERR_FILENO, CYAN"[DEBUG] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#  define LOG_WARN(fmt, ...) \
+	dprintf(STDERR_FILENO, YELL"[WARN]  %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#  define LOG_ERROR(fmt, ...) \
+	dprintf(STDERR_FILENO, RED"[ERROR] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+
+# else
+
+#  define LOG_DEBUG(...) ((void)0)
+#  define LOG_WARN(...)  ((void)0)
+#  define LOG_ERROR(...) ((void)0)
+
+# endif
+
 # endif

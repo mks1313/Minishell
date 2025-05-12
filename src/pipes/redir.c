@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 13:06:52 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:32:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static int	process_heredoc_fd(t_redir *r)
 {
-	// 👇 Esto es lo que agregás
-	LOG_DEBUG("👶 redir recibido en exec: %p, delim=%s, fd=%d\n",
-			(void *)r, r->delimiter, r->fd);
+	LOG_DEBUG("👶 redir recibido en exec: %p, delim=%s, fd=%d\n", \
+		(void *)r, r->delimiter, r->fd);
 	if (r->type == REDIR_HEREDOC && r->fd == -1)
 	{
 		LOG_DEBUG("⚠️  Saltando heredoc sin fd asignado (redir %p)\n", \
@@ -45,7 +44,6 @@ static int	handle_input(t_redir *r)
 	fd = open(r->file, O_RDONLY);
 	if (fd < 0)
 		return (perror(r->file), -1);
-	//LOG_DEBUG("✅ dup2(%d -> STDIN)\n", fd);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (perror("❌ dup2 input"), close(fd), -1);
 	close(fd);
@@ -84,10 +82,13 @@ static int	handle_output(t_redir *r, int append)
 
 int	handle_redirections(t_cmd *cmd)
 {
-	t_redir	*r = cmd->redirs;
-	t_redir	*last_in = NULL;
-	t_redir	*last_out = NULL;
+	t_redir	*r;
+	t_redir	*last_in;
+	t_redir	*last_out;
 
+	r = cmd->redirs;
+	last_in = NULL;
+	last_out = NULL;
 	while (r)
 	{
 		if (r->type == REDIR_HEREDOC || r->type == REDIR_IN)
@@ -102,8 +103,8 @@ int	handle_redirections(t_cmd *cmd)
 		{
 			if (last_in->fd == -1)
 			{
-				LOG_DEBUG(RED"⚠️  HEREDOC sin fd asignado, saltando redir %p\n"RES,
-					(void *)last_in);
+				LOG_DEBUG(RED"⚠️  HEREDOC sin fd asignado, saltando \
+					redir %p\n"RES, (void *)last_in);
 				return (0);
 			}
 			if (process_heredoc_fd(last_in) < 0)
