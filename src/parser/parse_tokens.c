@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:44:50 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/10 15:40:52 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:03:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
 {
 	add_arg_to_cmd(cmd, (*tokens)->value);
 	*tokens = (*tokens)->next;
-	return true;
+	return (true);
 }
 
 static bool	process_token_into_cmd(t_tkn **tokens, t_cmd **current_cmd, t_cmd **cmd_list)
