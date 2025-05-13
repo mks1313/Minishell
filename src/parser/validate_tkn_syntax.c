@@ -77,10 +77,8 @@ bool	validate_token_syntax(t_tkn *tokens)
 	t_tkn	*prev;
 
 	prev = NULL;
-	printf("HOLA DESDE COMIENZO DE SYNTAX");
 	while (tokens)
 	{
-		printf("HOLA DESDE BUCLE DE SYNTAX");
 		if (tokens->type == TOK_PIPE)
 		{
 			if (!validate_pipe(prev, tokens))
@@ -98,7 +96,6 @@ bool	validate_token_syntax(t_tkn *tokens)
 			return (false);
 		}
 		prev = tokens;
-		printf("[DEBUG] checking token: %d\\n", tokens->type);
 		tokens = tokens->next;
 	}
 	return (true);

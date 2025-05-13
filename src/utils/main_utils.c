@@ -19,6 +19,13 @@ static	t_tkn	*prepare_tokens(char *line, t_shell *shell)
 	tokens = tokenize_input(line);
 	if (!tokens)
 		return (NULL);
+    if (!validate_token_syntax(tokens))
+    {
+        shell->exit_status = 2;
+        ft_free_tokens(tokens);
+        shell->tkns = NULL;
+        return (NULL);
+    }
 	shell->tkns = tokens;
 	expand_variable(shell);
 	return (tokens);

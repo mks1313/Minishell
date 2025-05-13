@@ -55,24 +55,6 @@ void	add_arg_to_cmd(t_cmd *cmd, char *arg)
 		append_arg_to_cmd(cmd, arg);
 }
 
-void	process_input(const char *input, t_shell *shell)
-{
-	t_tkn	*tokens;
-
-	tokens = tokenize_input((char *)input);
-	if (!tokens)
-		return ;
-	if (!validate_token_syntax(tokens))
-	{
-		shell->exit_status = 2;
-		ft_free_tokens(shell->tkns);
-		shell->tkns = NULL;
-		return ;
-	}
-	shell->tkns = tokens;
-	expand_variable(shell);
-}
-
 void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
 {
 	t_cmd	*last;

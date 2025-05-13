@@ -45,7 +45,6 @@ int		count_envp(t_env *env);
 void	expand_variable(t_shell *shell);
 bool	validate_token_syntax(t_tkn *tokens);
 char	*expand_var_value(char *value, t_shell *shell);
-void	process_input(const char *input, t_shell *shell);
 void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);
 char	**append_arg(char **args, char *arg);
