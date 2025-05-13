@@ -6,13 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/21 16:24:08 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:15:02 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Verifica si el argumento es un número válido
 static int	is_numeric_argument(const char *str)
 {
 	int	i;
@@ -31,18 +30,19 @@ static int	is_numeric_argument(const char *str)
 	return (1);
 }
 
-// Muestra el error de argumento no numérico
 static void	print_numeric_error(char *arg)
 {
-	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(arg, 2);
-	ft_putstr_fd(": numeric argument required\n", 2);
+	ft_putstr_fd(ERR_EXIT_NUMERIC_PREFIX, STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putstr_fd(ERR_EXIT_NUMERIC_SUFFIX, STDERR_FILENO);
 }
 
-// Realiza la salida del shell
 static void	exit_shell(t_shell *shell, int exit_code)
 {
-	free_data(shell);
+	free_cmd_list(shell->cmds);
+	ft_free_tokens(shell->tkns);
+	free_env_list(shell->env);
+	free(shell);
 	exit(exit_code);
 }
 
@@ -57,15 +57,15 @@ void	ft_exit(t_cmd *cmd, t_shell *shell)
 		arg_count++;
 	if (arg_count == 1)
 		exit_shell(shell, EXIT_SUCCESS);
-	if (arg_count > 2)
-	{
-		ft_putstr_fd(ERR_EXIT, 2);
-		return ;
-	}
-	if (!is_numeric_argument(args[1]))
+	if (args[1] && !is_numeric_argument(args[1]))
 	{
 		print_numeric_error(args[1]);
 		exit_shell(shell, 2);
+	}
+	if (arg_count > 2)
+	{
+		ft_putstr_fd(ERR_EXIT_TOO_MANY_ARGS, STDERR_FILENO);
+		return ;
 	}
 	exit_shell(shell, (unsigned char)ft_atol(args[1]));
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 16:51:21 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:09:58 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,6 @@ void	add_arg_to_cmd(t_cmd *cmd, char *arg)
 		init_cmd_args(cmd, arg);
 	else
 		append_arg_to_cmd(cmd, arg);
-}
-
-void	process_input(const char *input, t_shell *shell)
-{
-	t_tkn	*tokens;
-
-	tokens = tokenize_input((char *)input);
-	if (!tokens)
-		return ;
-	if (!validate_token_syntax(shell->tkns))
-	{
-		shell->exit_status = 2;
-		ft_free_tokens(shell->tkns);
-		shell->tkns = NULL;
-		return ;
-	}
-    shell->tkns = tokens;
-	expand_variable(shell);
 }
 
 void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
