@@ -1,46 +1,61 @@
 #!/bin/bash
 
-# Archivo con los casos de prueba
 TEST_CASES_FILE="test_cases.txt"
 
-# Colores para la salida
-GREEN='\033[0;32m' # Verde para OK
-RED='\033[0;31m'   # Rojo para KO
-NC='\033[0m'       # Sin color
+# Colores
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
 
-# Ejecutables
 BASH="/bin/bash"
 MINISHELL="./minishell"
 
-# Contadores de pruebas
+# Compilar
+echo "🔧 Compilando Minishell..."
+make -s re || { echo -e "${RED}❌ Compilación fallida.${NC}"; exit 1; }
+
+# ⚠️ ¡NO USAMOS ulimit -v porque rompe ASan!
+ulimit -t 5 # Limita solo el tiempo de CPU
+
+# Limpiar salida de Minishell
+clean_minishell_output() {
+	echo "$1" | \
+		sed -E 's/\x1b\[[0-9;]*m//g' | \
+		grep -v -E '^minishell\$|^exit$' | \
+		sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | \
+		tr -d '\n'
+}
+
+# Contadores
 i=0
 pass_count=0
 fail_count=0
 
-# Leer cada comando del archivo de casos de prueba
-while IFS= read -r cmd; do
-    i=$((i + 1))
-    
-    # Ejecutar el comando en bash
-    bash_output=$(echo "$cmd" | $BASH 2>&1 | cat -e)
+while IFS= read -r cmd || [ -n "$cmd" ]; do
+	i=$((i + 1))
 
-    # Ejecutar el comando en minishell
-    minishell_raw_output=$(echo "$cmd" | $MINISHELL 2>&1 | cat -e)
+	# Bash
+	bash_output=$(echo "$cmd" | $BASH 2>&1 | cat -e | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 
-    # Limpiar el output de minishell
-    minishell_output=$(echo "$minishell_raw_output" | sed -e '/^minishell\$/d' -e '/^exit$/d' | sed ':a;N;$!ba;s/\n/ /g')
+	# Minishell
+	minishell_raw_output=$(echo "$cmd" | $MINISHELL 2>&1 | cat -e)
+	minishell_output=$(clean_minishell_output "$minishell_raw_output")
 
-    # Comparar los outputs
-    if [ "$bash_output" == "$minishell_output" ]; then
-        echo -e "${GREEN}Test #$i: OK${NC} -> $cmd"
-        pass_count=$((pass_count + 1))
-    else
-        echo -e "${RED}Test #$i: KO${NC} -> $cmd"
-        echo -e "${RED}Bash Output:${NC} \"$bash_output\""
-        echo -e "${RED}Minishell Output:${NC} \"$minishell_output\""
-        fail_count=$((fail_count + 1))
-    fi
+	# Comparar
+	if [ "$bash_output" == "$minishell_output" ]; then
+		echo -e "${GREEN}Test #$i: OK${NC} -> $cmd"
+		pass_count=$((pass_count + 1))
+	else
+		echo -e "${RED}Test #$i: KO${NC} -> $cmd"
+		echo -e "${YELLOW}Bash Output     : \"$bash_output\"${NC}"
+		echo -e "${YELLOW}Minishell Output: \"$minishell_output\"${NC}"
+		echo -e "${RED}Diff:${NC}"
+		diff <(echo "$bash_output") <(echo "$minishell_output")
+		fail_count=$((fail_count + 1))
+	fi
 done < "$TEST_CASES_FILE"
 
-# Mostrar resumen final
+# Resumen
 echo -e "\n${GREEN}PASS: $pass_count${NC} - ${RED}FAIL: $fail_count${NC}"
+
