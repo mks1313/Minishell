@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 11:53:23 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:00:03 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum e_tkn_type
 	TOK_REDIR_OUT,
 	TOK_APPEND,
 	TOK_HEREDOC,
+	TOK_EOF,
 }	t_tkn_type;
 
 typedef enum e_tkn_quote

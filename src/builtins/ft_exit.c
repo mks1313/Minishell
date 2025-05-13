@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:13:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 13:40:33 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:15:02 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static int	is_numeric_argument(const char *str)
 
 static void	print_numeric_error(char *arg)
 {
-	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(arg, 2);
-	ft_putstr_fd(": numeric argument required\n", 2);
+	ft_putstr_fd(ERR_EXIT_NUMERIC_PREFIX, STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putstr_fd(ERR_EXIT_NUMERIC_SUFFIX, STDERR_FILENO);
 }
 
 static void	exit_shell(t_shell *shell, int exit_code)
@@ -64,9 +64,8 @@ void	ft_exit(t_cmd *cmd, t_shell *shell)
 	}
 	if (arg_count > 2)
 	{
-		ft_putstr_fd(ERR_EXIT, 2);
+		ft_putstr_fd(ERR_EXIT_TOO_MANY_ARGS, STDERR_FILENO);
 		return ;
 	}
-	
 	exit_shell(shell, (unsigned char)ft_atol(args[1]));
 }

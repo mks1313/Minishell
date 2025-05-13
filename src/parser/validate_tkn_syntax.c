@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 22:00:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 13:12:21 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/05/13 15:15:25 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/05/13 15:23:27 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,56 +27,78 @@ static const char	*get_token_name(t_tkn_type type)
 	return ("`newline'");
 }
 
-static void	print_syntax_error(const char *token)
+static void	print_token_syntax_error(t_tkn_type type)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token ", STDERR_FILENO);
-	ft_putstr_fd((char *)token, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	const char	*token;
+
+	token = get_token_name(type);
+	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+	ft_putstr_fd((char *)token, 2);
+	ft_putstr_fd("\n", 2);
+}
+
+static bool	validate_pipe(t_tkn *prev, t_tkn *curr)
+{
+	if (!prev || !curr->next || curr->next->type == TOK_PIPE)
+	{
+		ft_putstr_fd(SYN_ERR_PIPE, 2);
+		return (false);
+	}
+	return (true);
+}
+
+static bool	validate_redirect(t_tkn *token)
+{
+	t_tkn	*next;
+
+	next = token->next;
+	if (!next)
+	{
+		print_token_syntax_error(TOK_EOF);
+		return (false);
+	}
+	if (next->type != TOK_WORD)
+	{
+		print_token_syntax_error(next->type);
+		return (false);
+	}
+	if (next->next &&
+		(next->next->type >= TOK_REDIR_IN &&
+		 next->next->type <= TOK_HEREDOC))
+	{
+		print_token_syntax_error(next->next->type);
+		return (false);
+	}
+	return (true);
 }
 
 bool	validate_token_syntax(t_tkn *tokens)
 {
-	t_tkn		*prev;
-	const char	*err_token;
+	t_tkn	*prev;
 
 	prev = NULL;
-	if (!tokens)
-		return (true);
+	printf("HOLA DESDE COMIENZO DE SYNTAX");
 	while (tokens)
 	{
+		printf("HOLA DESDE BUCLE DE SYNTAX");
 		if (tokens->type == TOK_PIPE)
 		{
-			if (!prev || !tokens->next || tokens->next->type == TOK_PIPE)
-			{
-				print_syntax_error("`|'");
+			if (!validate_pipe(prev, tokens))
 				return (false);
-			}
 		}
-		else if (tokens->type >= TOK_REDIR_IN && tokens->type <= TOK_HEREDOC)
+		else if (tokens->type >= TOK_REDIR_IN &&
+			tokens->type <= TOK_HEREDOC)
 		{
-			if (!tokens->next)
-			{
-				print_syntax_error("`newline'");
+			if (!validate_redirect(tokens))
 				return (false);
-			}
-			if (tokens->next->type >= TOK_REDIR_IN && tokens->next->type <= TOK_HEREDOC)
-			{
-				err_token = get_token_name(tokens->next->type);
-				print_syntax_error(err_token);
-				return (false);
-			}
-			if (tokens->next->type == TOK_PIPE)
-			{
-				print_syntax_error("`|'");
-				return (false);
-			}
 		}
 		else if (tokens->type == TOK_OPERATOR)
 		{
-			print_syntax_error("`invalid operator'");
+			ft_putstr_fd(SYN_ERR_INVALID_OPERATOR, 2);
 			return (false);
 		}
 		prev = tokens;
+		printf("[DEBUG] checking token: %d\\n", tokens->type);
 		tokens = tokens->next;
 	}
 	return (true);
