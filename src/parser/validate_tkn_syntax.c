@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_token_syntax.c                            :+:      :+:    :+:   */
+/*   validate_tkn_syntax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 22:00:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 22:00:00 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:12:21 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ static void	print_syntax_error(const char *token)
 
 bool	validate_token_syntax(t_tkn *tokens)
 {
-	t_tkn	*prev = NULL;
+	t_tkn		*prev;
+	const char	*err_token;
 
+	prev = NULL;
 	if (!tokens)
 		return (true);
-
 	while (tokens)
 	{
 		if (tokens->type == TOK_PIPE)
@@ -53,10 +54,20 @@ bool	validate_token_syntax(t_tkn *tokens)
 		}
 		else if (tokens->type >= TOK_REDIR_IN && tokens->type <= TOK_HEREDOC)
 		{
-			if (!tokens->next || tokens->next->type != TOK_WORD)
+			if (!tokens->next)
 			{
-				const char *err = get_token_name(tokens->next ? tokens->next->type : TOK_WORD);
-				print_syntax_error(err);
+				print_syntax_error("`newline'");
+				return (false);
+			}
+			if (tokens->next->type >= TOK_REDIR_IN && tokens->next->type <= TOK_HEREDOC)
+			{
+				err_token = get_token_name(tokens->next->type);
+				print_syntax_error(err_token);
+				return (false);
+			}
+			if (tokens->next->type == TOK_PIPE)
+			{
+				print_syntax_error("`|'");
 				return (false);
 			}
 		}

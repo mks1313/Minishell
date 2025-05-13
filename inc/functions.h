@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 17:09:40 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:51:27 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_cmd	*create_cmd(void);
 //DEBUG
 const char	*quote_type_str(t_tkn_quote q);
 const char	*token_type_str(t_tkn_type t);
-void		for_tokens(t_tkn *tokens);
-void		por_cmds(t_cmd *cmds);
+void	for_tokens(t_tkn *tokens);
+void	por_cmds(t_cmd *cmds);
 
 /* Tokens */
 t_tkn	*tokenize_input(char *line);
@@ -43,8 +43,8 @@ char	*get_env_variable_value(t_env *env, char *key);
 /* Parser */
 int		count_envp(t_env *env);
 void	expand_variable(t_shell *shell);
-bool    validate_token_syntax(t_tkn *tokens);
-char    *expand_var_value(char *value, t_shell *shell);
+bool	validate_token_syntax(t_tkn *tokens);
+char	*expand_var_value(char *value, t_shell *shell);
 void	process_input(const char *input, t_shell *shell);
 void	handle_envp_count(int *i, t_env *env);
 void	handle_pid(int *i);

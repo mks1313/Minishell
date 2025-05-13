@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 15:56:03 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:54:13 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ t_redir	*create_redir(t_tkn *tkn)
 	t_redir	*redir;
 
 	redir = ft_calloc(1, sizeof(t_redir));
-    if (!redir)
-        return (NULL);
-    set_redir_type(redir, tkn);
-    set_redir_target(redir, tkn->next);
-    if (redir->type == REDIR_HEREDOC && tkn->next && tkn->next->parts)
-        redir->delim_quote = tkn->next->parts->quote;
-    else
-        redir->delim_quote = Q_NONE;
-    redir->fd = -1;
+	if (!redir)
+		return (NULL);
+	set_redir_type(redir, tkn);
+	set_redir_target(redir, tkn->next);
+	if (redir->type == REDIR_HEREDOC && tkn->next && tkn->next->parts)
+		redir->delim_quote = tkn->next->parts->quote;
+	else
+		redir->delim_quote = Q_NONE;
+	redir->fd = -1;
 	return (redir);
 }
 

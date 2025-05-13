@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 13:12:37 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:53:23 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_tkn_part
 {
 	char				*value;
 	t_tkn_quote			quote;
-	struct	s_tkn_part	*next;
+	struct s_tkn_part	*next;
 }	t_tkn_part;
 
 typedef struct s_tkn
@@ -81,7 +81,7 @@ typedef struct s_redir
 	char				*file;// Archivo asociado a la redirección
 	int					fd;// File descriptor
 	char				*delimiter;
-    t_tkn_quote         delim_quote;
+	t_tkn_quote			delim_quote;
 	struct s_redir		*next;
 }	t_redir;
 
