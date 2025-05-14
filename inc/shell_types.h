@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 15:00:03 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:20:05 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ typedef enum e_redir_type
 typedef struct s_redir
 {
 	t_redir_type		type;
-	char				*file;// Archivo asociado a la redirección
-	int					fd;// File descriptor
+	char				*file;
+	int					fd;
 	char				*delimiter;
 	t_tkn_quote			delim_quote;
 	struct s_redir		*next;
@@ -92,10 +92,10 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char				*cmd; // Comando a ejecutar (ej: "echo")
-	char				**args; // Argumentos del comando (ej: {"-n", "Hola"})
-	t_redir				*redirs; // Lista de redirecciones
-	struct s_cmd		*next;// Siguiente comando en la lista
+	char				*cmd;
+	char				**args;
+	t_redir				*redirs;
+	struct s_cmd		*next;
 }	t_cmd;
 
 /*  =========================
@@ -104,10 +104,10 @@ typedef struct s_cmd
 
 typedef struct s_pipe
 {
-	int					fd[2]; //Pipe actual
-	int					prev_fd;//Pipe anterior para el proximo hjo
-	pid_t				*pids; // Array de pids de hijos
-	int					n_cmds; // Cantidad de comandos
+	int					fd[2];
+	int					prev_fd;
+	pid_t				*pids;
+	int					n_cmds;
 }	t_pipe;
 
 /*  ====================
