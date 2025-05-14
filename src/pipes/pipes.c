@@ -6,36 +6,34 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 15:38:19 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:00:39 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_single_command(t_cmd *cmd, t_env *env)
+static void	exec_external_cmd(t_cmd *curr, t_shell *shell)
 {
-	pid_t	pid;
-	int		status;
+	char	*cmd_path;
+	char	**envp;
 
-	pid = fork();
-	if (pid == 0)
+	if (handle_redirections(curr) < 0)
+		exit(1);
+	if (!curr->args || !curr->args[0])
+		exit(0);
+	cmd_path = find_command_path(curr->args[0], shell->env);
+	if (!cmd_path)
 	{
-		if (handle_redirections(cmd) < 0)
-			exit(1);
-		if (!cmd->args || !cmd->args[0])
-			exit(0);
-		exec_cmd(cmd->args[0], cmd->args, env);
+		ft_putstr_fd(curr->args[0], 2);
+		ft_putstr_fd(ERR_CMD_NOT_FOUND, 2);
 		exit(127);
 	}
-	if (pid < 0)
-	{
-		perror("fork");
-		return (1);
-	}
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (1);
+	envp = env_to_array(shell->env);
+	execve(cmd_path, curr->args, envp);
+	perror(curr->args[0]);
+	clean_array(envp);
+	free(cmd_path);
+	exit(127);
 }
 
 static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
@@ -54,25 +52,7 @@ static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 	if (is_builtin_command(curr->cmd))
 		exit(handle_builtin_commands(curr, shell, NULL));
 	else
-	{
-		if (handle_redirections(curr) < 0)
-			exit(1);
-		if (!curr->args || !curr->args[0])
-			exit(0);
-		char *cmd_path = find_command_path(curr->args[0], shell->env);
-		if (!cmd_path)
-		{
-			ft_putstr_fd(curr->args[0], 2);
-			ft_putstr_fd(ERR_CMD_NOT_FOUND, 2);
-			exit(127);
-		}
-		char **envp = env_to_array(shell->env);
-		execve(cmd_path, curr->args, envp);
-		perror(curr->args[0]);
-		clean_array(envp);
-		free(cmd_path);
-		exit(127);
-	}
+		exec_external_cmd(curr, shell);
 }
 
 static pid_t	launch_child(t_cmd *curr, int *prev_fd, t_shell *shell)

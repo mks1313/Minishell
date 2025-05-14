@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 14:39:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:00:21 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,35 @@
  * This function frees each string in the array and then the array itself.
  * If the array is NULL, it does nothing.
  */
+
+#include "minishell.h"
+
+int	execute_single_command(t_cmd *cmd, t_env *env)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (handle_redirections(cmd) < 0)
+			exit(1);
+		if (!cmd->args || !cmd->args[0])
+			exit(0);
+		exec_cmd(cmd->args[0], cmd->args, env);
+		exit(127);
+	}
+	if (pid < 0)
+	{
+		perror("fork");
+		return (1);
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (1);
+}
+
 void	clean_array(char **array)
 {
 	int	i;
