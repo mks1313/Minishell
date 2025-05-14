@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 11:51:27 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:12:24 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@
 /* Init Shell */
 int		init_shell(t_shell **shell);
 t_cmd	*create_cmd(void);
-
-//DEBUG
-const char	*quote_type_str(t_tkn_quote q);
-const char	*token_type_str(t_tkn_type t);
-void	for_tokens(t_tkn *tokens);
-void	por_cmds(t_cmd *cmds);
 
 /* Tokens */
 t_tkn	*tokenize_input(char *line);

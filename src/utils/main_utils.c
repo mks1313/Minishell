@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 17:10:03 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:12:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static	t_tkn	*prepare_tokens(char *line, t_shell *shell)
 	tokens = tokenize_input(line);
 	if (!tokens)
 		return (NULL);
-    if (!validate_token_syntax(tokens))
-    {
-        shell->exit_status = 2;
-        ft_free_tokens(tokens);
-        shell->tkns = NULL;
-        return (NULL);
-    }
+	if (!validate_token_syntax(tokens))
+	{
+		shell->exit_status = 2;
+		ft_free_tokens(tokens);
+		shell->tkns = NULL;
+		return (NULL);
+	}
 	shell->tkns = tokens;
 	expand_variable(shell);
 	return (tokens);
@@ -75,13 +75,9 @@ void	handle_commands(char *line, t_shell *shell)
 	tokens = prepare_tokens(line, shell);
 	if (!tokens)
 		return ;
-	//debug
-	for_tokens(tokens);
 	cmds = check_and_parse(tokens, shell);
 	if (!cmds)
 		return ;
-	//debug
-	por_cmds(cmds);
 	shell->cmds = cmds;
 	execute_commands(cmds, shell, line);
 	restore_stdio(stdin_backup, stdout_backup);

@@ -6,51 +6,40 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 16:32:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:33:57 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	process_heredoc_fd(t_redir *r)
+static int	redirect_heredoc(t_redir *r)
 {
-	LOG_DEBUG("👶 redir recibido en exec: %p, delim=%s, fd=%d\n", \
-		(void *)r, r->delimiter, r->fd);
 	if (r->type == REDIR_HEREDOC && r->fd == -1)
-	{
-		LOG_DEBUG("⚠️  Saltando heredoc sin fd asignado (redir %p)\n", \
-			(void *)r);
 		return (0);
-	}
 	if (r->fd < 0)
-	{
-		LOG_DEBUG("🚨 redir->fd inválido (heredoc): %d\n", r->fd);
 		return (-1);
-	}
 	if (fcntl(r->fd, F_GETFD) == -1)
-		perror("🚨 redir->fd inválido antes de dup2");
-	LOG_DEBUG("🔁 [HEREDOC] dup2(%d -> STDIN)\n", r->fd);
+		perror("redir: invalid heredoc fd");
 	if (dup2(r->fd, STDIN_FILENO) == -1)
-		return (perror("❌ dup2 heredoc"), -1);
+		return (perror("dup2 heredoc"), -1);
 	close(r->fd);
 	return (0);
 }
 
-static int	handle_input(t_redir *r)
+static int	redirect_input(t_redir *r)
 {
 	int	fd;
 
-	LOG_DEBUG("🔁 [REDIR_IN] Abriendo %s para lectura\n", r->file);
 	fd = open(r->file, O_RDONLY);
 	if (fd < 0)
 		return (perror(r->file), -1);
 	if (dup2(fd, STDIN_FILENO) == -1)
-		return (perror("❌ dup2 input"), close(fd), -1);
+		return (perror("dup2 input"), close(fd), -1);
 	close(fd);
 	return (0);
 }
 
-static int	handle_output(t_redir *r, int append)
+static int	redirect_output(t_redir *r, int append)
 {
 	int	fd;
 	int	flags;
@@ -60,23 +49,38 @@ static int	handle_output(t_redir *r, int append)
 		flags |= O_APPEND;
 	else
 		flags |= O_TRUNC;
-	if (append)
-		LOG_DEBUG("🔁 [REDIR_APPEND] Abriendo %s para escritura (append)\n", \
-			r->file);
-	else
-		LOG_DEBUG("🔁 [REDIR_OUT] Abriendo %s para escritura (truncate)\n", \
-			r->file);
 	fd = open(r->file, flags, 0644);
 	if (fd < 0)
 		return (perror(r->file), -1);
-	LOG_DEBUG("✅ dup2(%d -> STDOUT)\n", fd);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
-		perror("❌ dup2 output");
+		perror("dup2 output");
 		close(fd);
 		return (-1);
 	}
 	close(fd);
+	return (0);
+}
+
+static int	redirect_input_output(t_redir *in, t_redir *out)
+{
+	if (in)
+	{
+		if (in->type == REDIR_HEREDOC)
+		{
+			if (in->fd == -1)
+				return (0);
+			if (redirect_heredoc(in) < 0)
+				return (-1);
+		}
+		else if (redirect_input(in) < 0)
+			return (-1);
+	}
+	if (out)
+	{
+		if (redirect_output(out, out->type == REDIR_APPEND) < 0)
+			return (-1);
+	}
 	return (0);
 }
 
@@ -97,26 +101,5 @@ int	handle_redirections(t_cmd *cmd)
 			last_out = r;
 		r = r->next;
 	}
-	if (last_in)
-	{
-		if (last_in->type == REDIR_HEREDOC)
-		{
-			if (last_in->fd == -1)
-			{
-				LOG_DEBUG(RED"⚠️  HEREDOC sin fd asignado, saltando \
-					redir %p\n"RES, (void *)last_in);
-				return (0);
-			}
-			if (process_heredoc_fd(last_in) < 0)
-				return (-1);
-		}
-		else if (handle_input(last_in) < 0)
-			return (-1);
-	}
-	if (last_out)
-	{
-		if (handle_output(last_out, last_out->type == REDIR_APPEND) < 0)
-			return (-1);
-	}
-	return (0);
+	return (redirect_input_output(last_in, last_out));
 }
