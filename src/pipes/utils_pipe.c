@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	free_pipe_data(t_pipe *pdata)
 {
 	if (pdata->pids)
@@ -75,4 +75,4 @@ int	wait_all(t_pipe *pdata)
 		i++;
 	}
 	return (last_status);
-}
+}*/

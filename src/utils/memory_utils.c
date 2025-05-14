@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 char	*ft_strjoin_free(char *s1, const char *s2)
 {
 	char	*result;
@@ -33,7 +33,7 @@ char	*ft_strjoin_char(char *s, char c)
 	str[len] = c;
 	str[len + 1] = '\0';
 	return (free(s), str);
-}
+}*/
 
 int	clean_exit(t_shell *shell, int status)
 {

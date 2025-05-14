@@ -21,7 +21,7 @@
  */
 
 #include "minishell.h"
-
+/*
 int	execute_single_command(t_cmd *cmd, t_env *env)
 {
 	pid_t	pid;
@@ -46,7 +46,7 @@ int	execute_single_command(t_cmd *cmd, t_env *env)
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (1);
-}
+}*/
 
 void	clean_array(char **array)
 {

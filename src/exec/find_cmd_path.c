@@ -11,16 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static char	*get_command_path(t_env *env)
-{
-	char	*path_env;
-
-	path_env = ft_getenv("PATH", env);
-	if (!path_env)
-		return (NULL);
-	return (path_env);
-}*/
 
 static char	*search_in_paths(char **paths, char *cmd)
 {
@@ -39,7 +29,6 @@ static char	*search_in_paths(char **paths, char *cmd)
 	return (NULL);
 }
 
-// Si contiene /, chequeamos si existe y es ejecutable
 char	*find_command_path(char *cmd, t_env *env)
 {
 	char	**paths;
