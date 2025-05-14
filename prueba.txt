@@ -1,8 +1,0 @@
-
-#-----------------------------------------------------------------#
-#        0 prueba.txt                                             #
-#                                    Para ver y debuguear         #
-#    este archivo solo para pruebas                               #
-#        Para ver donde falla>                                    #
-#        adios                                                    #
-#-----------------------------------------------------------------#

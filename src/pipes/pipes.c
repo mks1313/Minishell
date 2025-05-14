@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 12:59:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:38:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,27 @@ static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 		close(pipefd[1]);
 	}
 	if (is_builtin_command(curr->cmd))
-		handle_builtin_commands(curr, shell, NULL);
+		exit(handle_builtin_commands(curr, shell, NULL));
 	else
-		execute_single_command(curr, shell->env);
-	exit(EXIT_FAILURE);
+	{
+		if (handle_redirections(curr) < 0)
+			exit(1);
+		if (!curr->args || !curr->args[0])
+			exit(0);
+		char *cmd_path = find_command_path(curr->args[0], shell->env);
+		if (!cmd_path)
+		{
+			ft_putstr_fd(curr->args[0], 2);
+			ft_putstr_fd(ERR_CMD_NOT_FOUND, 2);
+			exit(127);
+		}
+		char **envp = env_to_array(shell->env);
+		execve(cmd_path, curr->args, envp);
+		perror(curr->args[0]);
+		clean_array(envp);
+		free(cmd_path);
+		exit(127);
+	}
 }
 
 static pid_t	launch_child(t_cmd *curr, int *prev_fd, t_shell *shell)
@@ -85,13 +102,17 @@ static pid_t	launch_child(t_cmd *curr, int *prev_fd, t_shell *shell)
 
 static void	wait_for_all(pid_t *pids, int n, t_shell *shell)
 {
-	int	status;
-	int	i;
+	int		status;
+	pid_t	pid;
+	int		i;
+	pid_t	last_pid;
 
+	last_pid = pids[n - 1];
 	i = 0;
 	while (i < n)
 	{
-		if (waitpid(pids[i], &status, 0) != -1 && i == n - 1)
+		pid = waitpid(-1, &status, 0);
+		if (pid == last_pid)
 		{
 			if (WIFEXITED(status))
 				shell->exit_status = WEXITSTATUS(status);
