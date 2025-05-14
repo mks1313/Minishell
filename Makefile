@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/14 13:09:45 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/14 14:07:18 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC_FOLDER =  main.c signals/signals.c
 SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
 			  parser/parser_utils.c parser/validate.c parser/expand_helper.c \
 			  parser/validate_tkn_syntax.c
-SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
+SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c   \
+			  tokenizer/tokenizer_parts.c
 SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
 			  builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \
 			  builtins/ft_export.c builtins/ft_unset.c                   \

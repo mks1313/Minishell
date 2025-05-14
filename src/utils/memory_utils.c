@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:33:05 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/08 20:11:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:16:47 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,17 @@ char	*ft_strjoin_char(char *s, char c)
 int	clean_exit(t_shell *shell, int status)
 {
 	return (free_data(shell), rl_clear_history(), status);
+}
+
+void	ft_free_parts(t_tkn_part *parts)
+{
+	t_tkn_part	*tmp;
+
+	while (parts)
+	{
+		tmp = parts->next;
+		free(parts->value);
+		free(parts);
+		parts = tmp;
+	}
 }
