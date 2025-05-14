@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/12 18:14:05 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/14 15:41:21 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 # Libraries and options
 READLINE = -lreadline
-SANITIZE = -g -fsanitize=address
+SANITIZE = -g #-fsanitize=address
 RM = rm -rf
 
 # Files and folders
@@ -43,11 +43,12 @@ endif
 INCLUDES = minishell.h shell_types.h sys_includes.h
 
 # Specify the main header file
-SRC_FOLDER =  main.c signals/signals.c debug.c
+SRC_FOLDER =  main.c signals/signals.c
 SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
 			  parser/parser_utils.c parser/validate.c parser/expand_helper.c \
 			  parser/validate_tkn_syntax.c
-SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
+SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c   \
+			  tokenizer/tokenizer_parts.c
 SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
 			  builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \
 			  builtins/ft_export.c builtins/ft_unset.c                   \

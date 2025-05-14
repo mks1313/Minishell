@@ -6,122 +6,43 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 17:22:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:23:20 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_tkn_part	*create_part(char *text, t_tkn_quote quote)
+static bool	is_invalid_operator(char *str)
 {
-	t_tkn_part	*part;
-
-	part = ft_calloc(1, sizeof(t_tkn_part));
-	if (!part)
-		return (NULL);
-	part->value = text;
-	part->quote = quote;
-	return (part);
+	return (
+		(str[0] == '>' && str[1] == '>' && str[2] == '>') \
+		|| (str[0] == '<' && str[1] == '<' && str[2] == '<') \
+		|| (str[0] == '>' && str[1] == '<') \
+		|| (str[0] == '<' && str[1] == '>') \
+		|| (str[0] == '>' && str[1] == '|') \
+		|| (str[0] == '<' && str[1] == '|'));
 }
 
-static void	add_part(t_tkn_part **head, t_tkn_part *new)
+static bool	set_append_heredoc(char **str, t_tkn *token)
 {
-	t_tkn_part	*curr;
-
-	curr = *head;
-	if (!curr)
-		*head = new;
-	else
-	{
-		while (curr->next)
-			curr = curr->next;
-		curr->next = new;
-	}
-}
-
-static t_tkn_part	*read_token_part(char **str)
-{
-	t_tkn_quote	quote;
-	char		*start;
-	char		*value;
-	char		quote_char;
-
-	quote = Q_NONE;
-	if (**str == '\'' || **str == '"')
-	{
-		if (**str == '\'')
-			quote = Q_SINGLE;
-		else
-			quote = Q_DOUBLE;
-		quote_char = *(*str)++;
-		start = *str;
-		while (**str && **str != quote_char)
-			(*str)++;
-		if (**str != quote_char)
-			return (NULL); // error: comilla no cerrada
-		value = ft_substr(start, 0, *str - start);
-		(*str)++;
-	}
-	else
-	{
-		start = *str;
-		while (**str && !ft_strchr(" \t\n|<>\"'", **str))
-			(*str)++;
-		value = ft_substr(start, 0, *str - start);
-	}
-	return (create_part(value, quote));
-}
-
-t_tkn	*read_token(char **str)
-{
-	t_tkn_part	*parts;
-	t_tkn		*token;
-	t_tkn_part	*part;
-
-	parts = NULL;
-	token = ft_calloc(1, sizeof(t_tkn));
-	while (**str && !ft_strchr(" \t\n|<>", **str))
-	{
-		part = read_token_part(str);
-		if (!part)
-			return (free(token), NULL); // manejar error de comillas no cerradas
-		add_part(&parts, part);
-	}
-	token->type = TOK_WORD;
-	token->parts = parts;
-	return (token);
-}
-
-t_tkn	*read_operator(char **str)
-{
-	t_tkn	*token;
-
-	if ((**str == '>' && *(*str + 1) == '>' && *(*str + 2) == '>') ||
-		(**str == '<' && *(*str + 1) == '<' && *(*str + 2) == '<') ||
-		(**str == '>' && *(*str + 1) == '<') ||
-		(**str == '<' && *(*str + 1) == '>') ||
-		(**str == '>' && *(*str + 1) == '|') ||
-		(**str == '<' && *(*str + 1) == '|'))
-	{
-		ft_putstr_fd(SYN_ERR_REDIRECT, STDERR_FILENO);
-		return (NULL);
-	}
-
-	token = ft_calloc(1, sizeof(t_tkn));
-	if (!token)
-		return (NULL);
-
 	if (**str == '>' && *(*str + 1) == '>')
 	{
 		token->type = TOK_APPEND;
 		*str += 2;
+		return (true);
 	}
-	else if (**str == '<' && *(*str + 1) == '<')
+	if (**str == '<' && *(*str + 1) == '<')
 	{
 		token->type = TOK_HEREDOC;
 		*str += 2;
+		return (true);
 	}
-	else if (**str == '>')
+	return (false);
+}
+
+static bool	set_redir_pipe(char **str, t_tkn *token)
+{
+	if (**str == '>')
 	{
 		token->type = TOK_REDIR_OUT;
 		(*str)++;
@@ -137,6 +58,30 @@ t_tkn	*read_operator(char **str)
 		(*str)++;
 	}
 	else
+		return (false);
+	return (true);
+}
+
+static bool	set_operator_type(char **str, t_tkn *token)
+{
+	if (set_append_heredoc(str, token))
+		return (true);
+	return (set_redir_pipe(str, token));
+}
+
+t_tkn	*read_operator(char **str)
+{
+	t_tkn	*token;
+
+	if (is_invalid_operator(*str))
+	{
+		ft_putstr_fd(SYN_ERR_REDIRECT, STDERR_FILENO);
+		return (NULL);
+	}
+	token = ft_calloc(1, sizeof(t_tkn));
+	if (!token)
+		return (NULL);
+	if (!set_operator_type(str, token))
 	{
 		free(token);
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:15:25 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 15:23:27 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:48:25 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ static bool	validate_redirect(t_tkn *token)
 		print_token_syntax_error(next->type);
 		return (false);
 	}
-	if (next->next &&
-		(next->next->type >= TOK_REDIR_IN &&
-		 next->next->type <= TOK_HEREDOC))
+	if (next->next && (next->next->type >= TOK_REDIR_IN \
+			&& next->next->type <= TOK_HEREDOC))
 	{
 		print_token_syntax_error(next->next->type);
 		return (false);
@@ -84,8 +83,8 @@ bool	validate_token_syntax(t_tkn *tokens)
 			if (!validate_pipe(prev, tokens))
 				return (false);
 		}
-		else if (tokens->type >= TOK_REDIR_IN &&
-			tokens->type <= TOK_HEREDOC)
+		else if (tokens->type >= TOK_REDIR_IN \
+			&&tokens->type <= TOK_HEREDOC)
 		{
 			if (!validate_redirect(tokens))
 				return (false);

@@ -6,15 +6,12 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 16:34:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:38:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Si execve falla, devuelve código 127
-// Devuelve el código de salida del proceso hijo
-// Si no terminó correctamente, devuelve 1
 int	execute_single_command(t_cmd *cmd, t_env *env)
 {
 	pid_t	pid;
@@ -30,8 +27,11 @@ int	execute_single_command(t_cmd *cmd, t_env *env)
 		exec_cmd(cmd->args[0], cmd->args, env);
 		exit(127);
 	}
-	else if (pid < 0)
-		return (perror("fork"), 1);
+	if (pid < 0)
+	{
+		perror("fork");
+		return (1);
+	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
@@ -40,22 +40,6 @@ int	execute_single_command(t_cmd *cmd, t_env *env)
 
 static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 {
-	t_redir	*r;
-
-	LOG_DEBUG("👶 child_process: cmd = %p\n", (void *)curr);
-	if (!curr->redirs)
-		LOG_DEBUG(YELL"⚠️  cmd %p NO tiene redirs\n"RES, (void *)curr);
-	else
-	{
-		r = curr->redirs;
-		while (r)
-		{
-			LOG_DEBUG(CYAN"👶 redir en child: \
-				%p | type=%d | delim=%s | fd=%d\n"RES,
-				(void *)r, r->type, r->delimiter, r->fd);
-			r = r->next;
-		}
-	}
 	if (prev_fd != -1)
 		dup2(prev_fd, STDIN_FILENO);
 	if (curr->next)
@@ -68,59 +52,97 @@ static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 		close(pipefd[1]);
 	}
 	if (is_builtin_command(curr->cmd))
-		handle_builtin_commands(curr, shell, NULL);
+		exit(handle_builtin_commands(curr, shell, NULL));
 	else
-		execute_single_command(curr, shell->env);
-	exit(EXIT_FAILURE);
+	{
+		if (handle_redirections(curr) < 0)
+			exit(1);
+		if (!curr->args || !curr->args[0])
+			exit(0);
+		char *cmd_path = find_command_path(curr->args[0], shell->env);
+		if (!cmd_path)
+		{
+			ft_putstr_fd(curr->args[0], 2);
+			ft_putstr_fd(ERR_CMD_NOT_FOUND, 2);
+			exit(127);
+		}
+		char **envp = env_to_array(shell->env);
+		execve(cmd_path, curr->args, envp);
+		perror(curr->args[0]);
+		clean_array(envp);
+		free(cmd_path);
+		exit(127);
+	}
 }
 
-static void	wait_for_children(t_cmd *cmd_list, t_shell *shell)
+static pid_t	launch_child(t_cmd *curr, int *prev_fd, t_shell *shell)
+{
+	int		pipefd[2];
+	pid_t	pid;
+
+	if (curr->next && pipe(pipefd) == -1)
+		return (-1);
+	pid = fork();
+	if (pid == 0)
+		child_process(curr, *prev_fd, pipefd, shell);
+	if (pid < 0)
+	{
+		perror("fork");
+		return (-1);
+	}
+	if (*prev_fd != -1)
+		close(*prev_fd);
+	if (curr->next)
+	{
+		close(pipefd[1]);
+		*prev_fd = pipefd[0];
+	}
+	return (pid);
+}
+
+static void	wait_for_all(pid_t *pids, int n, t_shell *shell)
 {
 	int		status;
-	t_cmd	*curr;
+	pid_t	pid;
+	int		i;
+	pid_t	last_pid;
 
-	curr = cmd_list;
-	while (curr)
+	last_pid = pids[n - 1];
+	i = 0;
+	while (i < n)
 	{
-		waitpid(-1, &status, 0);
-		if (WIFEXITED(status))
-			shell->exit_status = WEXITSTATUS(status);
-		curr = curr->next;
+		pid = waitpid(-1, &status, 0);
+		if (pid == last_pid)
+		{
+			if (WIFEXITED(status))
+				shell->exit_status = WEXITSTATUS(status);
+			else
+				shell->exit_status = 1;
+		}
+		i++;
 	}
 }
 
 void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 {
-	int		pipefd[2];
-	int		prev_fd;
-	pid_t	pid;
 	t_cmd	*curr;
+	int		prev_fd;
+	int		i;
+	int		n_cmds;
+	pid_t	pids[256];
 
 	curr = cmd_list;
 	prev_fd = -1;
+	i = 0;
+	n_cmds = 0;
 	while (curr)
 	{
-		if (curr->next && pipe(pipefd) == -1)
-		{
-			perror("pipe");
+		pids[i] = launch_child(curr, &prev_fd, shell);
+		if (pids[i] < 0)
 			return ;
-		}
-		pid = fork();
-		if (pid == 0)
-			child_process(curr, prev_fd, pipefd, shell);
-		else if (pid < 0)
-		{
-			perror("fork");
-			return ;
-		}
-		if (prev_fd != -1)
-			close(prev_fd);
-		if (curr->next)
-		{
-			close(pipefd[1]);
-			prev_fd = pipefd[0];
-		}
 		curr = curr->next;
+		i++;
 	}
-	wait_for_children(cmd_list, shell);
+	n_cmds = i;
+	wait_for_all(pids, n_cmds, shell);
 }

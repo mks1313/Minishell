@@ -6,14 +6,13 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:09:54 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/03 16:42:32 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:18:54 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Using a global variable to save the state of the last exit status */
-extern int	g_exit_status;
 
 /**
  * If the signal is SIGINT:
