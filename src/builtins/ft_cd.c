@@ -12,21 +12,39 @@
 #include "minishell.h"
 
 // Update value of var in env
-static void	update_env_variable(t_env *env, char *key, char *value)
+static void	update_env_variable(t_env **env, const char *key, const char *value)
 {
-	t_env	*copy;
+	t_env	*curr;
+	t_env	*new;
 
-	copy = env;
-	while (copy != NULL)
+	if (!env || !key || !value)
+		return ;
+	curr = *env;
+	while (curr)
 	{
-		if (ft_strcmp(copy->key, key) == 0)
+		if (ft_strcmp(curr->key, key) == 0)
 		{
-			if (copy->value != NULL)
-				free(copy->value);
-			copy->value = ft_strdup(value);
+			free(curr->value);
+			curr->value = ft_strdup(value);
 			return ;
 		}
-		copy = copy->next;
+		curr = curr->next;
+	}
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return ;
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	new->next = NULL;
+
+	if (!*env)
+		*env = new;
+	else
+	{
+		curr = *env;
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new;
 	}
 }
 
@@ -42,11 +60,13 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 	new_pwd_dup = ft_strdup(new_path);
 	if (!new_pwd_dup)
 	{
-		free(old_pwd_dup);
+        if (old_pwd_dup)
+		    free(old_pwd_dup);
 		return ;
 	}
-	update_env_variable(env, "OLDPWD", old_pwd_dup);
-	update_env_variable(env, "PWD", new_pwd_dup);
+    if (old_pwd_dup)
+	    update_env_variable(&env, "OLDPWD", old_pwd_dup);
+	update_env_variable(&env, "PWD", new_pwd_dup);
 	free(old_pwd_dup);
 	free(new_pwd_dup);
 }
@@ -70,7 +90,7 @@ static int	cd_to_home(t_shell *shell)
 	if (!getcwd(cwd, sizeof(cwd)))
 		ft_putstr_fd(ERR_CD_RETRIEVE, STDERR_FILENO);
 	else
-		change_environment_pwd(shell->env, home);
+		change_environment_pwd(shell->env, cwd);
 	shell->exit_status = 0;
 	return (0);
 }
@@ -92,7 +112,7 @@ int	ft_cd(t_cmd *cmd, t_shell *shell)
 	if (!getcwd(cwd, sizeof(cwd)))
 		ft_putstr_fd(ERR_CD_RETRIEVE, STDERR_FILENO);
 	else
-		change_environment_pwd(shell->env, target_dir);
+		change_environment_pwd(shell->env, cwd);
 	shell->exit_status = 0;
 	return (0);
 }

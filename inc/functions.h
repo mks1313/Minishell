@@ -82,6 +82,7 @@ t_cmd	*parse_tokens(t_tkn *tokens);
 int		ft_echo(t_cmd *cmd);
 int		setup_environment(t_shell *shell, char **envp);
 int		ft_env(t_env *env_list);
+void    add_env_node(t_env **head, t_env *new_node);
 char	*ft_getenv(const char *name, t_env *env);
 void	ft_exit(t_cmd *cmd, t_shell *shell);
 int		ft_pwd(void);
