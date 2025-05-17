@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:01:28 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 16:43:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:22:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	is_redirect(t_tkn_type type)
+bool	is_redirect(t_tkn_type type)
 {
 	return (type >= TOK_REDIR_IN && type <= TOK_HEREDOC);
 }

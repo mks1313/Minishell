@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   exec_single_and_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 14:39:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:32:36 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,27 @@ static int	count_env_vars(t_env *env)
 		env = env->next;
 	}
 	return (count);
+}
+
+char	*ft_strjoin3(char *s1, char *s2, char *s3)
+{
+	char	*tmp;
+	char	*res;
+
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
+	if (!s3)
+		s3 = ft_strdup("");
+	tmp = ft_strjoin(s1, s2);
+	if (!tmp)
+		return (NULL);
+	res = ft_strjoin(tmp, s3);
+	free(tmp);
+	if (!res)
+		return (NULL);
+	return (res);
 }
 
 static int	fill_env_array(char **env_array, t_env *env)
