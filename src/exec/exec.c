@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 15:29:18 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:10:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 {
 	char	**envp;
 
+	reset_signals();
 	envp = env_to_array(env);
 	if (execve(cmd_path, args, envp) == -1)
 		perror(cmd_path);
@@ -26,13 +27,25 @@ static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 
 static int	wait_for_process(pid_t pid, char *cmd_path)
 {
-	int		status;
+	int	status;
+	int	exit_code;
+	int	sig;
 
 	waitpid(pid, &status, 0);
 	free(cmd_path);
 	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (1);
+		exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		sig = WTERMSIG(status);
+		if (sig == SIGQUIT)
+			ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+		exit_code = 128 + sig;
+	}
+	else
+		exit_code = 1;
+
+	return (exit_code);
 }
 
 int	exec_cmd(char *cmd, char **args, t_env *env)
@@ -44,13 +57,21 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
 		return (ft_putstr_fd(cmd, 2), ft_putstr_fd(ERR_CMD_NOT_FOUND, 2), 127);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork"), free(cmd_path), 1);
 	if (pid == 0)
+	{
+		reset_signals();
 		execute_child_process(cmd_path, args, env);
+	}
 	else
+	{
 		status = wait_for_process(pid, cmd_path);
+	}
+	set_signals();
 	return (status);
 }
 

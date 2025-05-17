@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 13:22:49 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:02:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens);
 
 /* Signals */
 void	set_signals(void);
+void	reset_signals(void);
 
 /* Pipe */
 //int		execute_cmds(t_cmd *cmds, t_env *env);
