@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:15:25 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 13:48:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:23:53 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,6 @@ static bool	validate_redirect(t_tkn *token)
 	if (next->type != TOK_WORD)
 	{
 		print_token_syntax_error(next->type);
-		return (false);
-	}
-	if (next->next && (next->next->type >= TOK_REDIR_IN \
-			&& next->next->type <= TOK_HEREDOC))
-	{
-		print_token_syntax_error(next->next->type);
 		return (false);
 	}
 	return (true);

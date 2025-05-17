@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 14:17:16 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:22:49 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_cmd_list(t_cmd *cmd);
 //int		count_envp(t_env *env);
 void	expand_variable(t_shell *shell);
 bool	validate_token_syntax(t_tkn *tokens);
+bool	is_redirect(t_tkn_type type);
 char	*expand_var_value(char *value, t_shell *shell);
 //void	handle_envp_count(int *i, t_env *env);
 //void	handle_pid(int *i);

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 13:12:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:25:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	handle_commands(char *line, t_shell *shell)
 	if (!cmds)
 		return ;
 	shell->cmds = cmds;
+	handle_heredoc(cmds, shell);
 	execute_commands(cmds, shell, line);
 	restore_stdio(stdin_backup, stdout_backup);
 	ft_free_tokens(tokens);

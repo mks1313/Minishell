@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 15:36:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:29:18 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,6 @@ static int	wait_for_process(pid_t pid, char *cmd_path)
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (1);
-}
-
-char	*ft_strjoin3(char *s1, char *s2, char *s3)
-{
-	char	*tmp;
-	char	*res;
-
-	if (!s1)
-		s1 = ft_strdup("");
-	if (!s2)
-		s2 = ft_strdup("");
-	if (!s3)
-		s3 = ft_strdup("");
-	tmp = ft_strjoin(s1, s2);
-	if (!tmp)
-		return (NULL);
-	res = ft_strjoin(tmp, s3);
-	free(tmp);
-	if (!res)
-		return (NULL);
-	return (res);
 }
 
 int	exec_cmd(char *cmd, char **args, t_env *env)
@@ -84,7 +63,6 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 		handle_redirections(cmd);
 		return ;
 	}
-	handle_heredoc(cmd, shell);
 	if (!cmd->next)
 	{
 		if (handle_redirections(cmd) < 0)
