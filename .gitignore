@@ -1,0 +1,16 @@
+.github
+.gitignore
+libft.a
+Doxyfile
+obj
+minishell
+*.gch
+*.o
+*.c~
+*.h~
+*~
+.un~
+*.bak
+*.swp
+docker-compose.yml
+Dockerfile
