@@ -28,10 +28,11 @@ void	skip_delimiters(char **str)
 
 int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
+    (void)line;
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		ft_putstr_fd(RED"exit\n"RES, 1);
-		free(line);
+		//free(line);
 		ft_exit(cmd, shell);
 	}
 	if (ft_strcmp(cmd->cmd, "env") == 0)

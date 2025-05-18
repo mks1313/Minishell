@@ -21,7 +21,10 @@ static void	fill_hd_pipe(int fd, const char *delim, t_shell *sh, t_tkn_quote q)
 	{
 		line = readline("> ");
 		if (!line)
-			break ;
+        {
+			 close(fd);
+             exit(1);
+        }
 		if (ft_strcmp(line, delim) == 0)
 		{
 			free(line);

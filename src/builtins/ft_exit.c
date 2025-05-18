@@ -60,7 +60,7 @@ void	ft_exit(t_cmd *cmd, t_shell *shell)
 	if (args[1] && !is_numeric_argument(args[1]))
 	{
 		print_numeric_error(args[1]);
-		exit_shell(shell, 2);
+		exit_shell(shell, 255);
 	}
 	if (arg_count > 2)
 	{

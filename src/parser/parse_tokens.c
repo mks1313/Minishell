@@ -28,7 +28,10 @@ static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
 	char	*joined;
 
 	joined = join_token_parts((*tokens)->parts);
-	add_arg_to_cmd(cmd, joined);
+    if (joined[0] != '\0')
+    {
+        add_arg_to_cmd(cmd, joined);
+    }
 	free(joined);
 	*tokens = (*tokens)->next;
 	return (true);
