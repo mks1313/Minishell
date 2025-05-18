@@ -1,0 +1,18 @@
+<map id="s_shell" name="s_shell">
+<area shape="rect" id="Node000001" title=" " alt="" coords="142,361,243,427"/>
+<area shape="rect" id="Node000002" href="$structs__env.html" title=" " alt="" coords="5,213,71,299"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,284,146,349,143,353,69,288"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="72,240,89,243,97,256,95,264,89,269,86,265,90,261,92,256,86,248,71,245"/>
+<area shape="rect" id="Node000003" href="$structs__tkn.html" title=" " alt="" coords="164,223,221,289"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="195,289,195,345,190,345,190,289"/>
+<area shape="poly" id="edge6_Node000003_Node000003" title=" " alt="" coords="222,240,239,243,246,248,248,256,245,264,239,269,236,265,241,261,243,256,241,251,237,248,221,245"/>
+<area shape="rect" id="Node000004" href="$structs__tkn__part.html" title=" " alt="" coords="130,35,213,121"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="179,121,190,207,184,207,174,121"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="214,56,231,61,237,68,239,78,237,88,230,95,227,92,232,86,234,78,232,71,228,66,212,61"/>
+<area shape="rect" id="Node000005" href="$structs__cmd.html" title=" " alt="" coords="320,213,377,299"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="321,286,305,301,245,353,241,349,302,297,318,282"/>
+<area shape="poly" id="edge10_Node000005_Node000005" title=" " alt="" coords="378,240,395,243,402,248,404,256,401,264,395,269,392,265,397,261,399,256,397,251,393,248,377,245"/>
+<area shape="rect" id="Node000006" href="$structs__redir.html" title=" " alt="" coords="306,5,415,151"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="358,151,355,197,350,196,353,151"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="416,56,434,63,442,78,439,88,433,94,429,91,435,85,437,78,431,67,415,61"/>
+</map>

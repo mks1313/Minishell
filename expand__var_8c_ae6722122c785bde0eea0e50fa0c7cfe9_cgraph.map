@@ -1,0 +1,7 @@
+<map id="append_doll_and_char" name="append_doll_and_char">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,172,31"/>
+<area shape="rect" id="Node000002" href="$ft__strjoin_8c.html#a91e6e3e428bcc9f2291b700e1829b82b" title=" " alt="" coords="220,5,299,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,15,206,15,206,21,172,21"/>
+<area shape="rect" id="Node000003" href="$ft__strlen_8c.html#abbb8c6c4ed85d892e7f1509f65f5768a" title=" " alt="" coords="347,5,421,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="299,15,333,15,333,21,299,21"/>
+</map>

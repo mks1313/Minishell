@@ -1,0 +1,20 @@
+<map id="create_env_node" name="create_env_node">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,139,105"/>
+<area shape="rect" id="Node000002" href="$ft__strtok_8c.html#a95cdb2bdb647d7e07e0c691bf1a16090" title=" " alt="" coords="198,55,274,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,80,184,73,185,78,139,85"/>
+<area shape="rect" id="Node000006" href="$string_8c.html#a4d4d87d565e6dd1c245fd73af35f29a7" title="Duplicates the string with null verification." alt="" coords="187,104,285,129"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="139,100,174,105,173,110,139,105"/>
+<area shape="rect" id="Node000003" href="$ft__strtok_8c.html#a2bc4a9c1780edc73152473830a8eb5e8" title=" " alt="" coords="333,5,459,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="273,53,340,32,342,37,275,58"/>
+<area shape="rect" id="Node000005" href="$ft__strtok_8c.html#a93b3e796575828d1bd2bbc09db5a395e" title=" " alt="" coords="335,55,457,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="274,65,321,65,321,70,274,70"/>
+<area shape="rect" id="Node000004" href="$ft__strchr_8c.html#aa6d0c2d180f32ee585485e1a1ce3d55d" title=" " alt="" coords="511,17,585,43"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="459,20,497,23,497,29,459,26"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="448,52,497,40,498,45,449,57"/>
+<area shape="rect" id="Node000007" href="$ft__strdup_8c.html#aebe73f27c70c56ac5053f860ef5436c9" title=" " alt="" coords="357,104,435,129"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="285,114,343,114,343,119,285,119"/>
+<area shape="rect" id="Node000008" href="$ft__strlcpy_8c.html#aa053827b3a2ea3d0118783d6fb59d178" title=" " alt="" coords="507,79,589,104"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="435,108,493,98,494,103,436,113"/>
+<area shape="rect" id="Node000009" href="$ft__strlen_8c.html#abbb8c6c4ed85d892e7f1509f65f5768a" title=" " alt="" coords="511,128,585,153"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="436,120,497,130,496,135,435,125"/>
+</map>

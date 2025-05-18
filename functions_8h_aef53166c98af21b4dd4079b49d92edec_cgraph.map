@@ -1,0 +1,11 @@
+<map id="handle_redirections" name="handle_redirections">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,156,80"/>
+<area shape="rect" id="Node000002" href="$redir_8c.html#ac7b6181f69bcc7ebc93840d3a3d3a499" title=" " alt="" coords="204,55,365,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,65,190,65,190,70,156,70"/>
+<area shape="rect" id="Node000003" href="$redir_8c.html#ab23f392e5d346a7e376761cc71885e90" title=" " alt="" coords="413,5,544,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,52,414,32,415,37,336,57"/>
+<area shape="rect" id="Node000004" href="$redir_8c.html#a80001dc5fd55be00087ac52b8659785f" title=" " alt="" coords="423,55,535,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="365,65,409,65,409,70,365,70"/>
+<area shape="rect" id="Node000005" href="$redir_8c.html#ac56cff9c451ea6114ba6157532a9ae0a" title=" " alt="" coords="418,104,539,129"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="336,77,415,98,414,103,335,83"/>
+</map>

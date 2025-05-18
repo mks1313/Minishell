@@ -1,0 +1,10 @@
+<map id="ft_strtok" name="ft_strtok">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,81,56"/>
+<area shape="rect" id="Node000002" href="$ft__strtok_8c.html#a2bc4a9c1780edc73152473830a8eb5e8" title=" " alt="" coords="129,5,255,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,34,115,28,116,34,82,40"/>
+<area shape="rect" id="Node000004" href="$ft__strtok_8c.html#a93b3e796575828d1bd2bbc09db5a395e" title=" " alt="" coords="131,55,253,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="82,47,118,53,117,58,81,52"/>
+<area shape="rect" id="Node000003" href="$ft__strchr_8c.html#aa6d0c2d180f32ee585485e1a1ce3d55d" title=" " alt="" coords="303,31,377,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,26,290,32,289,37,255,31"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="253,55,289,49,289,54,254,60"/>
+</map>

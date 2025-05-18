@@ -1,0 +1,9 @@
+<map id="handle_pipe" name="handle_pipe">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,107,56"/>
+<area shape="rect" id="Node000002" href="$parser__utils_8c.html#ae27324e84735b4d496d490d4798e6160" title=" " alt="" coords="155,5,283,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,33,141,27,142,33,107,38"/>
+<area shape="rect" id="Node000003" href="$ft__putstr__fd_8c.html#acefce9ac519f8f8b7d3fde33dbafe469" title=" " alt="" coords="171,55,267,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,48,157,56,156,61,107,53"/>
+<area shape="rect" id="Node000004" href="$ft__strlen_8c.html#abbb8c6c4ed85d892e7f1509f65f5768a" title=" " alt="" coords="331,55,405,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="267,65,317,65,317,70,267,70"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="create_part" name="create_part">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,101,31"/>
+<area shape="rect" id="Node000002" href="$ft__calloc_8c.html#a55cb9602200ccf92a7f43e58c6ee2679" title=" " alt="" coords="149,5,225,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,15,136,15,136,21,101,21"/>
+<area shape="rect" id="Node000003" href="$ft__bzero_8c.html#a5937ab0d08e31d0e3e4a16ec71e293a1" title=" " alt="" coords="273,5,348,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="226,15,260,15,260,21,226,21"/>
+</map>

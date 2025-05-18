@@ -1,0 +1,11 @@
+<map id="exit_shell" name="exit_shell">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,91,80"/>
+<area shape="rect" id="Node000002" href="$memory__management_8c.html#a89a8f7a601b6895b1d84837d2c1d21c6" title=" " alt="" coords="141,5,251,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,52,143,33,145,38,88,57"/>
+<area shape="rect" id="Node000004" href="$memory__management_8c.html#a9062b9b7e34cb35cb4b78c5251b020b0" title=" " alt="" coords="143,55,249,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="91,65,129,65,129,70,91,70"/>
+<area shape="rect" id="Node000005" href="$memory__management_8c.html#ae1790c44db7f227374b140ed9d7b7730" title=" " alt="" coords="139,104,253,129"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="88,78,145,97,143,102,86,83"/>
+<area shape="rect" id="Node000003" href="$memory__management_8c.html#afb7433367eccf4abe4dfca022e72d78b" title=" " alt="" coords="301,5,433,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="252,15,288,15,288,21,252,21"/>
+</map>

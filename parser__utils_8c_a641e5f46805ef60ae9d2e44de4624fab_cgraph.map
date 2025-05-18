@@ -1,0 +1,13 @@
+<map id="init_cmd_args" name="init_cmd_args">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,119,56"/>
+<area shape="rect" id="Node000002" href="$ft__calloc_8c.html#a55cb9602200ccf92a7f43e58c6ee2679" title=" " alt="" coords="168,5,244,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,31,154,24,155,30,119,36"/>
+<area shape="rect" id="Node000004" href="$ft__strdup_8c.html#aebe73f27c70c56ac5053f860ef5436c9" title=" " alt="" coords="167,55,245,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="119,50,154,56,153,61,118,55"/>
+<area shape="rect" id="Node000003" href="$ft__bzero_8c.html#a5937ab0d08e31d0e3e4a16ec71e293a1" title=" " alt="" coords="297,5,372,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="244,15,284,15,284,21,244,21"/>
+<area shape="rect" id="Node000005" href="$ft__strlcpy_8c.html#aa053827b3a2ea3d0118783d6fb59d178" title=" " alt="" coords="293,55,376,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="245,65,279,65,279,70,245,70"/>
+<area shape="rect" id="Node000006" href="$ft__strlen_8c.html#abbb8c6c4ed85d892e7f1509f65f5768a" title=" " alt="" coords="297,104,372,129"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="241,78,289,96,287,101,239,83"/>
+</map>

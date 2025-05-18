@@ -1,0 +1,7 @@
+<map id="wait_for_process" name="wait_for_process">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,137,31"/>
+<area shape="rect" id="Node000002" href="$ft__putstr__fd_8c.html#acefce9ac519f8f8b7d3fde33dbafe469" title=" " alt="" coords="185,5,281,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,15,172,15,172,21,137,21"/>
+<area shape="rect" id="Node000003" href="$ft__strlen_8c.html#abbb8c6c4ed85d892e7f1509f65f5768a" title=" " alt="" coords="329,5,404,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="281,15,315,15,315,21,281,21"/>
+</map>

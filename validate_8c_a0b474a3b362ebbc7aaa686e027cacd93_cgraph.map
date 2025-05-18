@@ -1,0 +1,11 @@
+<map id="validate_syntax" name="validate_syntax">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,132,56"/>
+<area shape="rect" id="Node000002" href="$ft__putstr__fd_8c.html#acefce9ac519f8f8b7d3fde33dbafe469" title=" " alt="" coords="191,5,287,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,31,177,24,177,30,133,37"/>
+<area shape="rect" id="Node000004" href="$validate_8c.html#aa9f62ee513fee760a36ee24c1cfb85bf" title=" " alt="" coords="180,55,297,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="133,50,167,55,166,60,132,55"/>
+<area shape="rect" id="Node000003" href="$ft__strlen_8c.html#abbb8c6c4ed85d892e7f1509f65f5768a" title=" " alt="" coords="407,5,482,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="287,15,394,15,394,21,287,21"/>
+<area shape="rect" id="Node000005" href="$validate_8c.html#ae0c0751642bc60f1d22c3724eb918abf" title=" " alt="" coords="345,55,544,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="298,65,331,65,331,70,298,70"/>
+</map>
