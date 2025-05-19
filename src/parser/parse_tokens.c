@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:01:28 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 14:13:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:49:20 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
 	return (true);
 }
 
-static bool	token_into_cmd(t_tkn **tokens, t_cmd **curr_cmd, t_cmd **cmd_list)
+static bool	tkn_t_cmd(t_tkn **tkns, t_cmd **c_cmd, t_cmd **cmd_lst, t_shell *sh)
 {
-	start_new_cmd_if_needed(curr_cmd);
-	if ((*tokens)->type == TOK_PIPE)
-		return (handle_pipe(cmd_list, curr_cmd, tokens));
-	if (is_redirect((*tokens)->type))
-		return (handle_redirect_wrapper(*curr_cmd, tokens));
-	return (handle_word(*curr_cmd, tokens));
+	start_new_cmd_if_needed(c_cmd);
+	if ((*tkns)->type == TOK_PIPE)
+		return (handl_pipe(cmd_lst, c_cmd, tkns, sh));
+	if (is_redirect((*tkns)->type))
+		return (handle_redirect_wrapper(*c_cmd, tkns, sh));
+	return (handle_word(*c_cmd, tkns));
 }
 
 t_cmd	*parse_tokens(t_tkn *tokens, t_shell *shell)
@@ -59,7 +59,7 @@ t_cmd	*parse_tokens(t_tkn *tokens, t_shell *shell)
 	current_cmd = NULL;
 	while (tokens)
 	{
-		if (!token_into_cmd(&tokens, &current_cmd, &cmd_list))
+		if (!tkn_t_cmd(&tokens, &current_cmd, &cmd_list, shell))
 		{
 			shell->exit_status = 2;
 			free_cmd_list(current_cmd);

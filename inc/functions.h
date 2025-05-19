@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 15:12:22 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:17:33 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int		init_shell(t_shell **shell);
 t_cmd	*create_cmd(void);
 
 /* Tokens */
-t_tkn	*tokenize_input(char *line);
-t_tkn	*read_operator(char **str);
-t_tkn	*read_token(char **str);
+t_tkn	*tokenize_input(char *line, t_shell *shell);
+t_tkn	*read_operator(char **stri, t_shell *shell);
+t_tkn	*read_token(char **stri, t_shell *shell);
 
 /* Parser */
 void	expand_variable(t_shell *shell);
@@ -36,11 +36,11 @@ void	handle_redirect(t_redir **redir_list, t_tkn **tkn);
 char	*handle_env_variable(char *value, int *i, t_env *env);
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell);
 char	*append_doll_and_char(char *expanded, char next_char);
-int		validate_syntax(t_cmd *cmd_list);
+int		validate_syntax(t_cmd *cmd_list, t_shell *shell);
 void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd);
 char	*join_token_parts(t_tkn_part *parts);
-bool	handle_pipe(t_cmd **cmd_list, t_cmd **current_cmd, t_tkn **tokens);
-bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens);
+bool	handl_pipe(t_cmd **cmd_lst, t_cmd **cur_cmd, t_tkn **tkns, t_shell *sh);
+bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens, t_shell *shell);
 
 /* Signals */
 void	set_signals(void);
