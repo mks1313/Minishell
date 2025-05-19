@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/13 13:38:34 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:05:05 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@ void	error_exit(const char *msg, int exit_code)
 	exit(exit_code);
 }
 
+bool	syntax_error(t_shell *shell, const char *msg, t_tkn_type type)
+{
+	if (msg)
+		ft_putstr_fd(msg, STDERR_FILENO);
+	else
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token ", \
+			STDERR_FILENO);
+		ft_putstr_fd(get_token_name(type), STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+	}
+	shell->exit_status = 2;
+	return (false);
+}
+
 void	skip_delimiters(char **str)
 {
 	while (**str && ft_strchr(" \t\r\n", **str))
@@ -28,10 +43,10 @@ void	skip_delimiters(char **str)
 
 int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
+	(void)line;
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		ft_putstr_fd(RED"exit\n"RES, 1);
-		free(line);
 		ft_exit(cmd, shell);
 	}
 	if (ft_strcmp(cmd->cmd, "env") == 0)

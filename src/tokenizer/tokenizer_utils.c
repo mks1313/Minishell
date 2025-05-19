@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:23 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 14:23:20 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:18:14 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ static bool	set_operator_type(char **str, t_tkn *token)
 	return (set_redir_pipe(str, token));
 }
 
-t_tkn	*read_operator(char **str)
+t_tkn	*read_operator(char **str, t_shell *shell)
 {
 	t_tkn	*token;
 
 	if (is_invalid_operator(*str))
 	{
-		ft_putstr_fd(SYN_ERR_REDIRECT, STDERR_FILENO);
+		syntax_error(shell, SYN_ERR_REDIRECT, 0);
 		return (NULL);
 	}
 	token = ft_calloc(1, sizeof(t_tkn));

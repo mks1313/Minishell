@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/14 13:25:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 12:56:21 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	process_input_line(char **line_ptr, t_shell *shell, int inter)
 	if (*line && inter)
 		add_history(line);
 	handle_commands(line, shell);
+	g_exit_status = shell->exit_status;
 	return (SHELL_CONTINUE);
 }
 

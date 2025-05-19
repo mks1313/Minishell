@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 16:10:08 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:52:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	wait_for_process(pid_t pid, char *cmd_path)
 	}
 	else
 		exit_code = 1;
-
 	return (exit_code);
 }
 
@@ -54,6 +53,7 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	pid_t	pid;
 	int		status;
 
+	status = 0;
 	cmd_path = find_command_path(cmd, env);
 	if (!cmd_path)
 		return (ft_putstr_fd(cmd, 2), ft_putstr_fd(ERR_CMD_NOT_FOUND, 2), 127);

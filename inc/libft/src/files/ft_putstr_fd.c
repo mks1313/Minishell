@@ -6,14 +6,14 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:30:33 by mmarinov          #+#    #+#             */
-/*   Updated: 2024/07/10 18:25:23 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:41:48 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(const char *s, int fd)
 {
 	if (s)
 	{

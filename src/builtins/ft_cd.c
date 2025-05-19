@@ -6,28 +6,49 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 14:17:03 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:27:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
 // Update value of var in env
-static void	update_env_variable(t_env *env, char *key, char *value)
+static void	append_new_env_node(t_env **env, t_env *new)
 {
-	t_env	*copy;
+	t_env	*curr;
 
-	copy = env;
-	while (copy != NULL)
+	if (!*env)
+		*env = new;
+	else
 	{
-		if (ft_strcmp(copy->key, key) == 0)
+		curr = *env;
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new;
+	}
+}
+
+static void	update_env_variable(t_env **env, const char *key, const char *value)
+{
+	t_env	*curr;
+	t_env	*new;
+
+	if (!env || !key || !value)
+		return ;
+	curr = *env;
+	while (curr)
+	{
+		if (ft_strcmp(curr->key, key) == 0)
 		{
-			if (copy->value != NULL)
-				free(copy->value);
-			copy->value = ft_strdup(value);
+			free(curr->value);
+			curr->value = ft_strdup(value);
 			return ;
 		}
-		copy = copy->next;
+		curr = curr->next;
 	}
+	new = create_env_kv(key, value);
+	if (!new)
+		return ;
+	append_new_env_node(env, new);
 }
 
 // Update vars OLDPWD y PWD in ENV
@@ -42,18 +63,15 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 	new_pwd_dup = ft_strdup(new_path);
 	if (!new_pwd_dup)
 	{
-		free(old_pwd_dup);
+		if (old_pwd_dup)
+			free(old_pwd_dup);
 		return ;
 	}
-	update_env_variable(env, "OLDPWD", old_pwd_dup);
-	update_env_variable(env, "PWD", new_pwd_dup);
+	if (old_pwd_dup)
+		update_env_variable(&env, "OLDPWD", old_pwd_dup);
+	update_env_variable(&env, "PWD", new_pwd_dup);
 	free(old_pwd_dup);
 	free(new_pwd_dup);
-}
-
-void	change_environment_pwd(t_env *env, char *new_path)
-{
-	update_pwd_variables(env, ft_getenv("PWD", env), new_path);
 }
 
 static int	cd_to_home(t_shell *shell)
@@ -70,7 +88,7 @@ static int	cd_to_home(t_shell *shell)
 	if (!getcwd(cwd, sizeof(cwd)))
 		ft_putstr_fd(ERR_CD_RETRIEVE, STDERR_FILENO);
 	else
-		change_environment_pwd(shell->env, home);
+		update_pwd_variables(shell->env, ft_getenv("PWD", shell->env), cwd);
 	shell->exit_status = 0;
 	return (0);
 }
@@ -92,7 +110,7 @@ int	ft_cd(t_cmd *cmd, t_shell *shell)
 	if (!getcwd(cwd, sizeof(cwd)))
 		ft_putstr_fd(ERR_CD_RETRIEVE, STDERR_FILENO);
 	else
-		change_environment_pwd(shell->env, target_dir);
+		update_pwd_variables(shell->env, ft_getenv("PWD", shell->env), cwd);
 	shell->exit_status = 0;
 	return (0);
 }
