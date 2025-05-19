@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:18:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/07 13:24:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:04:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,9 @@ void	update_or_append_env(t_env **env, const char *key, const char *value)
 	}
 	else
 	{
-		new = malloc(sizeof(t_env));
+		new = create_env_kv(key, value);
 		if (!new)
 			error_exit("MALLOC FAILED!", 1);
-		new->key = ft_strdup(key);
-		if (value)
-			new->value = ft_strdup(value);
-		else
-			new->value = NULL;
 		new->next = *env;
 		*env = new;
 	}

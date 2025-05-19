@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:12:10 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 16:29:14 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:08:42 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	fill_hd_pipe(int fd, const char *delim, t_shell *sh, t_tkn_quote q)
 	{
 		line = readline("> ");
 		if (!line)
-        {
-			 close(fd);
-             exit(1);
-        }
+		{
+			close(fd);
+			exit(1);
+		}
 		if (ft_strcmp(line, delim) == 0)
 		{
 			free(line);
@@ -43,6 +43,7 @@ static void	fill_hd_pipe(int fd, const char *delim, t_shell *sh, t_tkn_quote q)
 	}
 	close(fd);
 }
+
 static void	create_heredoc_pipe(t_redir *redir, t_shell *shell)
 {
 	int		pipefd[2];
@@ -78,13 +79,9 @@ static void	create_heredoc_pipe(t_redir *redir, t_shell *shell)
 		redir->fd = -1;
 	}
 	else if (WIFEXITED(status))
-	{
 		redir->fd = dup(pipefd[0]);
-	}
 	else
-	{
 		redir->fd = -1;
-	}
 	close(pipefd[0]);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:37:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/06 17:19:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:57:35 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,24 @@
  * 
  * Return: Nodo creado o NULL en caso de error
  */
-t_env	*create_env_node(char *env_str)
+t_env	*create_env_kv(const char *key, const char *value)
 {
-	t_env	*new_node;
+	t_env *new_node;
 
+	if (!key || !value)
+		return (NULL);
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->key = safe_strdup(ft_strtok(env_str, "="));
-	if (!new_node->key || new_node->key[0] == '\0')
-		return (free(new_node), NULL);
-	new_node->value = safe_strdup(ft_strtok(NULL, "="));
-	if (!new_node->value)
-		return (free(new_node->key), free(new_node), NULL);
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
+	if (!new_node->key || !new_node->value)
+	{
+		free(new_node->key);
+		free(new_node->value);
+		free(new_node);
+		return (NULL);
+	}
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -78,17 +83,21 @@ int	ft_env(t_env *env_list)
  */
 int	setup_environment(t_shell *shell, char **envp)
 {
-	t_env	*env_list;
-	int		i;
+	t_env	*env_list = NULL;
 	t_env	*new_node;
+	char	*key;
+	char	*value;
+	int		i = 0;
 
 	if (!shell || !envp)
 		return (1);
-	env_list = NULL;
-	i = 0;
 	while (envp[i])
 	{
-		new_node = create_env_node(envp[i]);
+		key = ft_strtok(envp[i], "=");
+		value = ft_strtok(NULL, "=");
+		if (!key || !value)
+			return (free_env_list(env_list), 1);
+		new_node = create_env_kv(key, value);
 		if (!new_node)
 			return (free_env_list(env_list), 1);
 		add_env_node(&env_list, new_node);

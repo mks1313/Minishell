@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/13 13:38:34 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:05:18 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ void	skip_delimiters(char **str)
 
 int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-    (void)line;
+	(void)line;
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		ft_putstr_fd(RED"exit\n"RES, 1);
-		//free(line);
 		ft_exit(cmd, shell);
 	}
 	if (ft_strcmp(cmd->cmd, "env") == 0)

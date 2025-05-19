@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 14:17:03 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:58:38 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -30,13 +30,9 @@ static void	update_env_variable(t_env **env, const char *key, const char *value)
 		}
 		curr = curr->next;
 	}
-	new = malloc(sizeof(t_env));
+	new = create_env_kv(key, value);
 	if (!new)
 		return ;
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	new->next = NULL;
-
 	if (!*env)
 		*env = new;
 	else
@@ -60,20 +56,15 @@ static void	update_pwd_variables(t_env *env, char *old_pwd_val, char *new_path)
 	new_pwd_dup = ft_strdup(new_path);
 	if (!new_pwd_dup)
 	{
-        if (old_pwd_dup)
-		    free(old_pwd_dup);
+		if (old_pwd_dup)
+			free(old_pwd_dup);
 		return ;
 	}
-    if (old_pwd_dup)
-	    update_env_variable(&env, "OLDPWD", old_pwd_dup);
+	if (old_pwd_dup)
+		update_env_variable(&env, "OLDPWD", old_pwd_dup);
 	update_env_variable(&env, "PWD", new_pwd_dup);
 	free(old_pwd_dup);
 	free(new_pwd_dup);
-}
-
-void	change_environment_pwd(t_env *env, char *new_path)
-{
-	update_pwd_variables(env, ft_getenv("PWD", env), new_path);
 }
 
 static int	cd_to_home(t_shell *shell)
@@ -90,7 +81,7 @@ static int	cd_to_home(t_shell *shell)
 	if (!getcwd(cwd, sizeof(cwd)))
 		ft_putstr_fd(ERR_CD_RETRIEVE, STDERR_FILENO);
 	else
-		change_environment_pwd(shell->env, cwd);
+		update_pwd_variables(shell->env, ft_getenv("PWD", shell->env), cwd);
 	shell->exit_status = 0;
 	return (0);
 }
@@ -112,7 +103,7 @@ int	ft_cd(t_cmd *cmd, t_shell *shell)
 	if (!getcwd(cwd, sizeof(cwd)))
 		ft_putstr_fd(ERR_CD_RETRIEVE, STDERR_FILENO);
 	else
-		change_environment_pwd(shell->env, cwd);
+		update_pwd_variables(shell->env, ft_getenv("PWD", shell->env), cwd);
 	shell->exit_status = 0;
 	return (0);
 }

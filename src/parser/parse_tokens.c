@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:01:28 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 13:22:17 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:02:53 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
 	char	*joined;
 
 	joined = join_token_parts((*tokens)->parts);
-    if (joined[0] != '\0')
-    {
-        add_arg_to_cmd(cmd, joined);
-    }
+	if (joined[0] != '\0')
+	{
+		add_arg_to_cmd(cmd, joined);
+	}
 	free(joined);
 	*tokens = (*tokens)->next;
 	return (true);
