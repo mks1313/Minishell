@@ -6,7 +6,7 @@
 /*   By: mmarinov <mmarinov@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:11:11 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/04/24 15:57:29 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:42:52 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*ft_strndup(const char *s, size_t n);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
-void	ft_putstr_fd(char *c, int fd);
+void	ft_putstr_fd(const char *c, int fd);
 // List's
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:01:28 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 10:02:53 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:13:25 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ static bool	handle_word(t_cmd *cmd, t_tkn **tokens)
 	char	*joined;
 
 	joined = join_token_parts((*tokens)->parts);
-	if (joined[0] != '\0')
+	if (joined[0] == '\0' && cmd->args == NULL && cmd->redirs == NULL)
 	{
-		add_arg_to_cmd(cmd, joined);
+		free(joined);
+		*tokens = (*tokens)->next;
+		return (true);
 	}
+	add_arg_to_cmd(cmd, joined);
 	free(joined);
 	*tokens = (*tokens)->next;
 	return (true);
@@ -47,7 +50,7 @@ static bool	token_into_cmd(t_tkn **tokens, t_cmd **curr_cmd, t_cmd **cmd_list)
 	return (handle_word(*curr_cmd, tokens));
 }
 
-t_cmd	*parse_tokens(t_tkn *tokens)
+t_cmd	*parse_tokens(t_tkn *tokens, t_shell *shell)
 {
 	t_cmd	*cmd_list;
 	t_cmd	*current_cmd;
@@ -58,6 +61,7 @@ t_cmd	*parse_tokens(t_tkn *tokens)
 	{
 		if (!token_into_cmd(&tokens, &current_cmd, &cmd_list))
 		{
+			shell->exit_status = 2;
 			free_cmd_list(current_cmd);
 			free_cmd_list(cmd_list);
 			return (NULL);

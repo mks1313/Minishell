@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 16:09:07 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:18:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void	wait_for_all(pid_t *pids, int n, t_shell *shell)
 	pid_t	pid;
 	int		i;
 	pid_t	last_pid;
+	int		sig;
 
 	last_pid = pids[n - 1];
 	i = 0;
@@ -98,7 +99,7 @@ static void	wait_for_all(pid_t *pids, int n, t_shell *shell)
 				shell->exit_status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
 			{
-				int sig = WTERMSIG(status);
+				sig = WTERMSIG(status);
 				if (sig == SIGQUIT)
 					ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
 				shell->exit_status = 128 + sig;

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:37:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 10:57:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:17:26 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  */
 t_env	*create_env_kv(const char *key, const char *value)
 {
-	t_env *new_node;
+	t_env	*new_node;
 
 	if (!key || !value)
 		return (NULL);
@@ -83,12 +83,14 @@ int	ft_env(t_env *env_list)
  */
 int	setup_environment(t_shell *shell, char **envp)
 {
-	t_env	*env_list = NULL;
+	t_env	*env_list;
 	t_env	*new_node;
 	char	*key;
 	char	*value;
-	int		i = 0;
+	int		i;
 
+	env_list = NULL;
+	i = 0;
 	if (!shell || !envp)
 		return (1);
 	while (envp[i])

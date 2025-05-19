@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 11:20:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:12:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ t_tkn	*read_token(char **str);
 
 /* Parser */
 void	expand_variable(t_shell *shell);
-bool	validate_token_syntax(t_tkn *tokens);
+bool	validate_token_syntax(t_tkn *tokens, t_shell *shell);
 bool	is_redirect(t_tkn_type type);
+t_cmd	*parse_tokens(t_tkn *tokens, t_shell *shell);
 char	*expand_var_value(char *value, t_shell *shell);
 char	**append_arg(char **args, char *arg);
 void	add_arg_to_cmd(t_cmd *cmd, char *arg);
@@ -52,7 +53,6 @@ int		handle_redirections(t_cmd *cmd);
 
 /* Commands */
 void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
-t_cmd	*parse_tokens(t_tkn *tokens);
 int		ft_echo(t_cmd *cmd);
 int		setup_environment(t_shell *shell, char **envp);
 int		ft_env(t_env *env_list);
@@ -78,6 +78,8 @@ int		exec_cmd(char *cmd, char **args, t_env *env);
 void	clean_array(char **array);
 int		is_builtin_command(char *cmd);
 void	error_exit(const char *msg, int exit_code);
+char	*get_token_name(t_tkn_type type);
+bool	syntax_error(t_shell *shell, const char *msg, t_tkn_type type);
 void	free_data(t_shell *shell);
 void	ft_free_tokens(t_tkn *tokens);
 void	ft_free_parts(t_tkn_part *parts);
