@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:38:25 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:45:38 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	handle_heredoc(t_cmd *cmd, t_shell *shell);
 void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell);
 int		handle_redirections(t_cmd *cmd);
 void	wait_for_all(pid_t *pids, int n, t_shell *shell);
-void→   close_pip_and_wait(int *pipefd, t_redir *redir, t_shell *sh, pid_t pid);
+void	close_pip_and_wait(int *pipefd, t_redir *redir, t_shell *sh, pid_t pid);
 
 /* Commands */
 void	execute_commands(t_cmd *cmds, t_shell *shell, char *line);
