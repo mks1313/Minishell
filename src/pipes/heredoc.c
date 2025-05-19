@@ -6,16 +6,32 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:12:10 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 10:08:42 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:38:17 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+#include "minishell.h"
+
+static void	write_line_to_pipe(char *line, int fd, t_tkn_quote q, t_shell *sh)
+{
+	char	*expanded;
+
+	if (q == Q_NONE || q == Q_DOUBLE || q == Q_MIX)
+	{
+		expanded = expand_var_value(line, sh);
+		write(fd, expanded, ft_strlen(expanded));
+		free(expanded);
+	}
+	else
+		write(fd, line, ft_strlen(line));
+	write(fd, "\n", 1);
+}
+
 static void	fill_hd_pipe(int fd, const char *delim, t_shell *sh, t_tkn_quote q)
 {
 	char	*line;
-	char	*expanded;
 
 	while (1)
 	{
@@ -30,31 +46,37 @@ static void	fill_hd_pipe(int fd, const char *delim, t_shell *sh, t_tkn_quote q)
 			free(line);
 			break ;
 		}
-		if (q == Q_NONE || q == Q_DOUBLE || q == Q_MIX)
-		{
-			expanded = expand_var_value(line, sh);
-			write(fd, expanded, ft_strlen(expanded));
-			free(expanded);
-		}
-		else
-			write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
+		write_line_to_pipe(line, fd, q, sh);
 		free(line);
 	}
 	close(fd);
 }
 
-static void	create_heredoc_pipe(t_redir *redir, t_shell *shell)
+void	close_pip_and_wait(int *pipefd, t_redir *redir, t_shell *sh, pid_t pid)
+{
+	int	status;
+
+	close(pipefd[1]);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	{
+		sh->exit_status = 130;
+		redir->fd = -1;
+	}
+	else if (WIFEXITED(status))
+		redir->fd = dup(pipefd[0]);
+	else
+		redir->fd = -1;
+	close(pipefd[0]);
+}
+
+static void	create_heredoc_pipe(t_redir *redir, t_shell *sh)
 {
 	int		pipefd[2];
 	pid_t	pid;
-	int		status;
 
 	if (pipe(pipefd) == -1)
-	{
-		perror("pipe");
-		return ;
-	}
+		return (perror("pipe"));
 	pid = fork();
 	if (pid == -1)
 	{
@@ -68,24 +90,13 @@ static void	create_heredoc_pipe(t_redir *redir, t_shell *shell)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 		close(pipefd[0]);
-		fill_hd_pipe(pipefd[1], redir->delimiter, shell, redir->delim_quote);
+		fill_hd_pipe(pipefd[1], redir->delimiter, sh, redir->delim_quote);
 		exit(EXIT_SUCCESS);
 	}
-	close(pipefd[1]);
-	waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-	{
-		shell->exit_status = 130;
-		redir->fd = -1;
-	}
-	else if (WIFEXITED(status))
-		redir->fd = dup(pipefd[0]);
-	else
-		redir->fd = -1;
-	close(pipefd[0]);
+	close_pip_and_wait(pipefd, redir, sh, pid);
 }
 
-void	handle_heredoc(t_cmd *cmd, t_shell *shell)
+void	handle_heredoc(t_cmd *cmd, t_shell *sh)
 {
 	t_redir	*redir;
 
@@ -95,7 +106,7 @@ void	handle_heredoc(t_cmd *cmd, t_shell *shell)
 		while (redir)
 		{
 			if (redir->type == REDIR_HEREDOC)
-				create_heredoc_pipe(redir, shell);
+				create_heredoc_pipe(redir, sh);
 			if (redir->fd == -1)
 				return ;
 			redir = redir->next;

@@ -6,12 +6,27 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 10:58:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:27:43 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
 // Update value of var in env
+static void	append_new_env_node(t_env **env, t_env *new)
+{
+	t_env	*curr;
+
+	if (!*env)
+		*env = new;
+	else
+	{
+		curr = *env;
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new;
+	}
+}
+
 static void	update_env_variable(t_env **env, const char *key, const char *value)
 {
 	t_env	*curr;
@@ -33,15 +48,7 @@ static void	update_env_variable(t_env **env, const char *key, const char *value)
 	new = create_env_kv(key, value);
 	if (!new)
 		return ;
-	if (!*env)
-		*env = new;
-	else
-	{
-		curr = *env;
-		while (curr->next)
-			curr = curr->next;
-		curr->next = new;
-	}
+	append_new_env_node(env, new);
 }
 
 // Update vars OLDPWD y PWD in ENV

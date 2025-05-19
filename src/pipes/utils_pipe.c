@@ -6,73 +6,43 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:12 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 12:38:26 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:33:36 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-void	free_pipe_data(t_pipe *pdata)
-{
-	if (pdata->pids)
-		free(pdata->pids);
-	pdata->pids = NULL;
-}
 
-int	count_cmds(t_cmd *cmd)
+static void	update_exit_status(int status, t_shell *shell)
 {
-	int	count;
+	int	sig;
 
-	count = 0;
-	while (cmd)
+	if (WIFEXITED(status))
+		shell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
 	{
-		count++;
-		cmd = cmd->next;
+		sig = WTERMSIG(status);
+		if (sig == SIGQUIT)
+			ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+		shell->exit_status = 128 + sig;
 	}
-	return (count);
+	else
+		shell->exit_status = 1;
 }
 
-void	init_pipe_data(t_pipe *pdata, t_cmd *cmds)
+void	wait_for_all(pid_t *pids, int n, t_shell *shell)
 {
-	int	count;
+	int		status;
+	pid_t	pid;
+	int		i;
+	pid_t	last_pid;
 
-	count = 0;
-	while (cmds)
-	{
-		count++;
-		cmds = cmds->next;
-	}
-	pdata->n_cmds = count;
-	pdata->pids = malloc(sizeof(pid_t) * count);
-	if (!pdata->pids)
-	{
-		perror("malloc!!!");
-		exit(1);
-	}
-	pdata->prev_fd = -1;
-}
-
-void	close_unused_fds(t_pipe *pdata)
-{
-	close(pdata->fd[0]);
-	pdata->fd[0] = pdata->fd[1];
-}
-
-int	wait_all(t_pipe *pdata)
-{
-	int	i;
-	int	status;
-	int	last_status;
-
-	last_status = 0;
+	last_pid = pids[n - 1];
 	i = 0;
-	while (i < pdata->n_cmds)
+	while (i < n)
 	{
-		status = 0;
-		waitpid(pdata->pids[i], &status, 0);
-		if (WIFEXITED(status))
-			last_status = WEXITSTATUS(status);
+		pid = waitpid(-1, &status, 0);
+		if (pid == last_pid)
+			update_exit_status(status, shell);
 		i++;
 	}
-	return (last_status);
-}*/
+}

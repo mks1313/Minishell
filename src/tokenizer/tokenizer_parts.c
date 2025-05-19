@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:06:24 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:11:45 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:24:30 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_tkn	*read_token(char **str, t_shell *shell)
 	t_tkn_part	*part;
 	t_tkn		*token;
 
-	parts =  NULL;
+	parts = NULL;
 	token = ft_calloc(1, sizeof(t_tkn));
 	if (!token)
 		return (NULL);

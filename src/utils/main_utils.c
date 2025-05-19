@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:14:51 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:23:57 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static	t_tkn	*prepare_tokens(char *line, t_shell *shell)
 		return (NULL);
 	if (!validate_token_syntax(tokens, shell))
 	{
-		shell->exit_status = 2;
 		ft_free_tokens(tokens);
 		shell->tkns = NULL;
 		return (NULL);
@@ -45,7 +44,7 @@ static t_cmd	*check_and_parse(t_tkn *tokens, t_shell *shell)
 	if (!validate_syntax(cmds, shell))
 	{
 		ft_free_tokens(tokens);
-		//free_cmd_list(cmds);
+		free_cmd_list(cmds);
 		shell->tkns = NULL;
 		return (NULL);
 	}
