@@ -89,6 +89,7 @@ int		clean_exit(t_shell *shell, int status);
 void	free_redirect_list(t_redir *redir);
 void	free_env_list(t_env *env);
 void	free_cmd_list(t_cmd *cmd);
+int	is_directory(const char *path);
 
 /* Execute */
 char	*find_command_path(char *cmd, t_env *env);

@@ -12,17 +12,18 @@
 
 #include "minishell.h"
 
-static int	execute_child_process(char *cmd_path, char **args, t_env *env)
+int	is_directory(const char *path)
 {
-	char	**envp;
+	struct stat	info;
 
-	reset_signals();
-	envp = env_to_array(env);
-	if (execve(cmd_path, args, envp) == -1)
-		perror(cmd_path);
-	clean_array(envp);
-	free(cmd_path);
-	exit(EXIT_FAILURE);
+	if (stat(path, &info) != 0)
+	{
+		perror("stat failed");
+		return (-1);
+	}
+	if (S_ISDIR(info.st_mode))
+		return (1);
+	return (0);
 }
 
 static int	wait_for_process(pid_t pid, char *cmd_path)
@@ -47,19 +48,50 @@ static int	wait_for_process(pid_t pid, char *cmd_path)
 	return (exit_code);
 }
 
+static int	execute_child_process(char *cmd_path, char **args, t_env *env)
+{
+	char	**envp;
+
+	reset_signals();
+	envp = env_to_array(env);
+	if (execve(cmd_path, args, envp) == -1)
+		perror(cmd_path);
+	clean_array(envp);
+	free(cmd_path);
+	exit(EXIT_FAILURE);
+}
+
 int	exec_cmd(char *cmd, char **args, t_env *env)
 {
-	char	*cmd_path;
-	pid_t	pid;
-	int		status;
+    char	*cmd_path;
+    pid_t	pid;
+    int		status;
 
-	status = 0;
-	cmd_path = find_command_path(cmd, env);
-	if (!cmd_path)
-		return (ft_putstr_fd(cmd, 2), ft_putstr_fd(ERR_CMD_NOT_FOUND, 2), 127);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	pid = fork();
+    status = 0;
+    if (ft_strchr(cmd, '/'))
+        cmd_path = ft_strdup(cmd);
+    else
+        cmd_path = find_command_path(cmd, env);
+    if (!cmd_path)
+        return (ft_putstr_fd(cmd, 2), ft_putstr_fd(ERR_CMD_NOT_FOUND, 2), 127);
+    int res = is_directory(cmd_path);
+    if (res == 1)
+    {
+        ft_putstr_fd("minishell: ", STDERR_FILENO);
+        ft_putstr_fd(cmd_path, STDERR_FILENO);
+        ft_putendl_fd(": is a directory", STDERR_FILENO);
+        free(cmd_path);
+        return (126);
+    }
+    else if (res == -1)
+    {
+        perror("minishell");
+        free(cmd_path);
+        return (127);
+    }
+    signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
+    pid = fork();
 	if (pid < 0)
 		return (perror("fork"), free(cmd_path), 1);
 	if (pid == 0)
