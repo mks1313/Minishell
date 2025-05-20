@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:39:58 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 15:32:40 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:36:53 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,22 @@ bool	handle_redirect_wrapper(t_cmd *cmd, t_tkn **tokens, t_shell *shell)
 	*tokens = (*tokens)->next;
 	*tokens = (*tokens)->next;
 	return (true);
+}
+
+char	*handle_env_variable(char *value, int *i, t_env *env)
+{
+	int		start;
+	char	*key;
+	char	*val;
+
+	start = *i;
+	while (ft_isalnum(value[*i]) || value[*i] == '_')
+		(*i)++;
+	key = ft_substr(value, start, *i - start);
+	val = ft_getenv(key, env);
+	free(key);
+	if (val)
+		return (ft_strdup(val));
+	else
+		return (ft_strdup(""));
 }
