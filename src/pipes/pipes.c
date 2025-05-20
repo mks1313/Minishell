@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:33:21 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 20:45:28 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	exec_external_cmd(t_cmd *curr, t_shell *shell)
 
 static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 {
+	reset_signals();
 	if (prev_fd != -1)
 		dup2(prev_fd, STDIN_FILENO);
 	if (curr->next)
