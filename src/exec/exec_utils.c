@@ -1,35 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_single_and_utils.c                            :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 13:32:36 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:23:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * clean_array - Frees all the memory of a NULL-terminated string array
- * @array: The array to free
- *
- * This function frees each string in the array and then the array itself.
- * If the array is NULL, it does nothing.
- */
-void	clean_array(char **array)
-{
-	int	i;
-
-	if (!array)
-		return ;
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
-}
 
 static int	count_env_vars(t_env *env)
 {
@@ -94,4 +75,18 @@ char	**env_to_array(t_env *env)
 	if (!fill_env_array(env_array, env))
 		return (NULL);
 	return (env_array);
+}
+
+int	is_directory(const char *path)
+{
+	struct stat	info;
+
+	if (stat(path, &info) != 0)
+	{
+		perror("stat failed");
+		return (-1);
+	}
+	if (S_ISDIR(info.st_mode))
+		return (1);
+	return (0);
 }

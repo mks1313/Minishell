@@ -6,34 +6,30 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:33:05 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 14:16:47 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:12:46 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char	*ft_strjoin_free(char *s1, const char *s2)
-{
-	char	*result;
 
-	result = ft_strjoin(s1, s2);
-	return (free(s1), result);
+/**
+ * clean_array - Frees all the memory of a NULL-terminated string array
+ * @array: The array to free
+ *
+ * This function frees each string in the array and then the array itself.
+ * If the array is NULL, it does nothing.
+ */
+void	clean_array(char **array)
+{
+	int	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
 }
-
-char	*ft_strjoin_char(char *s, char c)
-{
-	char	*str;
-	int		len;
-
-	len = ft_strlen(s);
-	str = malloc(len + 2);
-	if (!str)
-		return (NULL);
-	ft_strcpy(str, s);
-	str[len] = c;
-	str[len + 1] = '\0';
-	return (free(s), str);
-}*/
 
 int	clean_exit(t_shell *shell, int status)
 {

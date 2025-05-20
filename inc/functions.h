@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:45:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:29:58 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,11 @@ int		clean_exit(t_shell *shell, int status);
 void	free_redirect_list(t_redir *redir);
 void	free_env_list(t_env *env);
 void	free_cmd_list(t_cmd *cmd);
-int	is_directory(const char *path);
+int		is_directory(const char *path);
 
 /* Execute */
+char	*check_cmd_path(char *cmd, t_env *env);
+int		validate_cmd(char *cmd_path);
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
