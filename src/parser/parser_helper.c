@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_helper.c                                    :+:      :+:    :+:   */
+/*   parser_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 16:39:58 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 15:32:40 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/05/20 19:25:03 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/05/20 19:25:08 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_cmd	*create_cmd(void)
-{
-	return (ft_calloc(1, sizeof(t_cmd)));
-}
 
 char	*join_token_parts(t_tkn_part *parts)
 {

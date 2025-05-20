@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 12:33:57 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:30:30 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 static int	redirect_heredoc(t_redir *r)
 {
+	int	tmp;
+
 	if (r->type == REDIR_HEREDOC && r->fd == -1)
 		return (0);
 	if (r->fd < 0)
 		return (-1);
-	if (fcntl(r->fd, F_GETFD) == -1)
+	tmp = 0;
+	if (ioctl(r->fd, FIONREAD, &tmp) == -1)
 		perror("redir: invalid heredoc fd");
 	if (dup2(r->fd, STDIN_FILENO) == -1)
 		return (perror("dup2 heredoc"), -1);

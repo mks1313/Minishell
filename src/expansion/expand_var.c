@@ -6,29 +6,11 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:59:37 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/12 16:00:46 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:47:05 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*handle_env_variable(char *value, int *i, t_env *env)
-{
-	int		start;
-	char	*key;
-	char	*val;
-
-	start = *i;
-	while (ft_isalnum(value[*i]) || value[*i] == '_')
-		(*i)++;
-	key = ft_substr(value, start, *i - start);
-	val = ft_getenv(key, env);
-	free(key);
-	if (val)
-		return (ft_strdup(val));
-	else
-		return (ft_strdup(""));
-}
 
 char	*append_doll_and_char(char *expanded, char next_char)
 {
@@ -40,35 +22,6 @@ char	*append_doll_and_char(char *expanded, char next_char)
 	aux = ft_strjoin(expanded, tmp);
 	free(expanded);
 	return (aux);
-}
-
-char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
-{
-	char	*expanded;
-
-	(*i)++;
-	if (value[*i] == '?')
-	{
-		expanded = ft_itoa(shell->exit_status);
-		(*i)++;
-	}
-	else if (ft_isalnum(value[*i]) || value[*i] == '_')
-		expanded = handle_env_variable(value, i, shell->env);
-	else if (value[*i] == '$')
-	{
-		expanded = ft_itoa(ft_get_pid());
-		(*i)++;
-	}
-	else
-	{
-		expanded = ft_strdup("$");
-		if (value[*i])
-		{
-			expanded = append_doll_and_char(expanded, value[*i]);
-			(*i)++;
-		}
-	}
-	return (expanded);
 }
 
 char	*expand_var_value(char *value, t_shell *shell)

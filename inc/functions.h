@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:45:38 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:30:54 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*expand_var_value(char *value, t_shell *shell);
 char	**append_arg(char **args, char *arg);
 void	add_arg_to_cmd(t_cmd *cmd, char *arg);
 t_redir	*create_redir(t_tkn *tkn);
+bool	is_empty_quoted_var(const char *value, int i);
 void	add_redir_to_list(t_redir **list, t_redir *new_redir);
 void	handle_redirect(t_redir **redir_list, t_tkn **tkn);
 char	*handle_env_variable(char *value, int *i, t_env *env);
@@ -89,9 +90,12 @@ int		clean_exit(t_shell *shell, int status);
 void	free_redirect_list(t_redir *redir);
 void	free_env_list(t_env *env);
 void	free_cmd_list(t_cmd *cmd);
-int	is_directory(const char *path);
+int		is_directory(const char *path);
 
 /* Execute */
+char	*check_cmd_path(char *cmd, t_env *env);
+int		check_dot_dot_cmd(char *cmd);
+int		validate_cmd(char *cmd_path);
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
