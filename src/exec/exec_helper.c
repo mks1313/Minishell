@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_helper.c                                       :+:      :+:    :+:   */
+/*   exec_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:28:07 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 11:30:05 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:43:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_dot_dot_cmd(char *cmd)
+{
+	if (ft_strcmp(cmd, ".") == 0)
+	{
+		ft_putstr_fd("minishell: .: filename arg required\n", STDERR_FILENO);
+		ft_putstr_fd(".: usage: . filename [arguments]\n", STDERR_FILENO);
+		return (2);
+	}
+	if (ft_strcmp(cmd, "..") == 0)
+	{
+		ft_putstr_fd("minishell: ..: command not found\n", STDERR_FILENO);
+		return (127);
+	}
+	return (0);
+}
 
 char	*check_cmd_path(char *cmd, t_env *env)
 {

@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 11:30:21 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:40:09 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	char	*cmd_path;
 	int		res;
 
+	res = check_dot_dot_cmd(cmd);
+	if (res != 0)
+		return (res);
 	cmd_path = check_cmd_path(cmd, env);
 	if (!cmd_path)
 	{

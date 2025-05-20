@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 11:23:22 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:47:06 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,7 @@ int	is_directory(const char *path)
 	struct stat	info;
 
 	if (stat(path, &info) != 0)
-	{
-		perror("stat failed");
 		return (-1);
-	}
 	if (S_ISDIR(info.st_mode))
 		return (1);
 	return (0);

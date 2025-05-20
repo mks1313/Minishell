@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 11:29:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:39:05 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		is_directory(const char *path);
 
 /* Execute */
 char	*check_cmd_path(char *cmd, t_env *env);
+int		check_dot_dot_cmd(char *cmd);
 int		validate_cmd(char *cmd_path);
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
