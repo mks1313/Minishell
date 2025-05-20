@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 12:39:05 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:30:54 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*expand_var_value(char *value, t_shell *shell);
 char	**append_arg(char **args, char *arg);
 void	add_arg_to_cmd(t_cmd *cmd, char *arg);
 t_redir	*create_redir(t_tkn *tkn);
+bool	is_empty_quoted_var(const char *value, int i);
 void	add_redir_to_list(t_redir **list, t_redir *new_redir);
 void	handle_redirect(t_redir **redir_list, t_tkn **tkn);
 char	*handle_env_variable(char *value, int *i, t_env *env);

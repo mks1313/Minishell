@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:59:37 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 17:54:56 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:00:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,6 @@ char	*append_doll_and_char(char *expanded, char next_char)
 	aux = ft_strjoin(expanded, tmp);
 	free(expanded);
 	return (aux);
-}
-
-char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
-{
-	char	*expanded;
-
-	(*i)++;
-	if (value[*i] == '?')
-	{
-		expanded = ft_itoa(shell->exit_status);
-		(*i)++;
-	}
-	else if (ft_isalnum(value[*i]) || value[*i] == '_')
-		expanded = handle_env_variable(value, i, shell->env);
-	else if (value[*i] == '$')
-	{
-		expanded = ft_itoa(ft_get_pid());
-		(*i)++;
-	}
-	else
-	{
-		expanded = ft_strdup("$");
-		if (value[*i])
-		{
-			expanded = append_doll_and_char(expanded, value[*i]);
-			(*i)++;
-		}
-	}
-	return (expanded);
 }
 
 char	*expand_var_value(char *value, t_shell *shell)

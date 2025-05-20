@@ -6,11 +6,25 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:15:25 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 15:16:11 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:20:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	validate_syntax(t_cmd *cmd_list, t_shell *shell)
+{
+	t_cmd	*cmd;
+
+	cmd = cmd_list;
+	if (!cmd_list)
+		return (1);
+	if (!cmd->cmd && !cmd->redirs)
+		return (syntax_error(shell, SYN_ERR_EMPTY, 0));
+	if (cmd && !cmd->next && cmd->cmd && cmd->cmd[0] == '\0')
+		return (syntax_error(shell, SYN_ERR_NL, 0));
+	return (1);
+}
 
 char	*get_token_name(t_tkn_type type)
 {
