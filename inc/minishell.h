@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:47:17 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/14 13:25:46 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:42:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,4 @@
 # define ECHO		"echo"
 
 extern int	g_exit_status;
-
 #endif
