@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/21 13:16:36 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:39:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static t_cmd	*check_and_parse(t_tkn *tokens, t_shell *shell)
 	t_cmd	*cmds;
 
 	cmds = parse_tokens(tokens, shell);
-	print_cmd_list(cmds);
 	if (!cmds)
 	{
 		ft_free_tokens(tokens);
