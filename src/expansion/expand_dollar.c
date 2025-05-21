@@ -1,12 +1,12 @@
 /* ************************************************************************** */
-/*  expand_dollar                                                                          */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expand_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 18:13:20 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 19:57:41 by mmarinov         ###   ########.fr       */
+/*   Created: 2025/05/21 12:58:04 by mmarinov          #+#    #+#             */
+/*   Updated: 2025/05/21 12:58:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static char	*expand_unknown(char *value, int *i)
 char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
 {
 	if (is_empty_quoted_var(value, *i))
-	  {
-	  (*i)++;
-	  return (ft_strdup(""));
-	  }
+	{
+		(*i)++;
+		return (ft_strdup(""));
+	}
 	(*i)++;
 	if (value[*i] == '?')
 		return (expand_exit_status(i, shell));
