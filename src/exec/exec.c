@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 22:27:03 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:27:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,21 +93,48 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
 	if (!cmd || !shell || !line)
-		return ;
-	if (!cmd->cmd && cmd->redirs)
 	{
-		handle_redirections(cmd);
+		LOG_WARN("execute_commands: invalid input → cmd or shell or line is NULL\n");
 		return ;
 	}
+
+	LOG_DEBUG("Executing command: [%s]\n", cmd->cmd ? cmd->cmd : "(null)");
+
+	// Caso: redirección sin comando
+	if (!cmd->cmd && cmd->redirs)
+	{
+		int res = handle_redirections(cmd);
+		shell->exit_status = (res < 0) ? 1 : 0;
+		LOG_DEBUG("Only redirections → exit_status = %d\n", shell->exit_status);
+		return ;
+	}
+
+	// Caso: comando único
 	if (!cmd->next)
 	{
 		if (handle_redirections(cmd) < 0)
+		{
+			shell->exit_status = 1;
+			LOG_DEBUG("Redirection failed → exit_status = 1\n");
 			return ;
+		}
+
 		if (is_builtin_command(cmd->cmd))
+		{
+			LOG_DEBUG("Builtin command detected: %s\n", cmd->cmd);
 			shell->exit_status = handle_builtin_commands(cmd, shell, line);
+		}
 		else
+		{
+			LOG_DEBUG("External command: %s\n", cmd->cmd);
 			shell->exit_status = handle_external_command(cmd, shell);
+		}
+		LOG_DEBUG("Command finished → exit_status = %d\n", shell->exit_status);
 	}
 	else
+	{
+		LOG_DEBUG("Pipeline detected\n");
 		execute_piped_commands(cmd, shell);
+		LOG_DEBUG("Pipeline finished → exit_status = %d\n", shell->exit_status);
+	}
 }

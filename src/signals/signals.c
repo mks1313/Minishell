@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:09:54 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/14 13:18:54 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:55:13 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	set_signals(void)
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		error_exit(ERR_SIG, EXIT_FAILURE);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }
 
 /**

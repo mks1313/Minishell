@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/20 22:26:33 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:47:33 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,43 @@
 
 int	g_exit_status = 0;
 
-static int	process_input_line(char **line_ptr, t_shell *shell, int inter)
+/**
+ * Processes a line of input, in both interactive and non-interactive modes.
+ * Uses readline() for both, but only displays a prompt if interactive.
+ */
+static int	process_input_line(char **line_ptr, t_shell *shell, int interactive)
 {
 	char	*line;
 
-	if (inter)
-		line = readline(GREEN"minishell$ "RES);
-	else
-		line = get_next_line(STDIN_FILENO);
-	*line_ptr = line;
+	line = readline(interactive ? GREEN"minishell$ "RES : NULL);
 	if (!line)
 	{
-		if (inter)
+		if (interactive)
 			ft_putstr_fd("\nexit\n", 1);
 		return (SHELL_EXIT);
 	}
-	if (*line && inter)
+	*line_ptr = line;
+	LOG_DEBUG("Read line: [%s]\n", line ? line : "NULL");
+	LOG_DEBUG("Read line: [%s]", line ? line : "NULL");
+	if (interactive && line[0] == '\0')
+	{
+		LOG_DEBUG("Empty line (possibly Ctrl+C), preserving g_exit_status = %d\n", g_exit_status);
+		shell->exit_status = g_exit_status;
+		return (SHELL_CONTINUE);
+	}
+	if (interactive)
 		add_history(line);
 	handle_commands(line, shell);
+	LOG_DEBUG("After handle_commands, shell->exit_status = %d\n", shell->exit_status);
 	g_exit_status = shell->exit_status;
+	LOG_DEBUG("g_exit_status updated to: %d\n", g_exit_status);
 	return (SHELL_CONTINUE);
 }
 
+/**
+ * Shell main loop.
+ * In non-interactive mode, executes only one line.
+ */
 static int	shell_loop(t_shell *shell, int interactive)
 {
 	char	*line;
@@ -45,10 +60,16 @@ static int	shell_loop(t_shell *shell, int interactive)
 		if (process_input_line(&line, shell, interactive) == SHELL_EXIT)
 			return (EXIT_SUCCESS);
 		free(line);
+		if (!interactive)
+			break;
 	}
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * Main program entry point.
+ * Initializes the shell and starts the loop.
+ */
 int	main(int argc, char *argv[], char **envp)
 {
 	t_shell	*shell;
