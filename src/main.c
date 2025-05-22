@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/21 20:47:33 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 21:55:21 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	process_input_line(char **line_ptr, t_shell *shell, int interactive)
 {
 	char	*line;
 
-	line = readline(interactive ? GREEN"minishell$ "RES : NULL);
+	//line = readline(interactive ? GREEN"minishell$ "RES : NULL);
+	line = interactive ? readline(GREEN"minishell$ "RES) : readline(NULL);
 	if (!line)
 	{
 		if (interactive)
