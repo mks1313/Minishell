@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:12 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:33:36 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:01:36 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ static void	update_exit_status(int status, t_shell *shell)
 		if (sig == SIGQUIT)
 			ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
 		shell->exit_status = 128 + sig;
+		g_exit_status = 128 + sig;
 	}
 	else
+	{
 		shell->exit_status = 1;
+		g_exit_status = 1;
+	}
 }
 
 void	wait_for_all(pid_t *pids, int n, t_shell *shell)
