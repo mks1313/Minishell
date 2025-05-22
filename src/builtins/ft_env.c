@@ -81,30 +81,39 @@ int	ft_env(t_env *env_list)
  * 
  * Return: 0 on success, 1 on failure
  */
-int	setup_environment(t_shell *shell, char **envp)
+int setup_environment(t_shell *shell, char **envp)
 {
-	t_env	*env_list;
-	t_env	*new_node;
-	char	*key;
-	char	*value;
-	int		i;
+    t_env *env_list;
+    t_env *new_node;
+    char *eq_pos;
+    char *key;
+    char *value;
+    int i;
 
-	env_list = NULL;
-	i = 0;
-	if (!shell || !envp)
-		return (1);
-	while (envp[i])
-	{
-		key = ft_strtok(envp[i], "=");
-		value = ft_strtok(NULL, "=");
-		if (!key || !value)
-			return (free_env_list(env_list), 1);
-		new_node = create_env_kv(key, value);
-		if (!new_node)
-			return (free_env_list(env_list), 1);
-		add_env_node(&env_list, new_node);
-		i++;
-	}
-	shell->env = env_list;
-	return (0);
+    i = 0;
+    if (!shell || !envp)
+        return (1);
+    env_list = NULL;
+    while (envp[i])
+    {
+        eq_pos = ft_strchr(envp[i], '=');
+        if (!eq_pos)
+        {
+            i++;
+            continue;
+        }
+        key = ft_substr(envp[i], 0, eq_pos - envp[i]);
+        value = ft_strdup(eq_pos + 1);
+        if (!key || !value)
+            return (free(key), free(value), free_env_list(env_list), 1);
+        new_node = create_env_kv(key, value);
+        free(key);
+        free(value);
+        if (!new_node)
+            return (free_env_list(env_list), 1);
+        add_env_node(&env_list, new_node);
+        i++;
+    }
+    shell->env = env_list;
+    return (0);
 }
