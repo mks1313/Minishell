@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_tokens.c                                     :+:      :+:    :+:   */
+/*   parser_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:01:28 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 11:45:10 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:25:40 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_cmd	*parse_tokens(t_tkn *tokens, t_shell *shell)
 		if (!tkn_t_cmd(&tokens, &current_cmd, &cmd_list, shell))
 		{
 			shell->exit_status = 2;
+			g_exit_status = 2;
 			free_cmd_list(current_cmd);
 			free_cmd_list(cmd_list);
 			return (NULL);

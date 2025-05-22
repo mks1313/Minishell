@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 12:58:04 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/21 12:58:34 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:28:09 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static char	*expand_exit_status(int *i, t_shell *shell)
 {
 	char	*expanded;
 
-	expanded = ft_itoa(shell->exit_status);
+	(void)shell;
+	//expanded = ft_itoa(shell->exit_status);
+	expanded = ft_itoa(g_exit_status);
 	(*i)++;
 	return (expanded);
 }
