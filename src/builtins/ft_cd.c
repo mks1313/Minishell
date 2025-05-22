@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:29:55 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:27:43 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:20:07 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -81,6 +81,7 @@ static int	cd_to_home(t_shell *shell)
 
 	home = ft_getenv("HOME", shell->env);
 	shell->exit_status = 1;
+	g_exit_status = 1;
 	if (!home)
 		return (ft_putstr_fd(ERR_CD_NOT_SET, STDERR_FILENO), 1);
 	if (chdir(home) == -1)
@@ -90,6 +91,7 @@ static int	cd_to_home(t_shell *shell)
 	else
 		update_pwd_variables(shell->env, ft_getenv("PWD", shell->env), cwd);
 	shell->exit_status = 0;
+	g_exit_status = 0;
 	return (0);
 }
 
@@ -105,6 +107,7 @@ int	ft_cd(t_cmd *cmd, t_shell *shell)
 	{
 		perror(ERR_CD_PREFIX);
 		shell->exit_status = 1;
+		g_exit_status = 1;
 		return (1);
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
@@ -112,5 +115,6 @@ int	ft_cd(t_cmd *cmd, t_shell *shell)
 	else
 		update_pwd_variables(shell->env, ft_getenv("PWD", shell->env), cwd);
 	shell->exit_status = 0;
+	g_exit_status = 0;
 	return (0);
 }

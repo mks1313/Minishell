@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:15:16 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/06 17:17:23 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 21:50:01 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_pwd(void)
 {
+	/*
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
@@ -27,7 +28,17 @@ int	ft_pwd(void)
 	}
 	else
 	{
-		perror("minishell: pwd");
+	perror("minishell: pwd");
+	return (1);
+	}*/
+	char *cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
 		return (1);
-	}
+	ft_putstr_fd(cwd, STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	free(cwd);
+	return (0);
+
 }

@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/20 22:26:52 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 21:48:22 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 	(void)line;
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
-		ft_putstr_fd(RED"exit\n"RES, 1);
+		ft_putstr_fd(RED"exit\n"RES, STDERR_FILENO);
 		ft_exit(cmd, shell);
 	}
 	if (ft_strcmp(cmd->cmd, "env") == 0)

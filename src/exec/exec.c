@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/21 20:27:31 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:24:41 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 	{
 		int res = handle_redirections(cmd);
 		shell->exit_status = (res < 0) ? 1 : 0;
+		g_exit_status = (res < 0) ? 1 : 0;
 		LOG_DEBUG("Only redirections → exit_status = %d\n", shell->exit_status);
 		return ;
 	}
@@ -115,6 +116,7 @@ void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 		if (handle_redirections(cmd) < 0)
 		{
 			shell->exit_status = 1;
+			g_exit_status = 1;
 			LOG_DEBUG("Redirection failed → exit_status = 1\n");
 			return ;
 		}

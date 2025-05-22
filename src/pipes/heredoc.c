@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:12:10 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/21 17:18:09 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:59:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	close_pip_and_wait(int *pipefd, t_redir *redir, t_shell *sh, pid_t pid)
 	{
 		LOG_WARN("HEREDOC interrupted by SIGINT\n");
 		sh->exit_status = 130;
+		g_exit_status = 130;
 		redir->fd = -1;
 	}
 	else if (WIFEXITED(status))
