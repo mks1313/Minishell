@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:06:24 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/24 14:46:35 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:21:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_tkn_part	*read_token_part(char **str)
 	char		*start;
 	char		*value;
 
-	if (**str == '$' && *(*str + 1) == '"')
+	if (**str == '$' && (*(*str + 1) == '"' || *(*str + 1) == '\''))
 	{
 		(*str)++;
 		return (read_quoted_part(str));

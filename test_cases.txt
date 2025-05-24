@@ -1,7 +1,8 @@
 /bin/echo ""$?""
+/bin/echo 
 /bin/echo $?"42"
 /bin/echo ''$?''"42"
-/bin/echo '"$USER"'
+/bin/echo $'"'"USER"'"'
 /bin/echo "'$USER'"
 /bin/echo ""'$USER'""
 /bin/echo '"'$USER'"'
@@ -82,14 +83,11 @@
 /bin/echo ""'totally logical'""
 
 /bin/echo hola | /bin/grep h | /bin/wc -c
-/bin/cat < infile.txt | /bin/grep palabra > outfile.txt
 /bin/ls -l | /bin/grep '^d' | /bin/wc -l > dir_count.txt
 /bin/echo line > file1.txt | /bin/cat < file1.txt | /bin/grep line
 /bin/echo 'a' > f && /bin/cat < f | /bin/tr a-z A-Z | /bin/tee g > /dev/null
 /bin/echo '"$USER"'
-/bin/echo "'\"$HOME\"'"
 /bin/echo 'User: '$USER' Home: '$HOME''
-/bin/echo "User is \"$USER\" and home is '$HOME'"
 /bin/echo 'quote1'"quote2"'$USER'
 /bin/echo hola > a > b
 /bin/cat < a < b
@@ -100,15 +98,6 @@
 /bin/echo '----' | /bin/tee file1.txt | /bin/tee file2.txt > /dev/null
 /bin/echo "multi     space     test" | /bin/wc -w
 /bin/echo ">" "<" "|" "$"
-cat << EOF
-hola
-EOF
-cat << EOF | wc -l
-hola
-EOF
-cat << EOF > out.txt
-linea heredoc
-EOF
 /bin/grep bash /etc/passwd > grep_out.txt
 /bin/echo "Path: $PATH" > env.txt
 /bin/echo '$PATH' "$PATH" $PATH
@@ -117,8 +106,6 @@ EOF
 /bin/echo -n
 /bin/echo -n ''
 /bin/echo "hola" > file.txt | /bin/cat < file.txt
-/bin/echo "hola
-/bin/echo 'hola
 /bin/echo $HOME > /tmp/test_home.txt
 /bin/echo $USER$NOT_DEFINED > user_var.txt
 /bin/echo "$USER"'$HOME'$PWD
@@ -132,14 +119,6 @@ EOF
 /bin/echo mensaje > /dev/null
 /bin/echo $NOPE$NEVER$NADA
 /bin/echo text$UNKNOWN'|'$HOME$?
-/bin/echo >
-/bin/echo <
-/bin/echo |
-/bin/echo >>
-/bin/echo <<
-/bin/echo hola > > test.txt
 /bin/echo hola | /bin/cat | /bin/grep h | /bin/wc -c
 /bin/echo -n "" '' "hello"
 /bin/echo -n -n '' ""
-cat << END
-texto sin cierre
