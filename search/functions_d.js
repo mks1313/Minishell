@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['safe_5fstrdup_0',['safe_strdup',['../functions_8h.html#afb061ad611502f847d59cba071c04415',1,'safe_strdup(const char *str):&#160;string.c'],['../string_8c.html#a4d4d87d565e6dd1c245fd73af35f29a7',1,'safe_strdup(const char *s):&#160;string.c']]],
-  ['search_5fin_5fpaths_1',['search_in_paths',['../find__cmd__path_8c.html#a89a55f523437ce1cc78f019bf417246d',1,'find_cmd_path.c']]],
-  ['set_5fappend_5fheredoc_2',['set_append_heredoc',['../tokenizer__utils_8c.html#a0de699162aba713185d75e6769e382d6',1,'tokenizer_utils.c']]],
-  ['set_5foperator_5ftype_3',['set_operator_type',['../tokenizer__utils_8c.html#a4c5af7410b59395a8eaf684f8612aec1',1,'tokenizer_utils.c']]],
-  ['set_5fredir_5fpipe_4',['set_redir_pipe',['../tokenizer__utils_8c.html#a977a7dd489a7392fe0ed3d88a5e66f06',1,'tokenizer_utils.c']]],
-  ['set_5fredir_5ftarget_5',['set_redir_target',['../helper_8c.html#a84b635b1381190843b02f8a7efe4b1cb',1,'helper.c']]],
-  ['set_5fredir_5ftype_6',['set_redir_type',['../helper_8c.html#a6752b1e8ce866c39723b6fdbe578f24b',1,'helper.c']]],
-  ['set_5fsignals_7',['set_signals',['../functions_8h.html#aba9735e0f75f41b9395899fd503303ad',1,'set_signals(void):&#160;signals.c'],['../signals_8c.html#aba9735e0f75f41b9395899fd503303ad',1,'set_signals(void):&#160;signals.c']]],
-  ['setup_5fenvironment_8',['setup_environment',['../functions_8h.html#aa263fc246a682824e61c15c07230667e',1,'setup_environment(t_shell *shell, char **envp):&#160;ft_env.c'],['../ft__env_8c.html#aa263fc246a682824e61c15c07230667e',1,'setup_environment(t_shell *shell, char **envp):&#160;ft_env.c']]],
-  ['shell_5floop_9',['shell_loop',['../main_8c.html#accb0b76773508d863b30c621718aa8f1',1,'main.c']]],
-  ['skip_5fdelimiters_10',['skip_delimiters',['../ft__strtok_8c.html#a93b3e796575828d1bd2bbc09db5a395e',1,'skip_delimiters(char *str, const char *delim):&#160;ft_strtok.c'],['../shell__utils_8c.html#a518294e1f7551ee36504f511fe74f961',1,'skip_delimiters(char **str):&#160;shell_utils.c']]],
-  ['start_5fnew_5fcmd_5fif_5fneeded_11',['start_new_cmd_if_needed',['../parse__tokens_8c.html#a0853932d3e0e6105cba0ae2d3396a9b7',1,'parse_tokens.c']]]
+  ['read_5ffrom_5ffile_0',['read_from_file',['../get__next__line_8c.html#a62d74d792ba83f5f52c2e2ea2a33afa7',1,'read_from_file(int fd, char **buffer):&#160;get_next_line.c'],['../get__next__line__bonus_8c.html#a62d74d792ba83f5f52c2e2ea2a33afa7',1,'read_from_file(int fd, char **buffer):&#160;get_next_line_bonus.c']]],
+  ['read_5foperator_1',['read_operator',['../functions_8h.html#a7938f7b29aa2833fc63170b8bf35f778',1,'read_operator(char **stri, t_shell *shell):&#160;tokenizer_utils.c'],['../tokenizer__utils_8c.html#a47d9ae78019fe66b0adf66dfb055d96c',1,'read_operator(char **str, t_shell *shell):&#160;tokenizer_utils.c']]],
+  ['read_5fquoted_5fpart_2',['read_quoted_part',['../tokenizer__parts_8c.html#a312ffd696c33f66c995b18cc2366549f',1,'tokenizer_parts.c']]],
+  ['read_5ftoken_3',['read_token',['../functions_8h.html#a5ec27120a04920dd71de6547a07b1d84',1,'read_token(char **stri, t_shell *shell):&#160;tokenizer_parts.c'],['../tokenizer__parts_8c.html#aec2c22f5c4cbd2d05f299f9237f470b3',1,'read_token(char **str, t_shell *shell):&#160;tokenizer_parts.c']]],
+  ['read_5ftoken_5fpart_4',['read_token_part',['../tokenizer__parts_8c.html#a08db1eb4db4deee413ffcb77fde86418',1,'tokenizer_parts.c']]],
+  ['redirect_5fheredoc_5',['redirect_heredoc',['../redir_8c.html#ab23f392e5d346a7e376761cc71885e90',1,'redir.c']]],
+  ['redirect_5finput_6',['redirect_input',['../redir_8c.html#a80001dc5fd55be00087ac52b8659785f',1,'redir.c']]],
+  ['redirect_5finput_5foutput_7',['redirect_input_output',['../redir_8c.html#ac7b6181f69bcc7ebc93840d3a3d3a499',1,'redir.c']]],
+  ['redirect_5foutput_8',['redirect_output',['../redir_8c.html#ac56cff9c451ea6114ba6157532a9ae0a',1,'redir.c']]],
+  ['remove_5fenv_5fvar_9',['remove_env_var',['../ft__unset_8c.html#a79e81ff30a67daaf0a1689745bd2d23c',1,'ft_unset.c']]],
+  ['reset_5fsignals_10',['reset_signals',['../functions_8h.html#a6b4cd113a03b1ceecb2bf614f24cae4b',1,'reset_signals(void):&#160;signals.c'],['../signals_8c.html#a6b4cd113a03b1ceecb2bf614f24cae4b',1,'reset_signals(void):&#160;signals.c']]],
+  ['restore_5fstdio_11',['restore_stdio',['../main__utils_8c.html#ad19746ef8d426410a8941b2e01f9c44f',1,'main_utils.c']]]
 ];

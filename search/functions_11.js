@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['wait_5ffor_5fall_0',['wait_for_all',['../pipes_8c.html#a69cd33bd495c5bad8d5b38519bc2940a',1,'pipes.c']]],
-  ['wait_5ffor_5fprocess_1',['wait_for_process',['../exec_8c.html#a64b8add80abf73165a4bb12641f68cf5',1,'exec.c']]]
+  ['validate_5fcmd_0',['validate_cmd',['../functions_8h.html#a8b4e3fbb29cd16318a82c81c700933f8',1,'validate_cmd(char *cmd_path):&#160;exec_helper.c'],['../exec__helper_8c.html#a8b4e3fbb29cd16318a82c81c700933f8',1,'validate_cmd(char *cmd_path):&#160;exec_helper.c']]],
+  ['validate_5fpipe_1',['validate_pipe',['../validate__tkn__syntax_8c.html#aa37d420e0f7c8a32593dfc2344987ef3',1,'validate_tkn_syntax.c']]],
+  ['validate_5fredirect_2',['validate_redirect',['../validate__tkn__syntax_8c.html#a3460510b16a6f83dc8c2692e467d50d8',1,'validate_tkn_syntax.c']]],
+  ['validate_5fsyntax_3',['validate_syntax',['../functions_8h.html#a5be1648c130ddeacc0822e180fa203e9',1,'validate_syntax(t_cmd *cmd_list, t_shell *shell):&#160;validate_tkn_syntax.c'],['../validate__tkn__syntax_8c.html#a5be1648c130ddeacc0822e180fa203e9',1,'validate_syntax(t_cmd *cmd_list, t_shell *shell):&#160;validate_tkn_syntax.c']]],
+  ['validate_5ftoken_5fsyntax_4',['validate_token_syntax',['../functions_8h.html#a383335618b4927ebb64429a326f11547',1,'validate_token_syntax(t_tkn *tokens, t_shell *shell):&#160;validate_tkn_syntax.c'],['../validate__tkn__syntax_8c.html#a383335618b4927ebb64429a326f11547',1,'validate_token_syntax(t_tkn *tokens, t_shell *shell):&#160;validate_tkn_syntax.c']]]
 ];

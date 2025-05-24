@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('ft__pwd_8c_source.html',''); initResiz
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">/*   By: mmarinov &lt;marvin@42.fr&gt;                    +#+  +:+       +#+        */</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">/*                                                +#+#+#+#+#+   +#+           */</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">/*   Created: 2025/02/20 16:15:16 by mmarinov          #+#    #+#             */</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*   Updated: 2025/05/06 17:17:23 by mmarinov         ###   ########.fr       */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*   Updated: 2025/05/21 21:50:01 by mmarinov         ###   ########.fr       */</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">/*                                                                            */</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">/* ************************************************************************** */</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -123,31 +123,40 @@ $(document).ready(function(){initNavTree('ft__pwd_8c_source.html',''); initResiz
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="functions_8h.html#aba7a662b7a272674bc8fb80a97486097">   15</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="ft__pwd_8c.html#aba7a662b7a272674bc8fb80a97486097">ft_pwd</a>(<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">char</span>    *<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a> = <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">getcwd</a>(<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">NULL</a>, 0);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>)</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_function" href="libft_8h.html#ac7c301545a965a530aadf935b3644d62">ft_putstr_fd</a>(<a class="code hl_define" href="minishell_8h.html#a8d23feea868a983c8c2b661e1e16972f">RED</a>, 1);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_function" href="libft_8h.html#aeb112152acfc553d58d61a5df38afcde">ft_putendl_fd</a>(<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>, 1);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_function" href="libft_8h.html#ac7c301545a965a530aadf935b3644d62">ft_putstr_fd</a>(<a class="code hl_define" href="minishell_8h.html#a65b26605d90a0bcd0e13e05db54f551f">RES</a>, 1);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">free</a>(<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">return</span> (0);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">perror</a>(<span class="stringliteral">&quot;minishell: pwd&quot;</span>);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> (1);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">/*</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">    char    *cwd;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"></span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">    cwd = getcwd(NULL, 0);</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">    if (cwd)</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">    {</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">        ft_putstr_fd(RED, 1);</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">        ft_putendl_fd(cwd, 1);</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">        ft_putstr_fd(RES, 1);</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">        free(cwd);</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">        return (0);</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">    }</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">    else</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">    {</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">    perror(&quot;minishell: pwd&quot;);</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">    return (1);</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">    }*/</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">char</span> *<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a> = <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">getcwd</a>(<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">NULL</a>, 0);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (!<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> (1);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_function" href="libft_8h.html#aa9c367d7c4e057c2da8df8386aa66990">ft_putstr_fd</a>(<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>, <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">STDOUT_FILENO</a>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_function" href="libft_8h.html#a8ee15a511946c1397bd2bdea4aed6aee">ft_putchar_fd</a>(<span class="charliteral">&#39;\n&#39;</span>, <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">STDOUT_FILENO</a>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">free</a>(<a class="code hl_define" href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">cwd</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> (0);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
 </div>
 <div class="ttc" id="aft__pwd_8c_html_aba7a662b7a272674bc8fb80a97486097"><div class="ttname"><a href="ft__pwd_8c.html#aba7a662b7a272674bc8fb80a97486097">ft_pwd</a></div><div class="ttdeci">int ft_pwd(void)</div><div class="ttdef"><b>Definition</b> <a href="ft__pwd_8c_source.html#l00015">ft_pwd.c:15</a></div></div>
 <div class="ttc" id="alibft_8h_html_a6b20d41d6252e9871430c242cb1a56e7"><div class="ttname"><a href="libft_8h.html#a6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a></div><div class="ttdeci">#define BUFFER_SIZE</div><div class="ttdef"><b>Definition</b> <a href="libft_8h_source.html#l00027">libft.h:27</a></div></div>
-<div class="ttc" id="alibft_8h_html_ac7c301545a965a530aadf935b3644d62"><div class="ttname"><a href="libft_8h.html#ac7c301545a965a530aadf935b3644d62">ft_putstr_fd</a></div><div class="ttdeci">void ft_putstr_fd(char *c, int fd)</div><div class="ttdef"><b>Definition</b> <a href="ft__putstr__fd_8c_source.html#l00016">ft_putstr_fd.c:16</a></div></div>
-<div class="ttc" id="alibft_8h_html_aeb112152acfc553d58d61a5df38afcde"><div class="ttname"><a href="libft_8h.html#aeb112152acfc553d58d61a5df38afcde">ft_putendl_fd</a></div><div class="ttdeci">void ft_putendl_fd(char *s, int fd)</div><div class="ttdef"><b>Definition</b> <a href="ft__putendl__fd_8c_source.html#l00015">ft_putendl_fd.c:15</a></div></div>
+<div class="ttc" id="alibft_8h_html_a8ee15a511946c1397bd2bdea4aed6aee"><div class="ttname"><a href="libft_8h.html#a8ee15a511946c1397bd2bdea4aed6aee">ft_putchar_fd</a></div><div class="ttdeci">void ft_putchar_fd(char c, int fd)</div><div class="ttdef"><b>Definition</b> <a href="ft__putchar__fd_8c_source.html#l00016">ft_putchar_fd.c:16</a></div></div>
+<div class="ttc" id="alibft_8h_html_aa9c367d7c4e057c2da8df8386aa66990"><div class="ttname"><a href="libft_8h.html#aa9c367d7c4e057c2da8df8386aa66990">ft_putstr_fd</a></div><div class="ttdeci">void ft_putstr_fd(const char *c, int fd)</div><div class="ttdef"><b>Definition</b> <a href="ft__putstr__fd_8c_source.html#l00016">ft_putstr_fd.c:16</a></div></div>
 <div class="ttc" id="aminishell_8h_html"><div class="ttname"><a href="minishell_8h.html">minishell.h</a></div></div>
-<div class="ttc" id="aminishell_8h_html_a65b26605d90a0bcd0e13e05db54f551f"><div class="ttname"><a href="minishell_8h.html#a65b26605d90a0bcd0e13e05db54f551f">RES</a></div><div class="ttdeci">#define RES</div><div class="ttdef"><b>Definition</b> <a href="minishell_8h_source.html#l00025">minishell.h:25</a></div></div>
-<div class="ttc" id="aminishell_8h_html_a8d23feea868a983c8c2b661e1e16972f"><div class="ttname"><a href="minishell_8h.html#a8d23feea868a983c8c2b661e1e16972f">RED</a></div><div class="ttdeci">#define RED</div><div class="ttdef"><b>Definition</b> <a href="minishell_8h_source.html#l00026">minishell.h:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

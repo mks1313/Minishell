@@ -1,5 +1,5 @@
 var tokenizer_8c =
 [
-    [ "process_next_token", "tokenizer_8c.html#a790febc890514e624c8d8e26f54f6a5c", null ],
-    [ "tokenize_input", "tokenizer_8c.html#ab023c8540531f049d81ef25886011f01", null ]
+    [ "process_next_tkn", "tokenizer_8c.html#af2548366f7b18a05429b672e3e3e4687", null ],
+    [ "tokenize_input", "tokenizer_8c.html#aad7dbd5e51099a03505bb94a7e96101e", null ]
 ];

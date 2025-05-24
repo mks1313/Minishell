@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('messages_8h_source.html',''); initResi
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">/*   By: mmarinov &lt;marvin@42.fr&gt;                    +#+  +:+       +#+        */</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">/*                                                +#+#+#+#+#+   +#+           */</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">/*   Created: 2025/05/14 12:23:36 by mmarinov          #+#    #+#             */</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*   Updated: 2025/05/14 13:59:47 by mmarinov         ###   ########.fr       */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*   Updated: 2025/05/21 16:20:30 by mmarinov         ###   ########.fr       */</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">/*                                                                            */</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">/* ************************************************************************** */</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -162,7 +162,24 @@ $(document).ready(function(){initNavTree('messages_8h_source.html',''); initResi
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="messages_8h.html#add44dd4e92fa89f5fa8773235f85f4c0">   54</a></span><span class="preprocessor"># define ERR_SIG          &quot;Error: sigaction.\n&quot;</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="messages_8h.html#a3d619b1127f54baf8e5e3789845d4aad">   55</a></span><span class="preprocessor"># define ERR_MEMORY       &quot;Error: memory allocation failed.\n&quot;</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor"># ifdef DEBUG_MODE</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor"># define LOG_DEBUG(fmt, ...) \</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">    dprintf(STDERR_FILENO, CYAN&quot;[DEBUG] %s:%d: &quot;RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#  define LOG_WARN(fmt, ...) \</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">    dprintf(STDERR_FILENO, YELL&quot;[WARN]  %s:%d: &quot;RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#  define LOG_ERROR(fmt, ...) \</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">    dprintf(STDERR_FILENO, RED&quot;[ERROR] %s:%d: &quot;RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor"># else</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="messages_8h.html#a754b3d074e0af4ad3c7b918dd77ecb2d">   68</a></span><span class="preprocessor">#  define LOG_DEBUG(...) ((void)0)</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="messages_8h.html#add82efa459e0af380b68522c29b9fd44">   69</a></span><span class="preprocessor">#  define LOG_WARN(...)  ((void)0)</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="messages_8h.html#ad4a9117ce894e3319e903142347a0f63">   70</a></span><span class="preprocessor">#  define LOG_ERROR(...) ((void)0)</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor"># endif</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

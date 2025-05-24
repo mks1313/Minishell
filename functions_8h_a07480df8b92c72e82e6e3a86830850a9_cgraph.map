@@ -1,0 +1,9 @@
+<map id="syntax_error" name="syntax_error">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,109,56"/>
+<area shape="rect" id="Node000002" href="$ft__putstr__fd_8c.html#a1f29b4accbf763fc4c49ec41f423e806" title=" " alt="" coords="175,5,271,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,33,161,25,162,30,110,38"/>
+<area shape="rect" id="Node000004" href="$validate__tkn__syntax_8c.html#a9759db2943352f8b3fc6b50a45f1eb4e" title=" " alt="" coords="157,55,288,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="110,48,144,53,143,59,109,53"/>
+<area shape="rect" id="Node000003" href="$ft__strlen_8c.html#abbb8c6c4ed85d892e7f1509f65f5768a" title=" " alt="" coords="336,5,411,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="271,15,322,15,322,21,271,21"/>
+</map>

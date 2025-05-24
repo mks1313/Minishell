@@ -1,11 +1,5 @@
 <map id="read_from_file" name="read_from_file">
-<area shape="rect" id="Node000001" title=" " alt="" coords="593,5,709,31"/>
-<area shape="rect" id="Node000002" href="$get__next__line__bonus_8c.html#a78d68a5f50a6eec0380ce25b4a1bd5b7" title=" " alt="" coords="435,5,545,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="580,21,546,21,546,15,580,15"/>
-<area shape="rect" id="Node000003" href="$main_8c.html#a598323ffb01d0d3351e6600c3a6571ea" title=" " alt="" coords="244,5,387,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="421,21,387,21,387,15,421,15"/>
-<area shape="rect" id="Node000004" href="$main_8c.html#accb0b76773508d863b30c621718aa8f1" title=" " alt="" coords="108,5,196,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,21,196,21,196,15,231,15"/>
-<area shape="rect" id="Node000005" href="$main_8c.html#af9f20e08914b990ce83431d5dc6df07b" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="164,5,280,31"/>
+<area shape="rect" id="Node000002" href="$get__next__line__bonus_8c.html#a78d68a5f50a6eec0380ce25b4a1bd5b7" title=" " alt="" coords="5,5,116,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,21,116,21,116,15,150,15"/>
 </map>

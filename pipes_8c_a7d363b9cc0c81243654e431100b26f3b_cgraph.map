@@ -1,21 +1,21 @@
 <map id="exec_external_cmd" name="exec_external_cmd">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,90,153,116"/>
-<area shape="rect" id="Node000002" href="$exec__single__and__utils_8c.html#acf2234134cb9e7797520a204eabfb952" title=" " alt="" coords="629,114,728,140"/>
+<area shape="rect" id="Node000002" href="$memory__utils_8c.html#acf2234134cb9e7797520a204eabfb952" title=" " alt="" coords="629,114,728,140"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,88,197,63,309,40,373,33,438,31,503,36,566,50,615,73,655,102,651,107,612,78,564,55,502,41,438,36,373,38,310,45,198,68,116,93"/>
-<area shape="rect" id="Node000003" href="$exec__single__and__utils_8c.html#a98353f78f2919f78027467271720cbdf" title=" " alt="" coords="225,90,332,116"/>
+<area shape="rect" id="Node000003" href="$exec__utils_8c.html#a98353f78f2919f78027467271720cbdf" title=" " alt="" coords="225,90,332,116"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,100,211,100,211,106,153,106"/>
 <area shape="rect" id="Node000011" href="$find__cmd__path_8c.html#ac6407d488b3817ea67dd5e8ab8cf72f1" title=" " alt="" coords="201,265,356,290"/>
 <area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="97,114,255,254,251,258,94,118"/>
-<area shape="rect" id="Node000023" href="$ft__putstr__fd_8c.html#acefce9ac519f8f8b7d3fde33dbafe469" title=" " alt="" coords="792,64,888,89"/>
+<area shape="rect" id="Node000023" href="$ft__putstr__fd_8c.html#a1f29b4accbf763fc4c49ec41f423e806" title=" " alt="" coords="792,64,888,89"/>
 <area shape="poly" id="edge31_Node000001_Node000023" title=" " alt="" coords="95,88,140,57,170,42,201,30,281,12,364,4,448,4,529,9,606,19,676,32,785,58,783,63,675,37,605,24,529,15,448,9,365,9,282,17,202,35,172,47,143,62,98,92"/>
 <area shape="rect" id="Node000024" href="$redir_8c.html#aef53166c98af21b4dd4079b49d92edec" title=" " alt="" coords="203,489,354,514"/>
 <area shape="poly" id="edge33_Node000001_Node000024" title=" " alt="" coords="89,115,267,476,263,478,85,117"/>
-<area shape="rect" id="Node000004" href="$exec__single__and__utils_8c.html#ac6a99795b2dc0d4905c6c3d020c31628" title=" " alt="" coords="423,65,547,90"/>
+<area shape="rect" id="Node000004" href="$exec__utils_8c.html#ac6a99795b2dc0d4905c6c3d020c31628" title=" " alt="" coords="423,65,547,90"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="332,94,409,84,409,90,333,99"/>
-<area shape="rect" id="Node000005" href="$exec__single__and__utils_8c.html#a3e0634a4ba43269bb0f6d17657371aac" title=" " alt="" coords="429,114,540,140"/>
+<area shape="rect" id="Node000005" href="$exec__utils_8c.html#a3e0634a4ba43269bb0f6d17657371aac" title=" " alt="" coords="429,114,540,140"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="333,107,416,116,415,122,332,112"/>
 <area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="540,124,615,124,615,130,540,130"/>
-<area shape="rect" id="Node000006" href="$exec__single__and__utils_8c.html#af3abac16f83034aa911a927d68c47b47" title=" " alt="" coords="635,314,722,340"/>
+<area shape="rect" id="Node000006" href="$exec__utils_8c.html#af3abac16f83034aa911a927d68c47b47" title=" " alt="" coords="635,314,722,340"/>
 <area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="505,138,536,166,568,202,582,229,589,254,597,277,615,300,624,307,621,311,611,304,592,279,584,256,577,231,563,205,532,169,501,142"/>
 <area shape="rect" id="Node000007" href="$ft__strdup_8c.html#aebe73f27c70c56ac5053f860ef5436c9" title=" " alt="" coords="801,365,879,390"/>
 <area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="721,337,788,359,786,364,719,342"/>

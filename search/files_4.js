@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['helper_2ec_0',['helper.c',['../helper_8c.html',1,'']]],
-  ['heredoc_2ec_1',['heredoc.c',['../heredoc_8c.html',1,'']]]
+  ['get_5fnext_5fline_2ec_0',['get_next_line.c',['../get__next__line_8c.html',1,'']]],
+  ['get_5fnext_5fline_5fbonus_2ec_1',['get_next_line_bonus.c',['../get__next__line__bonus_8c.html',1,'']]]
 ];

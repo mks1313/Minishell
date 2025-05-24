@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('Makefile_source.html',''); initResizab
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>#    By: mmarinov &lt;marvin@42.fr&gt;                    +#+  +:+       +#+         #</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>#                                                 +#+#+#+#+#+   +#+            #</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>#    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>#    Updated: 2025/05/17 13:25:47 by mmarinov         ###   ########.fr        #</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>#    Updated: 2025/05/21 16:21:17 by mmarinov         ###   ########.fr        #</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>#                                                                              #</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span># **************************************************************************** #</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -135,69 +135,77 @@ $(document).ready(function(){initNavTree('Makefile_source.html',''); initResizab
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>CFLAGS = -Wall -Wextra -Werror -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>LDFLAGS = -L$(LIBFT_DIR)</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span># Specify the main header file</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>INCLUDES = minishell.h shell_types.h sys_includes.h</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span># Specify the main header file</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>SRC_FOLDER =  main.c signals/signals.c</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>              parser/parser_utils.c parser/validate.c parser/expand_helper.c \</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>              parser/validate_tkn_syntax.c</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c   \</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>              tokenizer/tokenizer_parts.c</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>              builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>              builtins/ft_export.c builtins/ft_unset.c                   \</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>              builtins/ft_export_util.c builtins/core.c</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_single_and_utils.c</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>SRC_FOLDER += utils/inits.c utils/shell_utils.c utils/memory_management.c</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>SRC_FOLDER += utils/string.c utils/memory_utils.c utils/main_utils.c</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span># Add header paths, source paths, objects, dependency files</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span># Dependency file, default command and dependency for the libft</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>DEPS = $(OBJS:.o=.d)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span># Activar con: make DEBUG=1</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>ifeq ($(DEBUG), 1)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>CFLAGS += -DDEBUG_MODE</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>endif</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span># Specify the main header file</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>INCLUDES = minishell.h shell_types.h sys_includes.h</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span># Specify the main header file</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>SRC_FOLDER =  main.c signals/signals.c debug.c</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>SRC_FOLDER += parser/parser_tokens.c parser/parser_utils.c \</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>              parser/parser_helper.c parser/validate_tkn_syntax.c</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c   \</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>              tokenizer/tokenizer_parts.c</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>              builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>              builtins/ft_export.c builtins/ft_unset.c                   \</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>              builtins/ft_export_util.c builtins/core.c</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_utils.c  \</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>              exec/exec_helper.c</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>SRC_FOLDER += utils/inits.c utils/shell_utils.c utils/memory_management.c</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>SRC_FOLDER += utils/string.c utils/memory_utils.c utils/main_utils.c</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c \</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>              pipes/redir_helper.c</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>SRC_FOLDER += expansion/expand_var.c expansion/expand_helper.c \</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>              expansion/expand_dollar.c</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>.PHONY: all</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>all: $(NAME)</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span># Dependency for libft now includes this Makefile</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>$(LIBFT): $(LIBFT_DIR)/Makefile Makefile</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    @echo &quot;Compiling libft...&quot;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    @make -C $(LIBFT_DIR)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span># Add header paths, source paths, objects, dependency files</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>SRCS = $(addprefix $(SRC_PATH)/,$(SRC_FOLDER))</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>OBJS = $(patsubst $(SRC_PATH)/%.c,$(OBJ_DIR)/%.o,$(SRCS))</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span># Dependency file, default command and dependency for the libft</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>DEPS = $(OBJS:.o=.d)</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span># To create the final executable</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>$(NAME): $(OBJS) $(LIBFT)</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    $(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS) $(READLINE)</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    @echo -- &quot;\033[1;32mminishell created \033[0m&quot;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span># To compile source files to object files</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>$(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INC_H) Makefile</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    @if [ ! -d $(dir $@) ]; then \</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        mkdir -p $(dir $@); \</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    fi</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    $(CC) $(CFLAGS) $(SANITIZE) -c $&lt; -o $@</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span># Include dependency files</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>-include $(DEPS)</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>.PHONY: clean</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>clean:</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    make -C $(LIBFT_DIR) clean</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    $(RM) $(OBJ_DIR)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>.PHONY: all</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>all: $(NAME)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span># Dependency for libft now includes this Makefile</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>$(LIBFT): $(LIBFT_DIR)/Makefile Makefile</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    @echo &quot;Compiling libft...&quot;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    @make -C $(LIBFT_DIR)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span># To create the final executable</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>$(NAME): $(OBJS) $(LIBFT)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    $(CC) $(CFLAGS) $(SANITIZE) $(OBJS) $(LIBFT) -o $@ $(LDFLAGS) $(READLINE)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    @echo -- &quot;\033[1;32mminishell created \033[0m&quot;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span># To compile source files to object files</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>$(OBJ_DIR)/%.o: $(SRC_PATH)/%.c $(INC_H) Makefile</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    @if [ ! -d $(dir $@) ]; then \</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        mkdir -p $(dir $@); \</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    fi</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    $(CC) $(CFLAGS) $(SANITIZE) -c $&lt; -o $@</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>.PHONY: fclean</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>fclean: clean</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    make -C $(LIBFT_DIR) fclean</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    $(RM) $(NAME)</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>.PHONY: re</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>re: fclean all</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span># Include dependency files</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>-include $(DEPS)</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>.PHONY: clean</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>clean:</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    make -C $(LIBFT_DIR) clean</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    $(RM) $(OBJ_DIR)</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>.PHONY: fclean</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>fclean: clean</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    make -C $(LIBFT_DIR) fclean</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    $(RM) $(NAME)</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>.PHONY: re</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>re: fclean all</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
