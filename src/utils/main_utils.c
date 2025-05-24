@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/17 15:25:22 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 21:32:21 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ static	t_tkn	*prepare_tokens(char *line, t_shell *shell)
 {
 	t_tkn	*tokens;
 
-	tokens = tokenize_input(line);
+	tokens = tokenize_input(line, shell);
 	if (!tokens)
 		return (NULL);
-	if (!validate_token_syntax(tokens))
+	if (!validate_token_syntax(tokens, shell))
 	{
-		shell->exit_status = 2;
 		ft_free_tokens(tokens);
 		shell->tkns = NULL;
 		return (NULL);
@@ -35,16 +34,15 @@ static t_cmd	*check_and_parse(t_tkn *tokens, t_shell *shell)
 {
 	t_cmd	*cmds;
 
-	cmds = parse_tokens(tokens);
+	cmds = parse_tokens(tokens, shell);
 	if (!cmds)
 	{
 		ft_free_tokens(tokens);
 		shell->tkns = NULL;
 		return (NULL);
 	}
-	if (!validate_syntax(cmds))
+	if (!validate_syntax(cmds, shell))
 	{
-		shell->exit_status = 2;
 		ft_free_tokens(tokens);
 		free_cmd_list(cmds);
 		shell->tkns = NULL;
@@ -68,18 +66,28 @@ void	handle_commands(char *line, t_shell *shell)
 	int		stdin_backup;
 	int		stdout_backup;
 
+	LOG_DEBUG("Handling input: [%s]", line);
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
 	if (!shell || !line)
 		return ;
 	tokens = prepare_tokens(line, shell);
 	if (!tokens)
+	{
+		LOG_WARN("Tokenization failed → setting shell->exit_status = 2\n");
+		shell->exit_status = 2;
 		return ;
+	}
 	cmds = check_and_parse(tokens, shell);
 	if (!cmds)
+	{
+		LOG_WARN("Parsing failed → setting shell->exit_status = 2\n");
+		shell->exit_status = 2;
 		return ;
+	}
 	shell->cmds = cmds;
 	handle_heredoc(cmds, shell);
+	LOG_DEBUG("Calling execute_commands()\n");
 	execute_commands(cmds, shell, line);
 	restore_stdio(stdin_backup, stdout_backup);
 	ft_free_tokens(tokens);

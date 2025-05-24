@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:23:36 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 13:59:47 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:20:30 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,22 @@ getcwd: cannot access parent directories: No such file or directory\n"
 # define EXIT_MSG         "exit\n"
 # define ERR_SIG          "Error: sigaction.\n"
 # define ERR_MEMORY       "Error: memory allocation failed.\n"
+
+# ifdef DEBUG_MODE
+
+# define LOG_DEBUG(fmt, ...) \
+	dprintf(STDERR_FILENO, CYAN"[DEBUG] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#  define LOG_WARN(fmt, ...) \
+	dprintf(STDERR_FILENO, YELL"[WARN]  %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#  define LOG_ERROR(fmt, ...) \
+	dprintf(STDERR_FILENO, RED"[ERROR] %s:%d: "RES fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+
+# else
+
+#  define LOG_DEBUG(...) ((void)0)
+#  define LOG_WARN(...)  ((void)0)
+#  define LOG_ERROR(...) ((void)0)
+
+# endif
 
 #endif

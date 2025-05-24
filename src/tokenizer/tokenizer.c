@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 12:12:20 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:18:50 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	process_next_token(char **str, t_tkn **head, t_tkn **tail)
+static int	process_next_tkn(char **str, t_tkn **head, t_tkn **tail, t_shell *s)
 {
 	t_tkn	*new;
 
@@ -21,9 +21,9 @@ static int	process_next_token(char **str, t_tkn **head, t_tkn **tail)
 	if (!**str)
 		return (0);
 	if (ft_strchr("|<>", **str))
-		new = read_operator(str);
+		new = read_operator(str, s);
 	else
-		new = read_token(str);
+		new = read_token(str, s);
 	if (!new)
 		return (-1);
 	if (!*head)
@@ -34,7 +34,7 @@ static int	process_next_token(char **str, t_tkn **head, t_tkn **tail)
 	return (1);
 }
 
-t_tkn	*tokenize_input(char *line)
+t_tkn	*tokenize_input(char *line, t_shell *shell)
 {
 	t_tkn	*head;
 	t_tkn	*tail;
@@ -46,7 +46,7 @@ t_tkn	*tokenize_input(char *line)
 	str = line;
 	while (*str)
 	{
-		status = process_next_token(&str, &head, &tail);
+		status = process_next_tkn(&str, &head, &tail, shell);
 		if (status == -1)
 			return (ft_free_tokens(head), NULL);
 		if (status == 0)

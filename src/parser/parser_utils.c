@@ -6,11 +6,16 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:56 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 13:09:58 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:03:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_cmd	*create_cmd(void)
+{
+	return (ft_calloc(1, sizeof(t_cmd)));
+}
 
 static void	init_cmd_args(t_cmd *cmd, char *arg)
 {

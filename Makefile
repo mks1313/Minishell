@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/17 13:25:47 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/21 16:21:17 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,24 +27,32 @@ OBJ_DIR = obj
 CFLAGS = -Wall -Wextra -Werror -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
 
+# Activar con: make DEBUG=1
+ifeq ($(DEBUG), 1)
+CFLAGS += -DDEBUG_MODE
+endif
+
 # Specify the main header file
 INCLUDES = minishell.h shell_types.h sys_includes.h
 
 # Specify the main header file
-SRC_FOLDER =  main.c signals/signals.c
-SRC_FOLDER += parser/helper.c parser/expand_var.c parser/parse_tokens.c \
-			  parser/parser_utils.c parser/validate.c parser/expand_helper.c \
-			  parser/validate_tkn_syntax.c
+SRC_FOLDER =  main.c signals/signals.c debug.c
+SRC_FOLDER += parser/parser_tokens.c parser/parser_utils.c \
+			  parser/parser_helper.c parser/validate_tkn_syntax.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c   \
 			  tokenizer/tokenizer_parts.c
 SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
 			  builtins/ft_echo.c builtins/ft_getenv.c builtins/ft_pwd.c \
 			  builtins/ft_export.c builtins/ft_unset.c                   \
 			  builtins/ft_export_util.c builtins/core.c
-SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_single_and_utils.c
+SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_utils.c  \
+			  exec/exec_helper.c
 SRC_FOLDER += utils/inits.c utils/shell_utils.c utils/memory_management.c
 SRC_FOLDER += utils/string.c utils/memory_utils.c utils/main_utils.c
-SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c
+SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c \
+			  pipes/redir_helper.c
+SRC_FOLDER += expansion/expand_var.c expansion/expand_helper.c \
+			  expansion/expand_dollar.c
 
 # Add header paths, source paths, objects, dependency files
 INC_H = $(addprefix $(INC_FOLDER)/,$(INCLUDES))

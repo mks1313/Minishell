@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:06:24 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 14:18:30 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:21:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ static t_tkn_part	*read_token_part(char **str)
 	char		*start;
 	char		*value;
 
+	if (**str == '$' && (*(*str + 1) == '"' || *(*str + 1) == '\''))
+	{
+		(*str)++;
+		return (read_quoted_part(str));
+	}
 	if (**str == '\'' || **str == '"')
 		return (read_quoted_part(str));
 	start = *str;
@@ -75,20 +80,22 @@ static t_tkn_part	*read_token_part(char **str)
 	return (create_part(value, Q_NONE));
 }
 
-t_tkn	*read_token(char **str)
+t_tkn	*read_token(char **str, t_shell *shell)
 {
 	t_tkn_part	*parts;
-	t_tkn		*token;
 	t_tkn_part	*part;
+	t_tkn		*token;
 
 	parts = NULL;
 	token = ft_calloc(1, sizeof(t_tkn));
+	if (!token)
+		return (NULL);
 	while (**str && !ft_strchr(" \t\n|<>", **str))
 	{
 		part = read_token_part(str);
 		if (!part)
 		{
-			ft_putstr_fd(SYN_ERR_UNCLOSED_QUOTE, STDERR_FILENO);
+			syntax_error(shell, SYN_ERR_UNCLOSED_QUOTE, 0);
 			ft_free_parts(parts);
 			free(token);
 			return (NULL);
