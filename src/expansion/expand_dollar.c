@@ -6,21 +6,16 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 12:58:04 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/22 14:28:09 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/24 14:10:51 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_exit_status(int *i, t_shell *shell)
+static char	*expand_exit_status(int *i)
 {
-	char	*expanded;
-
-	(void)shell;
-	//expanded = ft_itoa(shell->exit_status);
-	expanded = ft_itoa(g_exit_status);
 	(*i)++;
-	return (expanded);
+	return (ft_itoa(g_exit_status));
 }
 
 static char	*expand_env_variable(char *value, int *i, t_shell *shell)
@@ -62,7 +57,7 @@ char	*handle_dollar_sign(char *value, int *i, t_shell *shell)
 	}
 	(*i)++;
 	if (value[*i] == '?')
-		return (expand_exit_status(i, shell));
+		return (expand_exit_status(i));
 	else if (ft_isalnum(value[*i]) || value[*i] == '_')
 		return (expand_env_variable(value, i, shell));
 	else if (value[*i] == '$')
