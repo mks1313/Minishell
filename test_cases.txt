@@ -119,3 +119,27 @@ EOF
 /bin/echo "hola" > file.txt | /bin/cat < file.txt
 /bin/echo "hola
 /bin/echo 'hola
+/bin/echo $HOME > /tmp/test_home.txt
+/bin/echo $USER$NOT_DEFINED > user_var.txt
+/bin/echo "$USER"'$HOME'$PWD
+/bin/cat < /etc/passwd > /tmp/passwd_copy.txt
+/bin/echo hola >> append_test.txt
+/bin/echo test > overwrite.txt >> append.txt
+/bin/echo ""'"'""
+/bin/echo ' ' "" '$USER'
+/bin/echo "Quoted|Pipe" | /bin/cat
+/bin/ls -l > /dev/null
+/bin/echo mensaje > /dev/null
+/bin/echo $NOPE$NEVER$NADA
+/bin/echo text$UNKNOWN'|'$HOME$?
+/bin/echo >
+/bin/echo <
+/bin/echo |
+/bin/echo >>
+/bin/echo <<
+/bin/echo hola > > test.txt
+/bin/echo hola | /bin/cat | /bin/grep h | /bin/wc -c
+/bin/echo -n "" '' "hello"
+/bin/echo -n -n '' ""
+cat << END
+texto sin cierre
