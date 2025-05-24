@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/21 21:55:21 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/24 15:43:04 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,42 @@ int	g_exit_status = 0;
 
 /**
  * Processes a line of input, in both interactive and non-interactive modes.
- * Uses readline() for both, but only displays a prompt if interactive.
+ * Uses readline() for interactive mode and read() for non-interactive mode.
  */
 static int	process_input_line(char **line_ptr, t_shell *shell, int interactive)
 {
 	char	*line;
+	char	buffer[4096];
+	ssize_t	bytes_read;
+	int		i;
 
-	//line = readline(interactive ? GREEN"minishell$ "RES : NULL);
-	line = interactive ? readline(GREEN"minishell$ "RES) : readline(NULL);
-	if (!line)
+	if (interactive)
 	{
-		if (interactive)
-			ft_putstr_fd("\nexit\n", 1);
-		return (SHELL_EXIT);
+		line = readline(GREEN"minishell$ "RES);
+		if (!line)
+			return (ft_putstr_fd("\nexit\n", 1), SHELL_EXIT);
+		if (line[0] == '\0')
+		{
+			*line_ptr = line;
+			return (SHELL_CONTINUE);
+		}
+		add_history(line);
+	}
+	else
+	{
+		i = 0;
+		while ((bytes_read = read(STDIN_FILENO, &buffer[i], 1)) > 0 && buffer[i] != '\n' && i < 4095)
+			i++;
+		if (bytes_read <= 0 && i == 0)
+			return (SHELL_EXIT);
+		buffer[i] = '\0';
+		line = ft_strdup(buffer);
+		if (!line)
+			return (SHELL_EXIT);
 	}
 	*line_ptr = line;
-	LOG_DEBUG("Read line: [%s]\n", line ? line : "NULL");
-	LOG_DEBUG("Read line: [%s]", line ? line : "NULL");
-	if (interactive && line[0] == '\0')
-	{
-		LOG_DEBUG("Empty line (possibly Ctrl+C), preserving g_exit_status = %d\n", g_exit_status);
-		shell->exit_status = g_exit_status;
-		return (SHELL_CONTINUE);
-	}
-	if (interactive)
-		add_history(line);
 	handle_commands(line, shell);
-	LOG_DEBUG("After handle_commands, shell->exit_status = %d\n", shell->exit_status);
 	g_exit_status = shell->exit_status;
-	LOG_DEBUG("g_exit_status updated to: %d\n", g_exit_status);
 	return (SHELL_CONTINUE);
 }
 
@@ -86,3 +93,4 @@ int	main(int argc, char *argv[], char **envp)
 		return (clean_exit(shell, EXIT_FAILURE));
 	return (clean_exit(shell, shell_loop(shell, interactive)));
 }
+
