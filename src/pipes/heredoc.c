@@ -23,7 +23,8 @@ static void	write_line_to_pipe(char *line, int fd, t_tkn_quote q, t_shell *sh)
 	char	*expanded;
 
 	LOG_DEBUG("Writing line to pipe: [%s], quote=%s\n", line, quote_type_str(q));
-	if (q == Q_NONE || q == Q_DOUBLE || q == Q_MIX)
+	//if (q == Q_NONE || q == Q_DOUBLE || q == Q_MIX)
+	if (q == Q_NONE)
 	{
 		expanded = expand_var_value(line, sh);
 		LOG_DEBUG("Expanded line: [%s]\n", expanded);
