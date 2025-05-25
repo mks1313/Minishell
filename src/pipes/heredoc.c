@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+/**
+ * Writes a line to the heredoc pipe. Expands variables if necessary.
+ *
+ * This function writes the given line to the heredoc pipe. If the line
+ * is not quoted or uses double quotes, it expands variables before writing.
+ */
 static void	write_line_to_pipe(char *line, int fd, t_tkn_quote q, t_shell *sh)
 {
 	char	*expanded;
@@ -29,6 +35,13 @@ static void	write_line_to_pipe(char *line, int fd, t_tkn_quote q, t_shell *sh)
 	write(fd, "\n", 1);
 }
 
+/**
+ * Fills the heredoc pipe with input from the user.
+ *
+ * This function continuously reads input from the user until the delimiter
+ * is encountered. The lines are written to the pipe. If EOF or Ctrl+D is
+ * detected, the process exits.
+ */
 static void	fill_hd_pipe(int fd, const char *delim, t_shell *sh, t_tkn_quote q)
 {
 	char	*line;
@@ -59,6 +72,13 @@ static void	fill_hd_pipe(int fd, const char *delim, t_shell *sh, t_tkn_quote q)
 	exit(EXIT_SUCCESS);
 }
 
+/**
+ * Closes the pipe and waits for the heredoc child process to finish.
+ *
+ * After the child process that handles the heredoc input terminates,
+ * this function checks the exit status, handles potential signals like SIGINT,
+ * and returns the pipe descriptor for reading.
+ */
 void	close_pip_and_wait(int *pipefd, t_redir *redir, t_shell *sh, pid_t pid)
 {
 	int	status;
@@ -91,6 +111,13 @@ void	close_pip_and_wait(int *pipefd, t_redir *redir, t_shell *sh, pid_t pid)
 	close(pipefd[0]);
 }
 
+/**
+ * Creates a pipe for heredoc input & forks a child process to handle the input.
+ *
+ * The parent process waits for the child process to handle the heredoc input
+ * and returns the read end of the pipe if successful. The child process reads
+ * input from the user until the delimiter is entered.
+ */
 static void	create_heredoc_pipe(t_redir *redir, t_shell *sh)
 {
 	int		pipefd[2];
@@ -129,6 +156,12 @@ static void	create_heredoc_pipe(t_redir *redir, t_shell *sh)
 	}
 }
 
+/**
+ * Processes all heredoc redirections in the given command.
+ *
+ * This function loops through all redirections in the command and calls
+ * `create_heredoc_pipe()` for each heredoc redirection found.
+ */
 void	handle_heredoc(t_cmd *cmd, t_shell *sh)
 {
 	t_redir	*redir;
