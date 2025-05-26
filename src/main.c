@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:15:42 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/26 16:16:00 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:38:55 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static int	read_noninteractive_line(char **line_ptr)
  * Reads a line via readline() or read(), then executes it.
  * Updates global exit status.
  * Returns:
- *   SHELL_CONTINUE to continue the loop,
- *   SHELL_EXIT to exit the shell.
+ *  SHELL_CONTINUE to continue the loop,
+ *  SHELL_EXIT to exit the shell.
  */
 static int	process_input_line(char **line_ptr, t_shell *shell, int interactive)
 {

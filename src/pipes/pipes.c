@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 20:45:28 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:41:27 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 		close(pipefd[0]);
 		close(pipefd[1]);
 	}
+	if (handle_redirections(curr) < 0)
+		exit(1);
 	if (is_builtin_command(curr->cmd))
 		exit(handle_builtin_commands(curr, shell, NULL));
 	else
