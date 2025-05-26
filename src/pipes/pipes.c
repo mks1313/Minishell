@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/26 16:41:27 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:36:41 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	exec_external_cmd(t_cmd *curr, t_shell *shell)
 	exit(127);
 }
 
-static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
+void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 {
 	reset_signals();
 	if (prev_fd != -1)
@@ -90,13 +90,26 @@ void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 	int		i;
 	int		n_cmds;
 	pid_t	pids[256];
+	t_cmd	*writer;
 
+	writer = NULL;
+	if (has_redirection_conflict(cmd_list))
+	{
+		writer = find_first_writer(cmd_list);
+		if (writer && execute_single_command(writer, shell) < 0)
+			return ;
+	}
 	curr = cmd_list;
 	prev_fd = -1;
 	i = 0;
 	n_cmds = 0;
 	while (curr)
 	{
+		if (curr == writer)
+		{
+			curr = curr->next;
+			continue ;
+		}
 		pids[i] = launch_child(curr, &prev_fd, shell);
 		if (pids[i] < 0)
 			return ;
