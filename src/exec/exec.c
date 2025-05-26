@@ -6,12 +6,19 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/22 14:24:41 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:22:57 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ * Waits for the child process to finish and retrieves its exit status.
+ * - If it exited normally, returns WEXITSTATUS.
+ * - If it was terminated by a signal, returns 128 + signal number.
+ * - If none of the above, returns 1 as generic failure.
+ * Also frees the cmd_path.
+ */
 static int	wait_for_process(pid_t pid, char *cmd_path)
 {
 	int	status;
@@ -34,6 +41,13 @@ static int	wait_for_process(pid_t pid, char *cmd_path)
 	return (exit_code);
 }
 
+/*
+ * Executes the command in the child process.
+ * - Resets signals.
+ * - Converts environment list to envp.
+ * - Calls execve.
+ * - If execve fails, prints error and exits.
+ */
 static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 {
 	char	**envp;
@@ -47,6 +61,11 @@ static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 	exit(EXIT_FAILURE);
 }
 
+/*
+ * Creates a new process using fork and runs the command in the child.
+ * - In the parent, waits for the child and returns its exit status.
+ * - Signals are ignored during the fork for clean behavior.
+ */
 static int	launch_child(char *cmd_path, char **args, t_env *env)
 {
 	pid_t	pid;
@@ -66,6 +85,13 @@ static int	launch_child(char *cmd_path, char **args, t_env *env)
 	return (status);
 }
 
+/*
+ * Top-level function to execute an external command.
+ * - Validates command syntax (e.g., './', '../').
+ * - Resolves full path with access checks.
+ * - Launches the command if valid.
+ * Returns the exit status (or 127 if command not found).
+ */
 int	exec_cmd(char *cmd, char **args, t_env *env)
 {
 	char	*cmd_path;
@@ -90,53 +116,39 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	return (launch_child(cmd_path, args, env));
 }
 
+/*
+ * Executes a command or pipeline depending on structure.
+ * - If only redirections, applies them and sets exit status accordingly.
+ * - If no pipeline: runs redirections + builtin or external.
+ * - If multiple commands, calls pipeline executor.
+ */
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
+	int	res;
+
 	if (!cmd || !shell || !line)
-	{
-		LOG_WARN("execute_commands: invalid input → cmd or shell or line is NULL\n");
 		return ;
-	}
-
-	LOG_DEBUG("Executing command: [%s]\n", cmd->cmd ? cmd->cmd : "(null)");
-
-	// Caso: redirección sin comando
 	if (!cmd->cmd && cmd->redirs)
 	{
-		int res = handle_redirections(cmd);
-		shell->exit_status = (res < 0) ? 1 : 0;
-		g_exit_status = (res < 0) ? 1 : 0;
-		LOG_DEBUG("Only redirections → exit_status = %d\n", shell->exit_status);
+		res = handle_redirections(cmd);
+		if (res < 0)
+			g_exit_status = 1;
+		else
+			g_exit_status = 0;
 		return ;
 	}
-
-	// Caso: comando único
 	if (!cmd->next)
 	{
 		if (handle_redirections(cmd) < 0)
 		{
-			shell->exit_status = 1;
 			g_exit_status = 1;
-			LOG_DEBUG("Redirection failed → exit_status = 1\n");
 			return ;
 		}
-
 		if (is_builtin_command(cmd->cmd))
-		{
-			LOG_DEBUG("Builtin command detected: %s\n", cmd->cmd);
 			shell->exit_status = handle_builtin_commands(cmd, shell, line);
-		}
 		else
-		{
-			LOG_DEBUG("External command: %s\n", cmd->cmd);
 			shell->exit_status = handle_external_command(cmd, shell);
-		}
-		LOG_DEBUG("Command finished → exit_status = %d\n", shell->exit_status);
 	}
 	else
-	{
-		LOG_DEBUG("Pipeline detected\n");
 		execute_piped_commands(cmd, shell);
-		LOG_DEBUG("Pipeline finished → exit_status = %d\n", shell->exit_status);
-	}
 }

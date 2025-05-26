@@ -6,12 +6,24 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:18:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:09:03 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ * Parses the next token from the input string.
+ * - Skips whitespace.
+ * - If the next char is an operator (|, <, >), calls read_operator().
+ * - Otherwise, calls read_token() to process a word or sequence.
+ * - Links the new token to the list by updating head and tail.
+ *
+ * Returns:
+ *   - 1 if a token was successfully parsed and added.
+ *   - 0 if the end of input was reached (no more tokens).
+ *   - -1 if there was a syntax or memory error.
+ */
 static int	process_next_tkn(char **str, t_tkn **head, t_tkn **tail, t_shell *s)
 {
 	t_tkn	*new;
@@ -34,6 +46,15 @@ static int	process_next_tkn(char **str, t_tkn **head, t_tkn **tail, t_shell *s)
 	return (1);
 }
 
+/*
+ * Main tokenizer entry point.
+ * Takes a raw input line and tokenizes it into a linked list of t_tkn tokens.
+ * Iteratively calls process_next_tkn() to extract tokens until the line ends.
+ *
+ * Returns:
+ *   - The head of the token list.
+ *   - NULL if an error occurred (syntax or allocation failure).
+ */
 t_tkn	*tokenize_input(char *line, t_shell *shell)
 {
 	t_tkn	*head;
