@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/24 15:43:04 by meghribe         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:18:49 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int	process_input_line(char **line_ptr, t_shell *shell, int interactive)
 	else
 	{
 		i = 0;
-		while ((bytes_read = read(STDIN_FILENO, &buffer[i], 1)) > 0 && buffer[i] != '\n' && i < 4095)
+		while ((bytes_read = read(STDIN_FILENO, &buffer[i], 1)) > 0 \
+			&& buffer[i] != '\n' && i < 4095)
 			i++;
 		if (bytes_read <= 0 && i == 0)
 			return (SHELL_EXIT);
@@ -69,7 +70,7 @@ static int	shell_loop(t_shell *shell, int interactive)
 			return (EXIT_SUCCESS);
 		free(line);
 		if (!interactive)
-			break;
+			break ;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -93,4 +94,3 @@ int	main(int argc, char *argv[], char **envp)
 		return (clean_exit(shell, EXIT_FAILURE));
 	return (clean_exit(shell, shell_loop(shell, interactive)));
 }
-

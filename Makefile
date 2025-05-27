@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/21 16:21:17 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/27 15:14:16 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,11 @@ OBJ_DIR = obj
 CFLAGS = -Wall -Wextra -Werror -MMD -I$(INC_FOLDER) -I$(LIBFT_DIR)/includes
 LDFLAGS = -L$(LIBFT_DIR)
 
-# Activar con: make DEBUG=1
-ifeq ($(DEBUG), 1)
-CFLAGS += -DDEBUG_MODE
-endif
-
 # Specify the main header file
 INCLUDES = minishell.h shell_types.h sys_includes.h
 
 # Specify the main header file
-SRC_FOLDER =  main.c signals/signals.c debug.c
+SRC_FOLDER =  main.c signals/signals.c
 SRC_FOLDER += parser/parser_tokens.c parser/parser_utils.c \
 			  parser/parser_helper.c parser/validate_tkn_syntax.c
 SRC_FOLDER += tokenizer/tokenizer.c tokenizer/tokenizer_utils.c   \

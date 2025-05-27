@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/21 21:32:21 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:15:59 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	handle_commands(char *line, t_shell *shell)
 	int		stdin_backup;
 	int		stdout_backup;
 
-	LOG_DEBUG("Handling input: [%s]", line);
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
 	if (!shell || !line)
@@ -74,20 +73,17 @@ void	handle_commands(char *line, t_shell *shell)
 	tokens = prepare_tokens(line, shell);
 	if (!tokens)
 	{
-		LOG_WARN("Tokenization failed → setting shell->exit_status = 2\n");
 		shell->exit_status = 2;
 		return ;
 	}
 	cmds = check_and_parse(tokens, shell);
 	if (!cmds)
 	{
-		LOG_WARN("Parsing failed → setting shell->exit_status = 2\n");
 		shell->exit_status = 2;
 		return ;
 	}
 	shell->cmds = cmds;
 	handle_heredoc(cmds, shell);
-	LOG_DEBUG("Calling execute_commands()\n");
 	execute_commands(cmds, shell, line);
 	restore_stdio(stdin_backup, stdout_backup);
 	ft_free_tokens(tokens);
