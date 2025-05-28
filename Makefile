@@ -6,7 +6,7 @@
 #    By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/15 12:58:06 by mmarinov          #+#    #+#              #
-#    Updated: 2025/05/27 15:14:16 by mmarinov         ###   ########.fr        #
+#    Updated: 2025/05/28 13:49:09 by mmarinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC_FOLDER += builtins/ft_env.c builtins/ft_exit.c builtins/ft_cd.c     \
 SRC_FOLDER += exec/exec.c exec/find_cmd_path.c exec/exec_utils.c  \
 			  exec/exec_helper.c
 SRC_FOLDER += utils/inits.c utils/shell_utils.c utils/memory_management.c
-SRC_FOLDER += utils/string.c utils/memory_utils.c utils/main_utils.c
+SRC_FOLDER += utils/string.c utils/memory_utils.c utils/main_utils.c \
+			  utils/shell_core.c
 SRC_FOLDER += pipes/heredoc.c pipes/pipes.c pipes/redir.c pipes/utils_pipe.c \
 			  pipes/redir_helper.c
 SRC_FOLDER += expansion/expand_var.c expansion/expand_helper.c \

@@ -6,13 +6,13 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:14:15 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/27 15:15:59 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:02:37 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	t_tkn	*prepare_tokens(char *line, t_shell *shell)
+t_tkn	*prepare_tokens(char *line, t_shell *shell)
 {
 	t_tkn	*tokens;
 
@@ -30,7 +30,7 @@ static	t_tkn	*prepare_tokens(char *line, t_shell *shell)
 	return (tokens);
 }
 
-static t_cmd	*check_and_parse(t_tkn *tokens, t_shell *shell)
+t_cmd	*check_and_parse(t_tkn *tokens, t_shell *shell)
 {
 	t_cmd	*cmds;
 
@@ -51,43 +51,10 @@ static t_cmd	*check_and_parse(t_tkn *tokens, t_shell *shell)
 	return (cmds);
 }
 
-static void	restore_stdio(int stdin_backup, int stdout_backup)
+void	restore_stdio(int stdin_backup, int stdout_backup)
 {
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	close(stdin_backup);
 	close(stdout_backup);
-}
-
-void	handle_commands(char *line, t_shell *shell)
-{
-	t_tkn	*tokens;
-	t_cmd	*cmds;
-	int		stdin_backup;
-	int		stdout_backup;
-
-	stdin_backup = dup(STDIN_FILENO);
-	stdout_backup = dup(STDOUT_FILENO);
-	if (!shell || !line)
-		return ;
-	tokens = prepare_tokens(line, shell);
-	if (!tokens)
-	{
-		shell->exit_status = 2;
-		return ;
-	}
-	cmds = check_and_parse(tokens, shell);
-	if (!cmds)
-	{
-		shell->exit_status = 2;
-		return ;
-	}
-	shell->cmds = cmds;
-	handle_heredoc(cmds, shell);
-	execute_commands(cmds, shell, line);
-	restore_stdio(stdin_backup, stdout_backup);
-	ft_free_tokens(tokens);
-	free_cmd_list(cmds);
-	shell->tkns = NULL;
-	shell->cmds = NULL;
 }

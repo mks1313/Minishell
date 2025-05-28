@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:25:47 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/14 16:20:05 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:10:42 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ typedef struct s_shell
 	t_tkn				*tkns;
 	t_cmd				*cmds;
 	int					exit_status;
+	int					stdin_backup;
+	int					stdout_backup;
+
 }	t_shell;
 
 #endif
