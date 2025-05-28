@@ -6,12 +6,15 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:14:34 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/21 21:48:22 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:41:00 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Prints an error message and exits the program with the given exit code.
+ */
 void	error_exit(const char *msg, int exit_code)
 {
 	ft_putstr_fd(RED, 2);
@@ -20,6 +23,9 @@ void	error_exit(const char *msg, int exit_code)
 	exit(exit_code);
 }
 
+/**
+ * Prints a syntax error message related to the unexpected token.
+ */
 bool	syntax_error(t_shell *shell, const char *msg, t_tkn_type type)
 {
 	if (msg)
@@ -35,12 +41,18 @@ bool	syntax_error(t_shell *shell, const char *msg, t_tkn_type type)
 	return (false);
 }
 
+/**
+ * Skips any whitespace or delimiter characters in the string.
+ */
 void	skip_delimiters(char **str)
 {
 	while (**str && ft_strchr(" \t\r\n", **str))
 		(*str)++;
 }
 
+/**
+ * Handles built-in commands (like `exit`, `cd`, `env`, etc.).
+ */
 int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
 	(void)line;
@@ -68,6 +80,9 @@ int	handle_builtin_commands(t_cmd *cmd, t_shell *shell, char *line)
 	return (1);
 }
 
+/**
+ * Executes external commands by calling the corresponding executable.
+ */
 int	handle_external_command(t_cmd *cmd, t_shell *shell)
 {
 	char	**args;

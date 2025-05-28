@@ -6,12 +6,19 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:04:41 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 16:18:50 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:44:10 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Processes the next token from the input string.
+ *
+ * It skips whitespace and reads either an operator or a regular token.
+ * It appends the new token to the token list and returns 1 on success,
+ * -1 if there's an error, and 0 if the end of the string is reached.
+ */
 static int	process_next_tkn(char **str, t_tkn **head, t_tkn **tail, t_shell *s)
 {
 	t_tkn	*new;
@@ -34,6 +41,12 @@ static int	process_next_tkn(char **str, t_tkn **head, t_tkn **tail, t_shell *s)
 	return (1);
 }
 
+/**
+ * Tokenizes the input line into a list of tokens.
+ *
+ * It processes each part of the input, creating tokens for operators and words.
+ * Returns the head of the token list or NULL if an error occurs.
+ */
 t_tkn	*tokenize_input(char *line, t_shell *shell)
 {
 	t_tkn	*head;

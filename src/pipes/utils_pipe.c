@@ -6,12 +6,15 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:12 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/22 15:01:36 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:56:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Updates the exit status based on the status of a child process.
+ */
 static void	update_exit_status(int status, t_shell *shell)
 {
 	int	sig;
@@ -33,6 +36,9 @@ static void	update_exit_status(int status, t_shell *shell)
 	}
 }
 
+/**
+ * Waits for all child processes and updates the exit status of the shell.
+ */
 void	wait_for_all(pid_t *pids, int n, t_shell *shell)
 {
 	int		status;

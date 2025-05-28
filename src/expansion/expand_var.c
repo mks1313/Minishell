@@ -6,12 +6,15 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:59:37 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 19:47:05 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:49:15 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Appends a character to the expanded string.
+ */
 char	*append_doll_and_char(char *expanded, char next_char)
 {
 	char	tmp[2];
@@ -24,6 +27,10 @@ char	*append_doll_and_char(char *expanded, char next_char)
 	return (aux);
 }
 
+/**
+ * Expands the value of a variable by handling
+ * dollar signs and performing variable expansion.
+ */
 char	*expand_var_value(char *value, t_shell *shell)
 {
 	int		i;
@@ -49,6 +56,10 @@ char	*expand_var_value(char *value, t_shell *shell)
 	return (expanded);
 }
 
+/**
+ * Expands all variables in the shell’s token list.
+ * It iterates through each token and expands any variable references.
+ */
 void	expand_variable(t_shell *shell)
 {
 	t_tkn		*curr;

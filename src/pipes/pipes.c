@@ -6,12 +6,17 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 20:45:28 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:52:19 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Executes an external command with the given arguments.
+ * Handles redirection before executing the command.
+ * If the command path is not found, it exits with error code 127.
+ */
 static void	exec_external_cmd(t_cmd *curr, t_shell *shell)
 {
 	char	*cmd_path;
@@ -36,6 +41,10 @@ static void	exec_external_cmd(t_cmd *curr, t_shell *shell)
 	exit(127);
 }
 
+/**
+ * Handles the child process in a pipeline by setting up input/output
+ * redirections and executing the appropriate command.
+ */
 static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 {
 	reset_signals();
@@ -56,6 +65,10 @@ static void	child_process(t_cmd *curr, int prev_fd, int *pipefd, t_shell *shell)
 		exec_external_cmd(curr, shell);
 }
 
+/**
+ * Launches a child process and sets up piping between commands.
+ * Returns the PID of the child process.
+ */
 static pid_t	launch_child(t_cmd *curr, int *prev_fd, t_shell *shell)
 {
 	int		pipefd[2];
@@ -81,6 +94,10 @@ static pid_t	launch_child(t_cmd *curr, int *prev_fd, t_shell *shell)
 	return (pid);
 }
 
+/**
+ * Executes all piped commands, managing the creation of child processes
+ * and waiting for all of them to complete.
+ */
 void	execute_piped_commands(t_cmd *cmd_list, t_shell *shell)
 {
 	t_cmd	*curr;

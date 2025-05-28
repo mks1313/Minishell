@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   redir_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:35:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/13 11:54:13 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:56:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Sets the redirection type based on the token type.
+ */
 static void	set_redir_type(t_redir *redir, t_tkn *tkn)
 {
 	if (tkn->type == TOK_REDIR_IN)
@@ -24,6 +27,9 @@ static void	set_redir_type(t_redir *redir, t_tkn *tkn)
 		redir->type = REDIR_HEREDOC;
 }
 
+/**
+ * Sets the file or delimiter for the redirection based on the token.
+ */
 static void	set_redir_target(t_redir *redir, t_tkn *tkn)
 {
 	char	*joined;
@@ -41,6 +47,9 @@ static void	set_redir_target(t_redir *redir, t_tkn *tkn)
 	}
 }
 
+/**
+ * Creates a new redirection object based on the token.
+ */
 t_redir	*create_redir(t_tkn *tkn)
 {
 	t_redir	*redir;
@@ -58,6 +67,9 @@ t_redir	*create_redir(t_tkn *tkn)
 	return (redir);
 }
 
+/**
+ * Adds a redirection to the redirection list.
+ */
 void	add_redir_to_list(t_redir **list, t_redir *new_redir)
 {
 	t_redir	*tmp;
@@ -73,6 +85,9 @@ void	add_redir_to_list(t_redir **list, t_redir *new_redir)
 	}
 }
 
+/**
+ * Handles a redirection token and adds it to the redirection list.
+ */
 void	handle_redirect(t_redir **redir_list, t_tkn **tkn)
 {
 	t_redir	*redir;

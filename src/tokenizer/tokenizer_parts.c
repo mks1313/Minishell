@@ -6,12 +6,15 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:06:24 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/24 16:21:32 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:57:32 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Creates a new token part with the provided text and quote type.
+ */
 static t_tkn_part	*create_part(char *text, t_tkn_quote quote)
 {
 	t_tkn_part	*part;
@@ -24,6 +27,9 @@ static t_tkn_part	*create_part(char *text, t_tkn_quote quote)
 	return (part);
 }
 
+/**
+ * Adds a new token part to the linked list.
+ */
 static void	add_part(t_tkn_part **head, t_tkn_part *new)
 {
 	t_tkn_part	*curr;
@@ -39,6 +45,10 @@ static void	add_part(t_tkn_part **head, t_tkn_part *new)
 	}
 }
 
+/**
+ * Reads a quoted part from the input string (either single or double quotes).
+ * Returns the new token part or NULL if the quote is not closed.
+ */
 static t_tkn_part	*read_quoted_part(char **str)
 {
 	t_tkn_quote	quote;
@@ -61,6 +71,10 @@ static t_tkn_part	*read_quoted_part(char **str)
 	return (create_part(value, quote));
 }
 
+/**
+ * Reads a token part from the input string, handling quoted and unquoted parts.
+ * Returns the new token part or NULL if an error occurs.
+ */
 static t_tkn_part	*read_token_part(char **str)
 {
 	char		*start;
@@ -80,6 +94,10 @@ static t_tkn_part	*read_token_part(char **str)
 	return (create_part(value, Q_NONE));
 }
 
+/**
+ * Reads a full token from the input string, splitting it into parts.
+ * Returns the token or NULL if an error occurs.
+ */
 t_tkn	*read_token(char **str, t_shell *shell)
 {
 	t_tkn_part	*parts;

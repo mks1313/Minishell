@@ -6,12 +6,15 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:13:48 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 14:30:30 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:53:33 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Handles redirection for heredoc type redirection.
+ */
 static int	redirect_heredoc(t_redir *r)
 {
 	int	tmp;
@@ -29,6 +32,9 @@ static int	redirect_heredoc(t_redir *r)
 	return (0);
 }
 
+/**
+ * Handles input redirection (from file to stdin).
+ */
 static int	redirect_input(t_redir *r)
 {
 	int	fd;
@@ -42,6 +48,9 @@ static int	redirect_input(t_redir *r)
 	return (0);
 }
 
+/**
+ * Handles output redirection (to file, appending or truncating).
+ */
 static int	redirect_output(t_redir *r, int append)
 {
 	int	fd;
@@ -65,6 +74,9 @@ static int	redirect_output(t_redir *r, int append)
 	return (0);
 }
 
+/**
+ * Handles both input and output redirections.
+ */
 static int	redirect_input_output(t_redir *in, t_redir *out)
 {
 	if (in)
@@ -87,6 +99,9 @@ static int	redirect_input_output(t_redir *in, t_redir *out)
 	return (0);
 }
 
+/**
+ * Handles the redirections for input and output in a command.
+ */
 int	handle_redirections(t_cmd *cmd)
 {
 	t_redir	*r;
