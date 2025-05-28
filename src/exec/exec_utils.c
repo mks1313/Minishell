@@ -6,12 +6,16 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:14 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 12:47:06 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:07:18 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Counts the number of environment variables in the linked list.
+ * Returns the total number of elements.
+ */
 static int	count_env_vars(t_env *env)
 {
 	int	count;
@@ -25,6 +29,9 @@ static int	count_env_vars(t_env *env)
 	return (count);
 }
 
+/**
+ * Joins three strings into a newly allocated result: res = s1 + s2 + s3.
+ **/
 char	*ft_strjoin3(char *s1, char *s2, char *s3)
 {
 	char	*tmp;
@@ -46,6 +53,10 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	return (res);
 }
 
+/**
+ * Fills an array with environment variables in "KEY=VALUE" format.
+ * Returns 1 on success, 0 on allocation failure.
+ */
 static int	fill_env_array(char **env_array, t_env *env)
 {
 	int	i;
@@ -63,6 +74,10 @@ static int	fill_env_array(char **env_array, t_env *env)
 	return (1);
 }
 
+/**
+ * Converts the environment list to an array of strings "KEY=VALUE".
+ * Returns NULL on allocation error.
+ **/
 char	**env_to_array(t_env *env)
 {
 	int		count;
@@ -77,6 +92,10 @@ char	**env_to_array(t_env *env)
 	return (env_array);
 }
 
+/**
+ * Uses stat to check if the given path is a directory.
+ * Returns 1 if dir, -1 if error, 0 otherwise.
+ **/
 int	is_directory(const char *path)
 {
 	struct stat	info;

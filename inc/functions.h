@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:14:09 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/27 15:13:35 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:14:03 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int		validate_cmd(char *cmd_path);
 char	*find_command_path(char *cmd, t_env *env);
 char	**env_to_array(t_env *env);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
+int		handle_redir_only_command(t_cmd *cmd, t_shell *shell);
 void	handle_commands(char *line, t_shell *shell);
+void	execute_single_command(t_cmd *cmd, t_shell *shell, char *line);
 
 #endif

@@ -6,12 +6,17 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:12:00 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/27 15:09:06 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:14:45 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Waits for the child process to finish and returns its final exit status.
+ * If it exited normally, returns WEXITSTATUS. If terminated by signal,
+ * returns 128 + signal number.
+**/
 static int	wait_for_process(pid_t pid, char *cmd_path)
 {
 	int	status;
@@ -34,6 +39,10 @@ static int	wait_for_process(pid_t pid, char *cmd_path)
 	return (exit_code);
 }
 
+/**
+ * Replaces the current process image with the given command using execve.
+ * If execve fails, prints an error and exits with failure.
+ **/
 static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 {
 	char	**envp;
@@ -47,6 +56,10 @@ static int	execute_child_process(char *cmd_path, char **args, t_env *env)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * Creates a child process and executes the given command.
+ * Parent waits and returns exit status; child replaces itself with execve.
+**/
 static int	launch_child(char *cmd_path, char **args, t_env *env)
 {
 	pid_t	pid;
@@ -66,6 +79,10 @@ static int	launch_child(char *cmd_path, char **args, t_env *env)
 	return (status);
 }
 
+/**
+ * Executes a command by resolving its path, validating it, and running it.
+ * Handles edge cases like "." or "..", returns appropriate exit code.
+**/
 int	exec_cmd(char *cmd, char **args, t_env *env)
 {
 	char	*cmd_path;
@@ -90,40 +107,21 @@ int	exec_cmd(char *cmd, char **args, t_env *env)
 	return (launch_child(cmd_path, args, env));
 }
 
+/**
+ * Executes the full command including redirections and builtins.
+ * Delegates redir-only, single or piped commands accordingly.
+ */
 void	execute_commands(t_cmd *cmd, t_shell *shell, char *line)
 {
-	int	res;
-
 	if (!cmd || !shell || !line)
 		return ;
 	if (!cmd->cmd && cmd->redirs)
 	{
-		res = handle_redirections(cmd);
-		if (res < 0)
-		{
-			shell->exit_status = 1;
-			g_exit_status = 1;
-		}
-		else
-		{
-			shell->exit_status = 0;
-			g_exit_status = 0;
-		}
+		handle_redir_only_command(cmd, shell);
 		return ;
 	}
 	if (!cmd->next)
-	{
-		if (handle_redirections(cmd) < 0)
-		{
-			shell->exit_status = 1;
-			g_exit_status = 1;
-			return ;
-		}
-		if (is_builtin_command(cmd->cmd))
-			shell->exit_status = handle_builtin_commands(cmd, shell, line);
-		else
-			shell->exit_status = handle_external_command(cmd, shell);
-	}
+		execute_single_command(cmd, shell, line);
 	else
 		execute_piped_commands(cmd, shell);
 }

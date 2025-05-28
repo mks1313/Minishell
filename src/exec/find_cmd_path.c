@@ -6,12 +6,16 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:14:52 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/20 11:30:37 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:06:34 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Searches through given directories for the executable command.
+ * Returns the full path if found and accessible, otherwise NULL.
+ */
 static char	*search_in_paths(char **paths, char *cmd)
 {
 	int		i;
@@ -29,6 +33,10 @@ static char	*search_in_paths(char **paths, char *cmd)
 	return (NULL);
 }
 
+/**
+ * Finds the full executable path for a command by checking PATH directories.
+ * Returns a newly allocated string or NULL if not found.
+ **/
 char	*find_command_path(char *cmd, t_env *env)
 {
 	char	**paths;
