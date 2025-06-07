@@ -6,7 +6,7 @@
 /*   By: mmarinov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:37:35 by mmarinov          #+#    #+#             */
-/*   Updated: 2025/05/19 15:17:26 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/06/07 13:16:30 by meghribe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,31 @@ int	ft_env(t_env *env_list)
 	return (0);
 }
 
+static void	update_shell_level(t_shell *shell)
+{
+	t_env	*copy;
+	int		number;
+	char	*new_number;
+
+	if (!shell)
+		return ;
+	copy = shell->env;
+	while (copy != NULL)
+	{
+		if (ft_strcmp("SHLVL", copy->key) == 0)
+		{
+			number = ft_atoi(copy->value);
+			if (number >= 0)
+			{
+				free(copy->value);
+				new_number = ft_itoa(number + 1);
+				copy->value = new_number;
+			}
+		}
+		copy = copy->next;
+	}
+}
+
 /**
  * setup_environment - Initializes the environment for the shell
  * @shell: Main shell structure
@@ -106,5 +131,6 @@ int	setup_environment(t_shell *shell, char **envp)
 		i++;
 	}
 	shell->env = env_list;
+	update_shell_level(shell);
 	return (0);
 }

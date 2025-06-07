@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/27 15:18:49 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:13:51 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,59 +15,77 @@
 int	g_exit_status = 0;
 
 /**
- * Processes a line of input, in both interactive and non-interactive modes.
- * Uses readline() for interactive mode and read() for non-interactive mode.
+ * Processes a line of input in interactive mode.
+ * Reads the line using readline(), returns control to shell loop.
  */
-static int	process_input_line(char **line_ptr, t_shell *shell, int interactive)
+static int	process_interactive_input(char **line_ptr)
 {
-	char	*line;
-	char	buffer[4096];
-	ssize_t	bytes_read;
-	int		i;
-
-	if (interactive)
+	*line_ptr = readline(GREEN"minishell$ "RES);
+	if (!*line_ptr)
+		return (ft_putstr_fd("\nexit\n", 1), SHELL_EXIT);
+	if (**line_ptr == '\0')
 	{
-		line = readline(GREEN"minishell$ "RES);
-		if (!line)
-			return (ft_putstr_fd("\nexit\n", 1), SHELL_EXIT);
-		if (line[0] == '\0')
-		{
-			*line_ptr = line;
-			return (SHELL_CONTINUE);
-		}
-		add_history(line);
+		free(*line_ptr);
+		return (SHELL_CONTINUE);
 	}
-	else
-	{
-		i = 0;
-		while ((bytes_read = read(STDIN_FILENO, &buffer[i], 1)) > 0 \
-			&& buffer[i] != '\n' && i < 4095)
-			i++;
-		if (bytes_read <= 0 && i == 0)
-			return (SHELL_EXIT);
-		buffer[i] = '\0';
-		line = ft_strdup(buffer);
-		if (!line)
-			return (SHELL_EXIT);
-	}
-	*line_ptr = line;
-	handle_commands(line, shell);
-	g_exit_status = shell->exit_status;
+	add_history(*line_ptr);
 	return (SHELL_CONTINUE);
 }
 
 /**
- * Shell main loop.
- * In non-interactive mode, executes only one line.
+ * Processes a line of input in non-interactive mode.
+ * Reads a single line using read(), returns control to shell loop.
+ */
+static int	process_non_interactive_input(char **line_ptr)
+{
+	char	buffer[4096];
+	ssize_t	bytes_read;
+	int		i;
+
+	i = 0;
+	bytes_read = read(STDIN_FILENO, &buffer[i], 1);
+	while (bytes_read > 0 && buffer[i] != '\n' && i < 4095)
+	{
+		i++;
+		bytes_read = read(STDIN_FILENO, &buffer[i], 1);
+	}
+	if (bytes_read <= 0 && i == 0)
+		return (SHELL_EXIT);
+	buffer[i] = '\0';
+	*line_ptr = ft_strdup(buffer);
+	if (!*line_ptr)
+		return (SHELL_EXIT);
+	return (SHELL_CONTINUE);
+}
+
+/**
+ * Process a line of input depending on the mode
+ * (interactive or non-interactive).
+ * Calls the appropriate input processing function based on the mode.
+ */
+static int	process_input_line(char **line_ptr, int interactive)
+{
+	if (interactive)
+		return (process_interactive_input(line_ptr));
+	return (process_non_interactive_input(line_ptr));
+}
+
+/**
+ * Shell main loop. In non-interactive mode, executes one line.
+ * In interactive mode, enters a loop reading commands.
  */
 static int	shell_loop(t_shell *shell, int interactive)
 {
 	char	*line;
+	int		ret_val;
 
 	while (1)
 	{
-		if (process_input_line(&line, shell, interactive) == SHELL_EXIT)
+		ret_val = process_input_line(&line, interactive);
+		if (ret_val == SHELL_EXIT)
 			return (EXIT_SUCCESS);
+		handle_commands(line, shell);
+		g_exit_status = shell->exit_status;
 		free(line);
 		if (!interactive)
 			break ;
@@ -76,8 +94,7 @@ static int	shell_loop(t_shell *shell, int interactive)
 }
 
 /**
- * Main program entry point.
- * Initializes the shell and starts the loop.
+ * Main entry point. Initializes the shell and starts the shell loop.
  */
 int	main(int argc, char *argv[], char **envp)
 {
