@@ -6,7 +6,7 @@
 /*   By: meghribe <meghribe@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:39:49 by meghribe          #+#    #+#             */
-/*   Updated: 2025/05/28 21:13:51 by mmarinov         ###   ########.fr       */
+/*   Updated: 2025/06/14 14:42:31 by mmarinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static int	process_interactive_input(char **line_ptr)
 	if (!*line_ptr)
 		return (ft_putstr_fd("\nexit\n", 1), SHELL_EXIT);
 	if (**line_ptr == '\0')
-	{
-		free(*line_ptr);
 		return (SHELL_CONTINUE);
-	}
 	add_history(*line_ptr);
 	return (SHELL_CONTINUE);
 }
