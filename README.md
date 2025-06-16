@@ -23,10 +23,11 @@ Rebuild a basic shell that can execute commands like Bash, including:
 
 ```bash
 make
-
+```
 #This will produce the executable named minishell.
-
+```
 ./minishell
+```
 
 minishell$ echo "Hello world"
 Hello world
@@ -43,6 +44,7 @@ minishell$ cat << EOF
 > EOF
 hello
 world
+
 
 ## 🧠 Project Structure
 
@@ -62,7 +64,7 @@ The project is modular and divided into logical components:
 ---
 
 ## 👨‍💻 Built-in Commands
-
+```
 - `echo`
 - `cd`
 - `pwd`
@@ -70,7 +72,7 @@ The project is modular and divided into logical components:
 - `unset`
 - `env`
 - `exit`
-
+```
 ---
 
 ## 🧩 Cool Things We Learned
