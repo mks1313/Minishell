@@ -44,58 +44,55 @@ minishell$ cat << EOF
 hello
 world
 
-🧠 Project Structure
+## 🧠 Project Structure
 
 The project is modular and divided into logical components:
-Module	Description
-Tokenizer	Splits the user input into tokens, handling quotes and escapes
-Lexer	Classifies tokens (word, operator, redirection, etc.)
-Parser	Builds the command structure (t_cmd)
-Executor	Handles pipes, redirections, and runs each command
-Builtins	Implements internal commands like cd, export, exit, etc.
-Expander	Expands variables ($VAR) to their corresponding values
-Signals	Manages interruptions like Ctrl+C without killing the shell
-Heredoc	Supports multiline input using << with pipe-based input
 
-👨‍💻 Built-in Commands
+| Module     | Description |
+|------------|-------------|
+| **Tokenizer** | Splits the user input into tokens, handling quotes and escapes |
+| **Lexer**     | Classifies tokens (word, operator, redirection, etc.) |
+| **Parser**    | Builds the command structure (`t_cmd`) |
+| **Executor**  | Handles pipes, redirections, and runs each command |
+| **Builtins**  | Implements internal commands like `cd`, `export`, `exit`, etc. |
+| **Expander**  | Expands variables (`$VAR`) to their corresponding values |
+| **Signals**   | Manages interruptions like `Ctrl+C` without killing the shell |
+| **Heredoc**   | Supports multiline input using `<<` with pipe-based input |
 
-    echo
+---
 
-    cd
+## 👨‍💻 Built-in Commands
 
-    pwd
+- `echo`
+- `cd`
+- `pwd`
+- `export`
+- `unset`
+- `env`
+- `exit`
 
-    export
+---
 
-    unset
+## 🧩 Cool Things We Learned
 
-    env
+- How to use `fork()`, `execve()`, `pipe()`, `dup2()` and `wait()`
+- Memory and process management
+- Complex parsing with quotes and redirections
+- Variable expansion like Bash
+- Heredoc implementation without temp files – pure pipe magic!
 
-    exit
+---
 
-🧩 Cool Things We Learned
+## ⚠️ What’s Not Included (Yet)
 
-    How to use fork(), execve(), pipe(), dup2() and wait()
+- `&&`, `||`, and `;` (bonus)
+- Command history
+- Wildcards (`*`)
+- Full Bash compatibility
 
-    Memory and process management
+---
 
-    Complex parsing with quotes and redirections
+## 🧹 Cleaning
 
-    Variable expansion like Bash
-
-    Heredoc implementation without temp files – pure pipe magic!
-
-⚠️ What’s Not Included (Yet)
-
-    &&, ||, and ; (bonus)
-
-    Command history
-
-    Wildcards (*)
-
-    Full Bash compatibility
-
-🧹 Cleaning
-
+```bash
 make fclean
-
